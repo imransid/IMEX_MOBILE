@@ -14,5 +14,8 @@ module.exports = {
     'jest-hoist',
     // 'react-native-reanimated/plugin',
     ['@babel/plugin-proposal-decorators', { legacy: true }]
+  ],
+  plugins: [
+    'react-native-reanimated/plugin' //add this line
   ]
 };
