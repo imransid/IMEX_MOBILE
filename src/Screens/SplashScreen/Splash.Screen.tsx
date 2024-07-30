@@ -1,20 +1,22 @@
-import React from 'react';
-import { SafeAreaView, View, Text } from 'react-native';
+import React, { type FC } from 'react';
+import { SafeAreaView, View } from 'react-native';
 import Animated, {
+  Easing,
+  FadeInUp,
+  FadeOut,
   useAnimatedStyle,
   useSharedValue,
-  withTiming,
-  FadeOut,
-  Easing,
-  FadeInUp
+  withTiming
 } from 'react-native-reanimated';
-import styles from './style';
+
 import TeamPharmaLogo from '../../assets/team-pharma-logo';
+
+import styles from './style';
 
 const duration = 2000;
 const easing = Easing.bezier(0.25, -0.5, 0.25, 1);
 
-export default function SplashScreen() {
+const SplashScreen: FC = () => {
   const sv = useSharedValue(0);
   const scale = useSharedValue(1);
 
@@ -26,9 +28,6 @@ export default function SplashScreen() {
     scale.value = withTiming(scale.value * 3, { duration: 1000 });
     sv.value = withTiming(1, { duration, easing });
   }, []);
-
-
-  console.log("ok")
 
   return (
     <SafeAreaView style={styles.container}>
@@ -50,4 +49,6 @@ export default function SplashScreen() {
       </View>
     </SafeAreaView>
   );
-}
+};
+
+export default SplashScreen;

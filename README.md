@@ -7,7 +7,7 @@ Node Version: 18.17.0 LTS
 Git Commit Should be :
 **Commit Format**.
 
-- git commit -m "QMS-01: haskey added"
+- git commit -m "TEAM-PARMA-01: set-up"
 
 as like this
 

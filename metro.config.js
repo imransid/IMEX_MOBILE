@@ -1,9 +1,9 @@
 // eslint-disable-next-line prettier/prettier, @typescript-eslint/no-var-requires
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 
-// const {
-//   createSentryMetroSerializer,
-// } = require('@sentry/react-native/dist/js/tools/sentryMetroSerializer');
+const {
+  createSentryMetroSerializer
+} = require('@sentry/react-native/dist/js/tools/sentryMetroSerializer');
 
 /**
  * Metro configuration
@@ -29,11 +29,11 @@ const config = {
   resolver: {
     assetExts: assetExts.filter(ext => ext !== 'svg'),
     sourceExts: [...sourceExts, 'svg']
-  }
+  },
 
-  // serializer: {
-  //   customSerializer: createSentryMetroSerializer()
-  // }
+  serializer: {
+    customSerializer: createSentryMetroSerializer()
+  }
 };
 
 module.exports = mergeConfig(defaultConfig, config);

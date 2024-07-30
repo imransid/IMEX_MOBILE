@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { type FC } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from '../../src/Screens/HomeScreen/HomeScreen';
+
+import { SignInScreen } from '@/Screens';
 
 const Stack = createStackNavigator();
 
-export default function StackNavigator() {
+export const AppStackNavigator: FC = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="SignInScreen" component={SignInScreen} />
     </Stack.Navigator>
   );
-}
+};

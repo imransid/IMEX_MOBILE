@@ -1,5 +1,20 @@
+// module.exports = {
+//   presets: ['module:metro-react-native-babel-preset'],
+//   plugins: [
+//     [
+//       'module-resolver',
+//       {
+//         alias: {
+//           '@': './src'
+//         }
+//       }
+//     ],
+//     'react-native-reanimated/plugin'
+//   ]
+// };
+
 module.exports = {
-  presets: ['module:@react-native/babel-preset'],
+  presets: ['module:metro-react-native-babel-preset'],
   plugins: [
     [
       require.resolve('babel-plugin-module-resolver'),
@@ -12,10 +27,7 @@ module.exports = {
       }
     ],
     'jest-hoist',
-    // 'react-native-reanimated/plugin',
+    'react-native-reanimated/plugin',
     ['@babel/plugin-proposal-decorators', { legacy: true }]
-  ],
-  plugins: [
-    'react-native-reanimated/plugin' //add this line
   ]
 };
