@@ -6,6 +6,7 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 export default function LetsScanQrCodeScreen() {
+  console.log('xyzskfd');
   const handlePress = () => {};
   return (
     <View style={styles.container}>
