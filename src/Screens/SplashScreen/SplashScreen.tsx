@@ -27,6 +27,9 @@ export default function SplashScreen() {
     sv.value = withTiming(1, { duration, easing });
   }, []);
 
+
+  console.log("ok")
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageContainer}>
