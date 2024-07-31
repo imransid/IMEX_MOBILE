@@ -7,7 +7,7 @@ Node Version: 18.17.0 LTS
 Git Commit Should be :
 **Commit Format**.
 
-- git commit -m "TEAM_PARMA-01: haskey added"
+- git commit -m "TEAM_PARMA-01: screen formatting"
 
 as like this
 
