@@ -10,7 +10,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import TeamPharmaLogo from '../../assets/team-pharma-logo';
-
+// import styles
 import styles from './style';
 
 const duration = 2000;
