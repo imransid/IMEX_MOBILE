@@ -1,16 +1,13 @@
-import { TouchableOpacity, View } from 'react-native';
-import ICustomButtonProps from '../../Interfaces/ICustomButtonProps';
 import React from 'react';
-import { Text } from 'react-native';
-import styles from './style';
+import { Text, TouchableOpacity, View } from 'react-native';
 
-const CustomButton: React.FC<ICustomButtonProps> = ({ text, icon, onPress, textStyle }) => {
+import type ICustomButtonProps from '../../Interfaces/ICustomButtonProps';
+
+const CustomButton: React.FC<ICustomButtonProps> = ({ text, icon, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={styles.buttonProperties}>
-        {text && <Text style={textStyle}>{text}</Text>}
-        {icon && <View>{icon}</View>}
-      </View>
+      {text !== '' ? <Text>{text}</Text> : <></>}
+      {icon === true ? <View>{icon}</View> : <></>}
     </TouchableOpacity>
   );
 };
