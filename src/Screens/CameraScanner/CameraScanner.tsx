@@ -1,8 +1,8 @@
 import React, { type FC } from 'react';
 import { View } from 'react-native';
 
-const HomeScreen: FC = () => {
+const CameraScanner: FC = () => {
   return <View></View>;
 };
 
-export default HomeScreen;
+export default CameraScanner;

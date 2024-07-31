@@ -1,5 +1,5 @@
-import { HomeScreen } from './HomeScreen';
+import { CameraScanner } from './CameraScanner';
 import { ScanQrCodeScreen } from './ScanQrCode';
 import { SplashScreen } from './SplashScreen';
 
-export { HomeScreen, ScanQrCodeScreen, SplashScreen };
+export { CameraScanner, ScanQrCodeScreen, SplashScreen };

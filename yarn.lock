@@ -4613,9 +4613,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001640":
-  version: 1.0.30001644
-  resolution: "caniuse-lite@npm:1.0.30001644"
-  checksum: 7572bf7554093bcdadcc85a7ae562af6ba9e2704816d116fb884353eec1a59d7d110e0dfc80f23fc6819f2bea8fb99b75988a474ce53e50c6f83cdd906fab4ff
+  version: 1.0.30001645
+  resolution: "caniuse-lite@npm:1.0.30001645"
+  checksum: a4808bac31fdcdf183ce12f8c86d101e515b2df3423ae4284b930b493809ae88b3396b52ca2a197a3de3c94046ee5384cc9f0efeff5ccfb7c8cd385229527596
   languageName: node
   linkType: hard
 
@@ -5525,9 +5525,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.820":
-  version: 1.5.3
-  resolution: "electron-to-chromium@npm:1.5.3"
-  checksum: e2ec7a2b1bfbc1299d04b205f7c041f96eb3bf5180730b475e73135b00567f87a27ed92edc53beebe78ed537e7a22c4a2790e40e6d8169b654ec382b9b4dbe51
+  version: 1.5.4
+  resolution: "electron-to-chromium@npm:1.5.4"
+  checksum: 352f13c043cb185b464efe20f9b0a1adea2b1a7dad56e41dac995d0ad060f9981e479d632ebc73a1dce3bd5c36bbceeffe0667161ce296c2488fbb95f89bc793
   languageName: node
   linkType: hard
 
@@ -10323,8 +10323,8 @@ __metadata:
   linkType: hard
 
 "react-native-gesture-handler@npm:^2.17.1":
-  version: 2.17.1
-  resolution: "react-native-gesture-handler@npm:2.17.1"
+  version: 2.18.0
+  resolution: "react-native-gesture-handler@npm:2.18.0"
   dependencies:
     "@egjs/hammerjs": ^2.0.17
     hoist-non-react-statics: ^3.3.0
@@ -10333,7 +10333,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 70da4fc51d92899591aadf03396a8e0b78223fbe71da5b10e76232058c1ef5943d54c1dd8da815d5b6a8b41f259ea9d50457680e2ef7878c88d7396771170ae3
+  checksum: 98529b672751d20ee470d368b64ceb8c829e66eb6d7c61724cd84500a76efec52c0b7d67a76ce3bac9bece1d7575ee3e9bb3c66044458ae2fd0ef3000e94e60b
   languageName: node
   linkType: hard
 
@@ -10439,6 +10439,26 @@ __metadata:
     fa6-upgrade: bin/fa6-upgrade.sh
     generate-icon: bin/generate-icon.js
   checksum: c1e1d7c7ccc110e99caaed4d57324d5331dfa91817183350d2fd4df16d2302e7363da1f7a2b87011da3936b77aac3a7bf8ee11844dd8786b8b7dbc6553494866
+  languageName: node
+  linkType: hard
+
+"react-native-vision-camera@npm:^4.5.1":
+  version: 4.5.1
+  resolution: "react-native-vision-camera@npm:4.5.1"
+  peerDependencies:
+    "@shopify/react-native-skia": "*"
+    react: "*"
+    react-native: "*"
+    react-native-reanimated: "*"
+    react-native-worklets-core: "*"
+  peerDependenciesMeta:
+    "@shopify/react-native-skia":
+      optional: true
+    react-native-reanimated:
+      optional: true
+    react-native-worklets-core:
+      optional: true
+  checksum: 8629652123de083b7d88be620687f366ad14d67b6a93136bf3d059498669cffad0d12052580c13ebe6c185d3001bb7c36d4fcf315a547ad7be11753f5f586d6e
   languageName: node
   linkType: hard
 
@@ -11890,6 +11910,7 @@ __metadata:
     react-native-svg: ^15.4.0
     react-native-svg-transformer: ^1.5.0
     react-native-vector-icons: ^10.1.0
+    react-native-vision-camera: ^4.5.1
     react-redux: ^9.1.2
     react-test-renderer: 18.2.0
     redux-logger: ^3.0.6
