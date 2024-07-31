@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { type FC, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+
 import StackNavigator from './src/Navigators/StackNavigator';
+import SplashScreen from './src/Screens/SplashScreen/Splash.Screen';
 
-import SplashScreen from './src/Screens/SplashScreen/SplashScreen';
-
-const App = () => {
+const App: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
