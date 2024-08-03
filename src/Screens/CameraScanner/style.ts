@@ -1,18 +1,29 @@
 import { StyleSheet } from 'react-native';
-
 const styles = StyleSheet.create({
-  fullScreenCamera: {
+  container: {
     flex: 1,
-    height: '100%',
-    position: 'absolute',
-    width: '100%',
-    zIndex: 100
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  safeArea: {
-    height: '100%',
+  resultContainer: {
     position: 'absolute',
-    width: '100%'
-  }
+    bottom: 40, 
+    left: 20,
+    right: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    padding: 10,
+    borderRadius: 5,
+  },
+  resultTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: 'white',
+  },
+  resultText: {
+    fontSize: 14,
+    color: 'white',
+  },
 });
 
 export default styles;
