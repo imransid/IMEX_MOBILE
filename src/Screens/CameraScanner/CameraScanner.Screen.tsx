@@ -1,4 +1,4 @@
-import React, { type FC, useState } from 'react';
+import React, { type FC, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {
   Camera,
@@ -8,22 +8,30 @@ import {
   useCodeScanner
 } from 'react-native-vision-camera';
 import styles from './style';
+import { useNavigation } from '@react-navigation/native';
+import { type AppStackParamList } from '@/models/routePageModel';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+type CameraScannerNavigationProp = StackNavigationProp<AppStackParamList, 'CameraScanner'>;
 
 const CameraScanner: FC = () => {
+  const navigation = useNavigation<CameraScannerNavigationProp>();
   const { hasPermission, requestPermission } = useCameraPermission();
   const device = useCameraDevice('back');
   const [latestScannedData, setLatestScannedData] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     requestPermission();
   }, []);
 
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: (codes: Code[]) => {
-      // Update the state with the latest scanned data
-      setLatestScannedData(codes[0].value);
-      console.log(codes[0].value);
+      const value = codes[0].value ?? string;
+      setLatestScannedData(value);
+      if (value) {
+        navigation.navigate('MedicineDetails', { scannedData: value });
+      }
     }
   });
 
@@ -43,12 +51,6 @@ const CameraScanner: FC = () => {
         device={device}
         isActive={true}
       />
-      {latestScannedData && (
-        <View style={styles.resultContainer}>
-          <Text style={styles.resultTitle}>Latest Scanned Code:</Text>
-          <Text style={styles.resultText}>{latestScannedData}</Text>
-        </View>
-      )}
     </View>
   );
 };

@@ -14,10 +14,8 @@ export interface AuthStackParamList extends ParamListBase {
 }
 
 export interface AppStackParamList extends ParamListBase {
-  QCLaunchPad: undefined;
-  SetLineStyle: undefined;
-  DefectEntry: { selectedButton: string };
-  EndTableCheck: undefined;
+  CameraScanner: undefined;
+  MedicineDetails: { scannedData: string };
 }
 
 export interface BottomTabParamList extends ParamListBase {

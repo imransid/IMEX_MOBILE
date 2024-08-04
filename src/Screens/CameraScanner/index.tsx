@@ -1,3 +1,3 @@
-import CameraScanner from './CameraScanner';
+import CameraScanner from './CameraScanner.Screen';
 
 export { CameraScanner };
