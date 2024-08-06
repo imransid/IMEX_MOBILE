@@ -20,8 +20,8 @@ const MedicineDetails: FC = (): JSX.Element => {
       <Text style={styles.scannedText}>Scanned Data : {scannedData}</Text>
       <CustomButton
         onPress={() => handlePress()}
-        text="Schedule Dosage"
         icon={<Icon name="calendar-number-outline" size={30} color={colors.white} />}
+        text="Schedule Dosage"
       />
     </View>
   );

@@ -10,7 +10,7 @@ const CustomButton: React.FC<ICustomButtonProps> = ({ text, icon, onPress }) => 
     <View style={styles.buttonPosition}>
       <TouchableOpacity style={styles.buttonProperties} onPress={onPress}>
         {text !== '' ? <Text style={styles.buttonText}>{text}</Text> : <></>}
-        {icon === true ? <View>{icon}</View> : <></>}
+        {icon && <View>{icon}</View>}
       </TouchableOpacity>
     </View>
   );

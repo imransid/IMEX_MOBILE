@@ -13,7 +13,11 @@ export const AppStackNavigator: FC = () => {
       <Stack.Screen name={'ScanQrCodeScreen'} component={ScanQrCode} />
       <Stack.Screen name={'CameraScanner'} component={CameraScanner} />
       <Stack.Screen name={'MedicineDetails'} component={MedicineDetails} />
-      <Stack.Screen name={'Login'} component={Login} />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'Login'}
+        component={Login}
+      />
     </Stack.Navigator>
   );
 };

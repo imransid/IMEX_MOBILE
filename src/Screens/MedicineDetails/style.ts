@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center'
     },
     scannedText: {
-      fontSize: 16, 
+      fontSize: moderateScale(16), 
       fontWeight: '600', 
       color: colors.success
     },
