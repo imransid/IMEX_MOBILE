@@ -3,7 +3,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { type AppStackParamList } from '@/models/routePageModel';
 
-import { CameraScanner, Login, MedicineDetails, MedicineDoses, ScanQrCode } from '../Screens';
+import {
+  CameraScanner,
+  Login,
+  MedicineDailyDoses,
+  MedicineDetails,
+  MedicineDoses,
+  ScanQrCode
+} from '../Screens';
 
 const Stack = createStackNavigator<AppStackParamList>();
 
@@ -22,6 +29,11 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'MedicineDoses'}
         component={MedicineDoses}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'MedicineDailyDoses'}
+        component={MedicineDailyDoses}
       />
     </Stack.Navigator>
   );

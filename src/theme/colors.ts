@@ -73,8 +73,8 @@ export const colors = {
   linkWater: palette.color29,
 
   typedText: palette.color30,
-  inputHeader: palette.color31,
-  orText: palette.color32,
-  orHorizontalLine: palette.color33,
+  header: palette.color31,
+  defaultText: palette.color32,
+  defaultTextHorizontalLine: palette.color33,
   textInput: palette.color34
 };
