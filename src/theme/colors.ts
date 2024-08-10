@@ -29,7 +29,13 @@ const palette = {
   color26: '#2c3e50',
   color27: '#F79F1F',
   color28: '#FF0000',
-  color29: '#c8d6e5'
+  color29: '#c8d6e5',
+
+  color30: '#888888',
+  color31: '#212121',
+  color32: '#555555',
+  color33: '#BDBDBD',
+  color34: '#F2F1F6'
 };
 
 export const colors = {
@@ -64,5 +70,11 @@ export const colors = {
   lightBlue: palette.color25,
   darkBlue2: palette.color26,
   carrotOrange: palette.color27,
-  linkWater: palette.color29
+  linkWater: palette.color29,
+
+  typedText: palette.color30,
+  inputHeader: palette.color31,
+  orText: palette.color32,
+  orHorizontalLine: palette.color33,
+  textInput: palette.color34
 };

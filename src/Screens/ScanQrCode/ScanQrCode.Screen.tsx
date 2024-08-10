@@ -19,11 +19,13 @@ const ScanQrCode: FC = (): JSX.Element => {
   return (
     <View style={styles.container}>
       <QrCodeLogo />
-      <CustomButton
-        onPress={() => handlePress()}
-        text="Let’s Scan QR Code"
-        icon={<Icon name="arrowright" size={30} color={colors.white} />}
-      />
+      <View style={styles.buttonPosition}>
+        <CustomButton
+          onPress={() => handlePress()}
+          text="Let’s Scan QR Code"
+          icon={<Icon name="arrowright" size={30} color={colors.white} />}
+        />
+      </View>
     </View>
   );
 };

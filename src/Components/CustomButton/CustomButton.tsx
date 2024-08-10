@@ -7,10 +7,10 @@ import styles from './style';
 
 const CustomButton: React.FC<ICustomButtonProps> = ({ text, icon, onPress }) => {
   return (
-    <View style={styles.buttonPosition}>
+    <View>
       <TouchableOpacity style={styles.buttonProperties} onPress={onPress}>
         {text !== '' ? <Text style={styles.buttonText}>{text}</Text> : <></>}
-        {icon && <View>{icon}</View>}
+        {icon !== true ? <View>{icon}</View> : <></>}
       </TouchableOpacity>
     </View>
   );
