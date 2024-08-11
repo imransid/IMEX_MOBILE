@@ -35,7 +35,8 @@ const palette = {
   color31: '#212121',
   color32: '#555555',
   color33: '#BDBDBD',
-  color34: '#F2F1F6'
+  color34: '#F2F1F6',
+  color35: '#E4E3E8'
 };
 
 export const colors = {
@@ -76,5 +77,6 @@ export const colors = {
   header: palette.color31,
   mainText: palette.color32,
   subText: palette.color33,
-  textInput: palette.color34
+  textInput: palette.color34,
+  selectButtonBg: palette.color35
 };

@@ -6,6 +6,7 @@ import { Login } from './Login';
 import { MedicineDailyDoses } from './MedicineDailyDoses';
 import { MedicineDetails } from './MedicineDetails';
 import { MedicineDoses } from './MedicineDoses';
+import { OnceAdayDose } from './OnceAdayDose';
 import { PasswordChanged } from './PasswordChanged';
 import { ResetPassword } from './ResetPassword';
 import { ScanQrCode } from './ScanQrCode';
@@ -20,6 +21,7 @@ export {
   MedicineDailyDoses,
   MedicineDetails,
   MedicineDoses,
+  OnceAdayDose,
   PasswordChanged,
   ResetPassword,
   ScanQrCode,
