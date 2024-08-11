@@ -74,7 +74,7 @@ export const colors = {
 
   typedText: palette.color30,
   header: palette.color31,
-  defaultText: palette.color32,
-  defaultTextHorizontalLine: palette.color33,
+  mainText: palette.color32,
+  subText: palette.color33,
   textInput: palette.color34
 };

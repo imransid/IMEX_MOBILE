@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline'
   },
   signUpWithHorizontalLine: {
-    backgroundColor: colors.defaultTextHorizontalLine,
+    backgroundColor: colors.subText,
     height: verticalScale(2),
     width: scale(120)
   },
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   signUpWithText: {
-    color: colors.defaultText,
+    color: colors.mainText,
     fontSize: moderateScale(18),
     fontWeight: '400'
   }

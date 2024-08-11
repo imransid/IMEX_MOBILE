@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(80)
   },
   medicineDoseItemsText: {
-    color: colors.defaultText,
+    color: colors.mainText,
     marginLeft: scale(20)
   },
   progressBarPosition: {

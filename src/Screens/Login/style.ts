@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   orHorizontalLine: {
-    backgroundColor: colors.defaultTextHorizontalLine,
+    backgroundColor: colors.subText,
     height: verticalScale(2),
     width: scale(120)
   },
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   orText: {
-    color: colors.defaultText,
+    color: colors.mainText,
     fontSize: moderateScale(18),
     fontWeight: '400'
   },

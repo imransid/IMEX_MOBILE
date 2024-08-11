@@ -6,10 +6,14 @@ import { type AppStackParamList } from '@/models/routePageModel';
 import {
   CameraScanner,
   CreateAccount,
+  EnterOtp,
+  ForgotPassword,
   Login,
   MedicineDailyDoses,
   MedicineDetails,
   MedicineDoses,
+  PasswordChanged,
+  ResetPassword,
   ScanQrCode
 } from '../Screens';
 
@@ -40,6 +44,26 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'CreateAccount'}
         component={CreateAccount}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'ForgotPassword'}
+        component={ForgotPassword}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'EnterOtp'}
+        component={EnterOtp}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'ResetPassword'}
+        component={ResetPassword}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'PasswordChanged'}
+        component={PasswordChanged}
       />
     </Stack.Navigator>
   );

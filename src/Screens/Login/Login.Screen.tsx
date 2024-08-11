@@ -38,7 +38,7 @@ const Login: FC = () => {
   };
 
   const handleForgotPassword: any = () => {
-    navigation.navigate('MedicineDoses' as never);
+    navigation.navigate('ForgotPassword' as never);
   };
 
   return (
@@ -80,7 +80,7 @@ const Login: FC = () => {
                 isPassword={true}
                 leftIcon={
                   <MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />
-                } // Left icon
+                }
               />
             </Col>
             <Col size={2}>
