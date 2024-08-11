@@ -6,20 +6,26 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    backgroundColor: colors.textInput,
+    borderRadius: scale(6),
+    borderWidth: scale(0.15),
     flexDirection: 'row',
-    position: 'relative'
+    height: verticalScale(50),
+    position: 'relative',
+    width: scale(330)
   },
-  iconContainer: {
+  iconLeft: {
+    left: scale(8),
+    position: 'absolute'
+  },
+  iconRight: {
     position: 'absolute',
     right: scale(10)
   },
   textInput: {
-    backgroundColor: colors.textInput,
-    borderRadius: scale(6),
-    borderWidth: scale(0.15),
-    height: verticalScale(50),
-    paddingLeft: scale(18),
-    width: scale(330)
+    flex: 1,
+    paddingLeft: scale(38),
+    paddingVertical: verticalScale(8)
   }
 });
 

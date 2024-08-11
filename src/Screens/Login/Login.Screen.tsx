@@ -8,8 +8,9 @@ import {
   View
 } from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
-import Icon from 'react-native-vector-icons/AntDesign';
-import GuestIcon from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -28,15 +29,15 @@ const Login: FC = () => {
     navigation.navigate('MedicineDoses' as never);
   };
 
-  const HandleGuestLogin: any = () => {
+  const handleGuestLogin: any = () => {
     navigation.navigate('MedicineDoses' as never);
   };
 
-  const HandleCreateAccount: any = () => {
-    navigation.navigate('MedicineDoses' as never);
+  const handleCreateAccount: any = () => {
+    navigation.navigate('CreateAccount' as never);
   };
 
-  const HandleForgotPassword: any = () => {
+  const handleForgotPassword: any = () => {
     navigation.navigate('MedicineDoses' as never);
   };
 
@@ -66,6 +67,7 @@ const Login: FC = () => {
                 placeholder="Enter your mobile number..."
                 maxLength={11}
                 inputStyle={styles.inputText}
+                leftIcon={<Feather name="smartphone" size={30} color={'#888888'} />} // Left icon
               />
               <Text style={styles.inputHeader}>Password {'         '}</Text>
               <CustomTextInput
@@ -76,12 +78,15 @@ const Login: FC = () => {
                 maxLength={8}
                 inputStyle={styles.inputText}
                 isPassword={true}
+                leftIcon={
+                  <MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />
+                } // Left icon
               />
             </Col>
             <Col size={2}>
               <CustomButton
-                onPress={() => handleSignIn()}
-                icon={<Icon name="arrowright" size={30} color={colors.white} />}
+                onPress={handleSignIn}
+                icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
                 text="Sign In"
               />
               <View style={styles.orPart}>
@@ -89,18 +94,18 @@ const Login: FC = () => {
                 <Text style={styles.orText}>or</Text>
                 <View style={styles.orHorizontalLine}></View>
               </View>
-              <TouchableOpacity style={styles.guestButton} onPress={() => HandleGuestLogin()}>
-                <GuestIcon name="user" size={30} color={'#888888'}></GuestIcon>
+              <TouchableOpacity style={styles.guestButton} onPress={handleGuestLogin}>
+                <Feather name="user" size={30} color={'#888888'} />
                 <Text style={styles.guestButtonText}>Continue as guest</Text>
               </TouchableOpacity>
               <View style={styles.askAboutAccount}>
                 <Text style={styles.askAboutAccountText}>Don’t have an account? {'  '}</Text>
-                <TouchableOpacity onPress={() => HandleCreateAccount()}>
+                <TouchableOpacity onPress={handleCreateAccount}>
                   <Text style={styles.signUpText}>Create Account</Text>
                 </TouchableOpacity>
               </View>
               <View>
-                <TouchableOpacity onPress={() => HandleForgotPassword()}>
+                <TouchableOpacity onPress={handleForgotPassword}>
                   <Text style={styles.forgotPassword}>Forgot your password?</Text>
                 </TouchableOpacity>
               </View>

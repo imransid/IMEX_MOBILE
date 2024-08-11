@@ -1,7 +1,9 @@
-import React, { useState, type FC } from 'react';
-import ICustomTextInputProps from '../../Interfaces/ICustomTextInputProps';
-import { TextInput, TextInputProps, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { TextInput, type TextInputProps, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import type ICustomTextInputProps from '../../Interfaces/ICustomTextInputProps';
+
 import styles from './style';
 
 const CustomTextInput: React.FC<ICustomTextInputProps & TextInputProps> = ({
@@ -12,15 +14,17 @@ const CustomTextInput: React.FC<ICustomTextInputProps & TextInputProps> = ({
   placeholderTextColor = '#888888',
   maxLength,
   isPassword = false,
-  inputStyle
+  inputStyle,
+  leftIcon,
+  rightIcon
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility: any = () => {
     setShowPassword(!showPassword);
   };
 
-  const getKeyboardType = () => {
+  const getKeyboardType: any = () => {
     switch (type) {
       case 'mobile':
         return 'phone-pad';
@@ -33,6 +37,7 @@ const CustomTextInput: React.FC<ICustomTextInputProps & TextInputProps> = ({
 
   return (
     <View style={styles.container}>
+      {leftIcon !== true ? <View style={styles.iconLeft}>{leftIcon}</View> : <></>}
       <TextInput
         style={[styles.textInput, inputStyle]}
         value={value}
@@ -41,12 +46,16 @@ const CustomTextInput: React.FC<ICustomTextInputProps & TextInputProps> = ({
         maxLength={maxLength}
         onChangeText={onChangeText}
         keyboardType={getKeyboardType()}
-        secureTextEntry={showPassword ? false : true}
+        secureTextEntry={!showPassword}
       />
-      {isPassword && (
-        <TouchableOpacity style={styles.iconContainer} onPress={togglePasswordVisibility}>
-          <Icon name={showPassword ? 'eye-outline' : 'eye'} size={30} color={'#888888'}></Icon>
+      {isPassword ? (
+        <TouchableOpacity style={styles.iconRight} onPress={togglePasswordVisibility}>
+          <Icon name={showPassword ? 'eye-outline' : 'eye'} size={30} color={'#888888'} />
         </TouchableOpacity>
+      ) : rightIcon !== true ? (
+        <View style={styles.iconRight}>{rightIcon}</View>
+      ) : (
+        <></>
       )}
     </View>
   );

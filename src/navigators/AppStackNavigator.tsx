@@ -5,6 +5,7 @@ import { type AppStackParamList } from '@/models/routePageModel';
 
 import {
   CameraScanner,
+  CreateAccount,
   Login,
   MedicineDailyDoses,
   MedicineDetails,
@@ -34,6 +35,11 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'MedicineDailyDoses'}
         component={MedicineDailyDoses}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'CreateAccount'}
+        component={CreateAccount}
       />
     </Stack.Navigator>
   );

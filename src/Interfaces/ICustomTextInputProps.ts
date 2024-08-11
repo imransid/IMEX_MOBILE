@@ -1,4 +1,4 @@
-import { StyleProp, TextStyle } from "react-native";
+import { type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
 
 interface ICustomTextInputProps {
   isPassword?: boolean;
@@ -8,8 +8,10 @@ interface ICustomTextInputProps {
   placeholder?: string;
   placeholderTextColor?: string;
   maxLength: number;
-  icon?: React.ReactNode;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   inputStyle?: StyleProp<TextStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
 }
 
 export default ICustomTextInputProps;
