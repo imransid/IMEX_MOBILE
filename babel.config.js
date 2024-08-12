@@ -17,5 +17,5 @@ module.exports = {
   ],
   plugins: [
     'react-native-reanimated/plugin' //add this line
-  ]
+  ],
 };

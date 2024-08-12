@@ -1,6 +1,6 @@
 const palette = {
   // base colors
-  color1: '#31CF77',
+  color1: '#007AFF',
   color2: '#828282',
   color3: '#FF7754',
   // colors
@@ -29,13 +29,23 @@ const palette = {
   color26: '#2c3e50',
   color27: '#F79F1F',
   color28: '#FF0000',
-  color29: '#c8d6e5'
+  color29: '#c8d6e5',
+
+  color30: '#888888',
+  color31: '#212121',
+  color32: '#555555',
+  color33: '#BDBDBD',
+  color34: '#F2F1F6',
+  color35: '#E4E3E8',
+  color36: '#A9BCFE',
+  color37: '#008000',
+  color38: 'rgba(0, 0, 0, 0.7)'
 };
 
 export const colors = {
   // base colors
   primary: palette.color1,
-  buttonBg: palette.color6,
+  buttonBg: palette.color1,
   secondary: palette.color2,
   accent: palette.color3,
   // colors
@@ -64,5 +74,15 @@ export const colors = {
   lightBlue: palette.color25,
   darkBlue2: palette.color26,
   carrotOrange: palette.color27,
-  linkWater: palette.color29
+  linkWater: palette.color29,
+
+  typedText: palette.color30,
+  header: palette.color31,
+  mainText: palette.color32,
+  subText: palette.color33,
+  textInput: palette.color34,
+  selectButtonBg: palette.color35,
+  progressbarColor: palette.color36,
+  addCircle: palette.color37,
+  modalBackground: palette.color38
 };

@@ -1,7 +1,7 @@
 import React, { type FC, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import StackNavigator from './src/Navigators/StackNavigator';
+import AppStackNavigator from './src/navigators/AppStackNavigator';
 import SplashScreen from './src/Screens/SplashScreen/Splash.Screen';
 
 const App: FC = () => {
@@ -14,7 +14,9 @@ const App: FC = () => {
   }, []);
 
   return (
-    <NavigationContainer>{isLoading ? <SplashScreen /> : <StackNavigator />}</NavigationContainer>
+    <NavigationContainer>
+      {isLoading ? <SplashScreen /> : <AppStackNavigator />}
+    </NavigationContainer>
   );
 };
 

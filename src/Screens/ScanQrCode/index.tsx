@@ -1,3 +1,3 @@
-import ScanQrCodeScreen from './ScanQrCode';
+import ScanQrCode from './ScanQrCode.Screen';
 
-export { ScanQrCodeScreen };
+export { ScanQrCode };
