@@ -4,11 +4,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { type AppStackParamList } from '@/models/routePageModel';
 
 import {
+  AddMedicine,
   CameraScanner,
   CreateAccount,
   EnterOtp,
   ForgotPassword,
   Login,
+  MedicineAddingMethod,
   MedicineDailyDoses,
   MedicineDetails,
   MedicineDoses,
@@ -22,7 +24,7 @@ const Stack = createStackNavigator<AppStackParamList>();
 
 export const AppStackNavigator: FC = () => {
   return (
-    <Stack.Navigator initialRouteName="OnceAdayDose" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={'ScanQrCodeScreen'} component={ScanQrCode} />
       <Stack.Screen name={'CameraScanner'} component={CameraScanner} />
       <Stack.Screen name={'MedicineDetails'} component={MedicineDetails} />
@@ -70,6 +72,16 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'OnceAdayDose'}
         component={OnceAdayDose}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'AddMedicine'}
+        component={AddMedicine}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'MedicineAddingMethod'}
+        component={MedicineAddingMethod}
       />
     </Stack.Navigator>
   );

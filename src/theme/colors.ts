@@ -36,7 +36,10 @@ const palette = {
   color32: '#555555',
   color33: '#BDBDBD',
   color34: '#F2F1F6',
-  color35: '#E4E3E8'
+  color35: '#E4E3E8',
+  color36: '#A9BCFE',
+  color37: '#008000',
+  color38: 'rgba(0, 0, 0, 0.7)'
 };
 
 export const colors = {
@@ -78,5 +81,8 @@ export const colors = {
   mainText: palette.color32,
   subText: palette.color33,
   textInput: palette.color34,
-  selectButtonBg: palette.color35
+  selectButtonBg: palette.color35,
+  progressbarColor: palette.color36,
+  addCircle: palette.color37,
+  modalBackground: palette.color38
 };
