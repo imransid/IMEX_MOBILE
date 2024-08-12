@@ -20,7 +20,7 @@ const ForgotPassword: FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headingPosition}>
-        <Header mainHeader="New Account" />
+        <Header mainHeader="Forget Password" />
       </View>
       <View style={styles.textInputPosition}>
         <Text style={styles.inputHeader}>Mobile Number</Text>

@@ -5,6 +5,8 @@ import { type AppStackParamList } from '@/models/routePageModel';
 
 import {
   AddMedicine,
+  AddMedicineManually,
+  AddMedicineStrength,
   CameraScanner,
   CreateAccount,
   EnterOtp,
@@ -82,6 +84,16 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'MedicineAddingMethod'}
         component={MedicineAddingMethod}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'AddMedicineManually'}
+        component={AddMedicineManually}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'AddMedicineStrength'}
+        component={AddMedicineStrength}
       />
     </Stack.Navigator>
   );

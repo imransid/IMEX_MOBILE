@@ -1,4 +1,6 @@
 import { AddMedicine } from './AddedMedicine';
+import { AddMedicineManually } from './AddMedicineManually';
+import { AddMedicineStrength } from './AddMedicineStrength';
 import { CameraScanner } from './CameraScanner';
 import { CreateAccount } from './CreateAccount';
 import { EnterOtp } from './EnterOtp';
@@ -16,6 +18,8 @@ import { SplashScreen } from './SplashScreen';
 
 export {
   AddMedicine,
+  AddMedicineManually,
+  AddMedicineStrength,
   CameraScanner,
   CreateAccount,
   EnterOtp,

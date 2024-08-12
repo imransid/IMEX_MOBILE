@@ -15,7 +15,7 @@ import styles from './style';
 const MedicineAddingMethod: FC = () => {
   const navigation = useNavigation();
   const handleAddManually: any = () => {
-    navigation.navigate('AddMedicine' as never);
+    navigation.navigate('AddMedicineManually' as never);
   };
   const handleScanQrCode: any = () => {
     navigation.navigate('CameraScanner' as never);
