@@ -20,6 +20,7 @@ import { SetTreatmentDuration } from './SetTreatmentDuration';
 import { SplashScreen } from './SplashScreen';
 import { MedicineReminders } from './MedicineReminders';
 import { DoctorAppointments } from './DoctorAppointments';
+import { AddPrescription } from './AddPrescription';
 
 export {
   AddInstructions,
@@ -43,5 +44,6 @@ export {
   SetTreatmentDuration,
   SplashScreen,
   MedicineReminders,
-  DoctorAppointments
+  DoctorAppointments,
+  AddPrescription
 };

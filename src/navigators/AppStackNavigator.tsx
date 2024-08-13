@@ -24,16 +24,15 @@ import {
   ResetPassword,
   ScanQrCode,
   SetTreatmentDuration,
-  DoctorAppointments
+  DoctorAppointments,
+  AddPrescription
 } from '../Screens';
 
 const Stack = createStackNavigator<AppStackParamList>();
 
 export const AppStackNavigator: FC = () => {
   return (
-    <Stack.Navigator
-      initialRouteName={'SetTreatmentDuration'}
-      screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={'ScanQrCodeScreen'} component={ScanQrCode} />
       <Stack.Screen name={'CameraScanner'} component={CameraScanner} />
       <Stack.Screen name={'MedicineDetails'} component={MedicineDetails} />
@@ -126,6 +125,11 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'DoctorAppointments'}
         component={DoctorAppointments}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'AddPrescription'}
+        component={AddPrescription}
       />
     </Stack.Navigator>
   );

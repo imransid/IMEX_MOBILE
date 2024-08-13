@@ -83,6 +83,8 @@ const OnceAdayDose: FC = () => {
         navigation.navigate('MedicineReminders' as never);
       } else if (index === 3) {
         navigation.navigate('DoctorAppointments' as never);
+      } else if (index === 4) {
+        navigation.navigate('AddPrescription' as never);
       }
     };
     return (

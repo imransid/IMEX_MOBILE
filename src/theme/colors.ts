@@ -41,7 +41,8 @@ const palette = {
   color37: '#008000',
   color38: 'rgba(0, 0, 0, 0.7)',
   color39: '#1D1C2B',
-  color40: '#009963'
+  color40: '#009963',
+  color41: '#FBFAF3'
 };
 
 export const colors = {
@@ -88,5 +89,6 @@ export const colors = {
   addCircle: palette.color37,
   modalBackground: palette.color38,
   calendarDate: palette.color39,
-  toggleEnabled: palette.color40
+  toggleEnabled: palette.color40,
+  secondaryButtonText: palette.color41
 };
