@@ -1,4 +1,6 @@
 import { AddMedicine } from './AddedMedicine';
+import { AddMedicineManually } from './AddMedicineManually';
+import { AddMedicineStrength } from './AddMedicineStrength';
 import { CameraScanner } from './CameraScanner';
 import { CreateAccount } from './CreateAccount';
 import { EnterOtp } from './EnterOtp';
@@ -8,6 +10,7 @@ import { MedicineAddingMethod } from './MedicineAddingMethod';
 import { MedicineDailyDoses } from './MedicineDailyDoses';
 import { MedicineDetails } from './MedicineDetails';
 import { MedicineDoses } from './MedicineDoses';
+import { MedicineType } from './MedicineType';
 import { OnceAdayDose } from './OnceAdayDose';
 import { PasswordChanged } from './PasswordChanged';
 import { ResetPassword } from './ResetPassword';
@@ -16,6 +19,8 @@ import { SplashScreen } from './SplashScreen';
 
 export {
   AddMedicine,
+  AddMedicineManually,
+  AddMedicineStrength,
   CameraScanner,
   CreateAccount,
   EnterOtp,
@@ -25,6 +30,7 @@ export {
   MedicineDailyDoses,
   MedicineDetails,
   MedicineDoses,
+  MedicineType,
   OnceAdayDose,
   PasswordChanged,
   ResetPassword,
