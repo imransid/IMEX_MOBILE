@@ -77,6 +77,8 @@ const OnceAdayDose: FC = () => {
     const handlePress: any = () => {
       if (index === 0) {
         navigation.navigate('AddInstructions' as never);
+      } else if (index === 1) {
+        navigation.navigate('SetTreatmentDuration' as never);
       }
     };
     return (

@@ -21,7 +21,8 @@ import {
   OnceAdayDose,
   PasswordChanged,
   ResetPassword,
-  ScanQrCode
+  ScanQrCode,
+  SetTreatmentDuration
 } from '../Screens';
 
 const Stack = createStackNavigator<AppStackParamList>();
@@ -106,6 +107,11 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'AddInstructions'}
         component={AddInstructions}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'SetTreatmentDuration'}
+        component={SetTreatmentDuration}
       />
     </Stack.Navigator>
   );

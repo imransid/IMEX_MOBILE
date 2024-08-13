@@ -1,3 +1,3 @@
-import AddInstructions from './AddInstructions';
+import AddInstructions from './AddInstructions.Screen';
 
 export { AddInstructions };
