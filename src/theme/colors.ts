@@ -40,7 +40,8 @@ const palette = {
   color36: '#A9BCFE',
   color37: '#008000',
   color38: 'rgba(0, 0, 0, 0.7)',
-  color39: '#1D1C2B'
+  color39: '#1D1C2B',
+  color40: '#009963'
 };
 
 export const colors = {
@@ -86,5 +87,6 @@ export const colors = {
   progressbarColor: palette.color36,
   addCircle: palette.color37,
   modalBackground: palette.color38,
-  calendarDate: palette.color39
+  calendarDate: palette.color39,
+  toggleEnabled: palette.color40
 };

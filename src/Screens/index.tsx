@@ -19,6 +19,7 @@ import { ScanQrCode } from './ScanQrCode';
 import { SetTreatmentDuration } from './SetTreatmentDuration';
 import { SplashScreen } from './SplashScreen';
 import { MedicineReminders } from './MedicineReminders';
+import { DoctorAppointments } from './DoctorAppointments';
 
 export {
   AddInstructions,
@@ -41,5 +42,6 @@ export {
   ScanQrCode,
   SetTreatmentDuration,
   SplashScreen,
-  MedicineReminders
+  MedicineReminders,
+  DoctorAppointments
 };
