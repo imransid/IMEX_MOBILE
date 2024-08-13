@@ -1,4 +1,5 @@
 import { AddMedicine } from './AddedMedicine';
+import { AddInstructions } from './AddInstructions';
 import { AddMedicineManually } from './AddMedicineManually';
 import { AddMedicineStrength } from './AddMedicineStrength';
 import { CameraScanner } from './CameraScanner';
@@ -18,6 +19,7 @@ import { ScanQrCode } from './ScanQrCode';
 import { SplashScreen } from './SplashScreen';
 
 export {
+  AddInstructions,
   AddMedicine,
   AddMedicineManually,
   AddMedicineStrength,

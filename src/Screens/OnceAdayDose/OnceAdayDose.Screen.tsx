@@ -1,16 +1,17 @@
-import React, { type FC, useState } from 'react';
+import React, { type FC, useEffect, useState } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import { type RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import DoseInputModal from '../../Components/DoseInputModal/DoseInputModal';
 import Header from '../../Components/Header/Header';
+import { type AppStackParamList } from '../../models/routePageModel';
 import { colors } from '../../theme/colors';
 import addMoreSettings from '../../utils/addMoreSettings';
 
@@ -21,13 +22,26 @@ interface addMoreSettingsProps {
   index: number;
 }
 
+type OnceAdayDoseScreenRouteProp = RouteProp<AppStackParamList, 'OnceAdayDose'>;
+
 const OnceAdayDose: FC = () => {
   const navigation = useNavigation();
+
+  const route = useRoute<OnceAdayDoseScreenRouteProp>();
+  let { instruction = '' } = route.params ?? {};
+
   const [selectedTime, setSelectedTime] = useState('');
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
   const [doseInput, setDoseInput] = useState<number>(0);
+
+  useEffect(() => {
+    if (instruction !== '') {
+      setSelectedTime(selectedTime);
+      setDoseInput(doseInput);
+    }
+  }, [instruction]);
 
   const handleSelectTime: any = () => {
     setOpen(true);
@@ -45,6 +59,10 @@ const OnceAdayDose: FC = () => {
     setDoseInput(0);
   };
 
+  const clearInstruction: any = () => {
+    instruction = '';
+  };
+
   const handleSubmit: any = (inputValue: number) => {
     setDoseInput(inputValue);
     // Handle the submitted value here
@@ -58,15 +76,30 @@ const OnceAdayDose: FC = () => {
   const RenderItems: React.FC<addMoreSettingsProps> = ({ item, index }) => {
     const handlePress: any = () => {
       if (index === 0) {
-        navigation.navigate('MedicineDailyDoses' as never);
+        navigation.navigate('AddInstructions' as never);
       }
     };
     return (
       <TouchableOpacity style={styles.addMoreSettingsItems} onPress={handlePress}>
         <View style={styles.addMoreSettingsContentProperties}>
-          <Ionicons name="add-circle-sharp" size={30} color={colors.addCircle} />
+          {index === 0 && instruction !== '' ? (
+            <TouchableOpacity onPress={() => clearInstruction()}>
+              <FontAwesome name="minus-circle" size={30} color={'red'} />
+            </TouchableOpacity>
+          ) : (
+            <Ionicons name="add-circle-sharp" size={30} color={colors.addCircle} />
+          )}
+
           <Text style={styles.addMoreSettingsItemsText}>{item}</Text>
         </View>
+        {index === 0 && instruction !== '' && (
+          <AntDesign
+            name="check"
+            size={28}
+            color={colors.buttonBg}
+            style={styles.checkMarkIconPosition}
+          />
+        )}
       </TouchableOpacity>
     );
   };
