@@ -4,38 +4,13 @@ import { scale, verticalScale } from 'react-native-size-matters';
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
-  addMoreSettingsContentProperties: {
+  buttonContainer: {
     alignItems: 'center',
-    flexDirection: 'row',
-    marginLeft: 20
-  },
-  addMoreSettingsHeaderPosition: {
-    marginTop: verticalScale(30)
-  },
-  addMoreSettingsItems: {
-    alignItems: 'center',
-    backgroundColor: colors.textInput,
-    borderRadius: scale(6),
-    borderWidth: scale(0.15),
-    flexDirection: 'row',
-    height: verticalScale(35),
-    marginTop: verticalScale(5),
-    width: scale(330)
-  },
-  addMoreSettingsItemsPosition: {
-    marginTop: verticalScale(-40)
-  },
-  addMoreSettingsItemsText: {
-    color: colors.mainText,
-    marginLeft: scale(20)
+    flex: 1
   },
   buttonPosition: {
     bottom: verticalScale(18),
     position: 'absolute'
-  },
-  checkMarkIconPosition: {
-    position: 'absolute',
-    right: scale(20)
   },
   chip: {
     backgroundColor: colors.textInput,
@@ -52,7 +27,7 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   chipPosition: {
-    marginTop: verticalScale(-60)
+    marginTop: verticalScale(-40)
   },
   chipProperties: {
     flexDirection: 'row',
@@ -68,10 +43,27 @@ const styles = StyleSheet.create({
     flex: 1
   },
   headingPosition: {
-    marginTop: verticalScale(70)
+    top: verticalScale(60)
   },
   imagePosition: {
     top: verticalScale(10)
+  },
+  instructionContainer: {
+    backgroundColor: colors.textInput,
+    position: 'absolute',
+    right: scale(10),
+    top: verticalScale(240)
+  },
+  instructionProperties: {
+    alignItems: 'center',
+    borderWidth: scale(0.17),
+    height: scale(40),
+    justifyContent: 'center',
+    marginRight: scale(5),
+    width: scale(168)
+  },
+  instructionText: {
+    color: colors.header
   },
   progressBarPosition: {
     borderWidth: scale(0)
@@ -84,14 +76,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
     right: scale(20),
-    width: scale(74)
+    width: scale(85)
   },
   selectButtonText: {
     color: colors.buttonBg
   },
-  settingsAndButtonContainer: {
-    alignItems: 'center',
-    flex: 1
+  subHeadingPosition: {
+    marginTop: verticalScale(60)
   }
 });
 
