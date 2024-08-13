@@ -10,6 +10,7 @@ import { MedicineAddingMethod } from './MedicineAddingMethod';
 import { MedicineDailyDoses } from './MedicineDailyDoses';
 import { MedicineDetails } from './MedicineDetails';
 import { MedicineDoses } from './MedicineDoses';
+import { MedicineType } from './MedicineType';
 import { OnceAdayDose } from './OnceAdayDose';
 import { PasswordChanged } from './PasswordChanged';
 import { ResetPassword } from './ResetPassword';
@@ -29,6 +30,7 @@ export {
   MedicineDailyDoses,
   MedicineDetails,
   MedicineDoses,
+  MedicineType,
   OnceAdayDose,
   PasswordChanged,
   ResetPassword,

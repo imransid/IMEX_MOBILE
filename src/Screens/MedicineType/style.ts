@@ -12,6 +12,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center'
   },
+  formsItemsPosition: {
+    marginTop: verticalScale(5)
+  },
+  formsItemsText: {
+    color: colors.mainText,
+    marginLeft: scale(20)
+  },
+  formsPosition: {
+    marginTop: verticalScale(55),
+    right: scale(150)
+  },
+  formsText: {
+    color: colors.header,
+    fontSize: moderateScale(14),
+    fontWeight: '500',
+    left: scale(10)
+  },
   headingPosition: {
     top: verticalScale(90)
   },
@@ -29,18 +46,18 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     fontWeight: '400'
   },
-  noThanksText: {
+  progressBarPosition: {
+    borderWidth: scale(0),
+    marginTop: verticalScale(0.1)
+  },
+  skipText: {
     color: colors.buttonBg,
     fontSize: moderateScale(14),
     fontWeight: '400',
     textAlign: 'center'
   },
-  noThanksTextPosition: {
+  skipTextPosition: {
     bottom: verticalScale(10)
-  },
-  progressBarPosition: {
-    borderWidth: scale(0),
-    marginTop: verticalScale(0.1)
   },
   textInputPosition: {
     marginTop: verticalScale(40)
@@ -54,27 +71,11 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5),
     width: scale(330)
   },
-  unitItemsPosition: {
-    marginTop: verticalScale(5)
-  },
-  unitItemsText: {
-    color: colors.mainText,
-    marginLeft: scale(20)
-  },
   unitProperties: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginRight: scale(20)
-  },
-  unitText: {
-    color: colors.header,
-    fontSize: moderateScale(14),
-    fontWeight: '500'
-  },
-  unitTextPosition: {
-    marginTop: verticalScale(25),
-    right: scale(150)
   }
 });
 

@@ -16,6 +16,7 @@ import {
   MedicineDailyDoses,
   MedicineDetails,
   MedicineDoses,
+  MedicineType,
   OnceAdayDose,
   PasswordChanged,
   ResetPassword,
@@ -26,7 +27,7 @@ const Stack = createStackNavigator<AppStackParamList>();
 
 export const AppStackNavigator: FC = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName="AddMedicineStrength" screenOptions={{ headerShown: false }}>
       <Stack.Screen name={'ScanQrCodeScreen'} component={ScanQrCode} />
       <Stack.Screen name={'CameraScanner'} component={CameraScanner} />
       <Stack.Screen name={'MedicineDetails'} component={MedicineDetails} />
@@ -94,6 +95,11 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'AddMedicineStrength'}
         component={AddMedicineStrength}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'MedicineType'}
+        component={MedicineType}
       />
     </Stack.Navigator>
   );

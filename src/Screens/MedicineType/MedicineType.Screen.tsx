@@ -6,22 +6,20 @@ import { useNavigation } from '@react-navigation/native';
 
 import MedicineDoseTime from '../../assets/medicine-dose-time';
 import CustomButton from '../../Components/CustomButton/CustomButton';
-import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Header from '../../Components/Header/Header';
 import type IMedicineStrengthProps from '../../Interfaces/IMedicineStrengthProps';
 import { colors } from '../../theme/colors';
-import medicineStrengthUnits from '../../utils/medicineStrengthUnits';
+import medicineTypes from '../../utils/medicineTypes';
 
 import styles from './style';
 
-const AddMedicineStrength: FC = () => {
+const MedicineType: FC = () => {
   const navigation = useNavigation();
 
-  const [strength, setStrength] = useState<string>('');
   const [selectedUnit, setSelectedUnit] = useState<string>('');
 
   const handleNext: any = () => {
-    navigation.navigate('MedicineType' as never);
+    navigation.navigate('MedicineDoses' as never);
   };
 
   const handleSkip: any = () => {
@@ -37,7 +35,7 @@ const AddMedicineStrength: FC = () => {
     return (
       <TouchableOpacity style={styles.unitItems} onPress={onPress}>
         <View style={styles.unitProperties}>
-          <Text style={styles.unitItemsText}>{item}</Text>
+          <Text style={styles.formsItemsText}>{item}</Text>
           {selectedUnit === item && <AntDesign name="check" size={28} color={colors.buttonBg} />}
         </View>
       </TouchableOpacity>
@@ -46,31 +44,20 @@ const AddMedicineStrength: FC = () => {
 
   return (
     <View style={styles.container}>
-      <Progress.Bar color="#A6BDF8" progress={0.2} width={380} style={styles.progressBarPosition} />
+      <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
       <View style={styles.imagePosition}>
         <MedicineDoseTime />
       </View>
       <View style={styles.headingPosition}>
-        <Header mainHeader="Add the Medicine Strength" />
-      </View>
-      <View style={styles.textInputPosition}>
-        <Text style={styles.inputHeader}>Strength</Text>
-        <CustomTextInput
-          type="mobile"
-          value={strength}
-          onChangeText={setStrength}
-          placeholder="Enter medicine strength..."
-          maxLength={3}
-          inputStyle={styles.inputText}
-        />
+        <Header mainHeader="Choose Medicine Type" />
       </View>
 
-      <View style={styles.unitTextPosition}>
-        <Text style={styles.unitText}>Unit</Text>
+      <View style={styles.formsPosition}>
+        <Text style={styles.formsText}>Forms</Text>
       </View>
       <FlatList
-        style={styles.unitItemsPosition}
-        data={medicineStrengthUnits}
+        style={styles.formsItemsPosition}
+        data={medicineTypes}
         renderItem={({ item, index }) => (
           <RenderItems
             item={item}
@@ -90,13 +77,13 @@ const AddMedicineStrength: FC = () => {
           text="Next"
         />
       </View>
-      <View style={styles.noThanksTextPosition}>
+      <View style={styles.skipTextPosition}>
         <TouchableOpacity onPress={handleSkip}>
-          <Text style={styles.noThanksText}>Skip</Text>
+          <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-export default AddMedicineStrength;
+export default MedicineType;
