@@ -18,6 +18,7 @@ import { ResetPassword } from './ResetPassword';
 import { ScanQrCode } from './ScanQrCode';
 import { SetTreatmentDuration } from './SetTreatmentDuration';
 import { SplashScreen } from './SplashScreen';
+import { MedicineReminders } from './MedicineReminders';
 
 export {
   AddInstructions,
@@ -39,5 +40,6 @@ export {
   ResetPassword,
   ScanQrCode,
   SetTreatmentDuration,
-  SplashScreen
+  SplashScreen,
+  MedicineReminders
 };
