@@ -27,6 +27,7 @@ import { SetTreatmentDuration } from './SetTreatmentDuration';
 import { SplashScreen } from './SplashScreen';
 import { ThreeTimesAdayDose } from './ThreeTimesAdayDose';
 import { TwiceAdayDose } from './TwiceADayDose';
+import { WeeklyDose } from './WeeklyDose';
 import { XtimesAdayDose } from './XtimesAdayDose';
 
 export {
@@ -59,5 +60,6 @@ export {
   SplashScreen,
   ThreeTimesAdayDose,
   TwiceAdayDose,
+  WeeklyDose,
   XtimesAdayDose
 };

@@ -21,6 +21,8 @@ const MedicineDoses: FC = () => {
     const handlePress: any = () => {
       if (index === 0) {
         navigation.navigate('MedicineDailyDoses' as never);
+      } else if (index === 1) {
+        navigation.navigate('WeeklyDose' as never);
       }
     };
     return (
