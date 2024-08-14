@@ -1,3 +1,3 @@
-import AddMedicine from './AddedMedicine.Screen';
+import AddedMedicine from './AddedMedicine.Screen';
 
-export { AddMedicine };
+export { AddedMedicine };

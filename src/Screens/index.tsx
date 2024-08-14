@@ -1,9 +1,11 @@
-import { AddMedicine } from './AddedMedicine';
+import { AddedMedicine } from './AddedMedicine';
 import { AddInstructions } from './AddInstructions';
 import { AddMedicineManually } from './AddMedicineManually';
 import { AddMedicineStrength } from './AddMedicineStrength';
+import { AddPrescription } from './AddPrescription';
 import { CameraScanner } from './CameraScanner';
 import { CreateAccount } from './CreateAccount';
+import { DoctorAppointments } from './DoctorAppointments';
 import { EnterOtp } from './EnterOtp';
 import { ForgotPassword } from './ForgotPassword';
 import { Login } from './Login';
@@ -11,6 +13,7 @@ import { MedicineAddingMethod } from './MedicineAddingMethod';
 import { MedicineDailyDoses } from './MedicineDailyDoses';
 import { MedicineDetails } from './MedicineDetails';
 import { MedicineDoses } from './MedicineDoses';
+import { MedicineReminders } from './MedicineReminders';
 import { MedicineType } from './MedicineType';
 import { OnceAdayDose } from './OnceAdayDose';
 import { PasswordChanged } from './PasswordChanged';
@@ -18,17 +21,17 @@ import { ResetPassword } from './ResetPassword';
 import { ScanQrCode } from './ScanQrCode';
 import { SetTreatmentDuration } from './SetTreatmentDuration';
 import { SplashScreen } from './SplashScreen';
-import { MedicineReminders } from './MedicineReminders';
-import { DoctorAppointments } from './DoctorAppointments';
-import { AddPrescription } from './AddPrescription';
+import { TwiceAdayDose } from './TwiceADayDose';
 
 export {
+  AddedMedicine,
   AddInstructions,
-  AddMedicine,
   AddMedicineManually,
   AddMedicineStrength,
+  AddPrescription,
   CameraScanner,
   CreateAccount,
+  DoctorAppointments,
   EnterOtp,
   ForgotPassword,
   Login,
@@ -36,6 +39,7 @@ export {
   MedicineDailyDoses,
   MedicineDetails,
   MedicineDoses,
+  MedicineReminders,
   MedicineType,
   OnceAdayDose,
   PasswordChanged,
@@ -43,7 +47,5 @@ export {
   ScanQrCode,
   SetTreatmentDuration,
   SplashScreen,
-  MedicineReminders,
-  DoctorAppointments,
-  AddPrescription
+  TwiceAdayDose
 };

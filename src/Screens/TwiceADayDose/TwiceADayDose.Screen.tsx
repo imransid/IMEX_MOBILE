@@ -1,17 +1,16 @@
-import React, { type FC, useEffect, useState } from 'react';
+import React, { type FC, useState } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { type RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import DoseInputModal from '../../Components/DoseInputModal/DoseInputModal';
 import Header from '../../Components/Header/Header';
-import { type AppStackParamList } from '../../models/routePageModel';
 import { colors } from '../../theme/colors';
 import addMoreSettings from '../../utils/addMoreSettings';
 
@@ -22,26 +21,13 @@ interface addMoreSettingsProps {
   index: number;
 }
 
-type OnceAdayDoseScreenRouteProp = RouteProp<AppStackParamList, 'OnceAdayDose'>;
-
-const OnceAdayDose: FC = () => {
+const TwiceAdayDose: FC = () => {
   const navigation = useNavigation();
-
-  const route = useRoute<OnceAdayDoseScreenRouteProp>();
-  let { instruction = '' } = route.params ?? {};
-
   const [selectedTime, setSelectedTime] = useState('');
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
   const [doseInput, setDoseInput] = useState<number>(0);
-
-  useEffect(() => {
-    if (instruction !== '') {
-      setSelectedTime(selectedTime);
-      setDoseInput(doseInput);
-    }
-  }, [instruction]);
 
   const handleSelectTime: any = () => {
     setOpen(true);
@@ -57,10 +43,6 @@ const OnceAdayDose: FC = () => {
 
   const clearDoseSelection: any = () => {
     setDoseInput(0);
-  };
-
-  const clearInstruction: any = () => {
-    instruction = '';
   };
 
   const handleSubmit: any = (inputValue: number) => {
@@ -90,24 +72,9 @@ const OnceAdayDose: FC = () => {
     return (
       <TouchableOpacity style={styles.addMoreSettingsItems} onPress={handlePress}>
         <View style={styles.addMoreSettingsContentProperties}>
-          {index === 0 && instruction !== '' ? (
-            <TouchableOpacity onPress={() => clearInstruction()}>
-              <FontAwesome name="minus-circle" size={30} color={'red'} />
-            </TouchableOpacity>
-          ) : (
-            <Ionicons name="add-circle-sharp" size={30} color={colors.addCircle} />
-          )}
-
+          <Ionicons name="add-circle-sharp" size={30} color={colors.addCircle} />
           <Text style={styles.addMoreSettingsItemsText}>{item}</Text>
         </View>
-        {index === 0 && instruction !== '' && (
-          <AntDesign
-            name="check"
-            size={28}
-            color={colors.buttonBg}
-            style={styles.checkMarkIconPosition}
-          />
-        )}
       </TouchableOpacity>
     );
   };
@@ -115,15 +82,55 @@ const OnceAdayDose: FC = () => {
   return (
     <View style={styles.container}>
       <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
-      <View style={styles.imagePosition}>
-        <MedicineLogo />
-      </View>
+      <MedicineLogo />
       <View style={styles.headingPosition}>
         <Header mainHeader="When do you need to take the dose?" />
       </View>
 
       {/* Dose Chips */}
-      <View style={styles.chipPosition}>
+      <View style={styles.firstIntakechipHeadingPosition}>
+        <Header subHeader="First intake" />
+      </View>
+      <View style={styles.firstIntakeChipPosition}>
+        <View style={styles.chip}>
+          <View style={styles.chipProperties}>
+            <View style={styles.chipContentProperties}>
+              {selectedTime !== '' && (
+                <TouchableOpacity onPress={() => clearTimeSelection()}>
+                  <FontAwesome name="minus-circle" size={30} color={'red'}></FontAwesome>
+                </TouchableOpacity>
+              )}
+              <Text style={styles.chipText}>Time</Text>
+            </View>
+            <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
+              <Text style={styles.selectButtonText}>
+                {selectedTime === '' ? 'Select' : selectedTime}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.chip}>
+          <View style={styles.chipProperties}>
+            <View style={styles.chipContentProperties}>
+              {doseInput !== 0 && (
+                <TouchableOpacity onPress={() => clearDoseSelection()}>
+                  <FontAwesome name="minus-circle" size={30} color={'red'}></FontAwesome>
+                </TouchableOpacity>
+              )}
+              <Text style={styles.chipText}>Dose</Text>
+            </View>
+
+            <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDose()}>
+              <Text style={styles.selectButtonText}>{doseInput === 0 ? 'Select' : doseInput}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.secondIntakechipHeadingPosition}>
+        <Header subHeader="Second intake" />
+      </View>
+      <View style={styles.secondIntakeChipPosition}>
         <View style={styles.chip}>
           <View style={styles.chipProperties}>
             <View style={styles.chipContentProperties}>
@@ -219,4 +226,4 @@ const OnceAdayDose: FC = () => {
   );
 };
 
-export default OnceAdayDose;
+export default TwiceAdayDose;
