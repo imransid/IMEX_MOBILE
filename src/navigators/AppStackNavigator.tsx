@@ -23,7 +23,8 @@ import {
   PasswordChanged,
   ResetPassword,
   ScanQrCode,
-  SetTreatmentDuration
+  SetTreatmentDuration,
+  DoctorAppointments
 } from '../Screens';
 
 const Stack = createStackNavigator<AppStackParamList>();
@@ -120,6 +121,11 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'MedicineReminders'}
         component={MedicineReminders}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'DoctorAppointments'}
+        component={DoctorAppointments}
       />
     </Stack.Navigator>
   );
