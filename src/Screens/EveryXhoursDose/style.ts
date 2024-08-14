@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
     color: colors.mainText,
     marginLeft: scale(20)
   },
+  addMoreSettingsItemsPosition: {
+    marginTop: verticalScale(-40)
+  },
   buttonPosition: {
     bottom: verticalScale(18),
     position: 'absolute'

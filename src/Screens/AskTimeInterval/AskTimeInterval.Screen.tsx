@@ -84,7 +84,7 @@ const AskTimeInterval: FC = () => {
       )}
 
       {selectedNumber !== '' && (
-        <View style={styles.settingsAndButtonContainer}>
+        <View style={styles.buttonContainer}>
           <View style={styles.buttonPosition}>
             <CustomButton
               onPress={handleNext}

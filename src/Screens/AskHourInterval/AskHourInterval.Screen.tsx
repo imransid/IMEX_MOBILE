@@ -27,7 +27,7 @@ const AskHourInterval: FC = () => {
   };
 
   const handleNext: any = () => {
-    navigation.navigate('XtimesAdayDose' as never);
+    navigation.navigate('EveryXhoursDose' as never);
   };
 
   const handleValueChange: any = (data: string, selectedIndex: number) => {

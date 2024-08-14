@@ -5,13 +5,13 @@ import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import addMoreSettings from '../../utils/addMoreSettings';
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import DoseInputModal from '../../Components/DoseInputModal/DoseInputModal';
 import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
-import addMoreSettings from '../../utils/addMoreSettings';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './style';
 
 interface addMoreSettingsProps {
@@ -19,7 +19,7 @@ interface addMoreSettingsProps {
   index: number;
 }
 
-const XtimesAdayDose: FC = () => {
+const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
   const [selectedTime, setSelectedTime] = useState('');
   const [date, setDate] = useState(new Date());
@@ -176,4 +176,4 @@ const XtimesAdayDose: FC = () => {
   );
 };
 
-export default XtimesAdayDose;
+export default WeeklyDoseDetails;

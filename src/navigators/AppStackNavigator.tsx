@@ -33,6 +33,7 @@ import {
   ThreeTimesAdayDose,
   TwiceAdayDose,
   WeeklyDose,
+  WeeklyDoseDetails,
   XtimesAdayDose
 } from '../Screens';
 
@@ -178,6 +179,11 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'WeeklyDose'}
         component={WeeklyDose}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'WeeklyDoseDetails'}
+        component={WeeklyDoseDetails}
       />
     </Stack.Navigator>
   );

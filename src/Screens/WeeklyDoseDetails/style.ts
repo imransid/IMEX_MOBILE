@@ -19,6 +19,12 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5),
     width: scale(330)
   },
+  addMoreSettingsHeaderPosition: {
+    marginTop: verticalScale(30)
+  },
+  addMoreSettingsItemsPosition: {
+    marginTop: verticalScale(-40)
+  },
   addMoreSettingsItemsText: {
     color: colors.mainText,
     marginLeft: scale(20)
@@ -54,12 +60,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1
   },
-  numberPicker: {
-    alignItems: 'center',
-    height: verticalScale(100),
-    justifyContent: 'center',
-    width: scale(200)
-  },
   numberPickerText: {
     fontSize: moderateScale(20),
     fontWeight: '400'
@@ -83,10 +83,11 @@ const styles = StyleSheet.create({
   selectButtonText: {
     color: colors.buttonBg
   },
-  buttonContainer: {
+  settingsAndButtonContainer: {
     alignItems: 'center',
     flex: 1
-  }
+  },
+  
 });
 
 export default styles;

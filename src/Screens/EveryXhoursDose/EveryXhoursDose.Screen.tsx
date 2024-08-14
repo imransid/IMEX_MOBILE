@@ -1,18 +1,23 @@
 import React, { type FC, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import DoseInputModal from '../../Components/DoseInputModal/DoseInputModal';
 import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
-
+import addMoreSettings from '../../utils/addMoreSettings';
 import styles from './style';
+
+interface addMoreSettingsProps {
+  item: string;
+  index: number;
+}
 
 const EveryXhoursDose: FC = () => {
   const navigation = useNavigation();
@@ -47,6 +52,31 @@ const EveryXhoursDose: FC = () => {
   const handleNext: any = () => {
     navigation.navigate('AddedMedicine' as never);
   };
+
+  const RenderItems: React.FC<addMoreSettingsProps> = ({ item, index }) => {
+    const handlePress: any = () => {
+      if (index === 0) {
+        navigation.navigate('AddInstructions' as never);
+      } else if (index === 1) {
+        navigation.navigate('SetTreatmentDuration' as never);
+      } else if (index === 2) {
+        navigation.navigate('MedicineReminders' as never);
+      } else if (index === 3) {
+        navigation.navigate('DoctorAppointments' as never);
+      } else if (index === 4) {
+        navigation.navigate('AddPrescription' as never);
+      }
+    };
+    return (
+      <TouchableOpacity style={styles.addMoreSettingsItems} onPress={handlePress}>
+        <View style={styles.addMoreSettingsContentProperties}>
+          <Ionicons name="add-circle-sharp" size={30} color={colors.addCircle} />
+          <Text style={styles.addMoreSettingsItemsText}>{item}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
@@ -125,6 +155,14 @@ const EveryXhoursDose: FC = () => {
       {/* Add More Settings */}
       {selectedTime !== '' && doseInput !== 0 && (
         <View style={styles.settingsAndButtonContainer}>
+          <Header subHeader="Would you like to add more settings?" />
+          <FlatList
+            style={styles.addMoreSettingsItemsPosition}
+            data={addMoreSettings}
+            renderItem={({ item, index }) => (
+              <RenderItems item={item} index={index} key={index.toString()} />
+            )}
+          />
           <View style={styles.buttonPosition}>
             <CustomButton
               onPress={handleNext}
