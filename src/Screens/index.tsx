@@ -21,6 +21,7 @@ import { ResetPassword } from './ResetPassword';
 import { ScanQrCode } from './ScanQrCode';
 import { SetTreatmentDuration } from './SetTreatmentDuration';
 import { SplashScreen } from './SplashScreen';
+import { ThreeTimesAdayDose } from './ThreeTimesAdayDose';
 import { TwiceAdayDose } from './TwiceADayDose';
 
 export {
@@ -47,5 +48,6 @@ export {
   ScanQrCode,
   SetTreatmentDuration,
   SplashScreen,
+  ThreeTimesAdayDose,
   TwiceAdayDose
 };
