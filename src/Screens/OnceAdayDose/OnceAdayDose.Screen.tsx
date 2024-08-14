@@ -79,6 +79,8 @@ const OnceAdayDose: FC = () => {
         navigation.navigate('AddInstructions' as never);
       } else if (index === 1) {
         navigation.navigate('SetTreatmentDuration' as never);
+      } else if (index === 2) {
+        navigation.navigate('MedicineReminders' as never);
       }
     };
     return (
