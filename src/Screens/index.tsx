@@ -3,11 +3,13 @@ import { AddInstructions } from './AddInstructions';
 import { AddMedicineManually } from './AddMedicineManually';
 import { AddMedicineStrength } from './AddMedicineStrength';
 import { AddPrescription } from './AddPrescription';
+import { AskHourInterval } from './AskHourInterval';
 import { AskTimeInterval } from './AskTimeInterval';
 import { CameraScanner } from './CameraScanner';
 import { CreateAccount } from './CreateAccount';
 import { DoctorAppointments } from './DoctorAppointments';
 import { EnterOtp } from './EnterOtp';
+import { EveryXhoursDose } from './EveryXhoursDose';
 import { ForgotPassword } from './ForgotPassword';
 import { FourTimesAdayDose } from './FourTimesAdayDose';
 import { Login } from './Login';
@@ -33,11 +35,13 @@ export {
   AddMedicineManually,
   AddMedicineStrength,
   AddPrescription,
+  AskHourInterval,
   AskTimeInterval,
   CameraScanner,
   CreateAccount,
   DoctorAppointments,
   EnterOtp,
+  EveryXhoursDose,
   ForgotPassword,
   FourTimesAdayDose,
   Login,
