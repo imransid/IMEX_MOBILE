@@ -3,6 +3,7 @@ import { AddInstructions } from './AddInstructions';
 import { AddMedicineManually } from './AddMedicineManually';
 import { AddMedicineStrength } from './AddMedicineStrength';
 import { AddPrescription } from './AddPrescription';
+import { AskTimeInterval } from './AskTimeInterval';
 import { CameraScanner } from './CameraScanner';
 import { CreateAccount } from './CreateAccount';
 import { DoctorAppointments } from './DoctorAppointments';
@@ -24,6 +25,7 @@ import { SetTreatmentDuration } from './SetTreatmentDuration';
 import { SplashScreen } from './SplashScreen';
 import { ThreeTimesAdayDose } from './ThreeTimesAdayDose';
 import { TwiceAdayDose } from './TwiceADayDose';
+import { XtimesAdayDose } from './XtimesAdayDose';
 
 export {
   AddedMedicine,
@@ -31,6 +33,7 @@ export {
   AddMedicineManually,
   AddMedicineStrength,
   AddPrescription,
+  AskTimeInterval,
   CameraScanner,
   CreateAccount,
   DoctorAppointments,
@@ -51,5 +54,6 @@ export {
   SetTreatmentDuration,
   SplashScreen,
   ThreeTimesAdayDose,
-  TwiceAdayDose
+  TwiceAdayDose,
+  XtimesAdayDose
 };

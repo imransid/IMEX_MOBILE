@@ -9,6 +9,7 @@ import {
   AddMedicineManually,
   AddMedicineStrength,
   AddPrescription,
+  AskTimeInterval,
   CameraScanner,
   CreateAccount,
   DoctorAppointments,
@@ -28,14 +29,15 @@ import {
   ScanQrCode,
   SetTreatmentDuration,
   ThreeTimesAdayDose,
-  TwiceAdayDose
+  TwiceAdayDose,
+  XtimesAdayDose
 } from '../Screens';
 
 const Stack = createStackNavigator<AppStackParamList>();
 
 export const AppStackNavigator: FC = () => {
   return (
-    <Stack.Navigator initialRouteName={'MedicineDailyDoses'} screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName="AskTimeInterval" screenOptions={{ headerShown: false }}>
       <Stack.Screen name={'ScanQrCodeScreen'} component={ScanQrCode} />
       <Stack.Screen name={'CameraScanner'} component={CameraScanner} />
       <Stack.Screen name={'MedicineDetails'} component={MedicineDetails} />
@@ -148,6 +150,16 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'FourTimesAdayDose'}
         component={FourTimesAdayDose}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'AskTimeInterval'}
+        component={AskTimeInterval}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'XtimesAdayDose'}
+        component={XtimesAdayDose}
       />
     </Stack.Navigator>
   );

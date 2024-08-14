@@ -10534,6 +10534,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-wheel-scrollview-picker@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "react-native-wheel-scrollview-picker@npm:2.0.4"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-native": "*"
+    react: "*"
+    react-native: "*"
+    typescript: "*"
+  checksum: 868d24be63b4b1f75597304917552ede67e4683e51d5666188c93c376935cd5e3450c50a54d87112f0c21212efea16fe435e645042ad68f7dbb10f1a60254e45
+  languageName: node
+  linkType: hard
+
 "react-native@npm:0.74.3":
   version: 0.74.3
   resolution: "react-native@npm:0.74.3"
@@ -12002,6 +12015,7 @@ __metadata:
     react-native-svg-transformer: ^1.5.0
     react-native-vector-icons: ^10.1.0
     react-native-vision-camera: ^4.5.1
+    react-native-wheel-scrollview-picker: ^2.0.4
     react-redux: ^9.1.2
     react-test-renderer: 18.2.0
     redux-logger: ^3.0.6
