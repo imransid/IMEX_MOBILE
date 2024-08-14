@@ -9,9 +9,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: scale(20)
   },
-  addMoreSettingsHeaderPosition: {
-    marginTop: verticalScale(30)
-  },
   addMoreSettingsItems: {
     alignItems: 'center',
     backgroundColor: colors.textInput,
@@ -22,9 +19,6 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5),
     width: scale(330)
   },
-  addMoreSettingsItemsPosition: {
-    marginTop: verticalScale(-40)
-  },
   addMoreSettingsItemsText: {
     color: colors.mainText,
     marginLeft: scale(20)
@@ -32,10 +26,6 @@ const styles = StyleSheet.create({
   buttonPosition: {
     bottom: verticalScale(18),
     position: 'absolute'
-  },
-  checkMarkIconPosition: {
-    position: 'absolute',
-    right: scale(20)
   },
   chip: {
     backgroundColor: colors.textInput,
@@ -64,27 +54,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1
   },
-  firstIntakeChipPosition: {
-    marginTop: verticalScale(-110)
-  },
-  firstIntakechipHeadingPosition: {
-    marginBottom: verticalScale(8),
-    marginRight: scale(245),
-    top: verticalScale(-50)
-  },
-  headingPosition: {
-    marginTop: verticalScale(50)
-  },
   progressBarPosition: {
     borderWidth: scale(0)
   },
-  secondIntakeChipPosition: {
-    marginTop: verticalScale(-30)
-  },
-  secondIntakechipHeadingPosition: {
-    marginBottom: verticalScale(8),
-    marginRight: scale(222),
-    top: verticalScale(28)
+  scrollViewContainer: {
+    maxHeight: verticalScale(230)
   },
   selectButton: {
     alignItems: 'center',
@@ -102,14 +76,6 @@ const styles = StyleSheet.create({
   settingsAndButtonContainer: {
     alignItems: 'center',
     flex: 1
-  },
-  thirdIntakeChipPosition: {
-    marginTop: verticalScale(-30)
-  },
-  thirdIntakechipHeadingPosition: {
-    marginBottom: verticalScale(8),
-    marginRight: scale(232),
-    top: verticalScale(28)
   }
 });
 

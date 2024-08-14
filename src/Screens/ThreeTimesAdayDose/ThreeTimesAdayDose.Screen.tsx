@@ -1,6 +1,7 @@
 import React, { type FC, useState } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
+import { ScrollView } from 'react-native-gesture-handler';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -83,15 +84,13 @@ const ThreeTimesAdayDose: FC = () => {
     <View style={styles.container}>
       <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
       <MedicineLogo />
-      <View style={styles.headingPosition}>
+      <View>
         <Header mainHeader="When do you need to take the dose?" />
       </View>
 
-      {/* Dose Chips */}
-      <View style={styles.firstIntakechipHeadingPosition}>
+      {/* Time and Dose Chips */}
+      <ScrollView style={styles.scrollViewContainer}>
         <Header subHeader="First intake" />
-      </View>
-      <View style={styles.firstIntakeChipPosition}>
         <View style={styles.chip}>
           <View style={styles.chipProperties}>
             <View style={styles.chipContentProperties}>
@@ -119,18 +118,13 @@ const ThreeTimesAdayDose: FC = () => {
               )}
               <Text style={styles.chipText}>Dose</Text>
             </View>
-
             <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDose()}>
               <Text style={styles.selectButtonText}>{doseInput === 0 ? 'Select' : doseInput}</Text>
             </TouchableOpacity>
           </View>
         </View>
-      </View>
 
-      <View style={styles.secondIntakechipHeadingPosition}>
         <Header subHeader="Second intake" />
-      </View>
-      <View style={styles.secondIntakeChipPosition}>
         <View style={styles.chip}>
           <View style={styles.chipProperties}>
             <View style={styles.chipContentProperties}>
@@ -164,12 +158,8 @@ const ThreeTimesAdayDose: FC = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
 
-      <View style={styles.thirdIntakechipHeadingPosition}>
         <Header subHeader="Third intake" />
-      </View>
-      <View style={styles.thirdIntakeChipPosition}>
         <View style={styles.chip}>
           <View style={styles.chipProperties}>
             <View style={styles.chipContentProperties}>
@@ -197,13 +187,12 @@ const ThreeTimesAdayDose: FC = () => {
               )}
               <Text style={styles.chipText}>Dose</Text>
             </View>
-
             <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDose()}>
               <Text style={styles.selectButtonText}>{doseInput === 0 ? 'Select' : doseInput}</Text>
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </ScrollView>
 
       {/* Time Picker modal */}
       {open && (
@@ -242,11 +231,8 @@ const ThreeTimesAdayDose: FC = () => {
       {/* Add More Settings */}
       {selectedTime !== '' && doseInput !== 0 && (
         <View style={styles.settingsAndButtonContainer}>
-          <View style={styles.addMoreSettingsHeaderPosition}>
-            <Header subHeader="Would you like to add more settings?" />
-          </View>
+          <Header subHeader="Would you like to add more settings?" />
           <FlatList
-            style={styles.addMoreSettingsItemsPosition}
             data={addMoreSettings}
             renderItem={({ item, index }) => (
               <RenderItems item={item} index={index} key={index.toString()} />
