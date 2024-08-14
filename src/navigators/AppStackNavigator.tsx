@@ -4,12 +4,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { type AppStackParamList } from '@/models/routePageModel';
 
 import {
+  AddedMedicine,
   AddInstructions,
-  AddMedicine,
   AddMedicineManually,
   AddMedicineStrength,
+  AddPrescription,
   CameraScanner,
   CreateAccount,
+  DoctorAppointments,
   EnterOtp,
   ForgotPassword,
   Login,
@@ -24,8 +26,7 @@ import {
   ResetPassword,
   ScanQrCode,
   SetTreatmentDuration,
-  DoctorAppointments,
-  AddPrescription
+  TwiceAdayDose
 } from '../Screens';
 
 const Stack = createStackNavigator<AppStackParamList>();
@@ -83,8 +84,8 @@ export const AppStackNavigator: FC = () => {
       />
       <Stack.Screen
         options={{ headerShown: true, headerTitle: '' }}
-        name={'AddMedicine'}
-        component={AddMedicine}
+        name={'AddedMedicine'}
+        component={AddedMedicine}
       />
       <Stack.Screen
         options={{ headerShown: true, headerTitle: '' }}
@@ -130,6 +131,11 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'AddPrescription'}
         component={AddPrescription}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'TwiceAdayDose'}
+        component={TwiceAdayDose}
       />
     </Stack.Navigator>
   );

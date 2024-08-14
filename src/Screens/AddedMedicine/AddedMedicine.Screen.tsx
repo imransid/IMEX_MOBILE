@@ -20,7 +20,7 @@ import styles from './style';
 const duration = 2000;
 const easing = Easing.bezier(0.25, -0.5, 0.25, 1);
 
-const PasswordChanged: FC = () => {
+const AddedMedicine: FC = () => {
   const navigation = useNavigation();
   const sv = useSharedValue(0);
   const scale = useSharedValue(1);
@@ -68,4 +68,4 @@ const PasswordChanged: FC = () => {
   );
 };
 
-export default PasswordChanged;
+export default AddedMedicine;

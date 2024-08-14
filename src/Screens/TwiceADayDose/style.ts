@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.textInput,
     borderRadius: scale(6),
     borderWidth: scale(0.15),
-    height: verticalScale(43),
+    height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
@@ -50,9 +50,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     marginLeft: scale(20)
-  },
-  chipPosition: {
-    marginTop: verticalScale(-60)
   },
   chipProperties: {
     flexDirection: 'row',
@@ -67,14 +64,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1
   },
-  headingPosition: {
-    marginTop: verticalScale(70)
+  firstIntakeChipPosition: {
+    marginTop: verticalScale(-110)
   },
-  imagePosition: {
-    top: verticalScale(10)
+  firstIntakechipHeadingPosition: {
+    marginBottom: verticalScale(8),
+    marginRight: scale(245),
+    top: verticalScale(-50)
+  },
+  headingPosition: {
+    marginTop: verticalScale(50)
   },
   progressBarPosition: {
     borderWidth: scale(0)
+  },
+  secondIntakeChipPosition: {
+    marginTop: verticalScale(-30)
+  },
+  secondIntakechipHeadingPosition: {
+    marginBottom: verticalScale(8),
+    marginRight: scale(222),
+    top: verticalScale(28)
   },
   selectButton: {
     alignItems: 'center',
