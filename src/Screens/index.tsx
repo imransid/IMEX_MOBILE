@@ -8,6 +8,7 @@ import { CreateAccount } from './CreateAccount';
 import { DoctorAppointments } from './DoctorAppointments';
 import { EnterOtp } from './EnterOtp';
 import { ForgotPassword } from './ForgotPassword';
+import { FourTimesAdayDose } from './FourTimesAdayDose';
 import { Login } from './Login';
 import { MedicineAddingMethod } from './MedicineAddingMethod';
 import { MedicineDailyDoses } from './MedicineDailyDoses';
@@ -35,6 +36,7 @@ export {
   DoctorAppointments,
   EnterOtp,
   ForgotPassword,
+  FourTimesAdayDose,
   Login,
   MedicineAddingMethod,
   MedicineDailyDoses,

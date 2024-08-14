@@ -25,6 +25,8 @@ const MedicineDailyDoses: FC = () => {
         navigation.navigate('TwiceAdayDose' as never);
       } else if (index === 2) {
         navigation.navigate('ThreeTimesAdayDose' as never);
+      } else if (index === 3) {
+        navigation.navigate('FourTimesAdayDose' as never);
       }
     };
     return (

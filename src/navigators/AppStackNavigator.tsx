@@ -14,6 +14,7 @@ import {
   DoctorAppointments,
   EnterOtp,
   ForgotPassword,
+  FourTimesAdayDose,
   Login,
   MedicineAddingMethod,
   MedicineDailyDoses,
@@ -142,6 +143,11 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'ThreeTimesAdayDose'}
         component={ThreeTimesAdayDose}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'FourTimesAdayDose'}
+        component={FourTimesAdayDose}
       />
     </Stack.Navigator>
   );
