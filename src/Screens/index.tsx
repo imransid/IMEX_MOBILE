@@ -30,6 +30,8 @@ import { TwiceAdayDose } from './TwiceADayDose';
 import { WeeklyDose } from './WeeklyDose';
 import { XtimesAdayDose } from './XtimesAdayDose';
 import { WeeklyDoseDetails } from './WeeklyDoseDetails';
+import { MonthlyDose } from './MonthlyDose';
+import { MonthlyDoseDetails } from './MonthlyDoseDetails';
 
 export {
   AddedMedicine,
@@ -63,5 +65,7 @@ export {
   TwiceAdayDose,
   WeeklyDose,
   XtimesAdayDose,
-  WeeklyDoseDetails
+  WeeklyDoseDetails,
+  MonthlyDose,
+  MonthlyDoseDetails
 };

@@ -3,7 +3,7 @@ import { TouchableOpacity, View, Text } from 'react-native';
 import { DayPicker } from 'react-native-picker-weekday';
 import * as Progress from 'react-native-progress';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import DailyDoseLogo from '../../assets/medicine-daily-dose-time';
+import DailyDoseLogo from '../../assets/medicine-daily-dose';
 import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';

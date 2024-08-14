@@ -3,7 +3,7 @@ import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 import { useNavigation } from '@react-navigation/native';
 
-import DailyDoseLogo from '../../assets/medicine-daily-dose-time';
+import DailyDoseLogo from '../../assets/medicine-daily-dose';
 import Header from '../../Components/Header/Header';
 import medicineDailyDoseItems from '../../utils/medicineDailyDoseItems';
 

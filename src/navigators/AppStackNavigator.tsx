@@ -25,6 +25,8 @@ import {
   MedicineDoses,
   MedicineReminders,
   MedicineType,
+  MonthlyDose,
+  MonthlyDoseDetails,
   OnceAdayDose,
   PasswordChanged,
   ResetPassword,
@@ -184,6 +186,16 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'WeeklyDoseDetails'}
         component={WeeklyDoseDetails}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'MonthlyDose'}
+        component={MonthlyDose}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'MonthlyDoseDetails'}
+        component={MonthlyDoseDetails}
       />
     </Stack.Navigator>
   );
