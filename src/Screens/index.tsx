@@ -9,6 +9,8 @@ import { CameraScanner } from './CameraScanner';
 import { CreateAccount } from './CreateAccount';
 import { DoctorAppointments } from './DoctorAppointments';
 import { EnterOtp } from './EnterOtp';
+import { EveryXdaysDose } from './EveryXdaysDose';
+import { EveryXdaysDoseDetails } from './EveryXdaysDoseDetails';
 import { EveryXhoursDose } from './EveryXhoursDose';
 import { ForgotPassword } from './ForgotPassword';
 import { FourTimesAdayDose } from './FourTimesAdayDose';
@@ -19,6 +21,8 @@ import { MedicineDetails } from './MedicineDetails';
 import { MedicineDoses } from './MedicineDoses';
 import { MedicineReminders } from './MedicineReminders';
 import { MedicineType } from './MedicineType';
+import { MonthlyDose } from './MonthlyDose';
+import { MonthlyDoseDetails } from './MonthlyDoseDetails';
 import { OnceAdayDose } from './OnceAdayDose';
 import { PasswordChanged } from './PasswordChanged';
 import { ResetPassword } from './ResetPassword';
@@ -28,10 +32,8 @@ import { SplashScreen } from './SplashScreen';
 import { ThreeTimesAdayDose } from './ThreeTimesAdayDose';
 import { TwiceAdayDose } from './TwiceADayDose';
 import { WeeklyDose } from './WeeklyDose';
-import { XtimesAdayDose } from './XtimesAdayDose';
 import { WeeklyDoseDetails } from './WeeklyDoseDetails';
-import { MonthlyDose } from './MonthlyDose';
-import { MonthlyDoseDetails } from './MonthlyDoseDetails';
+import { XtimesAdayDose } from './XtimesAdayDose';
 
 export {
   AddedMedicine,
@@ -45,6 +47,8 @@ export {
   CreateAccount,
   DoctorAppointments,
   EnterOtp,
+  EveryXdaysDose,
+  EveryXdaysDoseDetails,
   EveryXhoursDose,
   ForgotPassword,
   FourTimesAdayDose,
@@ -55,6 +59,8 @@ export {
   MedicineDoses,
   MedicineReminders,
   MedicineType,
+  MonthlyDose,
+  MonthlyDoseDetails,
   OnceAdayDose,
   PasswordChanged,
   ResetPassword,
@@ -64,8 +70,6 @@ export {
   ThreeTimesAdayDose,
   TwiceAdayDose,
   WeeklyDose,
-  XtimesAdayDose,
   WeeklyDoseDetails,
-  MonthlyDose,
-  MonthlyDoseDetails
+  XtimesAdayDose
 };

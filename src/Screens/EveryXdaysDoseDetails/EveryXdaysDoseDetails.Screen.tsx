@@ -21,7 +21,7 @@ interface addMoreSettingsProps {
   index: number;
 }
 
-const EveryXhoursDose: FC = () => {
+const EveryXdaysDoseDetails: FC = () => {
   const navigation = useNavigation();
   const [selectedTime, setSelectedTime] = useState('');
   const [date, setDate] = useState(new Date());
@@ -83,8 +83,9 @@ const EveryXhoursDose: FC = () => {
     <View style={styles.container}>
       <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
       <MedicineLogo />
-
-      <Header mainHeader="When do you need to take the dose?" />
+      <View>
+        <Header mainHeader="When do you need to take the dose?" />
+      </View>
 
       <View style={styles.chip}>
         <View style={styles.chipProperties}>
@@ -177,4 +178,4 @@ const EveryXhoursDose: FC = () => {
   );
 };
 
-export default EveryXhoursDose;
+export default EveryXdaysDoseDetails;
