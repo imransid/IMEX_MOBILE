@@ -4,24 +4,13 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
-  container: {
+  buttonContainer: {
     alignItems: 'center',
     flex: 1
   },
-  progressBarPosition: {
-    borderWidth: scale(0),
-    marginTop: verticalScale(0.1)
-  },
-  weekDayPicker: {
-    backgroundColor: colors.textInput,
-    borderRadius: scale(6),
-    borderWidth: scale(0.17),
-    height: verticalScale(42),
-    width: scale(330)
-  },
-  weekDayText: {
-    fontSize: moderateScale(14),
-    fontWeight: '500'
+  buttonPosition: {
+    bottom: verticalScale(18),
+    position: 'absolute'
   },
   chip: {
     backgroundColor: colors.textInput,
@@ -46,6 +35,24 @@ const styles = StyleSheet.create({
     color: colors.mainText,
     marginLeft: scale(10)
   },
+  container: {
+    alignItems: 'center',
+    flex: 1
+  },
+  numberPicker: {
+    alignItems: 'center',
+    height: verticalScale(100),
+    justifyContent: 'center',
+    width: scale(200)
+  },
+  numberPickerText: {
+    fontSize: moderateScale(20),
+    fontWeight: '400'
+  },
+  progressBarPosition: {
+    borderWidth: scale(0),
+    marginTop: verticalScale(0.1)
+  },
   selectButton: {
     alignItems: 'center',
     backgroundColor: colors.selectButtonBg,
@@ -59,24 +66,27 @@ const styles = StyleSheet.create({
   selectButtonText: {
     color: colors.buttonBg
   },
-  numberPicker: {
-    alignItems: 'center',
-    height: verticalScale(100),
-    justifyContent: 'center',
-    width: scale(200)
+  selectedDaysList: {
+    maxHeight: '15%'
   },
-  numberPickerText: {
-    fontSize: moderateScale(20),
-    fontWeight: '400'
+  selectedDaysText: {
+    color: colors.buttonBg,
+    fontSize: moderateScale(14),
+    fontWeight: '400',
+    marginLeft: scale(10),
+    marginTop: verticalScale(5)
   },
-  buttonContainer: {
-    alignItems: 'center',
-    flex: 1
+  weekDayPicker: {
+    backgroundColor: colors.textInput,
+    borderRadius: scale(6),
+    borderWidth: scale(0.17),
+    height: verticalScale(42),
+    width: scale(330)
   },
-  buttonPosition: {
-    bottom: verticalScale(18),
-    position: 'absolute'
-  },
+  weekDayText: {
+    fontSize: moderateScale(14),
+    fontWeight: '500'
+  }
 });
 
 export default styles;

@@ -1,21 +1,35 @@
 import React, { type FC, useState } from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { DayPicker } from 'react-native-picker-weekday';
 import * as Progress from 'react-native-progress';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import ScrollPicker from 'react-native-wheel-scrollview-picker';
+import { useNavigation } from '@react-navigation/native';
+
 import DailyDoseLogo from '../../assets/medicine-daily-dose';
+import CustomButton from '../../Components/CustomButton/CustomButton';
 import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import styles from './style';
-import { useNavigation } from '@react-navigation/native';
-import ScrollPicker from 'react-native-wheel-scrollview-picker';
-import CustomButton from '../../Components/CustomButton/CustomButton';
+
+// Mapping of day numbers to names
+const dayNames: Record<number, string> = {
+  1: 'Sunday',
+  2: 'Monday',
+  3: 'Tuesday',
+  4: 'Wednesday',
+  5: 'Thusday',
+  6: 'Friday',
+  7: 'Saturday'
+};
 
 const WeeklyDose: FC = () => {
   const navigation = useNavigation();
   const [selectedNumber, setSelectedNumber] = useState('');
-  const [weekdays, setWeekdays] = useState([-1]);
+  const [weekdays, setWeekdays] = useState<number[]>([]);
+  const [selectedDay, setSelectedDay] = useState<Record<number, { selected: boolean }>>({});
   const [open, setOpen] = useState(false);
 
   const handleSelectNumber: any = () => {
@@ -30,9 +44,25 @@ const WeeklyDose: FC = () => {
     navigation.navigate('WeeklyDoseDetails' as never);
   };
 
-  const handleValueChange: any = (data: string, selectedIndex: number) => {
+  const handleValueChange: any = (data: string) => {
     setSelectedNumber(data);
     setOpen(false);
+  };
+
+  // Callback for when a weekday is selected
+  const handleWeekdayChange: any = (newWeekdays: number[]) => {
+    setWeekdays(newWeekdays);
+
+    // Updating the selectedDay state
+    const newSelectedDays = newWeekdays.reduce<Record<number, { selected: boolean }>>(
+      (acc, day) => {
+        acc[day] = { selected: true };
+        return acc;
+      },
+      {}
+    );
+
+    setSelectedDay(newSelectedDays);
   };
 
   return (
@@ -45,11 +75,26 @@ const WeeklyDose: FC = () => {
         wrapperStyles={styles.weekDayPicker}
         dayTextStyle={styles.weekDayText}
         weekdays={weekdays}
-        setWeekdays={setWeekdays}
+        setWeekdays={handleWeekdayChange}
         activeColor={colors.buttonBg}
         textColor="white"
         inactiveColor="grey"
       />
+
+      <FlatList
+        data={Object.keys(selectedDay)}
+        keyExtractor={item => item}
+        renderItem={({ item }) => (
+          <Text style={styles.selectedDaysText}>
+            {dayNames[Number(item)]}
+            {','}
+          </Text>
+        )}
+        numColumns={4}
+        scrollEnabled={true}
+        style={styles.selectedDaysList}
+      />
+
       <Header subHeader="How many times of each day" />
       <View style={styles.chip}>
         <View style={styles.chipProperties}>
