@@ -13,7 +13,7 @@ import { colors } from '../../theme/colors';
 
 import styles from './style';
 
-const EveryXweeksDose: FC = () => {
+const EveryXmonthsDose: FC = () => {
   const navigation = useNavigation();
   const [open, setOpen] = useState(false);
   const [openTimeInterval, setOpenTimeInterval] = useState(false);
@@ -58,7 +58,7 @@ const EveryXweeksDose: FC = () => {
   };
 
   const handleNext: any = () => {
-    navigation.navigate('EveryXweeksDoseDetails' as never);
+    navigation.navigate('EveryXmonthsDoseDetails' as never);
   };
   return (
     <View style={styles.container}>
@@ -72,7 +72,7 @@ const EveryXweeksDose: FC = () => {
                 <FontAwesome name="minus-circle" size={30} color={'red'}></FontAwesome>
               </TouchableOpacity>
             )}
-            <Text style={styles.chipText}>Week</Text>
+            <Text style={styles.chipText}>Month</Text>
           </View>
           <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDayNumber()}>
             <Text style={styles.selectButtonText}>
@@ -203,4 +203,4 @@ const EveryXweeksDose: FC = () => {
   );
 };
 
-export default EveryXweeksDose;
+export default EveryXmonthsDose;

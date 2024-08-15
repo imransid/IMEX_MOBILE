@@ -29,6 +29,8 @@ const MedicineDoses: FC = () => {
         navigation.navigate('EveryXdaysDose' as never);
       } else if (index === 4) {
         navigation.navigate('EveryXweeksDose' as never);
+      } else if (index === 5) {
+        navigation.navigate('EveryXmonthsDose' as never);
       }
     };
     return (

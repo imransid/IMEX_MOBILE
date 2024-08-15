@@ -18,6 +18,8 @@ import {
   EveryXdaysDose,
   EveryXdaysDoseDetails,
   EveryXhoursDose,
+  EveryXmonthsDose,
+  EveryXmonthsDoseDetails,
   EveryXweeksDose,
   EveryXweeksDoseDetails,
   ForgotPassword,
@@ -220,6 +222,16 @@ export const AppStackNavigator: FC = () => {
         options={{ headerShown: true, headerTitle: '' }}
         name={'EveryXweeksDoseDetails'}
         component={EveryXweeksDoseDetails}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'EveryXmonthsDose'}
+        component={EveryXmonthsDose}
+      />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '' }}
+        name={'EveryXmonthsDoseDetails'}
+        component={EveryXmonthsDoseDetails}
       />
     </Stack.Navigator>
   );
