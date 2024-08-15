@@ -12,6 +12,8 @@ import { EnterOtp } from './EnterOtp';
 import { EveryXdaysDose } from './EveryXdaysDose';
 import { EveryXdaysDoseDetails } from './EveryXdaysDoseDetails';
 import { EveryXhoursDose } from './EveryXhoursDose';
+import { EveryXweeksDose } from './EveryXweeksDose';
+import { EveryXweeksDoseDetails } from './EveryXweeksDoseDetails';
 import { ForgotPassword } from './ForgotPassword';
 import { FourTimesAdayDose } from './FourTimesAdayDose';
 import { Login } from './Login';
@@ -50,6 +52,8 @@ export {
   EveryXdaysDose,
   EveryXdaysDoseDetails,
   EveryXhoursDose,
+  EveryXweeksDose,
+  EveryXweeksDoseDetails,
   ForgotPassword,
   FourTimesAdayDose,
   Login,
