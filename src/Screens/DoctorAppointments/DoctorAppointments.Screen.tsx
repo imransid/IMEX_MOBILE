@@ -39,7 +39,7 @@ const DoctorAppointments: FC = () => {
   };
   const toggleSwitch: any = () => setIsEnabled(previousState => !previousState);
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.headingPosition}>
         <Header mainHeader="Appointment" />
       </View>
@@ -128,15 +128,15 @@ const DoctorAppointments: FC = () => {
           </View>
         </View>
       </View>
-      <View style={styles.buttonContainer}>
-        <View style={styles.buttonPosition}>
-          <CustomButton
-            onPress={handleNext}
-            icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
-            text="Save"
-          />
-        </View>
+
+      <View style={styles.NextbuttonPosition}>
+        <CustomButton
+          onPress={handleNext}
+          icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
+          text="Save"
+        />
       </View>
+
       {dateModalOpen && (
         <CalendarModal
           modalVisible={dateModalOpen}

@@ -1,10 +1,9 @@
 import React, { type FC, useState } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
 import MedicineLogo from '../../assets/medicine-logo';
@@ -12,14 +11,10 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 import DoseInputModal from '../../Components/DoseInputModal/DoseInputModal';
 import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
-import addMoreSettings from '../../utils/addMoreSettings';
 
 import styles from './style';
-
-interface addMoreSettingsProps {
-  item: string;
-  index: number;
-}
+import { ScrollView } from 'react-native-gesture-handler';
+import MoreSettings from '../../Components/MoreSettingsComponent/MoreSettingsComponent';
 
 const EveryXdaysDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -55,123 +50,101 @@ const EveryXdaysDoseDetails: FC = () => {
     navigation.navigate('AddedMedicine' as never);
   };
 
-  const RenderItems: React.FC<addMoreSettingsProps> = ({ item, index }) => {
-    const handlePress: any = () => {
-      if (index === 0) {
-        navigation.navigate('AddInstructions' as never);
-      } else if (index === 1) {
-        navigation.navigate('SetTreatmentDuration' as never);
-      } else if (index === 2) {
-        navigation.navigate('MedicineReminders' as never);
-      } else if (index === 3) {
-        navigation.navigate('DoctorAppointments' as never);
-      } else if (index === 4) {
-        navigation.navigate('AddPrescription' as never);
-      }
-    };
-    return (
-      <TouchableOpacity style={styles.addMoreSettingsItems} onPress={handlePress}>
-        <View style={styles.addMoreSettingsContentProperties}>
-          <Ionicons name="add-circle-sharp" size={30} color={colors.addCircle} />
-          <Text style={styles.addMoreSettingsItemsText}>{item}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   return (
     <View style={styles.container}>
       <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
-      <MedicineLogo />
-      <View>
-        <Header mainHeader="When do you need to take the dose?" />
-      </View>
-
-      <View style={styles.chip}>
-        <View style={styles.chipProperties}>
-          <View style={styles.chipContentProperties}>
-            {selectedTime !== '' && (
-              <TouchableOpacity onPress={() => clearTimeSelection()}>
-                <FontAwesome name="minus-circle" size={30} color={'red'}></FontAwesome>
-              </TouchableOpacity>
-            )}
-            <Text style={styles.chipText}>Time</Text>
-          </View>
-          <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
-            <Text style={styles.selectButtonText}>
-              {selectedTime === '' ? 'Select' : selectedTime}
-            </Text>
-          </TouchableOpacity>
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        <View style={styles.imagePosition}>
+          <MedicineLogo />
         </View>
-      </View>
-      <View style={styles.chip}>
-        <View style={styles.chipProperties}>
-          <View style={styles.chipContentProperties}>
-            {doseInput !== 0 && (
-              <TouchableOpacity onPress={() => clearDoseSelection()}>
-                <FontAwesome name="minus-circle" size={30} color={'red'}></FontAwesome>
-              </TouchableOpacity>
-            )}
-            <Text style={styles.chipText}>Dose</Text>
-          </View>
-          <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDose()}>
-            <Text style={styles.selectButtonText}>{doseInput === 0 ? 'Select' : doseInput}</Text>
-          </TouchableOpacity>
+        <View style={styles.headingPosition}>
+          <Header mainHeader="When do you need to take the dose?" />
         </View>
-      </View>
-
-      {/* Time Picker modal */}
-      {open && (
-        <DatePicker
-          modal
-          mode="time"
-          open={open}
-          date={date}
-          dividerColor="white"
-          onConfirm={date => {
-            setOpen(false);
-            setDate(date);
-            const timeStr = new Intl.DateTimeFormat('en-US', {
-              hour: 'numeric',
-              minute: '2-digit',
-              hour12: true
-            }).format(new Date(date));
-            setSelectedTime(timeStr);
-          }}
-          onCancel={() => {
-            setOpen(false);
-          }}
-          theme="dark"
-        />
-      )}
-
-      {/* Dose Input Modal */}
-      <DoseInputModal
-        numKeybaordType={true}
-        visible={isModalVisible}
-        onClose={() => {
-          setModalVisible(false);
-        }}
-        onSubmit={handleSubmit}></DoseInputModal>
-
-      {/* Add More Settings */}
-      {selectedTime !== '' && doseInput !== 0 && (
-        <View style={styles.settingsAndButtonContainer}>
-          <Header subHeader="Would you like to add more settings?" />
-          <FlatList
-            style={styles.addMoreSettingsItemsPosition}
-            data={addMoreSettings}
-            renderItem={({ item, index }) => (
-              <RenderItems item={item} index={index} key={index.toString()} />
-            )}
+        {/* Time and Dose Chips */}
+        <View style={styles.chipPosition}>
+          <View style={styles.chip}>
+            <View style={styles.chipProperties}>
+              <View style={styles.chipContentProperties}>
+                {selectedTime !== '' && (
+                  <TouchableOpacity onPress={() => clearTimeSelection()}>
+                    <FontAwesome name="minus-circle" size={30} color={'red'} />
+                  </TouchableOpacity>
+                )}
+                <Text style={styles.chipText}>Time</Text>
+              </View>
+              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
+                <Text style={styles.selectButtonText}>
+                  {selectedTime === '' ? 'Select' : selectedTime}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.chip}>
+            <View style={styles.chipProperties}>
+              <View style={styles.chipContentProperties}>
+                {doseInput !== 0 && (
+                  <TouchableOpacity onPress={() => clearDoseSelection()}>
+                    <FontAwesome name="minus-circle" size={30} color={'red'} />
+                  </TouchableOpacity>
+                )}
+                <Text style={styles.chipText}>Dose</Text>
+              </View>
+              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDose()}>
+                <Text style={styles.selectButtonText}>
+                  {doseInput === 0 ? 'Select' : doseInput}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        {/* Add More Settings */}
+        {selectedTime !== '' && doseInput !== 0 && (
+          <View>
+            <View style={styles.addMoreSettingsHeaderPosition}>
+              <Header subHeader="Would you like to add more settings?" />
+              <View style={styles.addMoresettingsContainer}>
+                <MoreSettings />
+              </View>
+            </View>
+          </View>
+        )}
+        {/* Time Picker Modal */}
+        {open && (
+          <DatePicker
+            modal
+            mode="time"
+            open={open}
+            date={date}
+            dividerColor="white"
+            onConfirm={date => {
+              setOpen(false);
+              setDate(date);
+              const timeStr = new Intl.DateTimeFormat('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+              }).format(new Date(date));
+              setSelectedTime(timeStr);
+            }}
+            onCancel={() => setOpen(false)}
+            theme="dark"
           />
-          <View style={styles.buttonPosition}>
-            <CustomButton
-              onPress={handleNext}
-              icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
-              text="Next"
-            />
-          </View>
+        )}
+        {/* Dose Input Modal */}
+        <DoseInputModal
+          numKeybaordType={true}
+          visible={isModalVisible}
+          onClose={() => setModalVisible(false)}
+          onSubmit={handleSubmit}
+        />
+      </ScrollView>
+      {selectedTime !== '' && doseInput !== 0 && (
+        <View style={styles.NextbuttonPosition}>
+          <CustomButton
+            onPress={handleNext}
+            icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
+            text="Next"
+          />
         </View>
       )}
     </View>

@@ -6,7 +6,8 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   askAboutAccount: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: verticalScale(10),
   },
   askAboutAccountText: {
     color: colors.typedText,
@@ -14,18 +15,15 @@ const styles = StyleSheet.create({
     fontWeight: '400'
   },
   container: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center'
+    flex: 1
   },
   headingPosition: {
-    top: verticalScale(60)
+    alignItems: 'center', 
   },
   inputHeader: {
     color: colors.header,
     fontSize: moderateScale(14),
     fontWeight: '500',
-    marginRight: scale(226)
   },
   inputText: {
     color: colors.typedText,
@@ -33,9 +31,13 @@ const styles = StyleSheet.create({
     fontWeight: '400'
   },
   scrollViewContainer: {
-    justifyContent: 'center'
+    paddingBottom: verticalScale(15)
   },
-  signIpText: {
+  SignInbuttonPosition: {
+    marginTop: verticalScale(25),
+    alignItems: 'center'
+  },
+  signUpText: {
     color: colors.typedText,
     fontSize: moderateScale(14),
     fontWeight: '400',
@@ -57,21 +59,33 @@ const styles = StyleSheet.create({
   },
   signUpWithIconsContainer: {
     flexDirection: 'row',
-    gap: 8,
+    gap: scale(8),
     justifyContent: 'center',
-    marginTop: verticalScale(8)
+    marginTop: verticalScale(15)
   },
-  signUpWithPart: {
+  signUpWithPartPosition: {
     alignItems: 'center',
+    marginTop: verticalScale(15),
+  },
+  signUpWithPart: { 
     flexDirection: 'row',
     gap: scale(16),
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   signUpWithText: {
     color: colors.mainText,
     fontSize: moderateScale(18),
     fontWeight: '400'
-  }
+  },
+  textInputComponentPosition: {
+    alignItems: 'center'
+  },
+  textInputComponentProperties: {
+    gap: verticalScale(6),
+    marginTop: verticalScale(12)
+  },
+
 });
 
 export default styles;

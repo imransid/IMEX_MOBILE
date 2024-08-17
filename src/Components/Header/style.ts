@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   subHeader: {
     color: colors.mainText,
     fontSize: moderateScale(16),
-    fontWeight: '400'
+    fontWeight: '400',
   }
 });
 

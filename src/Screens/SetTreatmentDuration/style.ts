@@ -4,17 +4,13 @@ import { scale, verticalScale } from 'react-native-size-matters';
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    alignItems: 'center',
-    flex: 1
-  },
-  buttonPosition: {
-    bottom: verticalScale(18),
-    position: 'absolute'
+  NextbuttonPosition: {
+    marginTop: verticalScale(25),
+    alignItems: 'center'
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(6),
+    borderRadius: scale(2),
     borderWidth: scale(0.15),
     height: verticalScale(43),
     justifyContent: 'center',
@@ -27,7 +23,8 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   chipPosition: {
-    marginTop: verticalScale(-40)
+    marginTop: verticalScale(10),
+    alignItems: 'center',
   },
   chipProperties: {
     flexDirection: 'row',
@@ -43,10 +40,12 @@ const styles = StyleSheet.create({
     flex: 1
   },
   headingPosition: {
-    top: verticalScale(60)
+    alignItems: 'center', 
+    top: verticalScale(30)
   },
   imagePosition: {
-    top: verticalScale(10)
+    top: verticalScale(30),
+    alignItems: 'center',
   },
   instructionProperties: {
     alignItems: 'center',
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
     color: colors.buttonBg
   },
   subHeadingPosition: {
-    marginTop: verticalScale(60)
+    marginTop: verticalScale(30)
   },
   treatmentDurationContainer: {
     backgroundColor: colors.textInput,

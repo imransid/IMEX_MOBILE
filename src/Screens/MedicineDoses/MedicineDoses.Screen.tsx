@@ -34,24 +34,27 @@ const MedicineDoses: FC = () => {
       }
     };
     return (
-      <TouchableOpacity style={styles.medicineDoseItems} onPress={handlePress}>
-        <Text style={styles.medicineDoseItemsText}>{item}</Text>
-      </TouchableOpacity>
+      <View style={styles.medicineDoseItemsPosition}>
+        <TouchableOpacity style={styles.medicineDoseItemsProperties} onPress={handlePress}>
+          <Text style={styles.medicineDoseItemsText}>{item}</Text>
+        </TouchableOpacity>
+      </View>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Progress.Bar color="#A6BDF8" progress={0.2} width={380} style={styles.progressBarPosition} />
       <View style={styles.imagePosition}>
         <MedicineDoseTime />
       </View>
+
       <View style={styles.headingPosition}>
         <Header mainHeader="How often do you take it?" />
       </View>
 
       <FlatList
-        style={styles.medicineDoseItemsPosition}
+        style={styles.medicineDoseListContainer}
         data={medicineDoseItems}
         renderItem={({ item, index }) => (
           <RenderItems item={item} index={index} key={index.toString()} />

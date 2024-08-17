@@ -4,34 +4,19 @@ import { scale, verticalScale } from 'react-native-size-matters';
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
-  addMoreSettingsContentProperties: {
+  container: {
+    flex: 1
+  },
+  addMoresettingsContainer: {
     alignItems: 'center',
-    flexDirection: 'row',
-    marginLeft: scale(20)
+    marginTop: verticalScale(10)
   },
   addMoreSettingsHeaderPosition: {
-    marginTop: verticalScale(30)
+    bottom: verticalScale(40)
   },
-  addMoreSettingsItems: {
-    alignItems: 'center',
-    backgroundColor: colors.textInput,
-    borderRadius: scale(6),
-    borderWidth: scale(0.15),
-    flexDirection: 'row',
-    height: verticalScale(35),
-    marginTop: verticalScale(5),
-    width: scale(330)
-  },
-  addMoreSettingsItemsPosition: {
-    marginTop: verticalScale(-40)
-  },
-  addMoreSettingsItemsText: {
-    color: colors.mainText,
-    marginLeft: scale(20)
-  },
-  buttonPosition: {
+  NextbuttonPosition: {
     bottom: verticalScale(18),
-    position: 'absolute'
+    alignItems: 'center'
   },
   checkMarkIconPosition: {
     position: 'absolute',
@@ -45,6 +30,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
+  },
+  chipPosition: {
+    alignItems: 'center',
+    bottom: verticalScale(35),
   },
   chipContentProperties: {
     alignItems: 'center',
@@ -60,31 +49,14 @@ const styles = StyleSheet.create({
     color: colors.mainText,
     marginLeft: scale(10)
   },
-  container: {
-    alignItems: 'center',
-    flex: 1
-  },
-  firstIntakeChipPosition: {
-    marginTop: verticalScale(-110)
-  },
-  firstIntakechipHeadingPosition: {
-    marginBottom: verticalScale(8),
-    marginRight: scale(245),
-    top: verticalScale(-50)
-  },
   headingPosition: {
-    marginTop: verticalScale(50)
+    alignItems: 'center', 
+  },
+  imagePosition: {
+    alignItems: 'center',
   },
   progressBarPosition: {
     borderWidth: scale(0)
-  },
-  secondIntakeChipPosition: {
-    marginTop: verticalScale(-30)
-  },
-  secondIntakechipHeadingPosition: {
-    marginBottom: verticalScale(8),
-    marginRight: scale(222),
-    top: verticalScale(28)
   },
   selectButton: {
     alignItems: 'center',
@@ -99,10 +71,9 @@ const styles = StyleSheet.create({
   selectButtonText: {
     color: colors.buttonBg
   },
-  settingsAndButtonContainer: {
-    alignItems: 'center',
-    flex: 1
-  }
+  scrollViewContainer: {
+    paddingBottom: verticalScale(15)
+  },
 });
 
 export default styles;

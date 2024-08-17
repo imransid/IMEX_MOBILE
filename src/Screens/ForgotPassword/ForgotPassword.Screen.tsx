@@ -18,21 +18,23 @@ const ForgotPassword: FC = () => {
     navigation.navigate('EnterOtp' as never);
   };
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.headingPosition}>
         <Header mainHeader="Forget Password" />
       </View>
-      <View style={styles.textInputPosition}>
-        <Text style={styles.inputHeader}>Mobile Number</Text>
-        <CustomTextInput
-          type="mobile"
-          value={mobile}
-          onChangeText={setMobile}
-          placeholder="Enter your mobile number..."
-          maxLength={11}
-          inputStyle={styles.inputText}
-          leftIcon={<Feather name="smartphone" size={30} color={'#888888'} />} // Left icon
-        />
+      <View style={styles.textInputComponentProperties}>
+        <View style={styles.textInputPosition}>
+          <Text style={styles.inputHeader}>Mobile Number</Text>
+          <CustomTextInput
+            type="mobile"
+            value={mobile}
+            onChangeText={setMobile}
+            placeholder="Enter your mobile number..."
+            maxLength={11}
+            inputStyle={styles.inputText}
+            leftIcon={<Feather name="smartphone" size={30} color={'#888888'} />} // Left icon
+          />
+        </View>
       </View>
       <View style={styles.resetPassowrdButton}>
         <CustomButton

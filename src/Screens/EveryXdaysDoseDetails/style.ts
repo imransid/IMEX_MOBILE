@@ -1,43 +1,39 @@
 import { StyleSheet } from 'react-native';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { scale, verticalScale } from 'react-native-size-matters';
 
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
-  addMoreSettingsContentProperties: {
+  container: {
+    flex: 1
+  },
+  addMoresettingsContainer: {
     alignItems: 'center',
-    flexDirection: 'row',
-    marginLeft: scale(20)
+    marginTop: verticalScale(10)
   },
-  addMoreSettingsItems: {
-    alignItems: 'center',
-    backgroundColor: colors.textInput,
-    borderRadius: scale(6),
-    borderWidth: scale(0.15),
-    flexDirection: 'row',
-    height: verticalScale(35),
-    marginTop: verticalScale(5),
-    width: scale(330)
+  addMoreSettingsHeaderPosition: {
+    bottom: verticalScale(40)
   },
-  addMoreSettingsItemsPosition: {
-    marginTop: verticalScale(-40)
-  },
-  addMoreSettingsItemsText: {
-    color: colors.mainText,
-    marginLeft: scale(20)
-  },
-  buttonPosition: {
+  NextbuttonPosition: {
     bottom: verticalScale(18),
-    position: 'absolute'
+    alignItems: 'center'
+  },
+  checkMarkIconPosition: {
+    position: 'absolute',
+    right: scale(20)
   },
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(6),
     borderWidth: scale(0.15),
-    height: verticalScale(43),
+    height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
+  },
+  chipPosition: {
+    alignItems: 'center',
+    bottom: verticalScale(15),
   },
   chipContentProperties: {
     alignItems: 'center',
@@ -53,19 +49,14 @@ const styles = StyleSheet.create({
     color: colors.mainText,
     marginLeft: scale(10)
   },
-  container: {
-    alignItems: 'center',
-    flex: 1
+  headingPosition: {
+    alignItems: 'center', 
   },
-  numberPickerText: {
-    fontSize: moderateScale(20),
-    fontWeight: '400'
+  imagePosition: {
+    alignItems: 'center',
   },
   progressBarPosition: {
     borderWidth: scale(0)
-  },
-  scrollViewContainer: {
-    maxHeight: verticalScale(230)
   },
   selectButton: {
     alignItems: 'center',
@@ -80,10 +71,9 @@ const styles = StyleSheet.create({
   selectButtonText: {
     color: colors.buttonBg
   },
-  settingsAndButtonContainer: {
-    alignItems: 'center',
-    flex: 1
-  }
+  scrollViewContainer: {
+    paddingBottom: verticalScale(15)
+  },
 });
 
 export default styles;

@@ -8,7 +8,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const AddPrescription: FC = () => {
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.headingPosition}>
         <Header mainHeader="Precription" />
       </View>
@@ -18,12 +18,14 @@ const AddPrescription: FC = () => {
       <View style={styles.subHeadingPosition}>
         <Header subHeader="Upload a prescription" />
       </View>
-      <View>
+      <View style={styles.defaultText}>
         <Header subHeader="Drag or drop file here" />
         <Header subHeader="-OR-" />
-        <TouchableOpacity style={styles.chooseFileButton}>
-          <Text style={styles.chooseFileText}>Chose File</Text>
-        </TouchableOpacity>
+        <View style={styles.chooseFileButtonPosition}>
+          <TouchableOpacity style={styles.chooseFileButton}>
+            <Text style={styles.chooseFileText}>Chose File</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

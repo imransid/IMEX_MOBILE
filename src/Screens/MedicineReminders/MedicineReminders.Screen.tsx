@@ -15,7 +15,7 @@ const MedicineReminders: FC = () => {
     navigation.navigate('OnceAdayDose' as never);
   };
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.headingPosition}>
         <Header mainHeader="Medicine Reminders" />
       </View>
@@ -79,14 +79,13 @@ const MedicineReminders: FC = () => {
           </View>
         </View>
       </View>
-      <View style={styles.buttonContainer}>
-        <View style={styles.buttonPosition}>
-          <CustomButton
-            onPress={handleNext}
-            icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
-            text="Next"
-          />
-        </View>
+
+      <View style={styles.NextbuttonPosition}>
+        <CustomButton
+          onPress={handleNext}
+          icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
+          text="Next"
+        />
       </View>
     </View>
   );

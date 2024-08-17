@@ -34,14 +34,16 @@ const MedicineDailyDoses: FC = () => {
       }
     };
     return (
-      <TouchableOpacity style={styles.medicineDoseItems} onPress={handlePress}>
-        <Text style={styles.medicineDoseItemsText}>{item}</Text>
-      </TouchableOpacity>
+      <View style={styles.medicineDoseItemsPosition}>
+        <TouchableOpacity style={styles.medicineDoseItemsProperties} onPress={handlePress}>
+          <Text style={styles.medicineDoseItemsText}>{item}</Text>
+        </TouchableOpacity>
+      </View>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
       <View style={styles.imagePosition}>
         <DailyDoseLogo />
@@ -51,7 +53,7 @@ const MedicineDailyDoses: FC = () => {
       </View>
 
       <FlatList
-        style={styles.medicineDoseItemsPosition}
+        style={styles.medicineDoseListContainer}
         data={medicineDailyDoseItems}
         renderItem={({ item, index }) => (
           <RenderItems item={item} index={index} key={index.toString()} />

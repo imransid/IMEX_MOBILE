@@ -4,21 +4,13 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        flex: 1
-    },
-  buttonContainer: {
-    alignItems: 'center',
-    flex: 1
-  },
-  buttonPosition: {
-    bottom: verticalScale(18),
-    position: 'absolute'
+  NextbuttonPosition: {
+    marginTop: verticalScale(25),
+    alignItems: 'center'
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(6),
+    borderRadius: scale(2),
     borderWidth: scale(0.15),
     height: verticalScale(43),
     justifyContent: 'center',
@@ -32,7 +24,8 @@ const styles = StyleSheet.create({
     gap: scale(8)
   },
   chipPosition: {
-    marginTop: verticalScale(-40)
+    marginTop: verticalScale(10),
+    alignItems: 'center',
   },
   chipProperties: {
     flexDirection: 'row',
@@ -42,15 +35,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: colors.mainText,
   },
-  
   headingPosition: {
-    top: verticalScale(60)
+    alignItems: 'center', 
+    top: verticalScale(30)
   },
   imagePosition: {
-    top: verticalScale(10)
+    top: verticalScale(30),
+    alignItems: 'center',
   },
   subHeadingPosition: {
-    marginTop: verticalScale(60)
+    marginTop: verticalScale(30),
   },
   nameInput: {
     width: scale(150),
@@ -58,7 +52,7 @@ const styles = StyleSheet.create({
     borderWidth: scale(0.15),
     fontSize: moderateScale(16),
     fontWeight: '400',
-    borderRadius: scale(6),
+    borderRadius: scale(2),
     color: colors.typedText,
     textAlign: 'center',
     justifyContent: 'center'
