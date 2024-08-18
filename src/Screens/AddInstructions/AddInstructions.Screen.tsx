@@ -33,7 +33,7 @@ const AddInstructions: FC = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Progress.Bar color="#A6BDF8" progress={0.6} width={380} style={styles.progressBarPosition} />
       <View style={styles.headingPosition}>
         <Header mainHeader="Add Instruction" />
@@ -82,14 +82,12 @@ const AddInstructions: FC = () => {
       )}
 
       {instruction !== '' && (
-        <View style={styles.buttonContainer}>
-          <View style={styles.buttonPosition}>
-            <CustomButton
-              onPress={handleNext}
-              icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
-              text="Next"
-            />
-          </View>
+        <View style={styles.NextbuttonPosition}>
+          <CustomButton
+            onPress={handleNext}
+            icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
+            text="Next"
+          />
         </View>
       )}
     </View>

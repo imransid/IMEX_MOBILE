@@ -1,24 +1,19 @@
-import {StyleSheet} from 'react-native';
-import { scale, moderateScale, verticalScale } from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
+
+import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
-    container: {
-        //flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        bottom: verticalScale(50),
-    },
-    mainHeader: {
-        fontSize: moderateScale(24),
-        fontWeight: '600',
-        color: '#212121',
-      },
-      subHeader: {
-        fontSize: moderateScale(16),
-        fontWeight: '400',
-        color: '#555555',
-        textAlign: 'center',
-      },
-})
+  mainHeader: {
+    color: colors.header,
+    fontSize: moderateScale(24),
+    fontWeight: '600'
+  },
+  subHeader: {
+    color: colors.mainText,
+    fontSize: moderateScale(16),
+    fontWeight: '400',
+  }
+});
 
 export default styles;

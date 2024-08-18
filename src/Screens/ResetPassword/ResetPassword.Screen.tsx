@@ -18,33 +18,37 @@ const ResetPassword: FC = () => {
     navigation.navigate('PasswordChanged' as never);
   };
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.headingPosition}>
         <Header mainHeader="Reset Password" />
       </View>
-      <View style={styles.textInputPosition}>
-        <Text style={styles.inputHeader}>Password {'        '}</Text>
-        <CustomTextInput
-          type="password"
-          value={password}
-          onChangeText={setPassword}
-          placeholder="Enter your password..."
-          maxLength={8}
-          inputStyle={styles.inputText}
-          isPassword={true}
-          leftIcon={<MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />} // Left icon
-        />
-        <Text style={styles.inputHeader}>Confirm Password</Text>
-        <CustomTextInput
-          type="password"
-          value={password}
-          onChangeText={setPassword}
-          placeholder="Enter your password..."
-          maxLength={8}
-          inputStyle={styles.inputText}
-          isPassword={true}
-          leftIcon={<MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />} // Left icon
-        />
+      <View style={styles.textInputProperties}>
+        <View style={styles.textInputPosition}>
+          <Text style={styles.inputHeader}>Password</Text>
+          <CustomTextInput
+            type="password"
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Enter your password..."
+            maxLength={8}
+            inputStyle={styles.inputText}
+            isPassword={true}
+            leftIcon={<MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />} // Left icon
+          />
+        </View>
+        <View style={styles.textInputPosition}>
+          <Text style={styles.inputHeader}>Confirm Password</Text>
+          <CustomTextInput
+            type="password"
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Enter your password..."
+            maxLength={8}
+            inputStyle={styles.inputText}
+            isPassword={true}
+            leftIcon={<MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />} // Left icon
+          />
+        </View>
       </View>
       <View style={styles.resetPasswordButtonPosition}>
         <CustomButton

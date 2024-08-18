@@ -6,17 +6,26 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   askAboutAccount: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: verticalScale(15),
+    alignItems: 'center'
+  },
+  mainHeader: {
+    alignItems: 'center', 
+    top: verticalScale(30)
+  },
+  subHeaderFirstLine: { 
+    alignItems: 'center', 
+    top: verticalScale(-5)
+  },
+  subHeaderSecondLine: {
+    alignItems: 'center', 
+    top: verticalScale(-35)
   },
   askAboutAccountText: {
     color: colors.typedText,
     fontSize: moderateScale(14),
     fontWeight: '400'
-  },
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center'
   },
   forgotPassword: {
     color: colors.buttonBg,
@@ -35,13 +44,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: scale(315)
   },
+  guestButtonPosition: {
+    marginTop: verticalScale(12),
+    alignItems: 'center'
+  },
   guestButtonText: {
     color: colors.typedText,
     fontSize: moderateScale(18),
     fontWeight: '400'
-  },
-  headerPosition: {
-    top: verticalScale(50)
   },
   inputHeader: {
     color: colors.header,
@@ -53,10 +63,7 @@ const styles = StyleSheet.create({
     color: colors.typedText,
     fontSize: moderateScale(16),
     fontWeight: '400'
-  },
-  keyboardContainer: {
-    flex: 1
-  },
+  }, 
   orHorizontalLine: {
     backgroundColor: colors.subText,
     height: verticalScale(2),
@@ -68,20 +75,35 @@ const styles = StyleSheet.create({
     gap: scale(16),
     justifyContent: 'space-between'
   },
+  orPartPosition: {
+    marginTop: verticalScale(12),
+    alignItems: 'center'
+  },
   orText: {
     color: colors.mainText,
     fontSize: moderateScale(18),
     fontWeight: '400'
-  },
-  scrollViewContainer: {
-    flexGrow: 1
   },
   signUpText: {
     color: colors.typedText,
     fontSize: moderateScale(14),
     fontWeight: '400',
     textDecorationLine: 'underline'
-  }
+  },
+  textInputComponentsPosition:{
+    alignItems: 'center'
+  },
+  mobileNumberInput: {
+    gap: verticalScale(6)
+  },
+  passwordInput: {
+    marginTop: verticalScale(20), 
+    gap: verticalScale(6)
+  },
+  signInButtonPosition: {
+    marginTop: verticalScale(25),
+    alignItems: 'center'
+  } 
 });
 
 export default styles;

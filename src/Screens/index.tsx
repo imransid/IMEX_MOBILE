@@ -3,11 +3,21 @@ import { AddInstructions } from './AddInstructions';
 import { AddMedicineManually } from './AddMedicineManually';
 import { AddMedicineStrength } from './AddMedicineStrength';
 import { AddPrescription } from './AddPrescription';
+import { AskHourInterval } from './AskHourInterval';
+import { AskTimeInterval } from './AskTimeInterval';
 import { CameraScanner } from './CameraScanner';
 import { CreateAccount } from './CreateAccount';
 import { DoctorAppointments } from './DoctorAppointments';
 import { EnterOtp } from './EnterOtp';
+import { EveryXdaysDose } from './EveryXdaysDose';
+import { EveryXdaysDoseDetails } from './EveryXdaysDoseDetails';
+import { EveryXhoursDose } from './EveryXhoursDose';
+import { EveryXmonthsDose } from './EveryXmonthsDose';
+import { EveryXmonthsDoseDetails } from './EveryXmonthsDoseDetails';
+import { EveryXweeksDose } from './EveryXweeksDose';
+import { EveryXweeksDoseDetails } from './EveryXweeksDoseDetails';
 import { ForgotPassword } from './ForgotPassword';
+import { FourTimesAdayDose } from './FourTimesAdayDose';
 import { Login } from './Login';
 import { MedicineAddingMethod } from './MedicineAddingMethod';
 import { MedicineDailyDoses } from './MedicineDailyDoses';
@@ -15,13 +25,19 @@ import { MedicineDetails } from './MedicineDetails';
 import { MedicineDoses } from './MedicineDoses';
 import { MedicineReminders } from './MedicineReminders';
 import { MedicineType } from './MedicineType';
+import { MonthlyDose } from './MonthlyDose';
+import { MonthlyDoseDetails } from './MonthlyDoseDetails';
 import { OnceAdayDose } from './OnceAdayDose';
 import { PasswordChanged } from './PasswordChanged';
 import { ResetPassword } from './ResetPassword';
 import { ScanQrCode } from './ScanQrCode';
 import { SetTreatmentDuration } from './SetTreatmentDuration';
 import { SplashScreen } from './SplashScreen';
+import { ThreeTimesAdayDose } from './ThreeTimesAdayDose';
 import { TwiceAdayDose } from './TwiceADayDose';
+import { WeeklyDose } from './WeeklyDose';
+import { WeeklyDoseDetails } from './WeeklyDoseDetails';
+import { XtimesAdayDose } from './XtimesAdayDose';
 
 export {
   AddedMedicine,
@@ -29,11 +45,21 @@ export {
   AddMedicineManually,
   AddMedicineStrength,
   AddPrescription,
+  AskHourInterval,
+  AskTimeInterval,
   CameraScanner,
   CreateAccount,
   DoctorAppointments,
   EnterOtp,
+  EveryXdaysDose,
+  EveryXdaysDoseDetails,
+  EveryXhoursDose,
+  EveryXmonthsDose,
+  EveryXmonthsDoseDetails,
+  EveryXweeksDose,
+  EveryXweeksDoseDetails,
   ForgotPassword,
+  FourTimesAdayDose,
   Login,
   MedicineAddingMethod,
   MedicineDailyDoses,
@@ -41,11 +67,17 @@ export {
   MedicineDoses,
   MedicineReminders,
   MedicineType,
+  MonthlyDose,
+  MonthlyDoseDetails,
   OnceAdayDose,
   PasswordChanged,
   ResetPassword,
   ScanQrCode,
   SetTreatmentDuration,
   SplashScreen,
-  TwiceAdayDose
+  ThreeTimesAdayDose,
+  TwiceAdayDose,
+  WeeklyDose,
+  WeeklyDoseDetails,
+  XtimesAdayDose
 };

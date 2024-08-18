@@ -4,20 +4,16 @@ import { scale, verticalScale } from 'react-native-size-matters';
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center'
-  },
   headingPosition: {
-    top: verticalScale(110)
+    top: verticalScale(50),
   },
   imagePosition: {
-    top: verticalScale(30)
+    top: verticalScale(20),
+    alignItems: 'center',
   },
-  medicineDoseItems: {
+  medicineDoseItemsProperties: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(6),
+    borderRadius: scale(2),
     borderWidth: scale(0.15),
     height: verticalScale(43),
     justifyContent: 'center',
@@ -25,7 +21,10 @@ const styles = StyleSheet.create({
     width: scale(330)
   },
   medicineDoseItemsPosition: {
-    marginTop: verticalScale(80)
+    alignItems: 'center'
+  },
+  medicineDoseListContainer: {
+    marginTop: verticalScale(60)
   },
   medicineDoseItemsText: {
     color: colors.mainText,

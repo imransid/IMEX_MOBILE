@@ -10391,6 +10391,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-picker-weekday@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "react-native-picker-weekday@npm:1.1.2"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 9612020dcd8c56473acc96dc743e2a7b45d19cfff0ab63be1202fcf6daa2c9fe4d028f657f85383b4970136ac9b8256957409948a1e03dc0b47c647558cf0891
+  languageName: node
+  linkType: hard
+
 "react-native-progress@npm:^5.0.1":
   version: 5.0.1
   resolution: "react-native-progress@npm:5.0.1"
@@ -10531,6 +10541,19 @@ __metadata:
     react-native-worklets-core:
       optional: true
   checksum: 8629652123de083b7d88be620687f366ad14d67b6a93136bf3d059498669cffad0d12052580c13ebe6c185d3001bb7c36d4fcf315a547ad7be11753f5f586d6e
+  languageName: node
+  linkType: hard
+
+"react-native-wheel-scrollview-picker@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "react-native-wheel-scrollview-picker@npm:2.0.4"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-native": "*"
+    react: "*"
+    react-native: "*"
+    typescript: "*"
+  checksum: 868d24be63b4b1f75597304917552ede67e4683e51d5666188c93c376935cd5e3450c50a54d87112f0c21212efea16fe435e645042ad68f7dbb10f1a60254e45
   languageName: node
   linkType: hard
 
@@ -11992,6 +12015,7 @@ __metadata:
     react-native-easy-grid: ^0.2.2
     react-native-gesture-handler: ^2.17.1
     react-native-permissions: ^4.1.5
+    react-native-picker-weekday: ^1.1.2
     react-native-progress: ^5.0.1
     react-native-reanimated: ^3.14.0
     react-native-safe-area-context: ^4.10.8
@@ -12002,6 +12026,7 @@ __metadata:
     react-native-svg-transformer: ^1.5.0
     react-native-vector-icons: ^10.1.0
     react-native-vision-camera: ^4.5.1
+    react-native-wheel-scrollview-picker: ^2.0.4
     react-redux: ^9.1.2
     react-test-renderer: 18.2.0
     redux-logger: ^3.0.6

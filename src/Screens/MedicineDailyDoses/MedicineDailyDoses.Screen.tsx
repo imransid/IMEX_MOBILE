@@ -3,7 +3,7 @@ import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 import { useNavigation } from '@react-navigation/native';
 
-import DailyDoseLogo from '../../assets/medicine-daily-dose-time';
+import DailyDoseLogo from '../../assets/medicine-daily-dose';
 import Header from '../../Components/Header/Header';
 import medicineDailyDoseItems from '../../utils/medicineDailyDoseItems';
 
@@ -23,17 +23,27 @@ const MedicineDailyDoses: FC = () => {
         navigation.navigate('OnceAdayDose' as never);
       } else if (index === 1) {
         navigation.navigate('TwiceAdayDose' as never);
+      } else if (index === 2) {
+        navigation.navigate('ThreeTimesAdayDose' as never);
+      } else if (index === 3) {
+        navigation.navigate('FourTimesAdayDose' as never);
+      } else if (index === 4) {
+        navigation.navigate('AskTimeInterval' as never);
+      } else if (index === 5) {
+        navigation.navigate('AskHourInterval' as never);
       }
     };
     return (
-      <TouchableOpacity style={styles.medicineDoseItems} onPress={handlePress}>
-        <Text style={styles.medicineDoseItemsText}>{item}</Text>
-      </TouchableOpacity>
+      <View style={styles.medicineDoseItemsPosition}>
+        <TouchableOpacity style={styles.medicineDoseItemsProperties} onPress={handlePress}>
+          <Text style={styles.medicineDoseItemsText}>{item}</Text>
+        </TouchableOpacity>
+      </View>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
       <View style={styles.imagePosition}>
         <DailyDoseLogo />
@@ -43,7 +53,7 @@ const MedicineDailyDoses: FC = () => {
       </View>
 
       <FlatList
-        style={styles.medicineDoseItemsPosition}
+        style={styles.medicineDoseListContainer}
         data={medicineDailyDoseItems}
         renderItem={({ item, index }) => (
           <RenderItems item={item} index={index} key={index.toString()} />

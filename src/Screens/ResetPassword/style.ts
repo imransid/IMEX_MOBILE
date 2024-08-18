@@ -10,13 +10,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   headingPosition: {
-    top: verticalScale(60)
+    top: verticalScale(20),
+    alignItems: 'center',
   },
   inputHeader: {
     color: colors.header,
     fontSize: moderateScale(14),
     fontWeight: '500',
-    marginRight: scale(226)
   },
   inputText: {
     color: colors.typedText,
@@ -24,11 +24,15 @@ const styles = StyleSheet.create({
     fontWeight: '400'
   },
   resetPasswordButtonPosition: {
-    marginTop: verticalScale(20)
+    marginTop: verticalScale(20),
+    alignItems: 'center',
+  },
+  textInputProperties: {
+    alignItems: 'center', 
   },
   textInputPosition: {
-    alignItems: 'center',
-    marginTop: verticalScale(20)
+    marginTop: verticalScale(20),
+    gap: verticalScale(6)
   }
 });
 

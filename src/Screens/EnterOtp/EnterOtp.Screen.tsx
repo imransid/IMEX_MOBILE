@@ -18,7 +18,7 @@ const EnterOtp: FC = () => {
     navigation.navigate('ResetPassword' as never);
   };
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.headingPosition}>
         <Header mainHeader="Enter Your OTP" />
       </View>

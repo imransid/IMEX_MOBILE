@@ -36,89 +36,108 @@ const CreateAccount: FC = () => {
         <Header mainHeader="New Account" />
       </View>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <Text style={styles.inputHeader}>Full Name {'        '}</Text>
-        <CustomTextInput
-          type="email"
-          value={fullName}
-          onChangeText={setFullName}
-          placeholder="Enter your full name..."
-          maxLength={18}
-          inputStyle={styles.inputText}
-          leftIcon={<AntDesign name="user" size={30} color={'#888888'} />} // Left icon
-        />
-        <Text style={styles.inputHeader}>Mobile Number</Text>
-        <CustomTextInput
-          type="mobile"
-          value={mobile}
-          onChangeText={setMobile}
-          placeholder="Enter your mobile number..."
-          maxLength={11}
-          inputStyle={styles.inputText}
-          leftIcon={<Feather name="smartphone" size={30} color={'#888888'} />}
-        />
-        <Text style={styles.inputHeader}>Email Address</Text>
-        <CustomTextInput
-          type="email"
-          value={email}
-          onChangeText={setEmail}
-          placeholder="Enter your email address..."
-          maxLength={20}
-          inputStyle={styles.inputText}
-          leftIcon={<MaterialCommunityIcons name="email-outline" size={28} color={'#888888'} />}
-        />
-        <Text style={styles.inputHeader}>Password {'        '}</Text>
-        <CustomTextInput
-          type="password"
-          value={password}
-          onChangeText={setPassword}
-          placeholder="Enter your password..."
-          maxLength={8}
-          inputStyle={styles.inputText}
-          isPassword={true}
-          leftIcon={<MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />} // Left icon
-        />
-        <Text style={styles.inputHeader}>Confirm Password</Text>
-        <CustomTextInput
-          type="password"
-          value={password}
-          onChangeText={setPassword}
-          placeholder="Enter your password..."
-          maxLength={8}
-          inputStyle={styles.inputText}
-          isPassword={true}
-          leftIcon={<MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />} // Left icon
-        />
-        <Text style={styles.inputHeader}>Gender</Text>
-        <CustomTextInput
-          type="email"
-          value={gender}
-          onChangeText={setGender}
-          placeholder="Enter your gender..."
-          maxLength={8}
-          inputStyle={styles.inputText}
-          leftIcon={<MaterialCommunityIcons name="gender-male" size={30} color={'#888888'} />} // Left icon
-        />
-        <Text style={styles.inputHeader}>Birth Date</Text>
-        <CustomTextInput
-          type="email"
-          value={birthdate}
-          onChangeText={setBirthdate}
-          placeholder="Enter your birth date..."
-          maxLength={10}
-          inputStyle={styles.inputText}
-          leftIcon={<AntDesign name="calendar" size={28} color={'#888888'} />} // Left icon
-        />
-        <View>
+        <View style={styles.textInputComponentPosition}>
+          <View style={styles.textInputComponentProperties}>
+            <Text style={styles.inputHeader}>Full Name</Text>
+            <CustomTextInput
+              type="email"
+              value={fullName}
+              onChangeText={setFullName}
+              placeholder="Enter your full name..."
+              maxLength={18}
+              inputStyle={styles.inputText}
+              leftIcon={<AntDesign name="user" size={30} color={'#888888'} />} // Left icon
+            />
+          </View>
+          <View style={styles.textInputComponentProperties}>
+            <Text style={styles.inputHeader}>Mobile Number</Text>
+            <CustomTextInput
+              type="mobile"
+              value={mobile}
+              onChangeText={setMobile}
+              placeholder="Enter your mobile number..."
+              maxLength={11}
+              inputStyle={styles.inputText}
+              leftIcon={<Feather name="smartphone" size={30} color={'#888888'} />}
+            />
+          </View>
+          <View style={styles.textInputComponentProperties}>
+            <Text style={styles.inputHeader}>Email Address</Text>
+            <CustomTextInput
+              type="email"
+              value={email}
+              onChangeText={setEmail}
+              placeholder="Enter your email address..."
+              maxLength={20}
+              inputStyle={styles.inputText}
+              leftIcon={<MaterialCommunityIcons name="email-outline" size={28} color={'#888888'} />}
+            />
+          </View>
+          <View style={styles.textInputComponentProperties}>
+            <Text style={styles.inputHeader}>Password</Text>
+            <CustomTextInput
+              type="password"
+              value={password}
+              onChangeText={setPassword}
+              placeholder="Enter your password..."
+              maxLength={8}
+              inputStyle={styles.inputText}
+              isPassword={true}
+              leftIcon={<MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />} // Left icon
+            />
+          </View>
+          <View style={styles.textInputComponentProperties}>
+            <Text style={styles.inputHeader}>Confirm Password</Text>
+            <CustomTextInput
+              type="password"
+              value={password}
+              onChangeText={setPassword}
+              placeholder="Enter your password..."
+              maxLength={8}
+              inputStyle={styles.inputText}
+              isPassword={true}
+              leftIcon={<MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />} // Left icon
+            />
+          </View>
+          <View style={styles.textInputComponentProperties}>
+            <Text style={styles.inputHeader}>Gender</Text>
+            <CustomTextInput
+              type="email"
+              value={gender}
+              onChangeText={setGender}
+              placeholder="Enter your gender..."
+              maxLength={8}
+              inputStyle={styles.inputText}
+              leftIcon={<MaterialCommunityIcons name="gender-male" size={30} color={'#888888'} />} // Left icon
+            />
+          </View>
+          <View style={styles.textInputComponentProperties}>
+            <Text style={styles.inputHeader}>Birth Date</Text>
+            <CustomTextInput
+              type="email"
+              value={birthdate}
+              onChangeText={setBirthdate}
+              placeholder="Enter your birth date..."
+              maxLength={10}
+              inputStyle={styles.inputText}
+              leftIcon={<AntDesign name="calendar" size={28} color={'#888888'} />} // Left icon
+            />
+          </View>
+        </View>
+
+        <View style={styles.SignInbuttonPosition}>
           <CustomButton
             onPress={handleSignUp}
             icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
             text="Sign In"
           />
         </View>
-        <View style={styles.signUpWithPart}>
-          <View style={styles.signUpWithHorizontalLine}></View>
-          <Text style={styles.signUpWithText}>Sign Up With</Text>
-          <View style={styles.signUpWithHorizontalLine}></View>
+        <View style={styles.signUpWithPartPosition}>
+          <View style={styles.signUpWithPart}>
+            <View style={styles.signUpWithHorizontalLine}></View>
+            <Text style={styles.signUpWithText}>Sign Up With</Text>
+            <View style={styles.signUpWithHorizontalLine}></View>
+          </View>
         </View>
         <View style={styles.signUpWithIconsContainer}>
           <TouchableOpacity>
@@ -140,7 +159,7 @@ const CreateAccount: FC = () => {
         <View style={styles.askAboutAccount}>
           <Text style={styles.askAboutAccountText}>Already have an account? {'  '}</Text>
           <TouchableOpacity onPress={handleSignIn}>
-            <Text style={styles.signIpText}>Sign In</Text>
+            <Text style={styles.signUpText}>Sign In</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
