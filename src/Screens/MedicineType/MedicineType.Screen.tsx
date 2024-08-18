@@ -26,24 +26,21 @@ const MedicineType: FC = () => {
     navigation.navigate('MedicineDoses' as never);
   };
 
-  const RenderItems: React.FC<IMedicineStrengthProps> = ({
-    item,
-    index,
-    selectedUnit,
-    onPress
-  }) => {
+  const RenderItems: React.FC<IMedicineStrengthProps> = ({ item, selectedUnit, onPress }) => {
     return (
-      <TouchableOpacity style={styles.unitItems} onPress={onPress}>
-        <View style={styles.unitProperties}>
-          <Text style={styles.formsItemsText}>{item}</Text>
-          {selectedUnit === item && <AntDesign name="check" size={28} color={colors.buttonBg} />}
-        </View>
-      </TouchableOpacity>
+      <View style={styles.unitItemsList}>
+        <TouchableOpacity style={styles.unitItems} onPress={onPress}>
+          <View style={styles.unitProperties}>
+            <Text style={styles.formsItemsText}>{item}</Text>
+            {selectedUnit === item && <AntDesign name="check" size={28} color={colors.buttonBg} />}
+          </View>
+        </TouchableOpacity>
+      </View>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
       <View style={styles.imagePosition}>
         <MedicineDoseTime />

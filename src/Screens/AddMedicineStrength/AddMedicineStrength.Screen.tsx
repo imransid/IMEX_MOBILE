@@ -89,9 +89,9 @@ const AddMedicineStrength: FC = () => {
           text="Next"
         />
       </View>
-      <View style={styles.noThanksTextPosition}>
+      <View style={styles.skipTextPosition}>
         <TouchableOpacity onPress={handleSkip}>
-          <Text style={styles.noThanksText}>Skip</Text>
+          <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       </View>
     </View>

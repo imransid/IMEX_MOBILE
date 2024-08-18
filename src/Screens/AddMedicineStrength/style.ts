@@ -6,7 +6,7 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   NextButtonPosition: {
     alignItems: 'center',
-    bottom: verticalScale(10)
+    marginTop: verticalScale(40)
   },
   headingPosition: {
     top: verticalScale(30)
@@ -18,26 +18,25 @@ const styles = StyleSheet.create({
   inputHeader: {
     color: colors.header,
     fontSize: moderateScale(14),
-    fontWeight: '500',
-    marginRight: scale(226)
+    fontWeight: '500'
   },
   inputText: {
     color: colors.typedText,
     fontSize: moderateScale(16),
     fontWeight: '400'
   },
-  noThanksText: {
+  progressBarPosition: {
+    borderWidth: scale(0),
+    marginTop: verticalScale(0.1)
+  },
+  skipText: {
     color: colors.buttonBg,
     fontSize: moderateScale(14),
     fontWeight: '400',
     textAlign: 'center'
   },
-  noThanksTextPosition: {
-    bottom: verticalScale(10)
-  },
-  progressBarPosition: {
-    borderWidth: scale(0),
-    marginTop: verticalScale(0.1)
+  skipTextPosition: {
+    marginTop: verticalScale(5)
   },
   textInputContent: {
     gap: verticalScale(5)
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
   },
   unitItems: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(6),
+    borderRadius: scale(2),
     borderWidth: scale(0.15),
     height: verticalScale(33),
     justifyContent: 'center',
@@ -77,8 +76,8 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   unitTextPosition: {
-    marginTop: verticalScale(25),
-    right: scale(150)
+    marginLeft: scale(12),
+    marginTop: verticalScale(25)
   }
 });
 
