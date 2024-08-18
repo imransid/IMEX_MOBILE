@@ -18,6 +18,7 @@ import { EveryXweeksDose } from './EveryXweeksDose';
 import { EveryXweeksDoseDetails } from './EveryXweeksDoseDetails';
 import { ForgotPassword } from './ForgotPassword';
 import { FourTimesAdayDose } from './FourTimesAdayDose';
+import { HomeScreen } from './HomeScreen';
 import { Login } from './Login';
 import { MedicineAddingMethod } from './MedicineAddingMethod';
 import { MedicineDailyDoses } from './MedicineDailyDoses';
@@ -34,6 +35,7 @@ import { ScanQrCode } from './ScanQrCode';
 import { SetTreatmentDuration } from './SetTreatmentDuration';
 import { SplashScreen } from './SplashScreen';
 import { ThreeTimesAdayDose } from './ThreeTimesAdayDose';
+import { TodaysDose } from './TodaysDose';
 import { TwiceAdayDose } from './TwiceADayDose';
 import { WeeklyDose } from './WeeklyDose';
 import { WeeklyDoseDetails } from './WeeklyDoseDetails';
@@ -60,6 +62,7 @@ export {
   EveryXweeksDoseDetails,
   ForgotPassword,
   FourTimesAdayDose,
+  HomeScreen,
   Login,
   MedicineAddingMethod,
   MedicineDailyDoses,
@@ -76,6 +79,7 @@ export {
   SetTreatmentDuration,
   SplashScreen,
   ThreeTimesAdayDose,
+  TodaysDose,
   TwiceAdayDose,
   WeeklyDose,
   WeeklyDoseDetails,

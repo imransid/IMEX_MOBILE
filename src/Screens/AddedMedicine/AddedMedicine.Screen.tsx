@@ -38,6 +38,10 @@ const AddedMedicine: FC = () => {
     navigation.navigate('MedicineAddingMethod' as never);
   };
 
+  const handleNoThanks: any = () => {
+    navigation.navigate('HomeScreen' as never);
+  };
+
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.imageContainer, scaleStyles]}>
@@ -59,7 +63,7 @@ const AddedMedicine: FC = () => {
           text="Add Another Med"
         />
         <View style={styles.noThanksTextPosition}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNoThanks()}>
             <Text style={styles.noThanksText}>No, Thanks</Text>
           </TouchableOpacity>
         </View>

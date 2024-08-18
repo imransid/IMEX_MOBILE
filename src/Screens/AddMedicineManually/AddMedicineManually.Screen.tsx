@@ -18,21 +18,23 @@ const AddMedicineManually: FC = () => {
     navigation.navigate('AddMedicineStrength' as never);
   };
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.headingPosition}>
         <Header mainHeader="Add Medicine" />
       </View>
       <View style={styles.textInputPosition}>
-        <Text style={styles.inputHeader}>Medicine Name</Text>
-        <CustomTextInput
-          type="email"
-          value={medicineName}
-          onChangeText={setMedicineName}
-          placeholder="Enter your medicine name..."
-          maxLength={11}
-          inputStyle={styles.inputText}
-          leftIcon={<Fontisto name="drug-pack" size={30} color={'#888888'} />}
-        />
+        <View style={styles.textInputContent}>
+          <Text style={styles.inputHeader}>Medicine Name</Text>
+          <CustomTextInput
+            type="email"
+            value={medicineName}
+            onChangeText={setMedicineName}
+            placeholder="Enter your medicine name..."
+            maxLength={11}
+            inputStyle={styles.inputText}
+            leftIcon={<Fontisto name="drug-pack" size={30} color={'#888888'} />}
+          />
+        </View>
       </View>
       {medicineName !== '' && (
         <View style={styles.NextButtonPosition}>

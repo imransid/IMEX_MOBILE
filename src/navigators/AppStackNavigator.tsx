@@ -24,6 +24,7 @@ import {
   EveryXweeksDoseDetails,
   ForgotPassword,
   FourTimesAdayDose,
+  HomeScreen,
   Login,
   MedicineAddingMethod,
   MedicineDailyDoses,
@@ -44,15 +45,13 @@ import {
   WeeklyDoseDetails,
   XtimesAdayDose
 } from '../Screens';
-import { moderateScale } from 'react-native-size-matters';
-
 import { colors } from '../theme/colors';
 
 const Stack = createStackNavigator<AppStackParamList>();
 
 export const AppStackNavigator: FC = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{ headerShown: false }}>
       <Stack.Screen name={'ScanQrCodeScreen'} component={ScanQrCode} />
       <Stack.Screen name={'CameraScanner'} component={CameraScanner} />
       <Stack.Screen name={'MedicineDetails'} component={MedicineDetails} />
@@ -240,6 +239,7 @@ export const AppStackNavigator: FC = () => {
         name={'EveryXmonthsDoseDetails'}
         component={EveryXmonthsDoseDetails}
       />
+      <Stack.Screen name={'HomeScreen'} component={HomeScreen} />
     </Stack.Navigator>
   );
 };

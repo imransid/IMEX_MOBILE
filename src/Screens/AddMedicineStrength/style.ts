@@ -5,18 +5,15 @@ import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   NextButtonPosition: {
-    bottom: verticalScale(15)
-  },
-  container: {
     alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center'
+    bottom: verticalScale(10)
   },
   headingPosition: {
-    top: verticalScale(90)
+    top: verticalScale(30)
   },
   imagePosition: {
-    top: verticalScale(15)
+    alignItems: 'center',
+    top: verticalScale(20)
   },
   inputHeader: {
     color: colors.header,
@@ -42,7 +39,11 @@ const styles = StyleSheet.create({
     borderWidth: scale(0),
     marginTop: verticalScale(0.1)
   },
+  textInputContent: {
+    gap: verticalScale(5)
+  },
   textInputPosition: {
+    alignItems: 'center',
     marginTop: verticalScale(40)
   },
   unitItems: {
@@ -53,6 +54,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
+  },
+  unitItemsList: {
+    alignItems: 'center'
   },
   unitItemsPosition: {
     marginTop: verticalScale(5)
