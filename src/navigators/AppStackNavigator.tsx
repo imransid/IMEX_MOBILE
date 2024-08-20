@@ -43,7 +43,8 @@ import {
   TwiceAdayDose,
   WeeklyDose,
   WeeklyDoseDetails,
-  XtimesAdayDose
+  XtimesAdayDose,
+  PreviewDoseDetails
 } from '../Screens';
 import { colors } from '../theme/colors';
 
@@ -240,6 +241,11 @@ export const AppStackNavigator: FC = () => {
         component={EveryXmonthsDoseDetails}
       />
       <Stack.Screen name={'HomeScreen'} component={HomeScreen} />
+      <Stack.Screen
+        options={{ headerShown: true, headerTitle: '', headerTintColor: colors.buttonBg }}
+        name={'PreviewDoseDetails'}
+        component={PreviewDoseDetails}
+      />
     </Stack.Navigator>
   );
 };

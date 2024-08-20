@@ -40,6 +40,7 @@ import { TwiceAdayDose } from './TwiceADayDose';
 import { WeeklyDose } from './WeeklyDose';
 import { WeeklyDoseDetails } from './WeeklyDoseDetails';
 import { XtimesAdayDose } from './XtimesAdayDose';
+import { PreviewDoseDetails } from './PreviewDoseDetails';
 
 export {
   AddedMedicine,
@@ -83,5 +84,6 @@ export {
   TwiceAdayDose,
   WeeklyDose,
   WeeklyDoseDetails,
-  XtimesAdayDose
+  XtimesAdayDose,
+  PreviewDoseDetails
 };

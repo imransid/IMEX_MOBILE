@@ -27,6 +27,49 @@ const styles = StyleSheet.create({
   },
   calendarContainer: {
     alignItems: 'center'
+  },
+  chip: {
+    backgroundColor: colors.textInput,
+    borderRadius: scale(3),
+    borderWidth: scale(0.15),
+    height: verticalScale(55),
+    justifyContent: 'center',
+    marginTop: verticalScale(5),
+    width: scale(330)
+  },
+  medicineDoseProperties: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  medicineNameText: {
+    color: colors.buttonBg,
+    fontSize: moderateScale(12),
+    fontWeight: '500'
+  },
+  medicineDoseComponentPosition:{
+    alignItems: 'center'
+  },
+  doseComponent: {
+    gap: verticalScale(6)
+  },
+  doseDetailsPosition: {
+    justifyContent: 'center', 
+    marginRight: scale(30)
+  },
+  doseProperties: {
+    flexDirection: 'row'
+  },
+  doseDatesPosition: {
+    flexDirection: 'row', 
+    gap: scale(5)
+  },
+  doseText: {
+    color: colors.typedText,
+    fontSize: moderateScale(12),
+    fontWeight: '500'
+  },
+  doseTimePosition: {
+    marginRight: scale(40)
   }
 });
 

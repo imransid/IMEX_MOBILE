@@ -18,10 +18,6 @@ const styles = StyleSheet.create({
     bottom: verticalScale(18),
     alignItems: 'center'
   },
-  checkMarkIconPosition: {
-    position: 'absolute',
-    right: scale(20)
-  },
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(6),
