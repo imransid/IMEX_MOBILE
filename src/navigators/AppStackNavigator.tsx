@@ -11,7 +11,6 @@ import {
   AddPrescription,
   AskHourInterval,
   AskTimeInterval,
-  CameraScanner,
   CreateAccount,
   DoctorAppointments,
   EnterOtp,
@@ -24,11 +23,8 @@ import {
   EveryXweeksDoseDetails,
   ForgotPassword,
   FourTimesAdayDose,
-  HomeScreen,
-  Login,
   MedicineAddingMethod,
   MedicineDailyDoses,
-  MedicineDetails,
   MedicineDoses,
   MedicineReminders,
   MedicineType,
@@ -36,35 +32,22 @@ import {
   MonthlyDoseDetails,
   OnceAdayDose,
   PasswordChanged,
+  PreviewDoseDetails,
   ResetPassword,
-  ScanQrCode,
   SetTreatmentDuration,
   ThreeTimesAdayDose,
   TwiceAdayDose,
   WeeklyDose,
   WeeklyDoseDetails,
-  XtimesAdayDose,
-  PreviewDoseDetails
+  XtimesAdayDose
 } from '../Screens';
 import { colors } from '../theme/colors';
 
 const Stack = createStackNavigator<AppStackParamList>();
 
-export const AppStackNavigator: FC = () => {
+const AppStackNavigator: FC = () => {
   return (
-    <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name={'ScanQrCodeScreen'} component={ScanQrCode} />
-      <Stack.Screen name={'CameraScanner'} component={CameraScanner} />
-      <Stack.Screen name={'MedicineDetails'} component={MedicineDetails} />
-      <Stack.Screen
-        options={{
-          headerShown: true,
-          headerTitle: '',
-          headerTintColor: colors.buttonBg
-        }}
-        name={'Login'}
-        component={Login}
-      />
+    <Stack.Navigator initialRouteName="ScanQrCodeScreen" screenOptions={{ headerShown: false }}>
       <Stack.Screen
         options={{ headerShown: true, headerTitle: '', headerTintColor: colors.buttonBg }}
         name={'MedicineDoses'}
@@ -240,7 +223,6 @@ export const AppStackNavigator: FC = () => {
         name={'EveryXmonthsDoseDetails'}
         component={EveryXmonthsDoseDetails}
       />
-      <Stack.Screen name={'HomeScreen'} component={HomeScreen} />
       <Stack.Screen
         options={{ headerShown: true, headerTitle: '', headerTintColor: colors.buttonBg }}
         name={'PreviewDoseDetails'}

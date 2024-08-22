@@ -30,17 +30,16 @@ import { MonthlyDose } from './MonthlyDose';
 import { MonthlyDoseDetails } from './MonthlyDoseDetails';
 import { OnceAdayDose } from './OnceAdayDose';
 import { PasswordChanged } from './PasswordChanged';
+import { PreviewDoseDetails } from './PreviewDoseDetails';
 import { ResetPassword } from './ResetPassword';
 import { ScanQrCode } from './ScanQrCode';
 import { SetTreatmentDuration } from './SetTreatmentDuration';
 import { SplashScreen } from './SplashScreen';
 import { ThreeTimesAdayDose } from './ThreeTimesAdayDose';
-import { TodaysDose } from './TodaysDose';
 import { TwiceAdayDose } from './TwiceADayDose';
 import { WeeklyDose } from './WeeklyDose';
 import { WeeklyDoseDetails } from './WeeklyDoseDetails';
 import { XtimesAdayDose } from './XtimesAdayDose';
-import { PreviewDoseDetails } from './PreviewDoseDetails';
 
 export {
   AddedMedicine,
@@ -75,15 +74,14 @@ export {
   MonthlyDoseDetails,
   OnceAdayDose,
   PasswordChanged,
+  PreviewDoseDetails,
   ResetPassword,
   ScanQrCode,
   SetTreatmentDuration,
   SplashScreen,
   ThreeTimesAdayDose,
-  TodaysDose,
   TwiceAdayDose,
   WeeklyDose,
   WeeklyDoseDetails,
-  XtimesAdayDose,
-  PreviewDoseDetails
+  XtimesAdayDose
 };

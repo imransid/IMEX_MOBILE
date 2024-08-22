@@ -1,14 +1,16 @@
-// import React from 'react';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-// const Tab = createBottomTabNavigator();
+import HomeStackNavigator from './HomeStackNavigator';
 
-// const BottomTabNavigator: any = () => {
-//   return (
-//     <Tab.Navigator>
-//       <Tab.Screen name="" component={} />
-//     </Tab.Navigator>
-//   );
-// };
+const Tab = createBottomTabNavigator();
 
-// export default BottomTabNavigator;
+const BottomTabNavigator: any = () => {
+  return (
+    <Tab.Navigator initialRouteName="Today">
+      <Tab.Screen name="Today" component={HomeStackNavigator} options={{ headerShown: false }} />
+    </Tab.Navigator>
+  );
+};
+
+export default BottomTabNavigator;

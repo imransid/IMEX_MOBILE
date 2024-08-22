@@ -1,16 +1,16 @@
-// import React, { FC } from 'react';
+import React, { type FC } from 'react';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
-// import { createDrawerNavigator } from '@react-navigation/drawer';
-// import BottomTabNavigator from './BottomTabNavigator';
+import BottomTabNavigator from './BottomTabNavigator';
 
-// const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator();
 
-// const DrawerNavigator: FC = () => {
-//   return (
-//     <Drawer.Navigator>
-//       <Drawer.Screen name="" component={BottomTabNavigator} />
-//     </Drawer.Navigator>
-//   );
-// };
+const DrawerNavigator: FC = () => {
+  return (
+    <Drawer.Navigator initialRouteName="BottomTab">
+      <Drawer.Screen name="BottomTab" component={BottomTabNavigator} />
+    </Drawer.Navigator>
+  );
+};
 
-// export default DrawerNavigator;
+export default DrawerNavigator;
