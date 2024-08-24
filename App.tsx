@@ -2,8 +2,8 @@ import React, { type FC, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import DrawerNavigator from './src/navigators/DrawerNavigator';
-import PublickStackNavigator from './src/navigators/PublicStackNavigator';
 import SplashScreen from './src/Screens/SplashScreen/Splash.Screen';
+import AppStackNavigator from './src/navigators/AppStackNavigator';
 
 const App: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +17,7 @@ const App: FC = () => {
 
   return (
     <NavigationContainer>
-      {isLoading ? <SplashScreen /> : hasToken ? <DrawerNavigator /> : <PublickStackNavigator />}
+      {isLoading ? <SplashScreen /> : hasToken ? <DrawerNavigator /> : <AppStackNavigator />}
     </NavigationContainer>
   );
 };

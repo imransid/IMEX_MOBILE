@@ -8,7 +8,7 @@ const Drawer = createDrawerNavigator();
 const DrawerNavigator: FC = () => {
   return (
     <Drawer.Navigator initialRouteName="BottomTab">
-      <Drawer.Screen name="BottomTab" component={BottomTabNavigator} />
+      <Drawer.Screen name="BottomTab" component={BottomTabNavigator} options={{ title: '' }} />
     </Drawer.Navigator>
   );
 };

@@ -39,7 +39,11 @@ import {
   TwiceAdayDose,
   WeeklyDose,
   WeeklyDoseDetails,
-  XtimesAdayDose
+  XtimesAdayDose,
+  ScanQrCode,
+  CameraScanner,
+  MedicineDetails,
+  Login
 } from '../Screens';
 import { colors } from '../theme/colors';
 
@@ -47,7 +51,19 @@ const Stack = createStackNavigator<AppStackParamList>();
 
 const AppStackNavigator: FC = () => {
   return (
-    <Stack.Navigator initialRouteName="ScanQrCodeScreen" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name={'ScanQrCodeScreen'} component={ScanQrCode} />
+      <Stack.Screen name={'CameraScanner'} component={CameraScanner} />
+      <Stack.Screen name={'MedicineDetails'} component={MedicineDetails} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: '',
+          headerTintColor: colors.buttonBg
+        }}
+        name={'Login'}
+        component={Login}
+      />
       <Stack.Screen
         options={{ headerShown: true, headerTitle: '', headerTintColor: colors.buttonBg }}
         name={'MedicineDoses'}
@@ -223,11 +239,11 @@ const AppStackNavigator: FC = () => {
         name={'EveryXmonthsDoseDetails'}
         component={EveryXmonthsDoseDetails}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         options={{ headerShown: true, headerTitle: '', headerTintColor: colors.buttonBg }}
         name={'PreviewDoseDetails'}
         component={PreviewDoseDetails}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };

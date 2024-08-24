@@ -34,7 +34,7 @@ const AddedMedicine: FC = () => {
     sv.value = withTiming(1, { duration, easing });
   }, []);
 
-  const handleBackToLogin: any = () => {
+  const handleAddAnotherMedicine: any = () => {
     navigation.navigate('MedicineAddingMethod' as never);
   };
 
@@ -58,7 +58,7 @@ const AddedMedicine: FC = () => {
         exiting={FadeOut}
         style={styles.addAnotherMedButtonPosition}>
         <CustomButton
-          onPress={handleBackToLogin}
+          onPress={handleAddAnotherMedicine}
           icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
           text="Add Another Med"
         />
