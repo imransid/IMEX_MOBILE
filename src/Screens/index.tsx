@@ -24,6 +24,7 @@ import { MedicineAddingMethod } from './MedicineAddingMethod';
 import { MedicineDailyDoses } from './MedicineDailyDoses';
 import { MedicineDetails } from './MedicineDetails';
 import { MedicineDoses } from './MedicineDoses';
+import { MedicineHistory } from './MedicineHistory';
 import { MedicineReminders } from './MedicineReminders';
 import { MedicineType } from './MedicineType';
 import { MonthlyDose } from './MonthlyDose';
@@ -68,6 +69,7 @@ export {
   MedicineDailyDoses,
   MedicineDetails,
   MedicineDoses,
+  MedicineHistory,
   MedicineReminders,
   MedicineType,
   MonthlyDose,

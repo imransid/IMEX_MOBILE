@@ -22,7 +22,6 @@ import {
   EveryXweeksDoseDetails,
   ForgotPassword,
   FourTimesAdayDose,
-  HomeScreen,
   Login,
   MedicineAddingMethod,
   MedicineDailyDoses,
@@ -115,7 +114,7 @@ const PublickStackNavigator: any = () => {
         component={OnceAdayDose}
       />
       <publicStack.Screen
-        options={{ headerShown: true, headerTitle: '', headerTintColor: colors.buttonBg }}
+        options={{ headerShown: false, headerTitle: '', headerTintColor: colors.buttonBg }}
         name={'AddedMedicine'}
         component={AddedMedicine}
       />
@@ -140,7 +139,11 @@ const PublickStackNavigator: any = () => {
         component={MedicineType}
       />
       <publicStack.Screen
-        options={{ headerShown: true, headerTitle: '', headerTintColor: colors.buttonBg }}
+        options={{
+          headerShown: true,
+          headerTitle: '',
+          headerTintColor: colors.buttonBg
+        }}
         name={'AddInstructions'}
         component={AddInstructions}
       />
@@ -248,11 +251,6 @@ const PublickStackNavigator: any = () => {
         options={{ headerShown: true, headerTitle: '', headerTintColor: colors.buttonBg }}
         name={'EveryXmonthsDoseDetails'}
         component={EveryXmonthsDoseDetails}
-      />
-      <publicStack.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{ headerShown: false }}
       />
     </publicStack.Navigator>
   );

@@ -6,13 +6,13 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   addMedicineButton: {
     backgroundColor: colors.buttonBg,
-    borderRadius: scale(16),
+    borderRadius: scale(30),
     height: verticalScale(42),
     width: scale(162)
   },
   addMedicineButtonPosition: {
-    marginLeft: scale(165),
-    marginTop: verticalScale(90)
+    marginLeft: scale(175),
+    marginTop: verticalScale(260)
   },
   addMedicineButtonProperties: {
     flexDirection: 'row',
@@ -37,31 +37,19 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5),
     width: scale(330)
   },
-  medicineDoseProperties: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  medicineNameText: {
-    color: colors.buttonBg,
-    fontSize: moderateScale(12),
-    fontWeight: '500'
-  },
-  medicineDoseComponentPosition:{
-    alignItems: 'center'
-  },
   doseComponent: {
     gap: verticalScale(6)
   },
+  doseDatesPosition: {
+    flexDirection: 'row',
+    gap: scale(5)
+  },
   doseDetailsPosition: {
-    justifyContent: 'center', 
+    justifyContent: 'center',
     marginRight: scale(30)
   },
   doseProperties: {
     flexDirection: 'row'
-  },
-  doseDatesPosition: {
-    flexDirection: 'row', 
-    gap: scale(5)
   },
   doseText: {
     color: colors.typedText,
@@ -70,6 +58,18 @@ const styles = StyleSheet.create({
   },
   doseTimePosition: {
     marginRight: scale(40)
+  },
+  medicineDoseComponentPosition: {
+    alignItems: 'center'
+  },
+  medicineDoseProperties: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  medicineNameText: {
+    color: colors.buttonBg,
+    fontSize: moderateScale(12),
+    fontWeight: '500'
   }
 });
 

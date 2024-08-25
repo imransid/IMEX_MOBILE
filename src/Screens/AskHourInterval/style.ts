@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(6),
+    borderRadius: scale(2),
     borderWidth: scale(0.15),
     height: verticalScale(43),
     justifyContent: 'center',

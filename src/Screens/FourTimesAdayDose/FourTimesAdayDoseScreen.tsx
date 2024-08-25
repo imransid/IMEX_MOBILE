@@ -1,27 +1,20 @@
 import React, { type FC, useState } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import DoseInputModal from '../../Components/DoseInputModal/DoseInputModal';
 import Header from '../../Components/Header/Header';
-import { colors } from '../../theme/colors';
-import addMoreSettings from '../../utils/addMoreSettings';
 import MoreSettings from '../../Components/MoreSettingsComponent/MoreSettingsComponent';
+import { colors } from '../../theme/colors';
 
 import styles from './style';
-
-interface addMoreSettingsProps {
-  item: string;
-  index: number;
-}
 
 const FourTimesAdayDose: FC = () => {
   const navigation = useNavigation();
@@ -241,7 +234,9 @@ const FourTimesAdayDose: FC = () => {
               }).format(new Date(date));
               setSelectedTime(timeStr);
             }}
-            onCancel={() => setOpen(false)}
+            onCancel={() => {
+              setOpen(false);
+            }}
             theme="dark"
           />
         )}
@@ -249,7 +244,9 @@ const FourTimesAdayDose: FC = () => {
         <DoseInputModal
           numKeybaordType={true}
           visible={isModalVisible}
-          onClose={() => setModalVisible(false)}
+          onClose={() => {
+            setModalVisible(false);
+          }}
           onSubmit={handleSubmit}
         />
       </ScrollView>
