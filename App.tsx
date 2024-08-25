@@ -1,13 +1,11 @@
 import React, { type FC, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import DrawerNavigator from './src/navigators/DrawerNavigator';
-import SplashScreen from './src/Screens/SplashScreen/Splash.Screen';
 import AppStackNavigator from './src/navigators/AppStackNavigator';
+import SplashScreen from './src/Screens/SplashScreen/Splash.Screen';
 
 const App: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [hasToken] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -17,7 +15,7 @@ const App: FC = () => {
 
   return (
     <NavigationContainer>
-      {isLoading ? <SplashScreen /> : hasToken ? <DrawerNavigator /> : <AppStackNavigator />}
+      {isLoading ? <SplashScreen /> : <AppStackNavigator />}
     </NavigationContainer>
   );
 };

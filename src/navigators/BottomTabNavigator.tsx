@@ -1,18 +1,14 @@
-import React, { FC } from 'react';
+import React, { type FC } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import HomeStackNavigator from './HomeStackNavigator';
+import { HomeScreen } from '../Screens';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator: FC = () => {
   return (
-    <Tab.Navigator initialRouteName="Today">
-      <Tab.Screen
-        name="HomeScreen"
-        component={HomeStackNavigator}
-        options={{ headerShown: false }}
-      />
+    <Tab.Navigator initialRouteName="HomeScreen">
+      <Tab.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 };

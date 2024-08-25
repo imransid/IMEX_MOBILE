@@ -39,7 +39,7 @@ const AddedMedicine: FC = () => {
   };
 
   const handleNoThanks: any = () => {
-    navigation.navigate('HomeScreen' as never);
+    navigation.navigate('MainTabs' as never);
   };
 
   return (
