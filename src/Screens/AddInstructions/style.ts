@@ -5,8 +5,8 @@ import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   NextbuttonPosition: {
-    marginTop: verticalScale(25),
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: verticalScale(25)
   },
   chip: {
     backgroundColor: colors.textInput,
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   chipPosition: {
-    marginTop: verticalScale(10),
     alignItems: 'center',
+    marginTop: verticalScale(10)
   },
   chipProperties: {
     flexDirection: 'row',
@@ -36,11 +36,12 @@ const styles = StyleSheet.create({
     marginLeft: scale(10)
   },
   headingPosition: {
-    alignItems: 'center', 
+    alignItems: 'center',
     top: verticalScale(30)
   },
   imagePosition: {
     alignItems: 'center',
+    top: verticalScale(30)
   },
   instructionContainer: {
     backgroundColor: colors.textInput,

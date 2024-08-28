@@ -4,75 +4,53 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
-  addMoreSettingsContentProperties: {
+  BackbuttonPosition: {
     alignItems: 'center',
-    flexDirection: 'row',
-    marginLeft: scale(20)
+    marginTop: verticalScale(15)
   },
-  addMoreSettingsItems: {
+  addMoreSettingsHeaderPosition: {
+    bottom: verticalScale(40)
+  },
+  addMoresettingsContainer: {
     alignItems: 'center',
-    backgroundColor: colors.textInput,
-    borderRadius: scale(2),
-    borderWidth: scale(0.15),
-    flexDirection: 'row',
-    height: verticalScale(35),
-    marginTop: verticalScale(5),
-    width: scale(330)
+    marginTop: verticalScale(10)
   },
-  addMoreSettingsItemsText: {
-    color: colors.mainText,
-    marginLeft: scale(20)
-  },
-  buttonContainer: {
-    alignItems: 'center',
-    flex: 1
-  },
-  buttonPosition: {
-    bottom: verticalScale(18),
-    position: 'absolute'
+  checkMarkIconPosition: {
+    position: 'absolute',
+    right: scale(20)
   },
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(2),
     borderWidth: scale(0.15),
-    height: verticalScale(43),
+    height: verticalScale(38),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
   },
   chipContentProperties: {
-    alignItems: 'center',
-    flexDirection: 'row',
     marginLeft: scale(20)
   },
-  chipProperties: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+  chipPosition: {
+    alignItems: 'center'
   },
   chipText: {
-    alignSelf: 'center',
     color: colors.mainText,
-    marginLeft: scale(10)
+    fontSize: moderateScale(16),
+    fontWeight: '400'
   },
   container: {
-    alignItems: 'center',
     flex: 1
   },
-  numberPicker: {
+  headingPosition: {
     alignItems: 'center',
-    height: verticalScale(100),
-    justifyContent: 'center',
-    width: scale(200)
-  },
-  numberPickerText: {
-    fontSize: moderateScale(20),
-    fontWeight: '400'
+    top: verticalScale(10)
   },
   progressBarPosition: {
     borderWidth: scale(0)
   },
   scrollViewContainer: {
-    maxHeight: verticalScale(230)
+    paddingBottom: verticalScale(15)
   },
   selectButton: {
     alignItems: 'center',

@@ -5,54 +5,57 @@ import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   NextButtonPosition: {
-    bottom: verticalScale(15)
-  },
-  container: {
     alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center'
+    marginTop: verticalScale(40)
   },
   headingPosition: {
-    top: verticalScale(90)
+    top: verticalScale(30)
   },
   imagePosition: {
-    top: verticalScale(15)
+    alignItems: 'center',
+    top: verticalScale(20)
   },
   inputHeader: {
     color: colors.header,
     fontSize: moderateScale(14),
-    fontWeight: '500',
-    marginRight: scale(226)
+    fontWeight: '500'
   },
   inputText: {
     color: colors.typedText,
     fontSize: moderateScale(16),
     fontWeight: '400'
   },
-  noThanksText: {
+  progressBarPosition: {
+    borderWidth: scale(0),
+    marginTop: verticalScale(0.1)
+  },
+  skipText: {
     color: colors.buttonBg,
     fontSize: moderateScale(14),
     fontWeight: '400',
     textAlign: 'center'
   },
-  noThanksTextPosition: {
-    bottom: verticalScale(10)
+  skipTextPosition: {
+    marginTop: verticalScale(5)
   },
-  progressBarPosition: {
-    borderWidth: scale(0),
-    marginTop: verticalScale(0.1)
+  textInputContent: {
+    gap: verticalScale(5)
   },
   textInputPosition: {
+    alignItems: 'center',
     marginTop: verticalScale(40)
   },
   unitItems: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(6),
+    borderRadius: scale(2),
     borderWidth: scale(0.15),
     height: verticalScale(33),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
+  },
+  unitItemsList: {
+    alignItems: 'center'
   },
   unitItemsPosition: {
     marginTop: verticalScale(5)
@@ -73,8 +76,8 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   unitTextPosition: {
-    marginTop: verticalScale(25),
-    right: scale(150)
+    marginLeft: scale(12),
+    marginTop: verticalScale(25)
   }
 });
 

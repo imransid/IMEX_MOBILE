@@ -34,8 +34,12 @@ const AddedMedicine: FC = () => {
     sv.value = withTiming(1, { duration, easing });
   }, []);
 
-  const handleBackToLogin: any = () => {
+  const handleAddAnotherMedicine: any = () => {
     navigation.navigate('MedicineAddingMethod' as never);
+  };
+
+  const handleNoThanks: any = () => {
+    navigation.navigate('MainTabs' as never);
   };
 
   return (
@@ -54,12 +58,12 @@ const AddedMedicine: FC = () => {
         exiting={FadeOut}
         style={styles.addAnotherMedButtonPosition}>
         <CustomButton
-          onPress={handleBackToLogin}
+          onPress={handleAddAnotherMedicine}
           icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
           text="Add Another Med"
         />
         <View style={styles.noThanksTextPosition}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNoThanks()}>
             <Text style={styles.noThanksText}>No, Thanks</Text>
           </TouchableOpacity>
         </View>

@@ -28,24 +28,21 @@ const AddMedicineStrength: FC = () => {
     navigation.navigate('MedicineDoses' as never);
   };
 
-  const RenderItems: React.FC<IMedicineStrengthProps> = ({
-    item,
-    index,
-    selectedUnit,
-    onPress
-  }) => {
+  const RenderItems: React.FC<IMedicineStrengthProps> = ({ item, selectedUnit, onPress }) => {
     return (
-      <TouchableOpacity style={styles.unitItems} onPress={onPress}>
-        <View style={styles.unitProperties}>
-          <Text style={styles.unitItemsText}>{item}</Text>
-          {selectedUnit === item && <AntDesign name="check" size={28} color={colors.buttonBg} />}
-        </View>
-      </TouchableOpacity>
+      <View style={styles.unitItemsList}>
+        <TouchableOpacity style={styles.unitItems} onPress={onPress}>
+          <View style={styles.unitProperties}>
+            <Text style={styles.unitItemsText}>{item}</Text>
+            {selectedUnit === item && <AntDesign name="check" size={28} color={colors.buttonBg} />}
+          </View>
+        </TouchableOpacity>
+      </View>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Progress.Bar color="#A6BDF8" progress={0.2} width={380} style={styles.progressBarPosition} />
       <View style={styles.imagePosition}>
         <MedicineDoseTime />
@@ -54,15 +51,17 @@ const AddMedicineStrength: FC = () => {
         <Header mainHeader="Add the Medicine Strength" />
       </View>
       <View style={styles.textInputPosition}>
-        <Text style={styles.inputHeader}>Strength</Text>
-        <CustomTextInput
-          type="mobile"
-          value={strength}
-          onChangeText={setStrength}
-          placeholder="Enter medicine strength..."
-          maxLength={3}
-          inputStyle={styles.inputText}
-        />
+        <View style={styles.textInputContent}>
+          <Text style={styles.inputHeader}>Strength</Text>
+          <CustomTextInput
+            type="mobile"
+            value={strength}
+            onChangeText={setStrength}
+            placeholder="Enter medicine strength..."
+            maxLength={3}
+            inputStyle={styles.inputText}
+          />
+        </View>
       </View>
 
       <View style={styles.unitTextPosition}>
@@ -90,9 +89,9 @@ const AddMedicineStrength: FC = () => {
           text="Next"
         />
       </View>
-      <View style={styles.noThanksTextPosition}>
+      <View style={styles.skipTextPosition}>
         <TouchableOpacity onPress={handleSkip}>
-          <Text style={styles.noThanksText}>Skip</Text>
+          <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       </View>
     </View>

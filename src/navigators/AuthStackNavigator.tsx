@@ -1,20 +1,18 @@
-// import * as React from 'react';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 
-// import { SignInScreen } from '@/screens';
+import { Login } from '../Screens';
+const Stack = createStackNavigator();
 
-// const Stack = createNativeStackNavigator();
+const AuthStackNav: any = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true
+      }}>
+      <Stack.Screen name="Login" component={Login} />
+    </Stack.Navigator>
+  );
+};
 
-// function AuthStackNav(): JSX.Element {
-//   return (
-//     <Stack.Navigator
-//       initialRouteName={'SignInScreen'}
-//       screenOptions={{
-//         headerShown: false
-//       }}>
-//       <Stack.Screen name="SignInScreen" component={SignInScreen} />
-//     </Stack.Navigator>
-//   );
-// }
-
-// export default AuthStackNav;
+export default AuthStackNav;

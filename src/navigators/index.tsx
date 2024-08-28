@@ -2,7 +2,7 @@ import React, { type FC } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 
-import AppStackNavigator from './AppStackNavigator';
+import DrawerNavigator from './DrawerNavigator';
 
 // import { type RootState } from '@/store';
 // import { checkLoaderAction } from '@/store/slices/features/users/slice';
@@ -32,7 +32,8 @@ const Navigator: FC = () => {
   return (
     // <NavigationContainer>{authStatus ? <DrawerNavigator /> : <AuthStackNav />}</NavigationContainer>
     <NavigationContainer>
-      <AppStackNavigator />
+      {/* <AppStackNavigator /> */}
+      <DrawerNavigator />
 
       {/* {authStatus ? <DrawerNavigator /> : <AuthStackNav />} */}
       {/* <Spinner visible={globalLoaderStatus} textContent={'Loading...'} /> */}

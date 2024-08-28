@@ -18,17 +18,20 @@ import { EveryXweeksDose } from './EveryXweeksDose';
 import { EveryXweeksDoseDetails } from './EveryXweeksDoseDetails';
 import { ForgotPassword } from './ForgotPassword';
 import { FourTimesAdayDose } from './FourTimesAdayDose';
+import { HomeScreen } from './HomeScreen';
 import { Login } from './Login';
 import { MedicineAddingMethod } from './MedicineAddingMethod';
 import { MedicineDailyDoses } from './MedicineDailyDoses';
 import { MedicineDetails } from './MedicineDetails';
 import { MedicineDoses } from './MedicineDoses';
+import { MedicineHistory } from './MedicineHistory';
 import { MedicineReminders } from './MedicineReminders';
 import { MedicineType } from './MedicineType';
 import { MonthlyDose } from './MonthlyDose';
 import { MonthlyDoseDetails } from './MonthlyDoseDetails';
 import { OnceAdayDose } from './OnceAdayDose';
 import { PasswordChanged } from './PasswordChanged';
+import { PreviewDoseDetails } from './PreviewDoseDetails';
 import { ResetPassword } from './ResetPassword';
 import { ScanQrCode } from './ScanQrCode';
 import { SetTreatmentDuration } from './SetTreatmentDuration';
@@ -60,17 +63,20 @@ export {
   EveryXweeksDoseDetails,
   ForgotPassword,
   FourTimesAdayDose,
+  HomeScreen,
   Login,
   MedicineAddingMethod,
   MedicineDailyDoses,
   MedicineDetails,
   MedicineDoses,
+  MedicineHistory,
   MedicineReminders,
   MedicineType,
   MonthlyDose,
   MonthlyDoseDetails,
   OnceAdayDose,
   PasswordChanged,
+  PreviewDoseDetails,
   ResetPassword,
   ScanQrCode,
   SetTreatmentDuration,

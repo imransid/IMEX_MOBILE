@@ -19,12 +19,12 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5),
     width: scale(330)
   },
+  addMoreSettingsItemsPosition: {
+    marginTop: verticalScale(-40)
+  },
   addMoreSettingsItemsText: {
     color: colors.mainText,
     marginLeft: scale(20)
-  },
-  addMoreSettingsItemsPosition: {
-    marginTop: verticalScale(-40)
   },
   buttonPosition: {
     bottom: verticalScale(18),
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(6),
+    borderRadius: scale(2),
     borderWidth: scale(0.15),
     height: verticalScale(43),
     justifyContent: 'center',

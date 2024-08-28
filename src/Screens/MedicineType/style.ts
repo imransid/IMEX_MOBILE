@@ -5,41 +5,36 @@ import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   NextButtonPosition: {
-    bottom: verticalScale(15)
-  },
-  container: {
     alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center'
+    marginTop: verticalScale(90)
   },
   formsItemsPosition: {
-    marginTop: verticalScale(5)
+    marginTop: verticalScale(55)
   },
   formsItemsText: {
     color: colors.mainText,
     marginLeft: scale(20)
   },
   formsPosition: {
-    marginTop: verticalScale(55),
-    right: scale(150)
+    marginLeft: scale(12),
+    top: verticalScale(55)
   },
   formsText: {
     color: colors.header,
     fontSize: moderateScale(14),
-    fontWeight: '500',
-    left: scale(10)
+    fontWeight: '500'
   },
   headingPosition: {
-    top: verticalScale(90)
+    top: verticalScale(30)
   },
   imagePosition: {
-    top: verticalScale(15)
+    alignItems: 'center',
+    top: verticalScale(20)
   },
   inputHeader: {
     color: colors.header,
     fontSize: moderateScale(14),
-    fontWeight: '500',
-    marginRight: scale(226)
+    fontWeight: '500'
   },
   inputText: {
     color: colors.typedText,
@@ -57,19 +52,22 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   skipTextPosition: {
-    bottom: verticalScale(10)
+    marginTop: verticalScale(5)
   },
   textInputPosition: {
     marginTop: verticalScale(40)
   },
   unitItems: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(6),
+    borderRadius: scale(2),
     borderWidth: scale(0.15),
     height: verticalScale(33),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
+  },
+  unitItemsList: {
+    alignItems: 'center'
   },
   unitProperties: {
     alignItems: 'center',

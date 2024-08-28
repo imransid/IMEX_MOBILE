@@ -5,7 +5,7 @@ import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   addAnotherMedButtonPosition: {
-    bottom: verticalScale(-168)
+    bottom: verticalScale(-195)
   },
   container: {
     alignItems: 'center',
