@@ -12,6 +12,14 @@ const styles = ScaledSheet.create({
     fontSize: moderateScale(12),
     fontWeight: '300',
     color: colors.mainText
+  },
+  backNavigationProperties: {
+    flexDirection: 'row'
+  },
+  backNavigationText: {
+    fontSize: moderateScale(14),
+    color: colors.buttonBg,
+    alignSelf: 'center'
   }
 });
 
