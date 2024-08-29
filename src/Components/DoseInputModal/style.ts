@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     padding: scale(10)
   },
   textInput: {
-    borderRadius: scale(6),
+    borderRadius: scale(2),
     borderWidth: scale(0.15),
     color: colors.typedText,
     height: verticalScale(40),

@@ -7,6 +7,7 @@ import { AskHourInterval } from './AskHourInterval';
 import { AskTimeInterval } from './AskTimeInterval';
 import { CameraScanner } from './CameraScanner';
 import { CreateAccount } from './CreateAccount';
+import { CustomDrawer } from './CustomDrawer';
 import { DoctorAppointments } from './DoctorAppointments';
 import { EnterOtp } from './EnterOtp';
 import { EveryXdaysDose } from './EveryXdaysDose';
@@ -29,9 +30,11 @@ import { MedicineReminders } from './MedicineReminders';
 import { MedicineType } from './MedicineType';
 import { MonthlyDose } from './MonthlyDose';
 import { MonthlyDoseDetails } from './MonthlyDoseDetails';
+import { MoreScreenTab } from './MoreScreenTab';
 import { OnceAdayDose } from './OnceAdayDose';
 import { PasswordChanged } from './PasswordChanged';
 import { PreviewDoseDetails } from './PreviewDoseDetails';
+import { ProfileDetails } from './ProfileDetails';
 import { ResetPassword } from './ResetPassword';
 import { ScanQrCode } from './ScanQrCode';
 import { SetTreatmentDuration } from './SetTreatmentDuration';
@@ -52,6 +55,7 @@ export {
   AskTimeInterval,
   CameraScanner,
   CreateAccount,
+  CustomDrawer,
   DoctorAppointments,
   EnterOtp,
   EveryXdaysDose,
@@ -74,9 +78,11 @@ export {
   MedicineType,
   MonthlyDose,
   MonthlyDoseDetails,
+  MoreScreenTab,
   OnceAdayDose,
   PasswordChanged,
   PreviewDoseDetails,
+  ProfileDetails,
   ResetPassword,
   ScanQrCode,
   SetTreatmentDuration,

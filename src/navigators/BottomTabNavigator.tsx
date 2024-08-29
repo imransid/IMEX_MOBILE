@@ -1,8 +1,10 @@
 import React, { type FC } from 'react';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { HomeScreen, MedicineHistory } from '../Screens';
+import { HomeScreen, MedicineHistory, MoreScreenTab, ProfileDetails } from '../Screens';
 import { colors } from '../theme/colors';
 
 const Tab = createBottomTabNavigator();
@@ -12,17 +14,17 @@ const BottomTabNavigator: FC = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color }) => {
-          let iconName: string;
-
           if (route.name === 'Today') {
-            iconName = 'pill';
+            return <MaterialCommunityIcons name="pill" size={22} color={color} />;
           } else if (route.name === 'History') {
-            iconName = 'history';
+            return <MaterialCommunityIcons name="history" size={22} color={color} />;
+          } else if (route.name === 'More') {
+            return <Entypo name="dots-three-horizontal" size={22} color={color} />;
+          } else if (route.name === 'Profile') {
+            return <Ionicons name="person-outline" size={22} color={color} />;
           } else {
-            iconName = 'questioncircleo';
+            return <MaterialCommunityIcons name="questioncircleo" size={28} color={color} />;
           }
-
-          return <MaterialCommunityIcons name={iconName} size={28} color={color} />;
         },
         tabBarActiveTintColor: colors.buttonBg,
         tabBarInactiveTintColor: colors.typedText,
@@ -32,6 +34,8 @@ const BottomTabNavigator: FC = () => {
       })}>
       <Tab.Screen name="Today" component={HomeScreen} options={{ headerShown: false }} />
       <Tab.Screen name="History" component={MedicineHistory} options={{ headerShown: false }} />
+      <Tab.Screen name="More" component={MoreScreenTab} options={{ headerShown: false }} />
+      <Tab.Screen name="Profile" component={ProfileDetails} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 };
