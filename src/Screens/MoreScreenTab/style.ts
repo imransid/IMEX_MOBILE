@@ -7,11 +7,14 @@ const styles = StyleSheet.create({
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(3),
-    borderWidth: scale(0.15),
     height: verticalScale(55),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
+  },
+  container: {
+    backgroundColor: colors.white,
+    flex: 1
   },
   doseComponent: {
     gap: verticalScale(2)

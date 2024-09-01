@@ -6,13 +6,12 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   NextbuttonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(25)
+    marginTop: verticalScale(325)
   },
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(2),
-    borderWidth: scale(0.15),
-    height: verticalScale(43),
+    height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
@@ -34,6 +33,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: colors.mainText,
     marginLeft: scale(10)
+  },
+  container: {
+    backgroundColor: colors.white,
+    flex: 1
   },
   headingPosition: {
     alignItems: 'center',
@@ -77,6 +80,7 @@ const styles = StyleSheet.create({
     color: colors.buttonBg
   },
   subHeadingPosition: {
+    left: scale(10),
     marginTop: verticalScale(30)
   }
 });

@@ -18,7 +18,7 @@ const AddMedicineManually: FC = () => {
     navigation.navigate('AddMedicineStrength' as never);
   };
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.headingPosition}>
         <Header mainHeader="Add Medicine" />
       </View>

@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { FC } from 'react';
-import { TouchableOpacity, View, Text, FlatList } from 'react-native';
-import DailyDoseLogo from '../../assets/medicine-daily-dose';
-import styles from './style';
-import Header from '../../Components/Header/Header';
+import React, { useEffect, useState } from 'react';
+import { type FC } from 'react';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import * as Progress from 'react-native-progress';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import CalendarModalWithDates from '../../Components/CalendarModalWithDates/CalenderModalWithDates';
-import { colors } from '../../theme/colors';
 import ScrollPicker from 'react-native-wheel-scrollview-picker';
 import { useNavigation } from '@react-navigation/native';
+
+import DailyDoseLogo from '../../assets/medicine-daily-dose';
+import CalendarModalWithDates from '../../Components/CalendarModalWithDates/CalenderModalWithDates';
 import CustomButton from '../../Components/CustomButton/CustomButton';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import { colors } from '../../theme/colors';
+
+import styles from './style';
 
 const MonthlyDose: FC = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedDates, setSelectedDates] = useState<{
-    [date: string]: { selected: boolean };
-  }>({});
+  const [selectedDates, setSelectedDates] = useState<Record<string, { selected: boolean }>>({});
   const [numberOfDates, setNumberOfDates] = useState('');
   const [open, setOpen] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState('');
@@ -68,23 +68,30 @@ const MonthlyDose: FC = () => {
 
   return (
     <View style={styles.container}>
-      <DailyDoseLogo />
-      <Header mainHeader="Which days of the month?" />
-      <View style={styles.chip}>
-        <View style={styles.chipProperties}>
-          <View style={styles.chipContentProperties}>
-            {numberOfDates !== '' && (
-              <TouchableOpacity onPress={clearDateSelection}>
-                <FontAwesome name="minus-circle" size={30} color={'red'} />
-              </TouchableOpacity>
-            )}
-            <Text style={styles.chipText}>Days</Text>
+      <Progress.Bar color="#A6BDF8" progress={0.2} width={380} style={styles.progressBarPosition} />
+      <View style={styles.imagePosition}>
+        <DailyDoseLogo />
+      </View>
+      <View style={styles.headingPosition}>
+        <Text style={styles.headingText}>Which days of the month?</Text>
+      </View>
+      <View style={styles.chipPosition}>
+        <View style={styles.chip}>
+          <View style={styles.chipProperties}>
+            <View style={styles.chipContentProperties}>
+              {numberOfDates !== '' && (
+                <TouchableOpacity onPress={clearDateSelection}>
+                  <FontAwesome name="minus-circle" size={30} color={'red'} />
+                </TouchableOpacity>
+              )}
+              <Text style={styles.chipText}>Days</Text>
+            </View>
+            <TouchableOpacity style={styles.selectButton} onPress={handleSelectNumber}>
+              <Text style={styles.selectButtonText}>
+                {numberOfDates === '' ? 'Select' : numberOfDates}
+              </Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.selectButton} onPress={handleSelectNumber}>
-            <Text style={styles.selectButtonText}>
-              {numberOfDates === '' ? 'Select' : numberOfDates}
-            </Text>
-          </TouchableOpacity>
         </View>
       </View>
 
@@ -97,15 +104,12 @@ const MonthlyDose: FC = () => {
         />
       )}
 
-      {selectedDates && (
+      {Object.keys(selectedDates).length > 0 && (
         <FlatList
           data={Object.keys(selectedDates)}
           keyExtractor={item => item}
           renderItem={({ item }) => (
-            <Text style={styles.selectedDaysText}>
-              {formatDate(new Date(item))}
-              {','}
-            </Text>
+            <Text style={styles.selectedDaysText}>{formatDate(new Date(item))}, </Text>
           )}
           numColumns={3}
           scrollEnabled={true}
@@ -113,22 +117,26 @@ const MonthlyDose: FC = () => {
         />
       )}
 
-      <Header subHeader="How many times of each day" />
-      <View style={styles.chip}>
-        <View style={styles.chipProperties}>
-          <View style={styles.chipContentProperties}>
-            {selectedNumber !== '' && (
-              <TouchableOpacity onPress={() => clearNumberSelection()}>
-                <FontAwesome name="minus-circle" size={30} color={'red'}></FontAwesome>
-              </TouchableOpacity>
-            )}
-            <Text style={styles.chipText}>Time</Text>
+      <View style={styles.timesOfEachDayTextPosition}>
+        <Text style={styles.timesOfEachDayText}>How many times of each day</Text>
+      </View>
+      <View style={styles.chipPosition}>
+        <View style={styles.chip}>
+          <View style={styles.chipProperties}>
+            <View style={styles.chipContentProperties}>
+              {selectedNumber !== '' && (
+                <TouchableOpacity onPress={() => clearNumberSelection()}>
+                  <FontAwesome name="minus-circle" size={30} color={'red'}></FontAwesome>
+                </TouchableOpacity>
+              )}
+              <Text style={styles.chipText}>Time</Text>
+            </View>
+            <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
+              <Text style={styles.selectButtonText}>
+                {selectedNumber === '' ? 'Select' : selectedNumber}
+              </Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
-            <Text style={styles.selectButtonText}>
-              {selectedNumber === '' ? 'Select' : selectedNumber}
-            </Text>
-          </TouchableOpacity>
         </View>
       </View>
 

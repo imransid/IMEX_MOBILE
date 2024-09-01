@@ -8,8 +8,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: verticalScale(40)
   },
+  container: {
+    backgroundColor: colors.white,
+    flex: 1
+  },
   headingPosition: {
-    top: verticalScale(30)
+    left: scale(10),
+    marginTop: verticalScale(50)
+  },
+  headingText: {
+    color: colors.header,
+    fontSize: moderateScale(18),
+    fontWeight: '600'
   },
   imagePosition: {
     alignItems: 'center',
@@ -36,19 +46,19 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   skipTextPosition: {
-    marginTop: verticalScale(5)
+    bottom: verticalScale(5),
+    marginTop: verticalScale(10)
   },
   textInputContent: {
     gap: verticalScale(5)
   },
   textInputPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(40)
+    marginTop: verticalScale(20)
   },
   unitItems: {
     backgroundColor: colors.textInput,
     borderRadius: scale(2),
-    borderWidth: scale(0.15),
     height: verticalScale(33),
     justifyContent: 'center',
     marginTop: verticalScale(5),

@@ -1,16 +1,17 @@
-import React from 'react';
-import { FC } from 'react';
-import { View, Text } from 'react-native';
+import React, { type FC } from 'react';
+import { Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
 import UploadPrescriptionLogo from '../../assets/upload-prescription';
 import Header from '../../Components/Header/Header';
+
 import styles from './style';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const AddPrescription: FC = () => {
   return (
     <View>
       <View style={styles.headingPosition}>
-        <Header mainHeader="Precription" />
+        <Header mainHeader="Prescription" />
       </View>
       <View style={styles.imagePosition}>
         <UploadPrescriptionLogo />

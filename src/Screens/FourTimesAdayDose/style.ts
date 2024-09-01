@@ -1,28 +1,29 @@
 import { StyleSheet } from 'react-native';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   NextbuttonPosition: {
     alignItems: 'center',
-    bottom: verticalScale(18)
+    bottom: verticalScale(10)
   },
   addMoreSettingsHeaderPosition: {
-    bottom: verticalScale(40)
+    marginTop: verticalScale(10)
+  },
+  addMoreSettingsHeaderText: {
+    color: colors.header,
+    fontSize: moderateScale(16),
+    fontWeight: '500',
+    left: scale(5)
   },
   addMoresettingsContainer: {
     alignItems: 'center',
-    marginTop: verticalScale(10)
-  },
-  checkMarkIconPosition: {
-    position: 'absolute',
-    right: scale(20)
+    marginTop: verticalScale(5)
   },
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(2),
-    borderWidth: scale(0.15),
     height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(5),
@@ -34,8 +35,7 @@ const styles = StyleSheet.create({
     marginLeft: scale(20)
   },
   chipPosition: {
-    alignItems: 'center',
-    bottom: verticalScale(35)
+    alignItems: 'center'
   },
   chipProperties: {
     flexDirection: 'row',
@@ -47,13 +47,28 @@ const styles = StyleSheet.create({
     marginLeft: scale(10)
   },
   container: {
+    backgroundColor: colors.white,
     flex: 1
   },
   headingPosition: {
-    alignItems: 'center'
+    left: scale(10),
+    marginTop: verticalScale(20)
+  },
+  headingText: {
+    color: colors.header,
+    fontSize: moderateScale(18),
+    fontWeight: '600'
   },
   imagePosition: {
-    alignItems: 'center'
+    alignItems: 'center',
+    top: verticalScale(10)
+  },
+  intakeNumberText: {
+    color: colors.typedText,
+    fontSize: moderateScale(14),
+    fontWeight: '500',
+    left: scale(10),
+    marginTop: verticalScale(10)
   },
   progressBarPosition: {
     borderWidth: scale(0)

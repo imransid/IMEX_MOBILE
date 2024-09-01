@@ -1,15 +1,16 @@
-import React from 'react';
-import { FC } from 'react';
-import { View, Text, TextInput } from 'react-native';
-import styles from './style';
-import MedicineImage from '../../assets/medicine-image';
-import Header from '../../Components/Header/Header';
-import { colors } from '../../theme/colors';
+import React, { type FC } from 'react';
+import { Text, TextInput, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import CustomButton from '../../Components/CustomButton/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+
+import MedicineImage from '../../assets/medicine-image';
+import CustomButton from '../../Components/CustomButton/CustomButton';
+import Header from '../../Components/Header/Header';
+import { colors } from '../../theme/colors';
+
+import styles from './style';
 
 const PreviewDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -18,7 +19,7 @@ const PreviewDoseDetails: FC = () => {
   };
 
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.imagePosition}>
         <MedicineImage />
       </View>
@@ -92,7 +93,7 @@ const PreviewDoseDetails: FC = () => {
           <CustomButton onPress={handleDone} icon={<></>} text="Done" />
         </View>
       </View>
-    </>
+    </View>
   );
 };
 

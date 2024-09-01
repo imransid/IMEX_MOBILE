@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import MedicineDoseTime from '../../assets/medicine-dose-time';
 import CustomButton from '../../Components/CustomButton/CustomButton';
-import Header from '../../Components/Header/Header';
 import type IMedicineStrengthProps from '../../Interfaces/IMedicineStrengthProps';
 import { colors } from '../../theme/colors';
 import medicineTypes from '../../utils/medicineTypes';
@@ -40,13 +39,14 @@ const MedicineType: FC = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
       <View style={styles.imagePosition}>
         <MedicineDoseTime />
       </View>
+
       <View style={styles.headingPosition}>
-        <Header mainHeader="Choose Medicine Type" />
+        <Text style={styles.headingText}>Choose Medicine Type</Text>
       </View>
 
       <View style={styles.formsPosition}>

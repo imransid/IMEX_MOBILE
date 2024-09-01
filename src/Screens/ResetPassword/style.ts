@@ -1,22 +1,21 @@
 import { StyleSheet } from 'react-native';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { moderateScale, verticalScale } from 'react-native-size-matters';
 
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'flex-start'
+    backgroundColor: colors.white,
+    flex: 1
   },
   headingPosition: {
-    top: verticalScale(20),
     alignItems: 'center',
+    top: verticalScale(20)
   },
   inputHeader: {
     color: colors.header,
     fontSize: moderateScale(14),
-    fontWeight: '500',
+    fontWeight: '500'
   },
   inputText: {
     color: colors.typedText,
@@ -24,15 +23,15 @@ const styles = StyleSheet.create({
     fontWeight: '400'
   },
   resetPasswordButtonPosition: {
-    marginTop: verticalScale(20),
     alignItems: 'center',
-  },
-  textInputProperties: {
-    alignItems: 'center', 
+    marginTop: verticalScale(20)
   },
   textInputPosition: {
-    marginTop: verticalScale(20),
-    gap: verticalScale(6)
+    gap: verticalScale(6),
+    marginTop: verticalScale(20)
+  },
+  textInputProperties: {
+    alignItems: 'center'
   }
 });
 

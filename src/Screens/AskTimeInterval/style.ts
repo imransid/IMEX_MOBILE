@@ -34,16 +34,18 @@ const styles = StyleSheet.create({
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(2),
-    borderWidth: scale(0.15),
-    height: verticalScale(43),
+    height: verticalScale(35),
     justifyContent: 'center',
-    marginTop: verticalScale(5),
+    marginTop: verticalScale(10),
     width: scale(330)
   },
   chipContentProperties: {
     alignItems: 'center',
     flexDirection: 'row',
     marginLeft: scale(20)
+  },
+  chipPosition: {
+    alignItems: 'center'
   },
   chipProperties: {
     flexDirection: 'row',
@@ -55,8 +57,21 @@ const styles = StyleSheet.create({
     marginLeft: scale(10)
   },
   container: {
-    alignItems: 'center',
+    backgroundColor: colors.white,
     flex: 1
+  },
+  headingPosition: {
+    left: scale(10),
+    marginTop: verticalScale(20)
+  },
+  headingText: {
+    color: colors.header,
+    fontSize: moderateScale(18),
+    fontWeight: '600'
+  },
+  imagePosition: {
+    alignItems: 'center',
+    top: verticalScale(10)
   },
   numberPicker: {
     alignItems: 'center',

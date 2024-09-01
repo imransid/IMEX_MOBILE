@@ -18,7 +18,7 @@ const ForgotPassword: FC = () => {
     navigation.navigate('EnterOtp' as never);
   };
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.headingPosition}>
         <Header mainHeader="Forget Password" />
       </View>

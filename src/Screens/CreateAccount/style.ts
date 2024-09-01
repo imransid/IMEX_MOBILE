@@ -4,10 +4,14 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
+  SignInbuttonPosition: {
+    alignItems: 'center',
+    marginTop: verticalScale(25)
+  },
   askAboutAccount: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: verticalScale(10),
+    marginTop: verticalScale(10)
   },
   askAboutAccountText: {
     color: colors.typedText,
@@ -15,15 +19,16 @@ const styles = StyleSheet.create({
     fontWeight: '400'
   },
   container: {
+    backgroundColor: colors.white,
     flex: 1
   },
   headingPosition: {
-    alignItems: 'center', 
+    alignItems: 'center'
   },
   inputHeader: {
     color: colors.header,
     fontSize: moderateScale(14),
-    fontWeight: '500',
+    fontWeight: '500'
   },
   inputText: {
     color: colors.typedText,
@@ -32,10 +37,6 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     paddingBottom: verticalScale(15)
-  },
-  SignInbuttonPosition: {
-    marginTop: verticalScale(25),
-    alignItems: 'center'
   },
   signUpText: {
     color: colors.typedText,
@@ -63,15 +64,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: verticalScale(15)
   },
-  signUpWithPartPosition: {
+  signUpWithPart: {
     alignItems: 'center',
-    marginTop: verticalScale(15),
-  },
-  signUpWithPart: { 
     flexDirection: 'row',
     gap: scale(16),
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
+  },
+  signUpWithPartPosition: {
     alignItems: 'center',
+    marginTop: verticalScale(15)
   },
   signUpWithText: {
     color: colors.mainText,
@@ -84,8 +85,7 @@ const styles = StyleSheet.create({
   textInputComponentProperties: {
     gap: verticalScale(6),
     marginTop: verticalScale(12)
-  },
-
+  }
 });
 
 export default styles;

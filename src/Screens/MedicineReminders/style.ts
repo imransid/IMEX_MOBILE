@@ -5,14 +5,14 @@ import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   NextbuttonPosition: {
-    marginTop: verticalScale(25),
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: verticalScale(235)
   },
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(2),
     borderWidth: scale(0.15),
-    height: verticalScale(43),
+    height: verticalScale(40),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   chipPosition: {
-    marginTop: verticalScale(10),
     alignItems: 'center',
+    marginTop: verticalScale(10)
   },
   chipProperties: {
     flexDirection: 'row',
@@ -32,42 +32,41 @@ const styles = StyleSheet.create({
   },
   chipText: {
     alignSelf: 'center',
-    color: colors.mainText,
+    color: colors.mainText
   },
   headingPosition: {
-    alignItems: 'center', 
+    alignItems: 'center',
     top: verticalScale(30)
   },
   imagePosition: {
-    top: verticalScale(30),
     alignItems: 'center',
-  },
-  subHeadingPosition: {
-    marginTop: verticalScale(30)
-  },
-  medicineInput: {
-    width: scale(80),
-    height: scale(38),
-    borderWidth: scale(0.15),
-    fontSize: moderateScale(16),
-    fontWeight: '400',
-    borderRadius: scale(2),
-    color: colors.typedText,
-    textAlign: 'center',
-    justifyContent: 'center'
-  },
-  medicineText: {
-    fontSize: moderateScale(16),
-    fontWeight: '400',
-    color: colors.buttonBg,
-    alignSelf: 'center',
+    top: verticalScale(30)
   },
   inputPosition: {
-    flexDirection: 'row', 
-    gap: scale(10), 
+    flexDirection: 'row',
+    gap: scale(10),
     marginLeft: scale(50)
+  },
+  medicineInput: {
+    borderRadius: scale(2),
+    borderWidth: scale(0.15),
+    color: colors.typedText,
+    fontSize: moderateScale(14),
+    fontWeight: '400',
+    height: scale(34),
+    textAlign: 'center',
+    width: scale(80)
+  },
+  medicineText: {
+    alignSelf: 'center',
+    color: colors.buttonBg,
+    fontSize: moderateScale(14),
+    fontWeight: '400'
+  },
+  subHeadingPosition: {
+    left: scale(10),
+    marginTop: verticalScale(30)
   }
-
 });
 
 export default styles;

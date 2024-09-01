@@ -24,7 +24,7 @@ const ProfileDetails: FC = () => {
     navigation.navigate('ForgotPassword' as never);
   };
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.headingPosition}>
         <Header mainHeader="Profile Details" />
       </View>
@@ -60,7 +60,7 @@ const ProfileDetails: FC = () => {
       <TouchableOpacity onPress={handleForgotPassword}>
         <Text style={styles.forgotPassword}>Forgot your password?</Text>
       </TouchableOpacity>
-    </>
+    </View>
   );
 };
 

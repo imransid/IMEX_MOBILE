@@ -5,14 +5,13 @@ import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   NextbuttonPosition: {
-    marginTop: verticalScale(25),
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: verticalScale(25)
   },
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(2),
-    borderWidth: scale(0.15),
-    height: verticalScale(43),
+    height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
@@ -23,8 +22,8 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   chipPosition: {
-    marginTop: verticalScale(10),
     alignItems: 'center',
+    marginTop: verticalScale(10)
   },
   chipProperties: {
     flexDirection: 'row',
@@ -36,16 +35,16 @@ const styles = StyleSheet.create({
     marginLeft: scale(10)
   },
   container: {
-    alignItems: 'center',
+    backgroundColor: colors.white,
     flex: 1
   },
   headingPosition: {
-    alignItems: 'center', 
+    alignItems: 'center',
     top: verticalScale(30)
   },
   imagePosition: {
-    top: verticalScale(30),
     alignItems: 'center',
+    top: verticalScale(30)
   },
   instructionProperties: {
     alignItems: 'center',
@@ -72,6 +71,7 @@ const styles = StyleSheet.create({
     color: colors.buttonBg
   },
   subHeadingPosition: {
+    left: scale(10),
     marginTop: verticalScale(30)
   },
   treatmentDurationContainer: {

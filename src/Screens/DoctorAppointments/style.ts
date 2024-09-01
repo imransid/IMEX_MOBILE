@@ -5,8 +5,8 @@ import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   NextbuttonPosition: {
-    marginTop: verticalScale(25),
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: verticalScale(125)
   },
   chip: {
     backgroundColor: colors.textInput,
@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
   chipContentProperties: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginLeft: 20,
-    gap: scale(8)
+    gap: scale(8),
+    marginLeft: 20
   },
   chipPosition: {
-    marginTop: verticalScale(10),
     alignItems: 'center',
+    marginTop: verticalScale(10)
   },
   chipProperties: {
     flexDirection: 'row',
@@ -33,32 +33,29 @@ const styles = StyleSheet.create({
   },
   chipText: {
     alignSelf: 'center',
-    color: colors.mainText,
+    color: colors.mainText
   },
   headingPosition: {
-    alignItems: 'center', 
+    alignItems: 'center',
     top: verticalScale(30)
   },
   imagePosition: {
-    top: verticalScale(30),
     alignItems: 'center',
+    top: verticalScale(30)
   },
-  subHeadingPosition: {
-    marginTop: verticalScale(30),
+  inputPosition: {
+    marginRight: scale(15)
   },
   nameInput: {
-    width: scale(150),
-    height: scale(38),
+    borderRadius: scale(2),
     borderWidth: scale(0.15),
+    color: colors.typedText,
     fontSize: moderateScale(16),
     fontWeight: '400',
-    borderRadius: scale(2),
-    color: colors.typedText,
+    height: scale(38),
+    justifyContent: 'center',
     textAlign: 'center',
-    justifyContent: 'center'
-  },
-  inputPosition: { 
-    marginRight: scale(15)
+    width: scale(150)
   },
   selectButton: {
     alignItems: 'center',
@@ -73,7 +70,10 @@ const styles = StyleSheet.create({
   selectButtonText: {
     color: colors.buttonBg
   },
-
+  subHeadingPosition: {
+    left: scale(10),
+    marginTop: verticalScale(30)
+  }
 });
 
 export default styles;

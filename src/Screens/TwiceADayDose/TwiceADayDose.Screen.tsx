@@ -1,6 +1,7 @@
 import React, { type FC, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
+import { ScrollView } from 'react-native-gesture-handler';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -9,11 +10,10 @@ import { useNavigation } from '@react-navigation/native';
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import DoseInputModal from '../../Components/DoseInputModal/DoseInputModal';
-import Header from '../../Components/Header/Header';
-import { colors } from '../../theme/colors';
 import MoreSettings from '../../Components/MoreSettingsComponent/MoreSettingsComponent';
+import { colors } from '../../theme/colors';
+
 import styles from './style';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const TwiceAdayDose: FC = () => {
   const navigation = useNavigation();
@@ -57,90 +57,67 @@ const TwiceAdayDose: FC = () => {
           <MedicineLogo />
         </View>
         <View style={styles.headingPosition}>
-          <Header mainHeader="When do you need to take the dose?" />
+          <Text style={styles.headingText}>When do you need to take the dose?</Text>
         </View>
-        {/* Time and Dose Chips */}
-        <View style={styles.chipPosition}>
-          <Header subHeader="First intake" />
-          <View style={styles.chip}>
-            <View style={styles.chipProperties}>
-              <View style={styles.chipContentProperties}>
-                {selectedTime !== '' && (
-                  <TouchableOpacity onPress={() => clearTimeSelection()}>
-                    <FontAwesome name="minus-circle" size={30} color={'red'} />
-                  </TouchableOpacity>
-                )}
-                <Text style={styles.chipText}>Time</Text>
-              </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
-                <Text style={styles.selectButtonText}>
-                  {selectedTime === '' ? 'Select' : selectedTime}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.chip}>
-            <View style={styles.chipProperties}>
-              <View style={styles.chipContentProperties}>
-                {doseInput !== 0 && (
-                  <TouchableOpacity onPress={() => clearDoseSelection()}>
-                    <FontAwesome name="minus-circle" size={30} color={'red'} />
-                  </TouchableOpacity>
-                )}
-                <Text style={styles.chipText}>Dose</Text>
-              </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDose()}>
-                <Text style={styles.selectButtonText}>
-                  {doseInput === 0 ? 'Select' : doseInput}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
 
-          <Header subHeader="Second intake" />
-          <View style={styles.chip}>
-            <View style={styles.chipProperties}>
-              <View style={styles.chipContentProperties}>
-                {selectedTime !== '' && (
-                  <TouchableOpacity onPress={() => clearTimeSelection()}>
-                    <FontAwesome name="minus-circle" size={30} color={'red'} />
-                  </TouchableOpacity>
-                )}
-                <Text style={styles.chipText}>Time</Text>
+        {/* Time and Dose Chips */}
+        <View>
+          {Array.from({ length: 2 }).map((_, index) => (
+            <React.Fragment key={index}>
+              {/* Conditionally render the "First" or "Second" text */}
+              {index === 0 && <Text style={styles.intakeNumberText}>First intake</Text>}
+              {index === 1 && <Text style={styles.intakeNumberText}>Second intake</Text>}
+
+              <View style={styles.chipPosition}>
+                <View style={styles.chip}>
+                  <View style={styles.chipProperties}>
+                    <View style={styles.chipContentProperties}>
+                      {selectedTime !== '' && (
+                        <TouchableOpacity onPress={clearTimeSelection}>
+                          <FontAwesome name="minus-circle" size={30} color={'red'} />
+                        </TouchableOpacity>
+                      )}
+                      <Text style={styles.chipText}>Time</Text>
+                    </View>
+                    <TouchableOpacity style={styles.selectButton} onPress={handleSelectTime}>
+                      <Text style={styles.selectButtonText}>
+                        {selectedTime === '' ? 'Select' : selectedTime}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                <View style={styles.chip}>
+                  <View style={styles.chipProperties}>
+                    <View style={styles.chipContentProperties}>
+                      {doseInput !== 0 && (
+                        <TouchableOpacity onPress={clearDoseSelection}>
+                          <FontAwesome name="minus-circle" size={30} color={'red'} />
+                        </TouchableOpacity>
+                      )}
+                      <Text style={styles.chipText}>Dose</Text>
+                    </View>
+                    <TouchableOpacity style={styles.selectButton} onPress={handleSelectDose}>
+                      <Text style={styles.selectButtonText}>
+                        {doseInput === 0 ? 'Select' : doseInput}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
-                <Text style={styles.selectButtonText}>
-                  {selectedTime === '' ? 'Select' : selectedTime}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.chip}>
-            <View style={styles.chipProperties}>
-              <View style={styles.chipContentProperties}>
-                {doseInput !== 0 && (
-                  <TouchableOpacity onPress={() => clearDoseSelection()}>
-                    <FontAwesome name="minus-circle" size={30} color={'red'} />
-                  </TouchableOpacity>
-                )}
-                <Text style={styles.chipText}>Dose</Text>
-              </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDose()}>
-                <Text style={styles.selectButtonText}>
-                  {doseInput === 0 ? 'Select' : doseInput}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+            </React.Fragment>
+          ))}
         </View>
         {/* Add More Settings */}
         {selectedTime !== '' && doseInput !== 0 && (
           <View>
             <View style={styles.addMoreSettingsHeaderPosition}>
-              <Header subHeader="Would you like to add more settings?" />
-              <View style={styles.addMoresettingsContainer}>
-                <MoreSettings />
-              </View>
+              <Text style={styles.addMoreSettingsHeaderText}>
+                When do you need to take the dose?
+              </Text>
+            </View>
+            <View style={styles.addMoresettingsContainer}>
+              <MoreSettings />
             </View>
           </View>
         )}
@@ -162,7 +139,9 @@ const TwiceAdayDose: FC = () => {
               }).format(new Date(date));
               setSelectedTime(timeStr);
             }}
-            onCancel={() => setOpen(false)}
+            onCancel={() => {
+              setOpen(false);
+            }}
             theme="dark"
           />
         )}
@@ -170,7 +149,9 @@ const TwiceAdayDose: FC = () => {
         <DoseInputModal
           numKeybaordType={true}
           visible={isModalVisible}
-          onClose={() => setModalVisible(false)}
+          onClose={() => {
+            setModalVisible(false);
+          }}
           onSubmit={handleSubmit}
         />
       </ScrollView>

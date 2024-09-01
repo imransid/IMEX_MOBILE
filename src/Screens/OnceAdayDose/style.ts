@@ -1,12 +1,25 @@
 import { StyleSheet } from 'react-native';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   NextbuttonPosition: {
-    marginTop: verticalScale(18),
     alignItems: 'center',
+    marginTop: verticalScale(74)
+  },
+  addMoreSettingsHeaderPosition: {
+    marginTop: verticalScale(10)
+  },
+  addMoreSettingsHeaderText: {
+    color: colors.header,
+    fontSize: moderateScale(16),
+    fontWeight: '500',
+    left: scale(5)
+  },
+  addMoresettingsContainer: {
+    alignItems: 'center',
+    marginTop: verticalScale(8)
   },
   checkMarkIconPosition: {
     position: 'absolute',
@@ -15,8 +28,7 @@ const styles = StyleSheet.create({
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(2),
-    borderWidth: scale(0.15),
-    height: verticalScale(43),
+    height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
@@ -27,8 +39,8 @@ const styles = StyleSheet.create({
     marginLeft: scale(20)
   },
   chipPosition: {
-    marginTop: verticalScale(20),
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: verticalScale(20)
   },
   chipProperties: {
     flexDirection: 'row',
@@ -39,12 +51,22 @@ const styles = StyleSheet.create({
     color: colors.mainText,
     marginLeft: scale(10)
   },
+  container: {
+    backgroundColor: colors.white,
+    flex: 1
+  },
   headingPosition: {
-    top: verticalScale(30),
+    left: scale(10),
+    marginTop: verticalScale(30)
+  },
+  headingText: {
+    color: colors.header,
+    fontSize: moderateScale(18),
+    fontWeight: '600'
   },
   imagePosition: {
-    top: verticalScale(20),
     alignItems: 'center',
+    top: verticalScale(20)
   },
   progressBarPosition: {
     borderWidth: scale(0)
@@ -61,10 +83,6 @@ const styles = StyleSheet.create({
   },
   selectButtonText: {
     color: colors.buttonBg
-  },
-  addMoresettingsContainer: {
-    alignItems: 'center',
-    marginTop: verticalScale(10)
   }
 });
 

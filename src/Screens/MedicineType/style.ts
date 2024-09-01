@@ -8,8 +8,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: verticalScale(90)
   },
+  container: {
+    backgroundColor: colors.white,
+    flex: 1
+  },
   formsItemsPosition: {
-    marginTop: verticalScale(55)
+    marginTop: verticalScale(5)
   },
   formsItemsText: {
     color: colors.mainText,
@@ -17,7 +21,7 @@ const styles = StyleSheet.create({
   },
   formsPosition: {
     marginLeft: scale(12),
-    top: verticalScale(55)
+    marginTop: verticalScale(20)
   },
   formsText: {
     color: colors.header,
@@ -25,7 +29,13 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   headingPosition: {
-    top: verticalScale(30)
+    left: scale(10),
+    marginTop: verticalScale(50)
+  },
+  headingText: {
+    color: colors.header,
+    fontSize: moderateScale(18),
+    fontWeight: '600'
   },
   imagePosition: {
     alignItems: 'center',
@@ -52,7 +62,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   skipTextPosition: {
-    marginTop: verticalScale(5)
+    bottom: verticalScale(5),
+    marginTop: verticalScale(10)
   },
   textInputPosition: {
     marginTop: verticalScale(40)
@@ -60,7 +71,6 @@ const styles = StyleSheet.create({
   unitItems: {
     backgroundColor: colors.textInput,
     borderRadius: scale(2),
-    borderWidth: scale(0.15),
     height: verticalScale(33),
     justifyContent: 'center',
     marginTop: verticalScale(5),

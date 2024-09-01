@@ -1,19 +1,18 @@
-import React, { type FC, useEffect, useState } from 'react';
+import React, { type FC, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import DoseInputModal from '../../Components/DoseInputModal/DoseInputModal';
-import Header from '../../Components/Header/Header';
-import { colors } from '../../theme/colors';
-import styles from './style';
 import MoreSettings from '../../Components/MoreSettingsComponent/MoreSettingsComponent';
+import { colors } from '../../theme/colors';
+
+import styles from './style';
 
 const OnceAdayDose: FC = () => {
   const navigation = useNavigation();
@@ -51,13 +50,13 @@ const OnceAdayDose: FC = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
       <View style={styles.imagePosition}>
         <MedicineLogo />
       </View>
       <View style={styles.headingPosition}>
-        <Header mainHeader="When do you need to take the dose?" />
+        <Text style={styles.headingText}>When do you need to take the dose?</Text>
       </View>
 
       {/* Dose Chips */}
@@ -134,7 +133,11 @@ const OnceAdayDose: FC = () => {
       {/* Add More Settings */}
       {selectedTime !== '' && doseInput !== 0 && (
         <View>
-          <Header subHeader="Would you like to add more settings?" />
+          <View style={styles.addMoreSettingsHeaderPosition}>
+            <Text style={styles.addMoreSettingsHeaderText}>
+              Would you like to add more settings?
+            </Text>
+          </View>
           <View style={styles.addMoresettingsContainer}>
             <MoreSettings />
           </View>

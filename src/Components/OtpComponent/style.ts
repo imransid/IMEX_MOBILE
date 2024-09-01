@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.textInput,
     borderRadius: scale(30),
-    borderWidth: scale(0.15),
     color: colors.typedText,
     fontSize: moderateScale(50),
     fontWeight: '700',

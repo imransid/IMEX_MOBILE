@@ -33,8 +33,8 @@ const AddInstructions: FC = () => {
   };
 
   return (
-    <View>
-      <Progress.Bar color="#A6BDF8" progress={0.6} width={380} style={styles.progressBarPosition} />
+    <View style={styles.container}>
+      <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
       <View style={styles.headingPosition}>
         <Header mainHeader="Add Instruction" />
       </View>

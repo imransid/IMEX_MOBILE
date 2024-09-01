@@ -4,13 +4,17 @@ import { moderateScale, verticalScale } from 'react-native-size-matters';
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.white,
+    flex: 1
+  },
   headingPosition: {
-    top: verticalScale(20),
     alignItems: 'center',
+    top: verticalScale(20)
   },
   otpInputPosition: {
-    marginTop: verticalScale(80),
     alignItems: 'center',
+    marginTop: verticalScale(80)
   },
   reSendOtpText: {
     color: colors.buttonBg,
@@ -22,8 +26,8 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(20)
   },
   verifyOtpButtonPosition: {
-    marginTop: verticalScale(40),
     alignItems: 'center',
+    marginTop: verticalScale(40)
   }
 });
 

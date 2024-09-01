@@ -6,8 +6,7 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   calendarBox: {
     backgroundColor: colors.textInput,
-    height: verticalScale(105),
-    width: 'auto'
+    height: verticalScale(105)
   },
   dateText: {
     color: colors.typedText,
@@ -19,15 +18,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.selectButtonBg,
     borderRadius: scale(18),
     gap: scale(3),
-    height: verticalScale(60),
+    height: verticalScale(65),
     justifyContent: 'center',
     marginLeft: scale(5),
     marginRight: scale(5),
-    width: scale(37)
+    width: scale(47)
   },
   dayText: {
     color: colors.typedText,
-    fontSize: moderateScale(10),
+    fontSize: moderateScale(12),
     fontWeight: '400'
   },
   header: {

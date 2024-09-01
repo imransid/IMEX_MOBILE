@@ -10,7 +10,6 @@ import { useNavigation } from '@react-navigation/native';
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import DoseInputModal from '../../Components/DoseInputModal/DoseInputModal';
-import Header from '../../Components/Header/Header';
 import MoreSettings from '../../Components/MoreSettingsComponent/MoreSettingsComponent';
 import { colors } from '../../theme/colors';
 
@@ -58,161 +57,69 @@ const FourTimesAdayDose: FC = () => {
           <MedicineLogo />
         </View>
         <View style={styles.headingPosition}>
-          <Header mainHeader="When do you need to take the dose?" />
+          <Text style={styles.headingText}>When do you need to take the dose?</Text>
         </View>
+
         {/* Time and Dose Chips */}
-        <View style={styles.chipPosition}>
-          <Header subHeader="First intake" />
-          <View style={styles.chip}>
-            <View style={styles.chipProperties}>
-              <View style={styles.chipContentProperties}>
-                {selectedTime !== '' && (
-                  <TouchableOpacity onPress={() => clearTimeSelection()}>
-                    <FontAwesome name="minus-circle" size={30} color={'red'} />
-                  </TouchableOpacity>
-                )}
-                <Text style={styles.chipText}>Time</Text>
-              </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
-                <Text style={styles.selectButtonText}>
-                  {selectedTime === '' ? 'Select' : selectedTime}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.chip}>
-            <View style={styles.chipProperties}>
-              <View style={styles.chipContentProperties}>
-                {doseInput !== 0 && (
-                  <TouchableOpacity onPress={() => clearDoseSelection()}>
-                    <FontAwesome name="minus-circle" size={30} color={'red'} />
-                  </TouchableOpacity>
-                )}
-                <Text style={styles.chipText}>Dose</Text>
-              </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDose()}>
-                <Text style={styles.selectButtonText}>
-                  {doseInput === 0 ? 'Select' : doseInput}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+        <View>
+          {Array.from({ length: 4 }).map((_, index) => (
+            <React.Fragment key={index}>
+              {/* Conditionally render the "First" or "Second" text */}
+              {index === 0 && <Text style={styles.intakeNumberText}>First intake</Text>}
+              {index === 1 && <Text style={styles.intakeNumberText}>Second intake</Text>}
+              {index === 2 && <Text style={styles.intakeNumberText}>Third intake</Text>}
+              {index === 3 && <Text style={styles.intakeNumberText}>Fourth intake</Text>}
 
-          <Header subHeader="Second intake" />
-          <View style={styles.chip}>
-            <View style={styles.chipProperties}>
-              <View style={styles.chipContentProperties}>
-                {selectedTime !== '' && (
-                  <TouchableOpacity onPress={() => clearTimeSelection()}>
-                    <FontAwesome name="minus-circle" size={30} color={'red'} />
-                  </TouchableOpacity>
-                )}
-                <Text style={styles.chipText}>Time</Text>
-              </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
-                <Text style={styles.selectButtonText}>
-                  {selectedTime === '' ? 'Select' : selectedTime}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.chip}>
-            <View style={styles.chipProperties}>
-              <View style={styles.chipContentProperties}>
-                {doseInput !== 0 && (
-                  <TouchableOpacity onPress={() => clearDoseSelection()}>
-                    <FontAwesome name="minus-circle" size={30} color={'red'} />
-                  </TouchableOpacity>
-                )}
-                <Text style={styles.chipText}>Dose</Text>
-              </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDose()}>
-                <Text style={styles.selectButtonText}>
-                  {doseInput === 0 ? 'Select' : doseInput}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+              <View style={styles.chipPosition}>
+                <View style={styles.chip}>
+                  <View style={styles.chipProperties}>
+                    <View style={styles.chipContentProperties}>
+                      {selectedTime !== '' && (
+                        <TouchableOpacity onPress={clearTimeSelection}>
+                          <FontAwesome name="minus-circle" size={30} color={'red'} />
+                        </TouchableOpacity>
+                      )}
+                      <Text style={styles.chipText}>Time</Text>
+                    </View>
+                    <TouchableOpacity style={styles.selectButton} onPress={handleSelectTime}>
+                      <Text style={styles.selectButtonText}>
+                        {selectedTime === '' ? 'Select' : selectedTime}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
 
-          <Header subHeader="Third intake" />
-          <View style={styles.chip}>
-            <View style={styles.chipProperties}>
-              <View style={styles.chipContentProperties}>
-                {selectedTime !== '' && (
-                  <TouchableOpacity onPress={() => clearTimeSelection()}>
-                    <FontAwesome name="minus-circle" size={30} color={'red'} />
-                  </TouchableOpacity>
-                )}
-                <Text style={styles.chipText}>Time</Text>
+                <View style={styles.chip}>
+                  <View style={styles.chipProperties}>
+                    <View style={styles.chipContentProperties}>
+                      {doseInput !== 0 && (
+                        <TouchableOpacity onPress={clearDoseSelection}>
+                          <FontAwesome name="minus-circle" size={30} color={'red'} />
+                        </TouchableOpacity>
+                      )}
+                      <Text style={styles.chipText}>Dose</Text>
+                    </View>
+                    <TouchableOpacity style={styles.selectButton} onPress={handleSelectDose}>
+                      <Text style={styles.selectButtonText}>
+                        {doseInput === 0 ? 'Select' : doseInput}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
-                <Text style={styles.selectButtonText}>
-                  {selectedTime === '' ? 'Select' : selectedTime}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.chip}>
-            <View style={styles.chipProperties}>
-              <View style={styles.chipContentProperties}>
-                {doseInput !== 0 && (
-                  <TouchableOpacity onPress={() => clearDoseSelection()}>
-                    <FontAwesome name="minus-circle" size={30} color={'red'} />
-                  </TouchableOpacity>
-                )}
-                <Text style={styles.chipText}>Dose</Text>
-              </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDose()}>
-                <Text style={styles.selectButtonText}>
-                  {doseInput === 0 ? 'Select' : doseInput}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <Header subHeader="Fourth intake" />
-          <View style={styles.chip}>
-            <View style={styles.chipProperties}>
-              <View style={styles.chipContentProperties}>
-                {selectedTime !== '' && (
-                  <TouchableOpacity onPress={() => clearTimeSelection()}>
-                    <FontAwesome name="minus-circle" size={30} color={'red'} />
-                  </TouchableOpacity>
-                )}
-                <Text style={styles.chipText}>Time</Text>
-              </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
-                <Text style={styles.selectButtonText}>
-                  {selectedTime === '' ? 'Select' : selectedTime}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.chip}>
-            <View style={styles.chipProperties}>
-              <View style={styles.chipContentProperties}>
-                {doseInput !== 0 && (
-                  <TouchableOpacity onPress={() => clearDoseSelection()}>
-                    <FontAwesome name="minus-circle" size={30} color={'red'} />
-                  </TouchableOpacity>
-                )}
-                <Text style={styles.chipText}>Dose</Text>
-              </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDose()}>
-                <Text style={styles.selectButtonText}>
-                  {doseInput === 0 ? 'Select' : doseInput}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+            </React.Fragment>
+          ))}
         </View>
         {/* Add More Settings */}
         {selectedTime !== '' && doseInput !== 0 && (
           <View>
             <View style={styles.addMoreSettingsHeaderPosition}>
-              <Header subHeader="Would you like to add more settings?" />
-              <View style={styles.addMoresettingsContainer}>
-                <MoreSettings />
-              </View>
+              <Text style={styles.addMoreSettingsHeaderText}>
+                When do you need to take the dose?
+              </Text>
+            </View>
+            <View style={styles.addMoresettingsContainer}>
+              <MoreSettings />
             </View>
           </View>
         )}

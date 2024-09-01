@@ -34,7 +34,7 @@ const Login: FC = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.mainHeader}>
         <Header mainHeader="Log In" />
       </View>

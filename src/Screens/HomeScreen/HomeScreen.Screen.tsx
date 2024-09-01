@@ -1,16 +1,15 @@
 import React, { type FC } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
+import MedicineImage from '../../assets/medicine-image';
 import HorizontalCalendar from '../../Components/HorizontalCalender/HorizontalCalendar';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
-import Header from '../../Components/Header/Header';
-import MedicineImage from '../../assets/medicine-image';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const HomeScreen: FC = () => {
   const navigation = useNavigation();
@@ -23,7 +22,7 @@ const HomeScreen: FC = () => {
     navigation.navigate('PreviewDoseDetails' as never);
   };
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.calendarContainer}>
         <HorizontalCalendar />
       </View>
@@ -31,7 +30,9 @@ const HomeScreen: FC = () => {
       {/* Medicine Name and Dose Chip   */}
       <View style={styles.medicineDoseComponentPosition}>
         <View style={styles.doseComponent}>
-          <Header subHeader="Pills for today" />
+          <View style={styles.chipheadingPosition}>
+            <Text style={styles.chipheadingText}>Pills for today</Text>
+          </View>
           <TouchableOpacity style={styles.chip} onPress={() => handleDosePress()}>
             <View style={styles.medicineDoseProperties}>
               <MedicineImage />
@@ -63,7 +64,7 @@ const HomeScreen: FC = () => {
           </View>
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   );
 };
 

@@ -4,7 +4,6 @@ import * as Progress from 'react-native-progress';
 import { useNavigation } from '@react-navigation/native';
 
 import DailyDoseLogo from '../../assets/medicine-daily-dose';
-import Header from '../../Components/Header/Header';
 import medicineDailyDoseItems from '../../utils/medicineDailyDoseItems';
 
 import styles from './style';
@@ -43,13 +42,13 @@ const MedicineDailyDoses: FC = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
       <View style={styles.imagePosition}>
         <DailyDoseLogo />
       </View>
       <View style={styles.headingPosition}>
-        <Header mainHeader="How often do you take it?" />
+        <Text style={styles.headingText}>How often do you take it?</Text>
       </View>
 
       <FlatList

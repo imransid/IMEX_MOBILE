@@ -8,7 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
-import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
@@ -38,26 +37,30 @@ const AskHourInterval: FC = () => {
   return (
     <View style={styles.container}>
       <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
-      <MedicineLogo />
-      <View>
-        <Header mainHeader="How often do you take the pill?" />
+      <View style={styles.imagePosition}>
+        <MedicineLogo />
+      </View>
+      <View style={styles.headingPosition}>
+        <Text style={styles.headingText}>When do you need to take the dose?</Text>
       </View>
 
-      <View style={styles.chip}>
-        <View style={styles.chipProperties}>
-          <View style={styles.chipContentProperties}>
-            {selectedNumber !== '' && (
-              <TouchableOpacity onPress={clearNumberSelection}>
-                <FontAwesome name="minus-circle" size={30} color={'red'} />
-              </TouchableOpacity>
-            )}
-            <Text style={styles.chipText}>Hour</Text>
+      <View style={styles.chipPosition}>
+        <View style={styles.chip}>
+          <View style={styles.chipProperties}>
+            <View style={styles.chipContentProperties}>
+              {selectedNumber !== '' && (
+                <TouchableOpacity onPress={clearNumberSelection}>
+                  <FontAwesome name="minus-circle" size={30} color={'red'} />
+                </TouchableOpacity>
+              )}
+              <Text style={styles.chipText}>Time Interval</Text>
+            </View>
+            <TouchableOpacity style={styles.selectButton} onPress={handleSelectNumber}>
+              <Text style={styles.selectButtonText}>
+                {selectedNumber === '' ? 'Select' : selectedNumber}
+              </Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.selectButton} onPress={handleSelectNumber}>
-            <Text style={styles.selectButtonText}>
-              {selectedNumber === '' ? 'Select' : selectedNumber}
-            </Text>
-          </TouchableOpacity>
         </View>
       </View>
 
@@ -84,7 +87,7 @@ const AskHourInterval: FC = () => {
       )}
 
       {selectedNumber !== '' && (
-        <View style={styles.settingsAndButtonContainer}>
+        <View style={styles.buttonContainer}>
           <View style={styles.buttonPosition}>
             <CustomButton
               onPress={handleNext}

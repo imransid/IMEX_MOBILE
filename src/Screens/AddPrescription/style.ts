@@ -4,37 +4,38 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
-  headingPosition: {
-    alignItems: 'center', 
-    top: verticalScale(30)
-  },
-  imagePosition: {
-    top: verticalScale(30),
+  chooseFileButton: {
     alignItems: 'center',
+    backgroundColor: colors.buttonBg,
+    borderRadius: scale(16),
+    height: verticalScale(37),
+    justifyContent: 'center',
+    width: verticalScale(162)
   },
-  subHeadingPosition: {
-    marginTop: verticalScale(30),
+  chooseFileButtonPosition: {
+    alignItems: 'center',
+    marginTop: verticalScale(25)
+  },
+  chooseFileText: {
+    color: colors.secondaryButtonText,
+    fontSize: moderateScale(16),
+    fontWeight: '500'
   },
   defaultText: {
     alignItems: 'center',
     marginTop: verticalScale(30)
   },
-  chooseFileButton: {
-    height: verticalScale(37),
-    width: verticalScale(162),
-    borderRadius: scale(16),
-    backgroundColor: colors.buttonBg,
-    justifyContent: 'center',
-    alignItems: 'center'
+  headingPosition: {
+    alignItems: 'center',
+    top: verticalScale(30)
   },
-  chooseFileButtonPosition: {
-    marginTop: verticalScale(25),
-    alignItems: 'center'
+  imagePosition: {
+    alignItems: 'center',
+    top: verticalScale(30)
   },
-  chooseFileText: {
-    fontSize: moderateScale(16),
-    fontWeight: '500',
-    color: colors.secondaryButtonText
+  subHeadingPosition: {
+    left: scale(10),
+    marginTop: verticalScale(30)
   }
 });
 

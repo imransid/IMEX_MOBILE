@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import MedicineDoseTime from '../../assets/medicine-dose-time';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
-import Header from '../../Components/Header/Header';
 import type IMedicineStrengthProps from '../../Interfaces/IMedicineStrengthProps';
 import { colors } from '../../theme/colors';
 import medicineStrengthUnits from '../../utils/medicineStrengthUnits';
@@ -42,13 +41,13 @@ const AddMedicineStrength: FC = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Progress.Bar color="#A6BDF8" progress={0.2} width={380} style={styles.progressBarPosition} />
       <View style={styles.imagePosition}>
         <MedicineDoseTime />
       </View>
       <View style={styles.headingPosition}>
-        <Header mainHeader="Add the Medicine Strength" />
+        <Text style={styles.headingText}>Add the Medicine Strength</Text>
       </View>
       <View style={styles.textInputPosition}>
         <View style={styles.textInputContent}>

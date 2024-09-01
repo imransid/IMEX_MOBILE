@@ -4,37 +4,27 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
-  addMoreSettingsContentProperties: {
+  NextbuttonPosition: {
     alignItems: 'center',
-    flexDirection: 'row',
-    marginLeft: scale(20)
+    bottom: verticalScale(10)
   },
-  addMoreSettingsItems: {
+  addMoreSettingsHeaderPosition: {
+    marginTop: verticalScale(10)
+  },
+  addMoreSettingsHeaderText: {
+    color: colors.header,
+    fontSize: moderateScale(16),
+    fontWeight: '500',
+    left: scale(5)
+  },
+  addMoresettingsContainer: {
     alignItems: 'center',
-    backgroundColor: colors.textInput,
-    borderRadius: scale(6),
-    borderWidth: scale(0.15),
-    flexDirection: 'row',
-    height: verticalScale(35),
-    marginTop: verticalScale(5),
-    width: scale(330)
-  },
-  addMoreSettingsItemsText: {
-    color: colors.mainText,
-    marginLeft: scale(20)
-  },
-  addMoreSettingsItemsPosition: {
-    marginTop: verticalScale(-40)
-  },
-  buttonPosition: {
-    bottom: verticalScale(18),
-    position: 'absolute'
+    marginTop: verticalScale(5)
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(6),
-    borderWidth: scale(0.15),
-    height: verticalScale(43),
+    borderRadius: scale(2),
+    height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
@@ -43,6 +33,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     marginLeft: scale(20)
+  },
+  chipPosition: {
+    alignItems: 'center'
   },
   chipProperties: {
     flexDirection: 'row',
@@ -54,18 +47,34 @@ const styles = StyleSheet.create({
     marginLeft: scale(10)
   },
   container: {
-    alignItems: 'center',
+    backgroundColor: colors.white,
     flex: 1
   },
-  numberPickerText: {
-    fontSize: moderateScale(20),
-    fontWeight: '400'
+  headingPosition: {
+    left: scale(10),
+    marginTop: verticalScale(20)
+  },
+  headingText: {
+    color: colors.header,
+    fontSize: moderateScale(18),
+    fontWeight: '600'
+  },
+  imagePosition: {
+    alignItems: 'center',
+    top: verticalScale(10)
+  },
+  intakeNumberText: {
+    color: colors.typedText,
+    fontSize: moderateScale(14),
+    fontWeight: '500',
+    left: scale(10),
+    marginTop: verticalScale(10)
   },
   progressBarPosition: {
     borderWidth: scale(0)
   },
   scrollViewContainer: {
-    maxHeight: verticalScale(230)
+    paddingBottom: verticalScale(15)
   },
   selectButton: {
     alignItems: 'center',
@@ -79,10 +88,6 @@ const styles = StyleSheet.create({
   },
   selectButtonText: {
     color: colors.buttonBg
-  },
-  settingsAndButtonContainer: {
-    alignItems: 'center',
-    flex: 1
   }
 });
 

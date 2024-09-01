@@ -22,8 +22,7 @@ const styles = StyleSheet.create({
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(2),
-    borderWidth: scale(0.15),
-    height: verticalScale(38),
+    height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
@@ -40,6 +39,7 @@ const styles = StyleSheet.create({
     fontWeight: '400'
   },
   container: {
+    backgroundColor: colors.white,
     flex: 1
   },
   headingPosition: {

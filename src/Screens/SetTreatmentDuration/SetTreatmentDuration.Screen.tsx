@@ -45,7 +45,7 @@ const SetTreatmentDuration: FC = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Progress.Bar color="#A6BDF8" progress={0.6} width={380} style={styles.progressBarPosition} />
       <View style={styles.headingPosition}>
         <Header mainHeader="Treatment Duration" />

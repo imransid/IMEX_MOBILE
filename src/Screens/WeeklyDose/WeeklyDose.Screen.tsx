@@ -9,7 +9,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import DailyDoseLogo from '../../assets/medicine-daily-dose';
 import CustomButton from '../../Components/CustomButton/CustomButton';
-import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
@@ -67,19 +66,29 @@ const WeeklyDose: FC = () => {
 
   return (
     <View style={styles.container}>
-      <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
-      <DailyDoseLogo />
-      <Header mainHeader="How many days of a week?" />
-      <Header subHeader="Choose Days :" />
-      <DayPicker
-        wrapperStyles={styles.weekDayPicker}
-        dayTextStyle={styles.weekDayText}
-        weekdays={weekdays}
-        setWeekdays={handleWeekdayChange}
-        activeColor={colors.buttonBg}
-        textColor="white"
-        inactiveColor="grey"
-      />
+      <Progress.Bar color="#A6BDF8" progress={0.2} width={380} style={styles.progressBarPosition} />
+      <View style={styles.imagePosition}>
+        <DailyDoseLogo />
+      </View>
+      <View style={styles.headingPosition}>
+        <Text style={styles.headingText}>How many days of a week?</Text>
+      </View>
+
+      <View style={styles.weekDaysHeaderPosition}>
+        <Text style={styles.weekDaysHeader}>Choose Days :</Text>
+      </View>
+
+      <View style={styles.dayPickerPosition}>
+        <DayPicker
+          wrapperStyles={styles.weekDayPicker}
+          dayTextStyle={styles.weekDayText}
+          weekdays={weekdays}
+          setWeekdays={handleWeekdayChange}
+          activeColor={colors.buttonBg}
+          textColor="white"
+          inactiveColor="grey"
+        />
+      </View>
 
       <FlatList
         data={Object.keys(selectedDay)}
@@ -95,22 +104,24 @@ const WeeklyDose: FC = () => {
         style={styles.selectedDaysList}
       />
 
-      <Header subHeader="How many times of each day" />
-      <View style={styles.chip}>
-        <View style={styles.chipProperties}>
-          <View style={styles.chipContentProperties}>
-            {selectedNumber !== '' && (
-              <TouchableOpacity onPress={clearNumberSelection}>
-                <FontAwesome name="minus-circle" size={30} color={'red'} />
-              </TouchableOpacity>
-            )}
-            <Text style={styles.chipText}>Time Interval</Text>
+      <Text style={styles.timeIntervalHeader}>How many times of each day</Text>
+      <View style={styles.chipPosition}>
+        <View style={styles.chip}>
+          <View style={styles.chipProperties}>
+            <View style={styles.chipContentProperties}>
+              {selectedNumber !== '' && (
+                <TouchableOpacity onPress={clearNumberSelection}>
+                  <FontAwesome name="minus-circle" size={30} color={'red'} />
+                </TouchableOpacity>
+              )}
+              <Text style={styles.chipText}>Time Interval</Text>
+            </View>
+            <TouchableOpacity style={styles.selectButton} onPress={handleSelectNumber}>
+              <Text style={styles.selectButtonText}>
+                {selectedNumber === '' ? 'Select' : selectedNumber}
+              </Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.selectButton} onPress={handleSelectNumber}>
-            <Text style={styles.selectButtonText}>
-              {selectedNumber === '' ? 'Select' : selectedNumber}
-            </Text>
-          </TouchableOpacity>
         </View>
       </View>
 

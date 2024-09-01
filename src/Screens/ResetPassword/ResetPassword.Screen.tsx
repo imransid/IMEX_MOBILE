@@ -18,7 +18,7 @@ const ResetPassword: FC = () => {
     navigation.navigate('PasswordChanged' as never);
   };
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.headingPosition}>
         <Header mainHeader="Reset Password" />
       </View>

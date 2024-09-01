@@ -15,8 +15,7 @@ const styles = StyleSheet.create({
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(6),
-    borderWidth: scale(0.15),
-    height: verticalScale(43),
+    height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(12),
     width: scale(330)
@@ -25,6 +24,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     marginLeft: scale(20)
+  },
+  chipPosition: {
+    alignItems: 'center'
   },
   chipProperties: {
     flexDirection: 'row',
@@ -36,8 +38,24 @@ const styles = StyleSheet.create({
     marginLeft: scale(10)
   },
   container: {
-    alignItems: 'center',
+    backgroundColor: colors.white,
     flex: 1
+  },
+  dayPickerPosition: {
+    alignItems: 'center'
+  },
+  headingPosition: {
+    left: scale(10),
+    marginTop: verticalScale(25)
+  },
+  headingText: {
+    color: colors.header,
+    fontSize: moderateScale(18),
+    fontWeight: '600'
+  },
+  imagePosition: {
+    alignItems: 'center',
+    top: verticalScale(10)
   },
   numberPicker: {
     alignItems: 'center',
@@ -76,16 +94,31 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
     marginTop: verticalScale(5)
   },
+  timeIntervalHeader: {
+    color: colors.typedText,
+    fontSize: moderateScale(16),
+    fontWeight: '500',
+    left: scale(10)
+  },
   weekDayPicker: {
     backgroundColor: colors.textInput,
     borderRadius: scale(6),
-    borderWidth: scale(0.17),
     height: verticalScale(42),
     width: scale(330)
   },
   weekDayText: {
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(12),
     fontWeight: '500'
+  },
+  weekDaysHeader: {
+    color: colors.typedText,
+    fontSize: moderateScale(16),
+    fontWeight: '500',
+    left: scale(5)
+  },
+  weekDaysHeaderPosition: {
+    left: scale(5),
+    marginTop: verticalScale(25)
   }
 });
 

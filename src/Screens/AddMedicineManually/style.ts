@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: verticalScale(20)
   },
+  container: {
+    backgroundColor: colors.white,
+    flex: 1
+  },
   headingPosition: {
     alignItems: 'center',
     top: verticalScale(20)

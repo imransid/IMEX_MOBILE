@@ -9,7 +9,7 @@ import styles from './style';
 
 const MoreScreenTab: FC = () => {
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.headingPosition}>
         <Header mainHeader="More Settings" />
       </View>
@@ -37,7 +37,7 @@ const MoreScreenTab: FC = () => {
           </View>
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   );
 };
 

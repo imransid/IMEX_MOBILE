@@ -1,34 +1,44 @@
 import { StyleSheet } from 'react-native';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.white,
+    flex: 1
+  },
   headingPosition: {
-    top: verticalScale(50),
+    left: scale(10),
+    marginBottom: verticalScale(10),
+    top: verticalScale(50)
+  },
+  headingText: {
+    color: colors.header,
+    fontSize: moderateScale(18),
+    fontWeight: '600'
   },
   imagePosition: {
-    top: verticalScale(20),
     alignItems: 'center',
-  },
-  medicineDoseItemsProperties: {
-    backgroundColor: colors.textInput,
-    borderRadius: scale(2),
-    borderWidth: scale(0.15),
-    height: verticalScale(43),
-    justifyContent: 'center',
-    marginTop: verticalScale(5),
-    width: scale(330)
+    top: verticalScale(20)
   },
   medicineDoseItemsPosition: {
     alignItems: 'center'
   },
-  medicineDoseListContainer: {
-    marginTop: verticalScale(60)
+  medicineDoseItemsProperties: {
+    backgroundColor: colors.textInput,
+    borderRadius: scale(2),
+    height: verticalScale(38),
+    justifyContent: 'center',
+    marginTop: verticalScale(5),
+    width: scale(330)
   },
   medicineDoseItemsText: {
     color: colors.mainText,
     marginLeft: scale(20)
+  },
+  medicineDoseListContainer: {
+    marginTop: verticalScale(60)
   },
   progressBarPosition: {
     borderWidth: scale(0),

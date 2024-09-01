@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: verticalScale(10)
   },
+  container: {
+    backgroundColor: colors.white,
+    flex: 1
+  },
   forgotPassword: {
     color: colors.buttonBg,
     fontSize: moderateScale(14),
