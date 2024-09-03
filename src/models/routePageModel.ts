@@ -17,8 +17,8 @@ export interface AppStackParamList extends ParamListBase {
   CameraScanner: undefined;
   MedicineDetails: { scannedData: string };
 
-  AddInstructions: undefined;
-  OnceAdayDose: { instruction: string };
+  // AddInstructions: undefined;
+  // OnceAdayDose: { instruction: string };
 }
 
 export interface BottomTabParamList extends ParamListBase {

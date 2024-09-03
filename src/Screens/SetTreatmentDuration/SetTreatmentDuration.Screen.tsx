@@ -1,23 +1,19 @@
 import React, { type FC, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { type NavigationProp, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
 
 import TreatmentDuration from '../../assets/treatment-duration';
 import CalendarModal from '../../Components/CalendarModal/CalenderModal';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Header from '../../Components/Header/Header';
-import { type AppStackParamList } from '../../models/routePageModel';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
 
-type AddInstructionsScreenNavigationProp = NavigationProp<AppStackParamList, 'AddInstructions'>;
-
 const SetTreatmentDuration: FC = () => {
-  const navigation = useNavigation<AddInstructionsScreenNavigationProp>();
+  const navigation = useNavigation();
   const [startDateModalOpen, setStartDateModalOpen] = useState(false);
   const [endDateModalOpen, setendDateModalOpen] = useState(false);
   const [startDate, setStartDate] = useState('');
@@ -46,7 +42,6 @@ const SetTreatmentDuration: FC = () => {
 
   return (
     <View style={styles.container}>
-      <Progress.Bar color="#A6BDF8" progress={0.6} width={380} style={styles.progressBarPosition} />
       <View style={styles.headingPosition}>
         <Header mainHeader="Treatment Duration" />
       </View>

@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     bottom: verticalScale(10)
   },
   addMoreSettingsHeaderPosition: {
-    marginTop: verticalScale(10)
+    marginTop: verticalScale(24)
   },
   addMoreSettingsHeaderText: {
     color: colors.header,

@@ -15,13 +15,13 @@ import styles from './style';
 
 // Mapping of day numbers to names
 const dayNames: Record<number, string> = {
-  1: 'Sunday',
-  2: 'Monday',
-  3: 'Tuesday',
-  4: 'Wednesday',
-  5: 'Thusday',
-  6: 'Friday',
-  7: 'Saturday'
+  1: 'Sun',
+  2: 'Mon',
+  3: 'Tue',
+  4: 'Wed',
+  5: 'Thu',
+  6: 'Fri',
+  7: 'Sat'
 };
 
 const WeeklyDose: FC = () => {
@@ -96,7 +96,7 @@ const WeeklyDose: FC = () => {
         renderItem={({ item }) => (
           <Text style={styles.selectedDaysText}>
             {dayNames[Number(item)]}
-            {','}
+            {weekdays.length > 1 ? ',' : ''}
           </Text>
         )}
         numColumns={4}
@@ -146,7 +146,7 @@ const WeeklyDose: FC = () => {
         />
       )}
 
-      {selectedNumber !== '' && (
+      {weekdays.length > 0 && selectedNumber !== '' && (
         <View style={styles.buttonContainer}>
           <View style={styles.buttonPosition}>
             <CustomButton

@@ -1,13 +1,14 @@
-import React from 'react';
-import { FC } from 'react';
-import { TouchableOpacity, View, Text, TextInput } from 'react-native';
-import styles from './style';
-import Header from '../../Components/Header/Header';
-import MedicineReminderLogo from '../../assets/medicine-reminder';
-import { useNavigation } from '@react-navigation/native';
+import React, { type FC } from 'react';
+import { Text, TextInput, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { colors } from '../../theme/colors';
+import { useNavigation } from '@react-navigation/native';
+
+import MedicineReminderLogo from '../../assets/medicine-reminder';
 import CustomButton from '../../Components/CustomButton/CustomButton';
+import Header from '../../Components/Header/Header';
+import { colors } from '../../theme/colors';
+
+import styles from './style';
 
 const MedicineReminders: FC = () => {
   const navigation = useNavigation();
@@ -15,7 +16,7 @@ const MedicineReminders: FC = () => {
     navigation.navigate('OnceAdayDose' as never);
   };
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.headingPosition}>
         <Header mainHeader="Medicine Reminders" />
       </View>
@@ -31,7 +32,7 @@ const MedicineReminders: FC = () => {
           <View style={styles.chipProperties}>
             <View style={styles.chipContentProperties}>
               <Text style={styles.chipText}>Total Required :</Text>
-              <View style={styles.inputPosition}>
+              <View style={styles.totalRequiredInputPosition}>
                 <TextInput
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -48,7 +49,7 @@ const MedicineReminders: FC = () => {
           <View style={styles.chipProperties}>
             <View style={styles.chipContentProperties}>
               <Text style={styles.chipText}>Current Stock :</Text>
-              <View style={styles.inputPosition}>
+              <View style={styles.currentStockInputPosition}>
                 <TextInput
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -64,8 +65,8 @@ const MedicineReminders: FC = () => {
         <View style={styles.chip}>
           <View style={styles.chipProperties}>
             <View style={styles.chipContentProperties}>
-              <Text style={styles.chipText}>Remind {'  '}Left :</Text>
-              <View style={styles.inputPosition}>
+              <Text style={styles.chipText}>Remind When Left :</Text>
+              <View style={styles.remindLeftInputPosition}>
                 <TextInput
                   autoCapitalize="none"
                   autoCorrect={false}

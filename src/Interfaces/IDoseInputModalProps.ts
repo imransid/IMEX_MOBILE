@@ -1,7 +1,7 @@
 interface IDoseInputModalProps {
   visible: boolean;
   onClose: () => void;
-  onSubmit: (inputValue: string) => void;
+  onSubmit: (inputValue: number) => void;
   numKeybaordType: boolean;
 }
 

@@ -11,10 +11,16 @@ const DoseInputModal: FC<IDoseInputModalProps> = ({
   onSubmit,
   numKeybaordType
 }) => {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState<string>('0');
 
   const handleOkPress: any = () => {
-    onSubmit(inputValue);
+    const numericValue = parseInt(inputValue, 10);
+    // Explicitly check if the parsed value is NaN or 0
+    if (!isNaN(numericValue)) {
+      onSubmit(numericValue);
+    } else {
+      onSubmit(0); // Default to 0 if the input is invalid
+    }
     setInputValue('');
     onClose();
   };

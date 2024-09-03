@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
+    borderRadius: scale(6),
     flexDirection: 'row',
     height: verticalScale(50),
     position: 'relative',

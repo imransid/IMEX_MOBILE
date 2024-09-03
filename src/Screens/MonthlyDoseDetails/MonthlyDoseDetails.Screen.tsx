@@ -17,32 +17,51 @@ import styles from './style';
 
 const MonthlyDoseDetails: FC = () => {
   const navigation = useNavigation();
-  const [selectedTime, setSelectedTime] = useState('');
-  const [date, setDate] = useState(new Date());
+
+  // State for time and dose for each intake
+  const [times, setTimes] = useState<string[]>(Array(2).fill(''));
+  const [doses, setDoses] = useState<number[]>(Array(2).fill(0));
+
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
-  const [doseInput, setDoseInput] = useState<number>(0);
+  const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
+  const [date, setDate] = useState(new Date());
 
-  const handleSelectTime: any = () => {
+  const handleSelectTime: any = (index: number) => {
+    setSelectedChip(index);
     setOpen(true);
   };
 
-  const handleSelectDose: any = () => {
+  const handleSelectDose: any = (index: number) => {
+    setSelectedChip(index);
     setModalVisible(true);
   };
 
-  const clearTimeSelection: any = () => {
-    setSelectedTime('');
+  const clearTimeSelection: any = (index: number) => {
+    setTimes(prevTimes => {
+      const newTimes = [...prevTimes];
+      newTimes[index] = '';
+      return newTimes;
+    });
   };
 
-  const clearDoseSelection: any = () => {
-    setDoseInput(0);
+  const clearDoseSelection: any = (index: number) => {
+    setDoses(prevDoses => {
+      const newDoses = [...prevDoses];
+      newDoses[index] = 0;
+      return newDoses;
+    });
   };
 
   const handleSubmit: any = (inputValue: number) => {
-    setDoseInput(inputValue);
-    // Handle the submitted value here
-    setModalVisible(false);
+    if (selectedChip !== null) {
+      setDoses(prevDoses => {
+        const newDoses = [...prevDoses];
+        newDoses[selectedChip] = inputValue;
+        return newDoses;
+      });
+      setModalVisible(false);
+    }
   };
 
   const handleNext: any = () => {
@@ -62,43 +81,48 @@ const MonthlyDoseDetails: FC = () => {
 
         {/* Time and Dose Chips */}
         <View>
-          {Array.from({ length: 1 }).map((_, index) => (
+          {times.map((_, index) => (
             <React.Fragment key={index}>
-              {/* Conditionally render the "First" or "Second" text */}
-              {index === 0 && <Text style={styles.intakeNumberText}>First intake</Text>}
+              <Text style={styles.intakeNumberText}>{`Intake ${index + 1}`}</Text>
 
               <View style={styles.chipPosition}>
+                {/* Time Chip */}
                 <View style={styles.chip}>
                   <View style={styles.chipProperties}>
                     <View style={styles.chipContentProperties}>
-                      {selectedTime !== '' && (
-                        <TouchableOpacity onPress={clearTimeSelection}>
+                      {times[index] !== '' && (
+                        <TouchableOpacity onPress={() => clearTimeSelection(index)}>
                           <FontAwesome name="minus-circle" size={30} color={'red'} />
                         </TouchableOpacity>
                       )}
                       <Text style={styles.chipText}>Time</Text>
                     </View>
-                    <TouchableOpacity style={styles.selectButton} onPress={handleSelectTime}>
+                    <TouchableOpacity
+                      style={styles.selectButton}
+                      onPress={() => handleSelectTime(index)}>
                       <Text style={styles.selectButtonText}>
-                        {selectedTime === '' ? 'Select' : selectedTime}
+                        {times[index] === '' ? 'Select' : times[index]}
                       </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
 
+                {/* Dose Chip */}
                 <View style={styles.chip}>
                   <View style={styles.chipProperties}>
                     <View style={styles.chipContentProperties}>
-                      {doseInput !== 0 && (
-                        <TouchableOpacity onPress={clearDoseSelection}>
+                      {doses[index] !== 0 && (
+                        <TouchableOpacity onPress={() => clearDoseSelection(index)}>
                           <FontAwesome name="minus-circle" size={30} color={'red'} />
                         </TouchableOpacity>
                       )}
                       <Text style={styles.chipText}>Dose</Text>
                     </View>
-                    <TouchableOpacity style={styles.selectButton} onPress={handleSelectDose}>
+                    <TouchableOpacity
+                      style={styles.selectButton}
+                      onPress={() => handleSelectDose(index)}>
                       <Text style={styles.selectButtonText}>
-                        {doseInput === 0 ? 'Select' : doseInput}
+                        {doses[index] === 0 ? 'Select' : doses[index]}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -107,12 +131,13 @@ const MonthlyDoseDetails: FC = () => {
             </React.Fragment>
           ))}
         </View>
+
         {/* Add More Settings */}
-        {selectedTime !== '' && doseInput !== 0 && (
+        {times.every(time => time !== '') && doses.every(dose => dose !== 0) && (
           <View>
             <View style={styles.addMoreSettingsHeaderPosition}>
               <Text style={styles.addMoreSettingsHeaderText}>
-                Would you like to add more settings?
+                When do you need to take the dose?
               </Text>
             </View>
             <View style={styles.addMoresettingsContainer}>
@@ -120,6 +145,7 @@ const MonthlyDoseDetails: FC = () => {
             </View>
           </View>
         )}
+
         {/* Time Picker Modal */}
         {open && (
           <DatePicker
@@ -136,7 +162,13 @@ const MonthlyDoseDetails: FC = () => {
                 minute: '2-digit',
                 hour12: true
               }).format(new Date(date));
-              setSelectedTime(timeStr);
+              if (selectedChip !== null) {
+                setTimes(prevTimes => {
+                  const newTimes = [...prevTimes];
+                  newTimes[selectedChip] = timeStr;
+                  return newTimes;
+                });
+              }
             }}
             onCancel={() => {
               setOpen(false);
@@ -144,6 +176,7 @@ const MonthlyDoseDetails: FC = () => {
             theme="dark"
           />
         )}
+
         {/* Dose Input Modal */}
         <DoseInputModal
           numKeybaordType={true}
@@ -154,7 +187,9 @@ const MonthlyDoseDetails: FC = () => {
           onSubmit={handleSubmit}
         />
       </ScrollView>
-      {selectedTime !== '' && doseInput !== 0 && (
+
+      {/* Next Button */}
+      {times.every(time => time !== '') && doses.every(dose => dose !== 0) && (
         <View style={styles.NextbuttonPosition}>
           <CustomButton
             onPress={handleNext}

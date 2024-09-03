@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
-import { FC } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Switch } from 'react-native';
-import Header from '../../Components/Header/Header';
-import DoctorAppointmentsLogo from '../../assets/doctor-appointments';
-import styles from './style';
-import { useNavigation } from '@react-navigation/native';
-import CustomButton from '../../Components/CustomButton/CustomButton';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import { colors } from '../../theme/colors';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import CalendarModal from '../../Components/CalendarModal/CalenderModal';
-import { format } from 'date-fns';
+import React, { type FC, useState } from 'react';
+import { Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import { useNavigation } from '@react-navigation/native';
+import { format } from 'date-fns';
+
+import DoctorAppointmentsLogo from '../../assets/doctor-appointments';
+import CalendarModal from '../../Components/CalendarModal/CalenderModal';
+import CustomButton from '../../Components/CustomButton/CustomButton';
+import Header from '../../Components/Header/Header';
+import { colors } from '../../theme/colors';
+
+import styles from './style';
 
 const DoctorAppointments: FC = () => {
   const navigation = useNavigation();
@@ -37,9 +38,11 @@ const DoctorAppointments: FC = () => {
   const handleStartDateSelectInstruction: any = () => {
     setDateModalOpen(!dateModalOpen);
   };
-  const toggleSwitch: any = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch: any = () => {
+    setIsEnabled(previousState => !previousState);
+  };
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.headingPosition}>
         <Header mainHeader="Appointment" />
       </View>

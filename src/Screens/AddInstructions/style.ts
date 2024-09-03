@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
+    borderRadius: scale(6),
     height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(5),
@@ -62,9 +62,6 @@ const styles = StyleSheet.create({
   },
   instructionText: {
     color: colors.header
-  },
-  progressBarPosition: {
-    borderWidth: scale(0)
   },
   selectButton: {
     alignItems: 'center',

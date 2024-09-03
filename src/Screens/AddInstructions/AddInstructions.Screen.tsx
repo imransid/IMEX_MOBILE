@@ -1,6 +1,5 @@
 import React, { type FC, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
@@ -34,7 +33,6 @@ const AddInstructions: FC = () => {
 
   return (
     <View style={styles.container}>
-      <Progress.Bar color="#A6BDF8" progress={0.4} width={380} style={styles.progressBarPosition} />
       <View style={styles.headingPosition}>
         <Header mainHeader="Add Instruction" />
       </View>

@@ -54,9 +54,6 @@ const styles = StyleSheet.create({
     marginRight: scale(5),
     width: scale(168)
   },
-  progressBarPosition: {
-    borderWidth: scale(0)
-  },
   selectButton: {
     alignItems: 'center',
     backgroundColor: colors.selectButtonBg,

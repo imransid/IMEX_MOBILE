@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(2),
-    borderWidth: scale(0.15),
     height: verticalScale(40),
     justifyContent: 'center',
     marginTop: verticalScale(5),
@@ -34,6 +33,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: colors.mainText
   },
+  container: {
+    backgroundColor: colors.white
+  },
+  currentStockInputPosition: {
+    flexDirection: 'row',
+    gap: scale(10),
+    marginLeft: scale(63)
+  },
   headingPosition: {
     alignItems: 'center',
     top: verticalScale(30)
@@ -41,11 +48,6 @@ const styles = StyleSheet.create({
   imagePosition: {
     alignItems: 'center',
     top: verticalScale(30)
-  },
-  inputPosition: {
-    flexDirection: 'row',
-    gap: scale(10),
-    marginLeft: scale(50)
   },
   medicineInput: {
     borderRadius: scale(2),
@@ -63,9 +65,19 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     fontWeight: '400'
   },
+  remindLeftInputPosition: {
+    flexDirection: 'row',
+    gap: scale(10),
+    marginLeft: scale(35)
+  },
   subHeadingPosition: {
     left: scale(10),
     marginTop: verticalScale(30)
+  },
+  totalRequiredInputPosition: {
+    flexDirection: 'row',
+    gap: scale(10),
+    marginLeft: scale(60)
   }
 });
 

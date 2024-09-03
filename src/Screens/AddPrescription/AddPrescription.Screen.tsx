@@ -9,7 +9,7 @@ import styles from './style';
 
 const AddPrescription: FC = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.headingPosition}>
         <Header mainHeader="Prescription" />
       </View>
@@ -17,15 +17,17 @@ const AddPrescription: FC = () => {
         <UploadPrescriptionLogo />
       </View>
       <View style={styles.subHeadingPosition}>
-        <Header subHeader="Upload a prescription" />
+        <Text style={styles.chooseFileHeaderText}>Upload a Prescription</Text>
       </View>
-      <View style={styles.defaultText}>
-        <Header subHeader="Drag or drop file here" />
-        <Header subHeader="-OR-" />
-        <View style={styles.chooseFileButtonPosition}>
-          <TouchableOpacity style={styles.chooseFileButton}>
-            <Text style={styles.chooseFileText}>Chose File</Text>
-          </TouchableOpacity>
+      <View style={styles.fileSelectionContentPosition}>
+        <View style={styles.chooseFileBackground}>
+          <Text style={styles.mainText}>Drag or drop file here</Text>
+          <Text style={styles.subText}>-OR-</Text>
+          <View style={styles.chooseFileButtonPosition}>
+            <TouchableOpacity style={styles.chooseFileButton}>
+              <Text style={styles.chooseFileText}>Chose File</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>

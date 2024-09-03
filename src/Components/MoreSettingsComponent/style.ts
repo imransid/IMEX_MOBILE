@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   addMoreSettingsItems: {
     alignItems: 'center',
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
+    borderRadius: scale(6),
     flexDirection: 'row',
     height: verticalScale(35),
     marginTop: verticalScale(5),

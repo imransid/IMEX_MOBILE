@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     bottom: verticalScale(10)
   },
   addMoreSettingsHeaderPosition: {
-    marginTop: verticalScale(10)
+    marginTop: verticalScale(24)
   },
   addMoreSettingsHeaderText: {
     color: colors.header,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
+    borderRadius: scale(6),
     height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(5),
