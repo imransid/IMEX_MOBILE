@@ -54,16 +54,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     top: verticalScale(10)
   },
-  numberPicker: {
-    alignItems: 'center',
-    height: verticalScale(100),
-    justifyContent: 'center',
-    width: scale(200)
-  },
-  numberPickerText: {
-    fontSize: moderateScale(20),
-    fontWeight: '400'
-  },
   progressBarPosition: {
     borderWidth: scale(0)
   },

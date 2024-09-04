@@ -4,12 +4,12 @@ import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import ScrollPicker from 'react-native-wheel-scrollview-picker';
 import { useNavigation } from '@react-navigation/native';
 
 import DailyDoseLogo from '../../assets/medicine-daily-dose';
 import CalendarModalWithDates from '../../Components/CalendarModalWithDates/CalenderModalWithDates';
 import CustomButton from '../../Components/CustomButton/CustomButton';
+import CustomNumberPickerModal from '../../Components/CustomNumberPickerModal/CustomNumberPickerModal';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
@@ -40,7 +40,6 @@ const MonthlyDose: FC = () => {
 
   const handleValueChange: any = (data: string, selectedIndex: number) => {
     setSelectedNumber(data);
-    setOpen(false);
   };
 
   const clearDateSelection: any = () => {
@@ -50,6 +49,15 @@ const MonthlyDose: FC = () => {
 
   const clearNumberSelection: any = () => {
     setSelectedNumber('');
+  };
+
+  const okPress: any = () => {
+    setOpen(false);
+  };
+
+  const cancelPress: any = () => {
+    setSelectedNumber('');
+    setOpen(false);
   };
 
   const handleNext: any = () => {
@@ -141,23 +149,15 @@ const MonthlyDose: FC = () => {
       </View>
 
       {open && (
-        <ScrollPicker
-          dataSource={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']}
-          selectedIndex={1}
-          renderItem={(data, index, isSelected) => (
-            <View style={styles.numberPicker}>
-              <Text
-                style={[
-                  styles.numberPickerText,
-                  { color: isSelected ? colors.header : colors.typedText }
-                ]}>
-                {data}
-              </Text>
-            </View>
-          )}
+        <CustomNumberPickerModal
+          isVisible={open}
+          min={1}
+          max={60}
+          selectedValue={selectedNumber}
           onValueChange={handleValueChange}
-          itemHeight={50}
-          highlightColor="#d8d8d8"
+          onOk={okPress}
+          onCancel={cancelPress}
+          rightText="Times a day"
         />
       )}
 

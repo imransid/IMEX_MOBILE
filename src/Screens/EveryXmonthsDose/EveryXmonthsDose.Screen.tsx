@@ -4,11 +4,11 @@ import DatePicker from 'react-native-date-picker';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import ScrollPicker from 'react-native-wheel-scrollview-picker';
 import { useNavigation } from '@react-navigation/native';
 
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
+import CustomNumberPickerModal from '../../Components/CustomNumberPickerModal/CustomNumberPickerModal';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
@@ -28,7 +28,7 @@ const EveryXmonthsDose: FC = () => {
   };
 
   const handleSelectTimeInterval: any = () => {
-    setOpenTimeInterval(!open);
+    setOpenTimeInterval(!openTimeInterval);
   };
 
   const handleSelectDate: any = () => {
@@ -43,14 +43,30 @@ const EveryXmonthsDose: FC = () => {
     setTimeInterval('');
   };
 
-  const handleDayValueChange: any = (data: string, selectedIndex: number) => {
+  const handleDayValueChange: any = (data: string) => {
     setSelectedNumber(data);
+  };
+
+  const closeMonthPickerModal: any = () => {
     setOpen(false);
   };
 
-  const handleTimeIntervalChange: any = (data: string, selectedIndex: number) => {
-    setTimeInterval(data);
+  const cancelMonthPickerModal: any = () => {
+    setOpen(false);
+    setSelectedNumber('');
+  };
+
+  const closeTimePickerModal: any = () => {
     setOpenTimeInterval(false);
+  };
+
+  const cancelTimePickerModal: any = () => {
+    setOpenTimeInterval(false);
+    setTimeInterval('');
+  };
+
+  const handleTimeIntervalChange: any = (data: string) => {
+    setTimeInterval(data);
   };
 
   const clearSelectedDate: any = () => {
@@ -58,15 +74,15 @@ const EveryXmonthsDose: FC = () => {
   };
 
   const handleNext: any = () => {
-    navigation.navigate('EveryXmonthsDoseDetails' as never);
+    navigation.navigate('EveryXdaysDoseDetails' as never);
   };
+
   return (
     <View style={styles.container}>
       <Progress.Bar color="#A6BDF8" progress={0.2} width={380} style={styles.progressBarPosition} />
       <View style={styles.imagePosition}>
         <MedicineLogo />
       </View>
-
       <View style={styles.headingPosition}>
         <Text style={styles.headingText}>Set Months Interval</Text>
       </View>
@@ -76,13 +92,13 @@ const EveryXmonthsDose: FC = () => {
           <View style={styles.chipProperties}>
             <View style={styles.chipContentProperties}>
               {selectedNumber !== '' && (
-                <TouchableOpacity onPress={() => clearDayNumberSelection()}>
-                  <FontAwesome name="minus-circle" size={30} color={'red'}></FontAwesome>
+                <TouchableOpacity onPress={clearDayNumberSelection}>
+                  <FontAwesome name="minus-circle" size={30} color={'red'} />
                 </TouchableOpacity>
               )}
               <Text style={styles.chipText}>Month</Text>
             </View>
-            <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectDayNumber()}>
+            <TouchableOpacity style={styles.selectButton} onPress={handleSelectDayNumber}>
               <Text style={styles.selectButtonText}>
                 {selectedNumber === '' ? 'Select' : selectedNumber}
               </Text>
@@ -122,15 +138,13 @@ const EveryXmonthsDose: FC = () => {
           <View style={styles.chipProperties}>
             <View style={styles.chipContentProperties}>
               {timeInterval !== '' && (
-                <TouchableOpacity onPress={() => clearTimeIntervalSelection()}>
-                  <FontAwesome name="minus-circle" size={30} color={'red'}></FontAwesome>
+                <TouchableOpacity onPress={clearTimeIntervalSelection}>
+                  <FontAwesome name="minus-circle" size={30} color={'red'} />
                 </TouchableOpacity>
               )}
               <Text style={styles.chipText}>Time Interval</Text>
             </View>
-            <TouchableOpacity
-              style={styles.selectButton}
-              onPress={() => handleSelectTimeInterval()}>
+            <TouchableOpacity style={styles.selectButton} onPress={handleSelectTimeInterval}>
               <Text style={styles.selectButtonText}>
                 {timeInterval === '' ? 'Select' : timeInterval}
               </Text>
@@ -140,44 +154,28 @@ const EveryXmonthsDose: FC = () => {
       </View>
 
       {open && (
-        <ScrollPicker
-          dataSource={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']}
-          selectedIndex={1}
-          renderItem={(data, index, isSelected) => (
-            <View style={styles.numberPicker}>
-              <Text
-                style={[
-                  styles.numberPickerText,
-                  { color: isSelected ? colors.header : colors.typedText }
-                ]}>
-                {data}
-              </Text>
-            </View>
-          )}
+        <CustomNumberPickerModal
+          isVisible={open}
+          min={1}
+          max={60}
+          selectedValue={selectedNumber}
           onValueChange={handleDayValueChange}
-          itemHeight={50}
-          highlightColor="#d8d8d8"
+          onOk={closeMonthPickerModal}
+          onCancel={cancelMonthPickerModal}
+          rightText="Times a day"
         />
       )}
 
       {openTimeInterval && (
-        <ScrollPicker
-          dataSource={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']}
-          selectedIndex={1}
-          renderItem={(data, index, isSelected) => (
-            <View style={styles.numberPicker}>
-              <Text
-                style={[
-                  styles.numberPickerText,
-                  { color: isSelected ? colors.header : colors.typedText }
-                ]}>
-                {data}
-              </Text>
-            </View>
-          )}
+        <CustomNumberPickerModal
+          isVisible={openTimeInterval}
+          min={1}
+          max={60}
+          selectedValue={timeInterval}
           onValueChange={handleTimeIntervalChange}
-          itemHeight={50}
-          highlightColor="#d8d8d8"
+          onOk={closeTimePickerModal}
+          onCancel={cancelTimePickerModal}
+          rightText="Times a day"
         />
       )}
 
