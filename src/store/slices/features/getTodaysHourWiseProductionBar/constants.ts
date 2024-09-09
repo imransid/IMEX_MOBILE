@@ -1,1 +1,0 @@
-export const GET_TODAYS_HOUR_WISE_PRODUCTION_BAR_TYPE = 'getTodaysHourWiseProductionBar';
