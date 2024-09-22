@@ -12,6 +12,11 @@ import { colors } from '../../theme/colors';
 
 import styles from './style';
 
+// interface ISignInFormDataProps {
+//   mobile: string;
+//   password: string;
+// }
+
 const Login: FC = () => {
   const navigation = useNavigation();
   const [mobile, setMobile] = useState<string>('');

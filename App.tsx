@@ -51,9 +51,13 @@ Sentry.init({
 });
 
 const App: FC = () => {
+  // const [isLoading, setIsLoading] = useState(true);
+
   // useEffect(() => {
-  //   //throw new Error('My first Sentry error!');
-  // }, [])
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 3000);
+  // }, []);
 
   return (
     <StoreProvider store={store}>
