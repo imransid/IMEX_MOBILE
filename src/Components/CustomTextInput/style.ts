@@ -25,6 +25,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: scale(38),
     paddingVertical: verticalScale(8)
+  },
+  textInputBorder: {
+    borderColor: colors.buttonBg,
+    borderWidth: 1
   }
 });
 

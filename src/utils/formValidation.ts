@@ -5,7 +5,7 @@ import * as yup from 'yup';
 // import { yupResolver } from '@hookform/resolvers/yup';
 
 export const mobileSignInFormValidation = yup.object().shape({
-  email: yup.string().required('User is required'),
+  mobile: yup.string().required('User is required'),
   password: yup
     .string()
     .required('Password is required')

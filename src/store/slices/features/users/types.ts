@@ -31,7 +31,7 @@ export interface UsersStateType {
 }
 
 export interface ILogInPayload {
-  email: string;
+  mobile: string;
   password: string;
 }
 

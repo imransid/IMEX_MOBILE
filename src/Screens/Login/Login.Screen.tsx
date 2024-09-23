@@ -1,59 +1,71 @@
-import React, { type FC } from 'react';
-// import type { SubmitHandler } from 'react-hook-form';
-// import { Controller, useForm } from 'react-hook-form';
+import React, { type FC, useState } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { Text, TouchableOpacity, View } from 'react-native';
-// import Spinner from 'react-native-loading-spinner-overlay';
+import Spinner from 'react-native-loading-spinner-overlay';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-// import { yupResolver } from '@hookform/resolvers/yup';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch, useSelector } from 'react-redux';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 
+import { type RootState } from '@/store';
+import useNetworkStatus from '@/utils/networkUtills';
+import ToastPopUp from '@/utils/Toast.android';
+
+import CustomButton from '../../Components/CustomButton/CustomButton';
+import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Header from '../../Components/Header/Header';
+import { getUserAction } from '../../store/slices/features/users/slice';
+import { colors } from '../../theme/colors';
+import { mobileSignInFormValidation } from '../../utils/formValidation';
 
 import styles from './style';
 
-// interface ISignInFormDataProps {
-//   mobile: string;
-//   password: string;
-// }
-
-// yup validation
-// const {
-//   control,
-//   handleSubmit,
-//   formState: { errors }
-// } = useForm({
-//   resolver: yupResolver(mobileSignInFormValidation),
-//   defaultValues: {
-//     mobile: '',
-//     password: ''
-//   }
-// });
+interface ISignInFormDataProps {
+  mobile: string;
+  password: string;
+}
 
 const Login: FC = () => {
-  // const dispatch = useDispatch();
+  // yup validation
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(mobileSignInFormValidation),
+    defaultValues: {
+      mobile: '',
+      password: ''
+    }
+  });
 
-  // const { isInternetReachable, isCellularConnection } = useNetworkStatus();
+  const dispatch = useDispatch();
 
-  // const loading = useSelector((state: RootState) => state.users.user.isLoading);
+  const { isInternetReachable, isCellularConnection } = useNetworkStatus();
+
+  const loading = useSelector((state: RootState) => state.users.user.isLoading);
 
   const navigation = useNavigation();
-  // const [mobile, setMobile] = useState<string>('');
-  // const [password, setPassword] = useState<string>('');
+  const [mobile, setMobile] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  // const handleSignIn: SubmitHandler<ISignInFormDataProps> = (
-  //   formData: ISignInFormDataProps
-  // ): any => {
-  //   // navigation.navigate('MedicineDoses' as never);
-  //   try {
-  //     if (!isInternetReachable && !isCellularConnection) {
-  //       ToastPopUp('Please Check Internet Connection!..');
-  //     } else {
-  //       dispatch(getUserAction(formData));
-  //     }
-  //   } catch (err) {
-  //     console.error('error', err);
-  //   }
-  // };
+  const handleSignIn: SubmitHandler<ISignInFormDataProps> = (
+    formData: ISignInFormDataProps
+  ): any => {
+    // navigation.navigate('MedicineDoses' as never);
+    try {
+      if (!isInternetReachable && !isCellularConnection) {
+        ToastPopUp('Please Check Internet Connection!..');
+      } else {
+        dispatch(getUserAction(formData));
+      }
+    } catch (err) {
+      console.error('error', err);
+    }
+  };
 
   const handleGuestLogin: any = () => {
     navigation.navigate('MedicineDoses' as never);
@@ -79,12 +91,12 @@ const Login: FC = () => {
         <Header subHeader="Medinest experience" />
       </View>
 
-      {/* <Spinner visible={loading} textContent={'Loading...'} /> */}
+      <Spinner visible={loading} textContent={'Loading...'} />
 
       <View style={styles.textInputComponentsPosition}>
         <View style={styles.mobileNumberInput}>
           <Text style={styles.inputHeader}>Mobile Number</Text>
-          {/* <Controller
+          <Controller
             control={control}
             rules={{
               required: true
@@ -96,18 +108,18 @@ const Login: FC = () => {
                 onChangeText={setMobile}
                 placeholder="Enter your mobile number..."
                 maxLength={11}
-                inputStyle={errors.email != null ? styles.textInputErrorTxt : styles.inputText}
+                inputStyle={errors.mobile != null ? styles.textInputErrorTxt : styles.inputText}
                 leftIcon={<Feather name="smartphone" size={30} color={'#888888'} />} // Left icon
               />
             )}
             name="mobile"
-          /> */}
-          {/* {errors.mobile != null && <Text style={styles.errorTxt}>{errors.mobile.message}</Text>} */}
+          />
+          {errors.mobile != null && <Text style={styles.errorTxt}>{errors.mobile.message}</Text>}
         </View>
         <View style={styles.passwordInput}>
           <Text style={styles.inputHeader}>Password</Text>
 
-          {/* <Controller
+          <Controller
             control={control}
             rules={{
               required: true
@@ -127,21 +139,21 @@ const Login: FC = () => {
               />
             )}
             name="password"
-          /> */}
-          {/* {errors.password != null && (
+          />
+          {errors.password != null && (
             <Text style={styles.errorTxt}>{errors.password.message}</Text>
-          )} */}
+          )}
         </View>
       </View>
 
       <View style={styles.signInButtonPosition}>
-        {/* <CustomButton
+        <CustomButton
           onPress={() => {
             void handleSubmit(handleSignIn)();
           }}
           icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
           text="Sign In"
-        /> */}
+        />
       </View>
 
       <View style={styles.orPartPosition}>

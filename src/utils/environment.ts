@@ -1,42 +1,33 @@
-// Yunusco
-// const BASE_URL = 'http://nidle.yunusco.com:8081';
-
-// QA
+// Rafa
 const BASE_URL = 'http://192.168.10.53:8081';
 
-// Development
-// const BASE_URL = 'http://192.168.10.53:8081';
-
-// 4A
-// const BASE_URL = 'http://192.168.10.70:8081';
-
-// DBL Intellier Local Server
-// const BASE_URL = 'http://172.17.1.116:8081';
-
-// DBL Server
-// const BASE_URL = 'http://192.168.110.62:8081';
-
-// Nidle Laptop Hotspot
-// const BASE_URL = 'http://10.42.0.1:8081';
-
 const SIGN_IN_URL = 'auth/login';
+const FINISHING_ORG = 'api/finishingOrg';
+const FINISHING_PROCESS_LIST = 'api/v1/getFinishingProcessList';
+const SUMMARY = 'api/v1/getTodaysFinishingSummary';
+const FINISHING_STATUS = 'api/v1/getFinishingStatus';
+const ORG_TREE = 'api/org:loggedUserOrgtree';
+const CONFIRM_RECEIVE_REQUEST = 'api/v1/confirmReceiveRequest';
 
-const QUALITY_TYPES_URL = '/api/v1/';
+const GET_QMS_STOCK_FOR_RECEIVE = 'api/v1/getQmsStockForReceive?lineId=';
+const GET_FINISHING_ALTER_LIST = 'api/v1/getFinishingAlterList';
+const SEND_TO_ALTER = 'api/v1/sendToAlter';
 
-const CURRENT_ORDER_VARIANCE_URL = '/api/v1/appSync/';
-
-const CURRENT_CUSTOMERS_URL = '/api/v1/appSync/';
-
-const LOGGED_USER_ORG_TREE_URL = '/api/org:';
-
-const API_VERSION_TWO = '/api/v2/appSync/';
+const GET_FINISHING_ALTER_RECEIVE_LIST = 'api/v1/getFinishingAlterReceiveList';
+const SEND_TO_FINISHING_ALTER_RECEIVE = 'api/v1/sendToFinishingAlterReceive';
 
 export {
-  API_VERSION_TWO,
   BASE_URL,
-  CURRENT_CUSTOMERS_URL,
-  CURRENT_ORDER_VARIANCE_URL,
-  LOGGED_USER_ORG_TREE_URL,
-  QUALITY_TYPES_URL,
-  SIGN_IN_URL
+  CONFIRM_RECEIVE_REQUEST,
+  FINISHING_ORG,
+  FINISHING_PROCESS_LIST,
+  FINISHING_STATUS,
+  GET_FINISHING_ALTER_LIST,
+  GET_FINISHING_ALTER_RECEIVE_LIST,
+  GET_QMS_STOCK_FOR_RECEIVE,
+  ORG_TREE,
+  SEND_TO_ALTER,
+  SEND_TO_FINISHING_ALTER_RECEIVE,
+  SIGN_IN_URL,
+  SUMMARY
 };

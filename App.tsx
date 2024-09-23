@@ -1,35 +1,13 @@
-// import React, { type FC, useEffect, useState } from 'react';
-// import { NavigationContainer } from '@react-navigation/native';
-
-// import AppStackNavigator from './src/navigators/AppStackNavigator';
-// import SplashScreen from './src/Screens/SplashScreen/Splash.Screen';
-
-// const App: FC = () => {
-//   const [isLoading, setIsLoading] = useState(true);
-
-//   useEffect(() => {
-//     setTimeout(() => {
-//       setIsLoading(false);
-//     }, 3000);
-//   }, []);
-
-//   return (
-//     <NavigationContainer>
-//       {isLoading ? <SplashScreen /> : <AppStackNavigator />}
-//     </NavigationContainer>
-//   );
-// };
-
-// export default App;
-
-import React, { type FC } from 'react';
+import React, { type FC, useEffect, useState } from 'react';
 import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
 import { Provider as StoreProvider } from 'react-redux';
 import { DatabaseProvider } from '@nozbe/watermelondb/DatabaseProvider';
+import { NavigationContainer } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import Navigator from './src/navigators';
+import AppStackNavigator from './src/navigators/AppStackNavigator';
+import SplashScreen from './src/Screens/SplashScreen/Splash.Screen';
 import { persistor, store } from './src/store';
 import database from './src/store/database';
 
@@ -51,20 +29,22 @@ Sentry.init({
 });
 
 const App: FC = () => {
-  // const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 3000);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  }, []);
 
   return (
     <StoreProvider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <PaperProvider theme={theme}>
           <DatabaseProvider database={database}>
-            <Navigator />
+            <NavigationContainer>
+              {isLoading ? <SplashScreen /> : <AppStackNavigator />}
+            </NavigationContainer>
           </DatabaseProvider>
         </PaperProvider>
       </PersistGate>
