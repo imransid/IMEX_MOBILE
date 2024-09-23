@@ -90,5 +90,6 @@ export const colors = {
   modalBackground: palette.color38,
   calendarDate: palette.color39,
   toggleEnabled: palette.color40,
-  secondaryButtonText: palette.color41
+  secondaryButtonText: palette.color41,
+  error: palette.color28
 };

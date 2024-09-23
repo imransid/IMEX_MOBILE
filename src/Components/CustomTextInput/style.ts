@@ -26,7 +26,11 @@ const styles = StyleSheet.create({
     paddingLeft: scale(38),
     paddingVertical: verticalScale(8)
   },
-  textInputBorder: {
+  textInputError: {
+    borderColor: colors.error,
+    borderWidth: 1
+  },
+  textInputFocused: {
     borderColor: colors.buttonBg,
     borderWidth: 1
   }

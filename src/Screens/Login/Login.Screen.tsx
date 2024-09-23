@@ -1,4 +1,4 @@
-import React, { type FC, useState } from 'react';
+import React, { type FC } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { Controller, useForm } from 'react-hook-form';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -29,12 +29,12 @@ interface ISignInFormDataProps {
 }
 
 const Login: FC = () => {
-  // yup validation
+  // yup validation with react-hook-form
   const {
     control,
     handleSubmit,
     formState: { errors }
-  } = useForm({
+  } = useForm<ISignInFormDataProps>({
     resolver: yupResolver(mobileSignInFormValidation),
     defaultValues: {
       mobile: '',
@@ -43,19 +43,13 @@ const Login: FC = () => {
   });
 
   const dispatch = useDispatch();
-
+  const navigation = useNavigation();
   const { isInternetReachable, isCellularConnection } = useNetworkStatus();
 
   const loading = useSelector((state: RootState) => state.users.user.isLoading);
 
-  const navigation = useNavigation();
-  const [mobile, setMobile] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-
-  const handleSignIn: SubmitHandler<ISignInFormDataProps> = (
-    formData: ISignInFormDataProps
-  ): any => {
-    // navigation.navigate('MedicineDoses' as never);
+  // SignIn handler
+  const handleSignIn: SubmitHandler<ISignInFormDataProps> = async formData => {
     try {
       if (!isInternetReachable && !isCellularConnection) {
         ToastPopUp('Please Check Internet Connection!..');
@@ -67,14 +61,13 @@ const Login: FC = () => {
     }
   };
 
+  // Navigation handlers
   const handleGuestLogin: any = () => {
     navigation.navigate('MedicineDoses' as never);
   };
-
   const handleCreateAccount: any = () => {
     navigation.navigate('CreateAccount' as never);
   };
-
   const handleForgotPassword: any = () => {
     navigation.navigate('ForgotPassword' as never);
   };
@@ -94,51 +87,45 @@ const Login: FC = () => {
       <Spinner visible={loading} textContent={'Loading...'} />
 
       <View style={styles.textInputComponentsPosition}>
+        {/* Mobile Number Input */}
         <View style={styles.mobileNumberInput}>
           <Text style={styles.inputHeader}>Mobile Number</Text>
           <Controller
             control={control}
-            rules={{
-              required: true
-            }}
+            name="mobile"
             render={({ field: { onChange, value } }) => (
               <CustomTextInput
-                type="mobile"
-                value={mobile}
-                onChangeText={setMobile}
+                type="email"
+                value={value}
+                onChangeText={onChange}
                 placeholder="Enter your mobile number..."
                 maxLength={11}
-                inputStyle={errors.mobile != null ? styles.textInputErrorTxt : styles.inputText}
-                leftIcon={<Feather name="smartphone" size={30} color={'#888888'} />} // Left icon
+                inputStyle={errors.mobile != null ? styles.textInputError : styles.inputText}
+                leftIcon={<Feather name="smartphone" size={25} color="#888888" />}
               />
             )}
-            name="mobile"
           />
           {errors.mobile != null && <Text style={styles.errorTxt}>{errors.mobile.message}</Text>}
         </View>
+
+        {/* Password Input */}
         <View style={styles.passwordInput}>
           <Text style={styles.inputHeader}>Password</Text>
-
           <Controller
             control={control}
-            rules={{
-              required: true
-            }}
+            name="password"
             render={({ field: { onChange, value } }) => (
               <CustomTextInput
                 type="password"
-                value={password}
-                onChangeText={setPassword}
+                value={value}
+                onChangeText={onChange}
                 placeholder="Enter your password..."
                 maxLength={8}
-                inputStyle={errors.password != null ? styles.textInputErrorTxt : styles.inputText}
-                isPassword={true}
-                leftIcon={
-                  <MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />
-                }
+                inputStyle={errors.password != null ? styles.textInputError : styles.inputText}
+                isPassword
+                leftIcon={<MaterialCommunityIcons name="lock-outline" size={25} color="#888888" />}
               />
             )}
-            name="password"
           />
           {errors.password != null && (
             <Text style={styles.errorTxt}>{errors.password.message}</Text>
@@ -146,6 +133,7 @@ const Login: FC = () => {
         </View>
       </View>
 
+      {/* Sign In Button */}
       <View style={styles.signInButtonPosition}>
         <CustomButton
           onPress={() => {
@@ -156,28 +144,30 @@ const Login: FC = () => {
         />
       </View>
 
+      {/* Or Separator */}
       <View style={styles.orPartPosition}>
         <View style={styles.orPart}>
-          <View style={styles.orHorizontalLine}></View>
+          <View style={styles.orHorizontalLine} />
           <Text style={styles.orText}>or</Text>
-          <View style={styles.orHorizontalLine}></View>
+          <View style={styles.orHorizontalLine} />
         </View>
       </View>
 
+      {/* Guest Login Button */}
       <View style={styles.guestButtonPosition}>
         <TouchableOpacity style={styles.guestButton} onPress={handleGuestLogin}>
-          <Feather name="user" size={30} color={'#888888'} />
+          <Feather name="user" size={30} color="#888888" />
           <Text style={styles.guestButtonText}>Continue as guest</Text>
         </TouchableOpacity>
       </View>
 
+      {/* Create Account & Forgot Password Links */}
       <View style={styles.askAboutAccount}>
-        <Text style={styles.askAboutAccountText}>Don’t have an account? {'  '}</Text>
+        <Text style={styles.askAboutAccountText}>Don’t have an account?{'  '}</Text>
         <TouchableOpacity onPress={handleCreateAccount}>
           <Text style={styles.signUpText}>Create Account</Text>
         </TouchableOpacity>
       </View>
-
       <TouchableOpacity onPress={handleForgotPassword}>
         <Text style={styles.forgotPassword}>Forgot your password?</Text>
       </TouchableOpacity>

@@ -20,8 +20,9 @@ const styles = StyleSheet.create({
     flex: 1
   },
   errorTxt: {
-    // color: 'red',
-    marginBottom: 8
+    color: colors.error,
+    fontSize: moderateScale(14),
+    marginBottom: 6
   },
   forgotPassword: {
     color: colors.buttonBg,
@@ -55,8 +56,8 @@ const styles = StyleSheet.create({
     marginRight: scale(226)
   },
   inputText: {
-    color: colors.typedText,
-    fontSize: moderateScale(16),
+    color: colors.header,
+    fontSize: moderateScale(14),
     fontWeight: '400'
   },
   mainHeader: {
@@ -111,14 +112,9 @@ const styles = StyleSheet.create({
   textInputComponentsPosition: {
     alignItems: 'center'
   },
-  textInputErrorTxt: {
-    // borderColor: 'red',
-    borderRadius: 20,
-    borderWidth: 1,
-    marginBottom: 5,
-    width: scale(250)
-    // paddingLeft: 20,
-    // color: '#000'
+  textInputError: {
+    borderColor: colors.error,
+    borderWidth: 1
   }
 });
 

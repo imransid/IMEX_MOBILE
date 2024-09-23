@@ -16,7 +16,8 @@ const CustomTextInput: React.FC<ICustomTextInputProps & TextInputProps> = ({
   isPassword = false,
   inputStyle,
   leftIcon,
-  rightIcon
+  rightIcon,
+  isError = false
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -38,7 +39,12 @@ const CustomTextInput: React.FC<ICustomTextInputProps & TextInputProps> = ({
   };
 
   return (
-    <View style={[styles.container, isFocused && styles.textInputBorder]}>
+    <View
+      style={[
+        styles.container,
+        isFocused && styles.textInputFocused,
+        isError && styles.textInputError
+      ]}>
       {leftIcon !== true ? <View style={styles.iconLeft}>{leftIcon}</View> : <></>}
       <TextInput
         style={[styles.textInput, inputStyle]}
@@ -51,14 +57,14 @@ const CustomTextInput: React.FC<ICustomTextInputProps & TextInputProps> = ({
         secureTextEntry={!showPassword}
         onFocus={() => {
           setIsFocused(true);
-        }} // Set focus state to true
+        }}
         onBlur={() => {
           setIsFocused(false);
         }}
       />
       {isPassword ? (
         <TouchableOpacity style={styles.iconRight} onPress={togglePasswordVisibility}>
-          <Icon name={showPassword ? 'eye-outline' : 'eye'} size={30} color={'#888888'} />
+          <Icon name={showPassword ? 'eye-outline' : 'eye'} size={25} color={'#888888'} />
         </TouchableOpacity>
       ) : rightIcon !== true ? (
         <View style={styles.iconRight}>{rightIcon}</View>

@@ -26,7 +26,6 @@ import {
   EveryXweeksDoseDetails,
   ForgotPassword,
   FourTimesAdayDose,
-  Login,
   MedicineAddingMethod,
   MedicineDailyDoses,
   MedicineDetails,
@@ -89,30 +88,6 @@ const PublickStackNavigator: any = () => {
             </TouchableOpacity>
           )
         }}
-      />
-      <publicStack.Screen
-        options={{
-          headerShown: true,
-          headerTitle: '',
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: colors.white
-          },
-          headerTitleStyle: { fontSize: moderateScale(14) },
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <View style={styles.backNavigationProperties}>
-                <Ionicons name="chevron-back" size={28} color={colors.buttonBg} />
-                <Text style={styles.backNavigationText}>Back</Text>
-              </View>
-            </TouchableOpacity>
-          )
-        }}
-        name={'Login'}
-        component={Login}
       />
       <publicStack.Screen
         options={{
