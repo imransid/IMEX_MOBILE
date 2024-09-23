@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flex: 1
   },
+  errorTxt: {
+    // color: 'red',
+    marginBottom: 8
+  },
   forgotPassword: {
     color: colors.buttonBg,
     fontSize: moderateScale(14),
@@ -106,6 +110,15 @@ const styles = StyleSheet.create({
   },
   textInputComponentsPosition: {
     alignItems: 'center'
+  },
+  textInputErrorTxt: {
+    // borderColor: 'red',
+    borderRadius: 20,
+    borderWidth: 1,
+    marginBottom: 5,
+    width: scale(250)
+    // paddingLeft: 20,
+    // color: '#000'
   }
 });
 
