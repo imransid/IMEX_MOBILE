@@ -42,8 +42,7 @@ const CustomTextInput: React.FC<ICustomTextInputProps & TextInputProps> = ({
     <View
       style={[
         styles.container,
-        isFocused && styles.textInputFocused,
-        isError && styles.textInputError
+        isError ? styles.textInputError : isFocused && styles.textInputFocused
       ]}>
       {leftIcon !== true ? <View style={styles.iconLeft}>{leftIcon}</View> : <></>}
       <TextInput

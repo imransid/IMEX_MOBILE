@@ -1,4 +1,4 @@
-import { type StyleProp, type TextInputProps, type TextStyle, type ViewStyle } from 'react-native';
+import { type StyleProp, type TextInputProps, type TextStyle } from 'react-native';
 
 interface ICustomTextInputProps extends TextInputProps {
   isPassword?: boolean;
@@ -11,7 +11,6 @@ interface ICustomTextInputProps extends TextInputProps {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   inputStyle?: StyleProp<TextStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
   isError?: boolean;
 }
 

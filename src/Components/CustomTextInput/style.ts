@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.textInput,
     borderRadius: scale(6),
     flexDirection: 'row',
-    height: verticalScale(50),
+    height: verticalScale(40),
     position: 'relative',
     width: scale(330)
   },

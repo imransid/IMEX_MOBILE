@@ -100,7 +100,8 @@ const Login: FC = () => {
                 onChangeText={onChange}
                 placeholder="Enter your mobile number..."
                 maxLength={11}
-                inputStyle={errors.mobile != null ? styles.textInputError : styles.inputText}
+                inputStyle={styles.inputText}
+                isError={Boolean(errors.mobile)} // Pass isError prop
                 leftIcon={<Feather name="smartphone" size={25} color="#888888" />}
               />
             )}
@@ -121,8 +122,9 @@ const Login: FC = () => {
                 onChangeText={onChange}
                 placeholder="Enter your password..."
                 maxLength={8}
-                inputStyle={errors.password != null ? styles.textInputError : styles.inputText}
+                inputStyle={styles.inputText}
                 isPassword
+                isError={Boolean(errors.password)}
                 leftIcon={<MaterialCommunityIcons name="lock-outline" size={25} color="#888888" />}
               />
             )}

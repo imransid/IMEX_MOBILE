@@ -64,7 +64,7 @@ export function* loginSaga(
       }
     } else {
       // case undefined
-      const data = 'The mobile number or password you entered is incorrect. Please try again.';
+      const data = 'Cridentials did not match. Please try again.';
       ToastPopUp(data);
       // yield put(stopLoader());
       yield put(usersSlice.actions.getUserErrorAction('Login failed')); // Handle error case
