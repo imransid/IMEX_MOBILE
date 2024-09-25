@@ -162,7 +162,8 @@ const EveryXdaysDose: FC = () => {
           onValueChange={handleDayValueChange}
           onOk={closeDayPickerModal}
           onCancel={cancelDayPickerModal}
-          rightText="Times a day"
+          leftText="Every"
+          rightText="Days"
         />
       )}
 

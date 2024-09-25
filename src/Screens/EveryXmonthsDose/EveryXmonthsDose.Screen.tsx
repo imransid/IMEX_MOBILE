@@ -162,7 +162,8 @@ const EveryXmonthsDose: FC = () => {
           onValueChange={handleDayValueChange}
           onOk={closeMonthPickerModal}
           onCancel={cancelMonthPickerModal}
-          rightText="Times a day"
+          leftText="Every"
+          rightText="Month(s)"
         />
       )}
 
