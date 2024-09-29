@@ -3,7 +3,8 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { SETTING } from './constants';
 import { type IPayload, type ISettingState } from './types';
 const settingsInitialState: ISettingState = {
-  isLoading: false
+  isLoading: false,
+  appLoadFirstTime: true
 };
 
 export const settingSlice = createSlice({
@@ -21,11 +22,19 @@ export const settingSlice = createSlice({
     },
     startLoader: (state: ISettingState) => {
       state.isLoading = true;
+    },
+    updateFirstTimeQrScreen: (state: ISettingState) => {
+      state.appLoadFirstTime = false;
     }
   }
 });
 
-export const { setGlobalLoaderAction, checkingLoader, stopLoader, startLoader } =
-  settingSlice.actions;
+export const {
+  setGlobalLoaderAction,
+  checkingLoader,
+  stopLoader,
+  startLoader,
+  updateFirstTimeQrScreen
+} = settingSlice.actions;
 
 export default settingSlice.reducer;

@@ -9,10 +9,12 @@ import { checkingLoader } from '../store/slices/features/settings/slice';
 
 import AuthStackNav from './AuthStackNavigator';
 import DrawerNavigator from './DrawerNavigator';
+import PublicStackNavigator from './PublicStackNavigator';
 
 const Navigator: FC = () => {
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
   const globalLoaderStatus = useSelector((state: RootState) => state.settings.isLoading);
+  const appLoadFirstTime = useSelector((state: RootState) => state.settings.appLoadFirstTime);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,7 +23,13 @@ const Navigator: FC = () => {
 
   return (
     <NavigationContainer>
-      {authStatus ? <DrawerNavigator /> : <AuthStackNav />}
+      {authStatus ? (
+        <DrawerNavigator />
+      ) : !appLoadFirstTime ? (
+        <PublicStackNavigator />
+      ) : (
+        <AuthStackNav />
+      )}
       <Spinner visible={globalLoaderStatus} textContent={'Loading...'} />
     </NavigationContainer>
   );
