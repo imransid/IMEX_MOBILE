@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   inputText: {
-    color: colors.typedText,
-    fontSize: moderateScale(16),
+    color: colors.header,
+    fontSize: moderateScale(14),
     fontWeight: '400'
   },
   resetPasswordButtonPosition: {

@@ -13,6 +13,7 @@ import {
   AddPrescription,
   AskHourInterval,
   AskTimeInterval,
+  CameraScanner,
   CreateAccount,
   DoctorAppointments,
   EnterOtp,
@@ -25,8 +26,10 @@ import {
   EveryXweeksDoseDetails,
   ForgotPassword,
   FourTimesAdayDose,
+  Login,
   MedicineAddingMethod,
   MedicineDailyDoses,
+  MedicineDetails,
   MedicineDoses,
   MedicineReminders,
   MedicineType,
@@ -35,6 +38,7 @@ import {
   OnceAdayDose,
   PasswordChanged,
   ResetPassword,
+  ScanQrCode,
   SetTreatmentDuration,
   ThreeTimesAdayDose,
   TwiceAdayDose,
@@ -44,6 +48,7 @@ import {
 } from '../Screens';
 import { colors } from '../theme/colors';
 
+import DrawerNavigator from './DrawerNavigator';
 import styles from './Styles';
 
 const Stack = createStackNavigator();
@@ -51,8 +56,66 @@ const Stack = createStackNavigator();
 const AppStackNavigator: FC = () => {
   const navigation = useNavigation();
   return (
-    <Stack.Navigator>
-      {/* <Stack.Screen name="MainTabs" component={DrawerNavigator} options={{ headerShown: false }} /> */}
+    <Stack.Navigator initialRouteName="ScanQrCodeScreen">
+      <Stack.Screen name="MainTabs" component={DrawerNavigator} options={{ headerShown: false }} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: '',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: colors.white
+          },
+          headerTitleStyle: { fontSize: moderateScale(14) },
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}>
+              <View style={styles.backNavigationProperties}>
+                <Ionicons name="chevron-back" size={28} color={colors.buttonBg} />
+                <Text style={styles.backNavigationText}>Back</Text>
+              </View>
+            </TouchableOpacity>
+          )
+        }}
+        name={'Login'}
+        component={Login}
+      />
+      <Stack.Screen
+        name={'ScanQrCodeScreen'}
+        component={ScanQrCode}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={'CameraScanner'}
+        component={CameraScanner}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={'MedicineDetails'}
+        component={MedicineDetails}
+        options={{
+          headerShown: true,
+          headerTitle: 'Medicine Details',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: colors.white
+          },
+          headerTitleStyle: { fontSize: moderateScale(14) },
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}>
+              <View style={styles.backNavigationProperties}>
+                <Ionicons name="chevron-back" size={28} color={colors.buttonBg} />
+                <Text style={styles.backNavigationText}>Back</Text>
+              </View>
+            </TouchableOpacity>
+          )
+        }}
+      />
       <Stack.Screen
         options={{
           headerShown: true,

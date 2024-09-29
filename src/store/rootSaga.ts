@@ -1,6 +1,6 @@
 import { all, fork } from 'redux-saga/effects';
 
-import { watchGetUser } from './saga';
+import watchGetUser from './saga';
 
 const rootSaga = function* (): Generator {
   yield all([

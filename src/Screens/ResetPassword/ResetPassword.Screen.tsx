@@ -33,7 +33,7 @@ const ResetPassword: FC = () => {
             maxLength={8}
             inputStyle={styles.inputText}
             isPassword={true}
-            leftIcon={<MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />} // Left icon
+            leftIcon={<MaterialCommunityIcons name="lock-outline" size={25} color={'#888888'} />} // Left icon
           />
         </View>
         <View style={styles.textInputPosition}>
@@ -46,7 +46,7 @@ const ResetPassword: FC = () => {
             maxLength={8}
             inputStyle={styles.inputText}
             isPassword={true}
-            leftIcon={<MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />} // Left icon
+            leftIcon={<MaterialCommunityIcons name="lock-outline" size={25} color={'#888888'} />} // Left icon
           />
         </View>
       </View>

@@ -46,7 +46,7 @@ const CreateAccount: FC = () => {
               placeholder="Enter your full name..."
               maxLength={18}
               inputStyle={styles.inputText}
-              leftIcon={<AntDesign name="user" size={30} color={'#888888'} />} // Left icon
+              leftIcon={<AntDesign name="user" size={25} color={'#888888'} />} // Left icon
             />
           </View>
           <View style={styles.textInputComponentProperties}>
@@ -58,7 +58,7 @@ const CreateAccount: FC = () => {
               placeholder="Enter your mobile number..."
               maxLength={11}
               inputStyle={styles.inputText}
-              leftIcon={<Feather name="smartphone" size={30} color={'#888888'} />}
+              leftIcon={<Feather name="smartphone" size={25} color={'#888888'} />}
             />
           </View>
           <View style={styles.textInputComponentProperties}>
@@ -83,7 +83,7 @@ const CreateAccount: FC = () => {
               maxLength={8}
               inputStyle={styles.inputText}
               isPassword={true}
-              leftIcon={<MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />} // Left icon
+              leftIcon={<MaterialCommunityIcons name="lock-outline" size={25} color={'#888888'} />} // Left icon
             />
           </View>
           <View style={styles.textInputComponentProperties}>
@@ -96,7 +96,7 @@ const CreateAccount: FC = () => {
               maxLength={8}
               inputStyle={styles.inputText}
               isPassword={true}
-              leftIcon={<MaterialCommunityIcons name="lock-outline" size={30} color={'#888888'} />} // Left icon
+              leftIcon={<MaterialCommunityIcons name="lock-outline" size={25} color={'#888888'} />} // Left icon
             />
           </View>
           <View style={styles.textInputComponentProperties}>
@@ -108,7 +108,7 @@ const CreateAccount: FC = () => {
               placeholder="Enter your gender..."
               maxLength={8}
               inputStyle={styles.inputText}
-              leftIcon={<MaterialCommunityIcons name="gender-male" size={30} color={'#888888'} />} // Left icon
+              leftIcon={<MaterialCommunityIcons name="gender-male" size={25} color={'#888888'} />} // Left icon
             />
           </View>
           <View style={styles.textInputComponentProperties}>
@@ -120,7 +120,7 @@ const CreateAccount: FC = () => {
               placeholder="Enter your birth date..."
               maxLength={10}
               inputStyle={styles.inputText}
-              leftIcon={<AntDesign name="calendar" size={28} color={'#888888'} />} // Left icon
+              leftIcon={<AntDesign name="calendar" size={25} color={'#888888'} />} // Left icon
             />
           </View>
         </View>
@@ -128,7 +128,7 @@ const CreateAccount: FC = () => {
         <View style={styles.SignInbuttonPosition}>
           <CustomButton
             onPress={handleSignUp}
-            icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
+            icon={<AntDesign name="arrowright" size={25} color={colors.white} />}
             text="Sign In"
           />
         </View>

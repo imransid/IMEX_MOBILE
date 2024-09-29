@@ -32,7 +32,7 @@ const ForgotPassword: FC = () => {
             placeholder="Enter your mobile number..."
             maxLength={11}
             inputStyle={styles.inputText}
-            leftIcon={<Feather name="smartphone" size={30} color={'#888888'} />} // Left icon
+            leftIcon={<Feather name="smartphone" size={25} color={'#888888'} />} // Left icon
           />
         </View>
       </View>
