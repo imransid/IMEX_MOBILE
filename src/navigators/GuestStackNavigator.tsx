@@ -83,40 +83,6 @@ const GuestStackNavigator: FC = () => {
         name={'Login'}
         component={Login}
       />
-      {/* <Stack.Screen
-        name={'ScanQrCodeScreen'}
-        component={ScanQrCode}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={'CameraScanner'}
-        component={CameraScanner}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={'MedicineDetails'}
-        component={MedicineDetails}
-        options={{
-          headerShown: true,
-          headerTitle: 'Medicine Details',
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: colors.white
-          },
-          headerTitleStyle: { fontSize: moderateScale(14) },
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <View style={styles.backNavigationProperties}>
-                <Ionicons name="chevron-back" size={28} color={colors.buttonBg} />
-                <Text style={styles.backNavigationText}>Back</Text>
-              </View>
-            </TouchableOpacity>
-          )
-        }}
-      /> */}
       <Stack.Screen
         options={{
           headerShown: true,

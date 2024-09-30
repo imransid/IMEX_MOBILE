@@ -39,7 +39,7 @@ const AddedMedicine: FC = () => {
   };
 
   const handleNoThanks: any = () => {
-    navigation.navigate('MainTabs' as never);
+    navigation.navigate('GuestDrawer' as never);
   };
 
   return (
