@@ -9,7 +9,7 @@ import { colors } from '../theme/colors';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigator: FC = () => {
+const UserBottomTabNavigator: FC = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -40,4 +40,4 @@ const BottomTabNavigator: FC = () => {
   );
 };
 
-export default BottomTabNavigator;
+export default UserBottomTabNavigator;

@@ -13,7 +13,6 @@ import {
   AddPrescription,
   AskHourInterval,
   AskTimeInterval,
-  CameraScanner,
   CreateAccount,
   DoctorAppointments,
   EnterOtp,
@@ -29,7 +28,6 @@ import {
   Login,
   MedicineAddingMethod,
   MedicineDailyDoses,
-  MedicineDetails,
   MedicineDoses,
   MedicineReminders,
   MedicineType,
@@ -38,7 +36,6 @@ import {
   OnceAdayDose,
   PasswordChanged,
   ResetPassword,
-  ScanQrCode,
   SetTreatmentDuration,
   ThreeTimesAdayDose,
   TwiceAdayDose,
@@ -53,12 +50,12 @@ import styles from './Styles';
 
 const Stack = createStackNavigator();
 
-const AppStackNavigator: FC = () => {
+const GuestStackNavigator: FC = () => {
   const navigation = useNavigation();
   return (
-    <Stack.Navigator initialRouteName="ScanQrCodeScreen">
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
-        name="MainTabs"
+        name="GuestDrawer"
         component={GuestDrawerNavigator}
         options={{ headerShown: false }}
       />
@@ -86,7 +83,7 @@ const AppStackNavigator: FC = () => {
         name={'Login'}
         component={Login}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name={'ScanQrCodeScreen'}
         component={ScanQrCode}
         options={{ headerShown: false }}
@@ -119,7 +116,7 @@ const AppStackNavigator: FC = () => {
             </TouchableOpacity>
           )
         }}
-      />
+      /> */}
       <Stack.Screen
         options={{
           headerShown: true,
@@ -945,4 +942,4 @@ const AppStackNavigator: FC = () => {
   );
 };
 
-export default AppStackNavigator;
+export default GuestStackNavigator;

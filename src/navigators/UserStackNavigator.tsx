@@ -48,18 +48,18 @@ import {
 } from '../Screens';
 import { colors } from '../theme/colors';
 
-import GuestDrawerNavigator from './GuestDrawerNavigator';
 import styles from './Styles';
+import UserDrawerNavigator from './UserDrawerNavigator';
 
 const Stack = createStackNavigator();
 
-const AppStackNavigator: FC = () => {
+const UserStackNavigator: FC = () => {
   const navigation = useNavigation();
   return (
-    <Stack.Navigator initialRouteName="ScanQrCodeScreen">
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
-        name="MainTabs"
-        component={GuestDrawerNavigator}
+        name="UserDrawer"
+        component={UserDrawerNavigator}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -945,4 +945,4 @@ const AppStackNavigator: FC = () => {
   );
 };
 
-export default AppStackNavigator;
+export default UserStackNavigator;

@@ -5,12 +5,12 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { CustomDrawer, PreviewDoseDetails } from '../Screens';
 import { colors } from '../theme/colors';
 
-import BottomTabNavigator from './BottomTabNavigator';
 import styles from './Styles';
+import UserBottomTabNavigator from './UserBottomTabNavigator';
 
 const Drawer = createDrawerNavigator();
 
-const DrawerNavigator: FC = () => {
+const UserDrawerNavigator: FC = () => {
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}
@@ -23,7 +23,11 @@ const DrawerNavigator: FC = () => {
         ),
         headerTintColor: colors.buttonBg
       }}>
-      <Drawer.Screen name="BottomTab" component={BottomTabNavigator} options={{ title: '' }} />
+      <Drawer.Screen
+        name="UserBottomTab"
+        component={UserBottomTabNavigator}
+        options={{ title: '' }}
+      />
       <Drawer.Screen
         name="PreviewDoseDetails"
         component={PreviewDoseDetails}
@@ -33,4 +37,4 @@ const DrawerNavigator: FC = () => {
   );
 };
 
-export default DrawerNavigator;
+export default UserDrawerNavigator;
