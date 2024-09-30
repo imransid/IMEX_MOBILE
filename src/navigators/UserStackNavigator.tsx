@@ -26,7 +26,6 @@ import {
   EveryXweeksDoseDetails,
   ForgotPassword,
   FourTimesAdayDose,
-  Login,
   MedicineAddingMethod,
   MedicineDailyDoses,
   MedicineDetails,
@@ -56,35 +55,11 @@ const Stack = createStackNavigator();
 const UserStackNavigator: FC = () => {
   const navigation = useNavigation();
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator>
       <Stack.Screen
         name="UserDrawer"
         component={UserDrawerNavigator}
         options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        options={{
-          headerShown: true,
-          headerTitle: '',
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: colors.white
-          },
-          headerTitleStyle: { fontSize: moderateScale(14) },
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <View style={styles.backNavigationProperties}>
-                <Ionicons name="chevron-back" size={28} color={colors.buttonBg} />
-                <Text style={styles.backNavigationText}>Back</Text>
-              </View>
-            </TouchableOpacity>
-          )
-        }}
-        name={'Login'}
-        component={Login}
       />
       <Stack.Screen
         name={'ScanQrCodeScreen'}

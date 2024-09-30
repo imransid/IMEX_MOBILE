@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   medicineInput: {
     borderRadius: scale(2),
     borderWidth: scale(0.15),
-    color: colors.typedText,
+    color: colors.header,
     fontSize: moderateScale(14),
     fontWeight: '400',
     height: scale(34),

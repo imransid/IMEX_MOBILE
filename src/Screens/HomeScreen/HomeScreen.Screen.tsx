@@ -15,7 +15,7 @@ const HomeScreen: FC = () => {
   const navigation = useNavigation();
 
   const handleAddMedicine: any = () => {
-    navigation.navigate('AddMedicineManually' as never);
+    navigation.navigate('MedicineAddingMethod' as never);
   };
 
   const handleDosePress: any = () => {

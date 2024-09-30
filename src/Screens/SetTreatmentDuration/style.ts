@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     height: verticalScale(27),
     justifyContent: 'center',
     position: 'relative',
-    right: scale(20),
-    width: scale(105)
+    right: scale(15),
+    width: scale(125)
   },
   selectButtonText: {
     color: colors.buttonBg

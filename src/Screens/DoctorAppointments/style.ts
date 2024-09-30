@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   nameInput: {
     borderRadius: scale(2),
     borderWidth: scale(0.15),
-    color: colors.typedText,
+    color: colors.header,
     fontSize: moderateScale(16),
     fontWeight: '400',
     height: scale(38),
