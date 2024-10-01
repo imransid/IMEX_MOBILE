@@ -2,7 +2,7 @@ import React, { type FC } from 'react';
 import { Text } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { CustomDrawer, PreviewDoseDetails } from '../Screens';
+import { CustomGuestDrawer, PreviewDoseDetails } from '../Screens';
 import { colors } from '../theme/colors';
 
 import GuestBottomTabNavigator from './GuestBottomTabNavigator';
@@ -14,7 +14,7 @@ const GuestDrawerNavigator: FC = () => {
   return (
     <Drawer.Navigator
       initialRouteName="GuestBottomTab"
-      drawerContent={props => <CustomDrawer {...props} />}
+      drawerContent={props => <CustomGuestDrawer {...props} />}
       screenOptions={{
         headerTitle: () => (
           <>

@@ -1,7 +1,10 @@
 import React, { type FC } from 'react';
 import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
+
+import { type RootState } from '@/store';
 
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import { colors } from '../../theme/colors';
@@ -13,8 +16,12 @@ const MedicineDetails: FC = (): JSX.Element => {
   const route = useRoute();
   const { scannedData } = route.params as { scannedData: string };
 
+  const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
+
   const handlePress: any = () => {
-    navigation.navigate('Login' as never);
+    authStatus
+      ? navigation.navigate('MedicineDoses' as never)
+      : navigation.navigate('Login' as never);
   };
 
   return (

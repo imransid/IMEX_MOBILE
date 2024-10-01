@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { HomeScreen, MedicineHistory, MoreScreenTab, ProfileDetails } from '../Screens';
+import { GuestProfileDetails, HomeScreen, MedicineHistory, MoreScreenTab } from '../Screens';
 import { colors } from '../theme/colors';
 
 const Tab = createBottomTabNavigator();
@@ -36,7 +36,7 @@ const GuestBottomTabNavigator: FC = () => {
       <Tab.Screen name="Today" component={HomeScreen} options={{ headerShown: false }} />
       <Tab.Screen name="History" component={MedicineHistory} options={{ headerShown: false }} />
       <Tab.Screen name="More" component={MoreScreenTab} options={{ headerShown: false }} />
-      <Tab.Screen name="Profile" component={ProfileDetails} options={{ headerShown: false }} />
+      <Tab.Screen name="Profile" component={GuestProfileDetails} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 };

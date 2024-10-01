@@ -2,7 +2,7 @@ import React, { type FC } from 'react';
 import { Text } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { CustomDrawer, PreviewDoseDetails } from '../Screens';
+import { CustomUserDrawer, PreviewDoseDetails } from '../Screens';
 import { colors } from '../theme/colors';
 
 import styles from './Styles';
@@ -13,7 +13,8 @@ const Drawer = createDrawerNavigator();
 const UserDrawerNavigator: FC = () => {
   return (
     <Drawer.Navigator
-      drawerContent={props => <CustomDrawer {...props} />}
+      initialRouteName="UserBottomTab"
+      drawerContent={props => <CustomUserDrawer {...props} />}
       screenOptions={{
         headerTitle: () => (
           <>

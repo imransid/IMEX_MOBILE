@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { HomeScreen, MedicineHistory, MoreScreenTab, ProfileDetails } from '../Screens';
+import { HomeScreen, MedicineHistory, MoreScreenTab, UserProfile } from '../Screens';
 import { colors } from '../theme/colors';
 
 const Tab = createBottomTabNavigator();
@@ -12,6 +12,7 @@ const Tab = createBottomTabNavigator();
 const UserBottomTabNavigator: FC = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Today"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color }) => {
           if (route.name === 'Today') {
@@ -35,7 +36,7 @@ const UserBottomTabNavigator: FC = () => {
       <Tab.Screen name="Today" component={HomeScreen} options={{ headerShown: false }} />
       <Tab.Screen name="History" component={MedicineHistory} options={{ headerShown: false }} />
       <Tab.Screen name="More" component={MoreScreenTab} options={{ headerShown: false }} />
-      <Tab.Screen name="Profile" component={ProfileDetails} options={{ headerShown: false }} />
+      <Tab.Screen name="Profile" component={UserProfile} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 };

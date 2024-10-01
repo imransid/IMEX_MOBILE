@@ -7,7 +7,8 @@ import { AskHourInterval } from './AskHourInterval';
 import { AskTimeInterval } from './AskTimeInterval';
 import { CameraScanner } from './CameraScanner';
 import { CreateAccount } from './CreateAccount';
-import { CustomDrawer } from './CustomDrawer';
+import { CustomGuestDrawer } from './CustomGuestDrawer';
+import { CustomUserDrawer } from './CustomUserDrawer';
 import { DoctorAppointments } from './DoctorAppointments';
 import { EnterOtp } from './EnterOtp';
 import { EveryXdaysDose } from './EveryXdaysDose';
@@ -19,6 +20,7 @@ import { EveryXweeksDose } from './EveryXweeksDose';
 import { EveryXweeksDoseDetails } from './EveryXweeksDoseDetails';
 import { ForgotPassword } from './ForgotPassword';
 import { FourTimesAdayDose } from './FourTimesAdayDose';
+import { GuestProfileDetails } from './GuestProfileDetails';
 import { HomeScreen } from './HomeScreen';
 import { Login } from './Login';
 import { MedicineAddingMethod } from './MedicineAddingMethod';
@@ -34,13 +36,13 @@ import { MoreScreenTab } from './MoreScreenTab';
 import { OnceAdayDose } from './OnceAdayDose';
 import { PasswordChanged } from './PasswordChanged';
 import { PreviewDoseDetails } from './PreviewDoseDetails';
-import { ProfileDetails } from './ProfileDetails';
 import { ResetPassword } from './ResetPassword';
 import { ScanQrCode } from './ScanQrCode';
 import { SetTreatmentDuration } from './SetTreatmentDuration';
 import { SplashScreen } from './SplashScreen';
 import { ThreeTimesAdayDose } from './ThreeTimesAdayDose';
 import { TwiceAdayDose } from './TwiceADayDose';
+import { UserProfile } from './UserProfileDetails';
 import { WeeklyDose } from './WeeklyDose';
 import { WeeklyDoseDetails } from './WeeklyDoseDetails';
 import { XtimesAdayDose } from './XtimesAdayDose';
@@ -55,7 +57,8 @@ export {
   AskTimeInterval,
   CameraScanner,
   CreateAccount,
-  CustomDrawer,
+  CustomGuestDrawer,
+  CustomUserDrawer,
   DoctorAppointments,
   EnterOtp,
   EveryXdaysDose,
@@ -67,6 +70,7 @@ export {
   EveryXweeksDoseDetails,
   ForgotPassword,
   FourTimesAdayDose,
+  GuestProfileDetails,
   HomeScreen,
   Login,
   MedicineAddingMethod,
@@ -82,13 +86,13 @@ export {
   OnceAdayDose,
   PasswordChanged,
   PreviewDoseDetails,
-  ProfileDetails,
   ResetPassword,
   ScanQrCode,
   SetTreatmentDuration,
   SplashScreen,
   ThreeTimesAdayDose,
   TwiceAdayDose,
+  UserProfile,
   WeeklyDose,
   WeeklyDoseDetails,
   XtimesAdayDose

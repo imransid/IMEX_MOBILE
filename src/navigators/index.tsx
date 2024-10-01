@@ -23,9 +23,9 @@ const Navigator: FC = () => {
 
   return (
     <NavigationContainer>
-      {appLoadFirstTime ? (
+      {!authStatus && appLoadFirstTime ? (
         <PublicStackNavigator />
-      ) : authStatus ? (
+      ) : authStatus && !appLoadFirstTime ? (
         <UserStackNavigator />
       ) : (
         <AuthStackNav />

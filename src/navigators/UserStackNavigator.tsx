@@ -55,7 +55,7 @@ const Stack = createStackNavigator();
 const UserStackNavigator: FC = () => {
   const navigation = useNavigation();
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="UserDrawer">
       <Stack.Screen
         name="UserDrawer"
         component={UserDrawerNavigator}

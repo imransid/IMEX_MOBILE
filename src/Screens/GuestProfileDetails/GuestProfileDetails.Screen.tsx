@@ -9,7 +9,7 @@ import { colors } from '../../theme/colors';
 
 import styles from './style';
 
-const ProfileDetails: FC = () => {
+const GuestProfileDetails: FC = () => {
   const navigation = useNavigation();
 
   const handleGuestLogin: any = () => {
@@ -64,4 +64,4 @@ const ProfileDetails: FC = () => {
   );
 };
 
-export default ProfileDetails;
+export default GuestProfileDetails;

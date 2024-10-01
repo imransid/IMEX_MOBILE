@@ -12,7 +12,7 @@ import { colors } from '../../theme/colors';
 
 import styles from './style';
 
-const CustomDrawer: FC<DrawerContentComponentProps> = props => {
+const CustomGuestDrawer: FC<DrawerContentComponentProps> = props => {
   const navigation = useNavigation();
 
   const handleGuestLogin: any = () => {
@@ -64,4 +64,4 @@ const CustomDrawer: FC<DrawerContentComponentProps> = props => {
   );
 };
 
-export default CustomDrawer;
+export default CustomGuestDrawer;
