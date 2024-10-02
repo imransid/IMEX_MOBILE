@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5)
   },
   timeIntervalHeader: {
-    color: colors.typedText,
+    color: colors.mainText,
     fontSize: moderateScale(16),
     fontWeight: '500',
     left: scale(10)
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   weekDaysHeader: {
-    color: colors.typedText,
+    color: colors.mainText,
     fontSize: moderateScale(16),
     fontWeight: '500',
     left: scale(5)

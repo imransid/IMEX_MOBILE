@@ -5,7 +5,7 @@ import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   buttonPosition: {
-    bottom: verticalScale(18),
+    bottom: verticalScale(10),
     position: 'absolute'
   },
   container: {

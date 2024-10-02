@@ -16,10 +16,10 @@ const styles = StyleSheet.create({
     flex: 1
   },
   handLogoPosition: {
-    marginTop: verticalScale(30)
+    marginTop: verticalScale(20)
   },
   headerPosition: {
-    top: verticalScale(60)
+    top: verticalScale(10)
   },
   horizontalLine: {
     backgroundColor: colors.progressbarColor,

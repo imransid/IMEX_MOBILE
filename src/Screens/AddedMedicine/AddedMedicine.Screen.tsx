@@ -9,7 +9,10 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+
+import { type RootState } from '@/store';
 
 import AddMedicineLogo from '../../assets/add-medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -25,6 +28,8 @@ const AddedMedicine: FC = () => {
   const sv = useSharedValue(0);
   const scale = useSharedValue(1);
 
+  const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
+
   const scaleStyles = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }]
   }));
@@ -39,7 +44,9 @@ const AddedMedicine: FC = () => {
   };
 
   const handleNoThanks: any = () => {
-    navigation.navigate('GuestDrawer' as never);
+    authStatus
+      ? navigation.navigate('UserDrawer' as never)
+      : navigation.navigate('GuestDrawer' as never);
   };
 
   return (

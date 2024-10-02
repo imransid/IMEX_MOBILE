@@ -34,27 +34,27 @@ const UserProfile: FC = () => {
         </TouchableOpacity>
       </View>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <View style={styles.textInputComponentPosition}>
-          <View style={styles.textInputComponentProperties}>
+        <View style={styles.userDetailsComponentPosition}>
+          <View style={styles.userDetailsComponentProperties}>
             <Text style={styles.inputHeader}>Full Name</Text>
             <View style={styles.detailInfo}>
               <Text style={styles.detailInfoText}>User Name</Text>
             </View>
           </View>
 
-          <View style={styles.textInputComponentProperties}>
+          <View style={styles.userDetailsComponentProperties}>
             <Text style={styles.inputHeader}>Mobile Number</Text>
             <View style={styles.detailInfo}>
               <Text style={styles.detailInfoText}>User Mobile</Text>
             </View>
           </View>
-          <View style={styles.textInputComponentProperties}>
+          <View style={styles.userDetailsComponentProperties}>
             <Text style={styles.inputHeader}>Gender</Text>
             <View style={styles.detailInfo}>
               <Text style={styles.detailInfoText}>User Gender</Text>
             </View>
           </View>
-          <View style={styles.textInputComponentProperties}>
+          <View style={styles.userDetailsComponentProperties}>
             <Text style={styles.inputHeader}>Birth Date</Text>
             <View style={styles.detailInfo}>
               <Text style={styles.detailInfoText}>User Birth Date</Text>

@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(3),
-    height: verticalScale(55),
+    borderRadius: scale(6),
+    height: verticalScale(56),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(25)
   },
   chipheadingText: {
-    color: colors.typedText,
+    color: colors.header,
     fontSize: moderateScale(16),
     fontWeight: '500'
   },
@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   doseTimePosition: {
-    marginRight: scale(40)
+    marginRight: scale(40),
+    marginTop: scale(5)
   },
   medicineDoseComponentPosition: {
     alignItems: 'center'

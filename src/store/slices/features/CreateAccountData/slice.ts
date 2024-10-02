@@ -12,7 +12,7 @@ const createAccountInitialData: ICreateAccountType = {
   birthDate: ''
 };
 
-export const createAccountSlice = createSlice({
+export const CreateAccountSlice = createSlice({
   name: CREATE_ACCOUNT,
   initialState: createAccountInitialData,
   reducers: {
@@ -27,6 +27,6 @@ export const createAccountSlice = createSlice({
   }
 });
 
-export const { getCreateAccountAction } = createAccountSlice.actions;
+export const { getCreateAccountAction } = CreateAccountSlice.actions;
 
-export default createAccountSlice.reducer;
+export default CreateAccountSlice.reducer;

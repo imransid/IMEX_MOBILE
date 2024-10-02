@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(30)
   },
   chipheadingText: {
-    color: colors.typedText,
+    color: colors.mainText,
     fontSize: moderateScale(16),
     fontWeight: '500'
   },

@@ -6,11 +6,11 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   DonebuttonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(38)
+    bottom: verticalScale(10)
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
+    borderRadius: scale(6),
     height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(2),
@@ -22,8 +22,7 @@ const styles = StyleSheet.create({
   },
   chipText: {
     alignSelf: 'center',
-    color: colors.mainText,
-    marginLeft: scale(10)
+    color: colors.header
   },
   container: {
     backgroundColor: colors.white,
@@ -36,8 +35,8 @@ const styles = StyleSheet.create({
   },
   displayNameInput: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
-    color: colors.typedText,
+    borderRadius: scale(6),
+    color: colors.header,
     fontSize: moderateScale(13),
     fontWeight: '400',
     height: scale(35),
@@ -49,9 +48,14 @@ const styles = StyleSheet.create({
   doseDetailsProperties: {
     gap: verticalScale(3)
   },
+  headingStyle: {
+    color: colors.header,
+    fontSize: moderateScale(14),
+    fontWeight: '500'
+  },
   historyButton: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
+    borderRadius: scale(6),
     height: verticalScale(27),
     justifyContent: 'center',
     position: 'relative',
@@ -74,23 +78,26 @@ const styles = StyleSheet.create({
   },
   notesInput: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
-    color: colors.typedText,
+    borderRadius: scale(6),
+    color: colors.header,
     fontSize: moderateScale(13),
     fontWeight: '400',
-    height: scale(80),
+    height: 'auto',
     width: scale(330)
+  },
+  optionalDetailsPosition: {
+    marginTop: scale(20)
   },
   progressBarPosition: {
     borderWidth: scale(0)
   },
   rescheduleButton: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
+    borderRadius: scale(6),
     height: verticalScale(27),
     justifyContent: 'center',
     position: 'relative',
-    right: scale(20),
+    right: scale(24),
     width: scale(130)
   },
   rescheduleButtonProperties: {
@@ -99,9 +106,15 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
     marginRight: scale(20)
   },
+  schedulePosition: {
+    marginTop: scale(22)
+  },
+  scrollViewContainer: {
+    paddingBottom: verticalScale(15)
+  },
   secondaryButtonPosition: {
     flexDirection: 'row',
-    gap: scale(30),
+    gap: scale(25),
     justifyContent: 'space-between',
     marginRight: scale(25),
     marginTop: verticalScale(10)

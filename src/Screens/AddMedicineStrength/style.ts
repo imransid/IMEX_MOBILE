@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   inputText: {
-    color: colors.typedText,
+    color: colors.header,
     fontSize: moderateScale(16),
     fontWeight: '400'
   },

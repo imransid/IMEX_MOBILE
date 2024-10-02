@@ -22,6 +22,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flex: 1
   },
+  errorTxt: {
+    color: colors.error,
+    fontSize: moderateScale(14),
+    marginBottom: 6
+  },
   headingPosition: {
     alignItems: 'center'
   },

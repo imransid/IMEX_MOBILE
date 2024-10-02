@@ -21,16 +21,11 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     textAlign: 'center'
   },
-  guestGreetingsPosition: {
+  imagePosition: {
     alignItems: 'center',
-    marginTop: verticalScale(100)
+    top: verticalScale(80)
   },
-  guestGreetingsText: {
-    color: colors.header,
-    fontSize: moderateScale(16),
-    fontWeight: '600'
-  },
-  guestSignInButton: {
+  logOutButton: {
     alignItems: 'center',
     backgroundColor: colors.buttonBg,
     borderRadius: scale(30),
@@ -40,23 +35,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: scale(140)
   },
-  guestSignInButtonPosition: {
+  logOutButtonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(30)
+    marginTop: verticalScale(200)
   },
-  guestSignInButtonText: {
+  logOutButtonText: {
     color: colors.white,
     fontSize: moderateScale(13),
     fontWeight: '400'
   },
-  imagePosition: {
-    alignItems: 'center',
-    top: verticalScale(80)
-  },
   signUpText: {
     color: colors.typedText,
     fontSize: moderateScale(12),
-    fontWeight: '400',
+    fontWeight: '800',
     textDecorationLine: 'underline'
   },
   signUptext: {
@@ -73,6 +64,51 @@ const styles = StyleSheet.create({
   textForGuestPosition: {
     alignItems: 'center',
     marginTop: verticalScale(30)
+  },
+  userContactItemStyle: {
+    flexDirection: 'row',
+    gap: scale(20),
+    marginTop: scale(15)
+  },
+  userEmailText: {
+    color: colors.mainText,
+    fontSize: moderateScale(13),
+    fontWeight: '400'
+  },
+  userHelpAndFaqItemsStyle: {
+    flexDirection: 'row',
+    gap: scale(18),
+    marginTop: scale(15)
+  },
+  userIconPosition: {
+    left: scale(2)
+  },
+  userItemsPosition: {
+    left: scale(30),
+    marginTop: scale(30)
+  },
+  userItemsText: {
+    color: colors.mainText,
+    fontSize: moderateScale(16),
+    fontWeight: '500'
+  },
+  userNamePosition: {
+    left: scale(30),
+    marginTop: verticalScale(100)
+  },
+  userNameText: {
+    color: colors.header,
+    fontSize: moderateScale(16),
+    fontWeight: '600'
+  },
+  userProfileItemStyle: {
+    flexDirection: 'row',
+    gap: scale(27)
+  },
+  userSettingsItemStyle: {
+    flexDirection: 'row',
+    gap: scale(20),
+    marginTop: scale(15)
   }
 });
 

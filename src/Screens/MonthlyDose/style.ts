@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5)
   },
   timesOfEachDayText: {
-    color: colors.typedText,
+    color: colors.mainText,
     fontSize: moderateScale(16),
     fontWeight: '500'
   },

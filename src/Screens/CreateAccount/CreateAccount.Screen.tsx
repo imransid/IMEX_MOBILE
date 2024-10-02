@@ -12,6 +12,18 @@ import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+// import { useForm } from 'react-hook-form';
+// import { createAccountFormValidation } from '../../utils/formValidation';
+// import { yupResolver } from '@hookform/resolvers/yup';
+
+// interface ICreateAccountDataProps {
+//   fullName: string;
+//   mobile: string;
+//   email: string;
+//   password: string;
+//   gender: string;
+//   birthDate: string;
+// }
 
 const CreateAccount: FC = () => {
   const navigation = useNavigation();
@@ -21,6 +33,24 @@ const CreateAccount: FC = () => {
   const [gender, setGender] = useState<string>('');
   const [birthdate, setBirthdate] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+
+  // yup validation with react-hook-form
+  // const {
+  //   control,
+  //   handleSubmit,
+  //   formState: { errors }
+  // } = useForm<ICreateAccountDataProps>({
+  //   resolver: yupResolver(createAccountFormValidation),
+  //   defaultValues: {
+  //     fullName: '',
+  //     mobile: '',
+  //     email: '',
+  //     password: '',
+  //     gender: '',
+  //     birthDate: ''
+  //   }
+  // });
 
   const handleSignUp: any = () => {
     navigation.navigate('MedicineDoses' as never);
@@ -90,8 +120,8 @@ const CreateAccount: FC = () => {
             <Text style={styles.inputHeader}>Confirm Password</Text>
             <CustomTextInput
               type="password"
-              value={password}
-              onChangeText={setPassword}
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
               placeholder="Enter your password..."
               maxLength={8}
               inputStyle={styles.inputText}

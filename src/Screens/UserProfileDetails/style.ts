@@ -49,10 +49,10 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     paddingBottom: verticalScale(15)
   },
-  textInputComponentPosition: {
+  userDetailsComponentPosition: {
     alignItems: 'center'
   },
-  textInputComponentProperties: {
+  userDetailsComponentProperties: {
     gap: verticalScale(6),
     marginTop: verticalScale(12)
   },

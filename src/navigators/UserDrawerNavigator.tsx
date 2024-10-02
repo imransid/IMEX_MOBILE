@@ -18,7 +18,7 @@ const UserDrawerNavigator: FC = () => {
       screenOptions={{
         headerTitle: () => (
           <>
-            <Text style={styles.usernameText}>Hi, guest</Text>
+            <Text style={styles.usernameText}>Hi, user</Text>
             <Text style={styles.greetingsText}>Good Morning</Text>
           </>
         ),
