@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
     paddingBottom: verticalScale(15)
   },
   textPosition: {
-    marginBottom: scale(-32),
     marginLeft: scale(12),
     marginRight: scale(15),
     marginTop: scale(8)

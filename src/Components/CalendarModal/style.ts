@@ -32,13 +32,13 @@ const styles = StyleSheet.create({
   },
   selectedDaysHeaderText: {
     color: colors.buttonBg,
-    fontSize: moderateScale(16),
-    fontWeight: '600'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(16)
   },
   selectedDaysText: {
     color: colors.header,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(16),
-    fontWeight: '600',
     textAlign: 'justify'
   }
 });

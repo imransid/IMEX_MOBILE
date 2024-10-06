@@ -6,11 +6,11 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   NextbuttonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(25)
+    marginTop: verticalScale(285)
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
+    borderRadius: scale(6),
     height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(5),
@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
   },
   chipText: {
     alignSelf: 'center',
-    color: colors.mainText,
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
     marginLeft: scale(10)
   },
   container: {
@@ -65,7 +66,8 @@ const styles = StyleSheet.create({
     width: scale(125)
   },
   selectButtonText: {
-    color: colors.buttonBg
+    color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium'
   },
   subHeadingPosition: {
     left: scale(10),

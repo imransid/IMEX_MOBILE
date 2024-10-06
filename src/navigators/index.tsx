@@ -8,7 +8,7 @@ import { type RootState } from '@/store';
 import { checkingLoader } from '../store/slices/features/settings/slice';
 
 import AuthStackNav from './AuthStackNavigator';
-import PublicStackNavigator from './PublicStackNavigator';
+import GuestStackNavigator from './GuestStackNavigator';
 import UserStackNavigator from './UserStackNavigator';
 
 const Navigator: FC = () => {
@@ -24,7 +24,7 @@ const Navigator: FC = () => {
   return (
     <NavigationContainer>
       {!authStatus && appLoadFirstTime ? (
-        <PublicStackNavigator />
+        <GuestStackNavigator />
       ) : authStatus && !appLoadFirstTime ? (
         <UserStackNavigator />
       ) : (

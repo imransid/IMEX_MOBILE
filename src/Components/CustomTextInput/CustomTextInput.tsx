@@ -63,7 +63,7 @@ const CustomTextInput: React.FC<ICustomTextInputProps & TextInputProps> = ({
       />
       {isPassword ? (
         <TouchableOpacity style={styles.iconRight} onPress={togglePasswordVisibility}>
-          <Icon name={showPassword ? 'eye-outline' : 'eye'} size={25} color={'#888888'} />
+          <Icon name={showPassword ? 'eye' : 'eye-off-outline'} size={25} color={'#888888'} />
         </TouchableOpacity>
       ) : rightIcon !== true ? (
         <View style={styles.iconRight}>{rightIcon}</View>

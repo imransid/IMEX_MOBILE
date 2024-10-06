@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
   },
   headingText: {
     color: colors.header,
-    fontSize: moderateScale(18),
-    fontWeight: '600'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(18)
   },
   imagePosition: {
     alignItems: 'center',
@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
     width: scale(330)
   },
   medicineDoseItemsText: {
-    color: colors.mainText,
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
     marginLeft: scale(20)
   },
   medicineDoseListContainer: {

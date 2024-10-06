@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
     width: scale(330)
   },
   addMoreSettingsItemsText: {
-    color: colors.mainText,
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
     marginLeft: scale(20)
   }
 });

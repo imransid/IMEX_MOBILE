@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
   },
   askAboutAccountText: {
     color: colors.typedText,
-    fontSize: moderateScale(14),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   container: {
     backgroundColor: colors.white,
@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   },
   forgotPassword: {
     color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
-    fontWeight: '400',
     textAlign: 'center'
   },
   guestButton: {
@@ -46,19 +46,19 @@ const styles = StyleSheet.create({
   },
   guestButtonText: {
     color: colors.typedText,
-    fontSize: moderateScale(18),
-    fontWeight: '400'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(18)
   },
   inputHeader: {
     color: colors.header,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
-    fontWeight: '500',
     marginRight: scale(226)
   },
   inputText: {
     color: colors.header,
-    fontSize: moderateScale(14),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   mainHeader: {
     alignItems: 'center',
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
   },
   orText: {
     color: colors.mainText,
-    fontSize: moderateScale(18),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(18)
   },
   passwordInput: {
     gap: verticalScale(6),
@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
-    fontWeight: '400',
     textDecorationLine: 'underline'
   },
   subHeaderFirstLine: {

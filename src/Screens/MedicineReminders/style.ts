@@ -6,11 +6,11 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   NextbuttonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(235)
+    marginTop: verticalScale(230)
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
+    borderRadius: scale(6),
     height: verticalScale(40),
     justifyContent: 'center',
     marginTop: verticalScale(5),
@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
   },
   chipText: {
     alignSelf: 'center',
-    color: colors.mainText
+    color: colors.header,
+    fontFamily: 'WorkSansMedium'
   },
   container: {
     backgroundColor: colors.white
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   currentStockInputPosition: {
     flexDirection: 'row',
     gap: scale(10),
-    marginLeft: scale(63)
+    marginLeft: scale(45)
   },
   headingPosition: {
     alignItems: 'center',
@@ -53,8 +54,8 @@ const styles = StyleSheet.create({
     borderRadius: scale(2),
     borderWidth: scale(0.15),
     color: colors.header,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
-    fontWeight: '400',
     height: scale(34),
     textAlign: 'center',
     width: scale(80)
@@ -62,13 +63,13 @@ const styles = StyleSheet.create({
   medicineText: {
     alignSelf: 'center',
     color: colors.buttonBg,
-    fontSize: moderateScale(14),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   remindLeftInputPosition: {
     flexDirection: 'row',
     gap: scale(10),
-    marginLeft: scale(35)
+    marginLeft: scale(15)
   },
   subHeadingPosition: {
     left: scale(10),
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
   totalRequiredInputPosition: {
     flexDirection: 'row',
     gap: scale(10),
-    marginLeft: scale(60)
+    marginLeft: scale(41)
   }
 });
 

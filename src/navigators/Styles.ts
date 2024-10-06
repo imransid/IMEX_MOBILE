@@ -5,12 +5,12 @@ import { colors } from '../theme/colors';
 const styles = ScaledSheet.create({
   usernameText: {
     fontSize: moderateScale(14),
-    fontWeight: '500',
+    fontFamily: 'WorkSansSemiBold',
     color: colors.header
   },
   greetingsText: {
     fontSize: moderateScale(12),
-    fontWeight: '300',
+    fontFamily: 'WorkSansMedium',
     color: colors.mainText
   },
   backNavigationProperties: {
@@ -18,6 +18,7 @@ const styles = ScaledSheet.create({
   },
   backNavigationText: {
     fontSize: moderateScale(14),
+    fontFamily: 'WorkSansMedium',
     color: colors.buttonBg,
     alignSelf: 'center'
   }

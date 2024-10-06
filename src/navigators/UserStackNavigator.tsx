@@ -37,7 +37,6 @@ import {
   OnceAdayDose,
   PasswordChanged,
   ResetPassword,
-  ScanQrCode,
   SetTreatmentDuration,
   ThreeTimesAdayDose,
   TwiceAdayDose,
@@ -53,7 +52,6 @@ import UserDrawerNavigator from './UserDrawerNavigator';
 const Stack = createStackNavigator();
 
 const screens = [
-  { name: 'ScanQrCodeScreen', component: ScanQrCode, headerShown: false },
   { name: 'CameraScanner', component: CameraScanner, headerShown: false },
   { name: 'MedicineDetails', component: MedicineDetails, title: 'Medicine Details' },
   { name: 'MedicineDoses', component: MedicineDoses, title: 'Medicine Name' },

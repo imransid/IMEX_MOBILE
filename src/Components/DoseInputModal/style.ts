@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: colors.buttonBg,
-    fontWeight: 'bold'
+    fontFamily: 'WorkSansMedium'
   },
   cancelButton: {
     alignItems: 'center',
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     color: colors.header,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
-    fontWeight: '500',
     marginBottom: verticalScale(10)
   },
   okButton: {
@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
   textInput: {
     borderRadius: scale(2),
     borderWidth: scale(0.15),
-    color: colors.typedText,
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
     height: verticalScale(40),
     marginBottom: verticalScale(10),
     paddingHorizontal: scale(10),
