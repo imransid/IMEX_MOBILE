@@ -61,9 +61,9 @@ const screens = [
   { name: 'MedicineDoses', component: MedicineDoses, title: 'Medicine Name' },
   { name: 'MedicineDailyDoses', component: MedicineDailyDoses, title: 'Medicine Name' },
   { name: 'CreateAccount', component: CreateAccount, title: '' },
-  { name: 'ForgotPassword', component: ForgotPassword, title: 'Medicine Name' },
-  { name: 'EnterOtp', component: EnterOtp, title: 'Medicine Name' },
-  { name: 'ResetPassword', component: ResetPassword, title: 'Medicine Name' },
+  { name: 'ForgotPassword', component: ForgotPassword, title: '' },
+  { name: 'EnterOtp', component: EnterOtp, title: '' },
+  { name: 'ResetPassword', component: ResetPassword, title: '' },
   { name: 'PasswordChanged', component: PasswordChanged, title: '' },
   { name: 'OnceAdayDose', component: OnceAdayDose, title: 'Medicine Name' },
   { name: 'AddedMedicine', component: AddedMedicine, headerShown: false },
@@ -123,7 +123,7 @@ const defaultHeaderOptions = {
 
 const PublicStackNavigator: any = () => {
   return (
-    <publicStack.Navigator>
+    <publicStack.Navigator initialRouteName="Login">
       {screens.map(({ name, component, title, headerShown = true }) => (
         <publicStack.Screen
           key={name}
