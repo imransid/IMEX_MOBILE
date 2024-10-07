@@ -5,6 +5,7 @@ import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   calendarShape: {
+    borderRadius: scale(6),
     height: verticalScale(260),
     width: scale(270)
   },

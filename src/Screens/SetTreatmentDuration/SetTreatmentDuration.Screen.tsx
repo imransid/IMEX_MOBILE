@@ -1,5 +1,5 @@
 import React, { type FC, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
@@ -18,6 +18,7 @@ const SetTreatmentDuration: FC = () => {
   const [endDateModalOpen, setendDateModalOpen] = useState(false);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [giveInput, setGiveInput] = useState('');
 
   const handleStartDateSelectInstruction: any = () => {
     setStartDateModalOpen(!startDateModalOpen);
@@ -77,6 +78,22 @@ const SetTreatmentDuration: FC = () => {
             </TouchableOpacity>
           </View>
         </View>
+        <View style={styles.medicineInputHeaderPosition}>
+          <Text style={styles.medicineInputHeaderText}>
+            How many medicine do you take each day?
+          </Text>
+        </View>
+        <View style={styles.medicineInputContent}>
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText={setGiveInput}
+            keyboardType="numeric"
+            style={styles.medicineInput}
+            maxLength={3}
+          />
+          <Text style={styles.medicineText}>Medicine</Text>
+        </View>
       </View>
 
       {startDateModalOpen && (
@@ -96,7 +113,7 @@ const SetTreatmentDuration: FC = () => {
         />
       )}
 
-      {startDate !== '' && endDate !== '' && (
+      {startDate !== '' && endDate !== '' && giveInput.trim() !== '' && Number(giveInput) > 0 && (
         <View style={styles.NextbuttonPosition}>
           <CustomButton
             onPress={handleNext}

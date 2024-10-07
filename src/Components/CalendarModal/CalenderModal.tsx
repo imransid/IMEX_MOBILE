@@ -52,9 +52,9 @@ const CalendarModal: React.FC<ICalendarModalProps> = ({
               arrowColor: colors.buttonBg,
               selectedDayBackgroundColor: colors.buttonBg,
               selectedDayTextColor: colors.textInput,
-              textDayFontWeight: '400',
-              textMonthFontWeight: '500',
-              textDayHeaderFontWeight: '500',
+              textDayFontFamily: 'WorkSansMedium',
+              textMonthFontFamily: 'WorkSansMedium',
+              textDayHeaderFontWeight: 'WorkSansSemiBold',
               textMonthFontSize: moderateScale(16),
               textDayFontSize: moderateScale(18),
               textDayHeaderFontSize: moderateScale(14)

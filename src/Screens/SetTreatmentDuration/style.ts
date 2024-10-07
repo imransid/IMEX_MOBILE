@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
   NextbuttonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(285)
+    marginTop: verticalScale(195)
   },
   chip: {
     backgroundColor: colors.textInput,
@@ -54,6 +54,37 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: scale(5),
     width: scale(168)
+  },
+  medicineInput: {
+    borderRadius: scale(2),
+    borderWidth: scale(0.15),
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14),
+    height: scale(34),
+    textAlign: 'center',
+    width: scale(80)
+  },
+  medicineInputContent: {
+    flexDirection: 'row',
+    gap: scale(15),
+    justifyContent: 'center',
+    marginTop: scale(10)
+  },
+  medicineInputHeaderPosition: {
+    alignItems: 'center',
+    marginTop: scale(30)
+  },
+  medicineInputHeaderText: {
+    color: colors.mainText,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(15)
+  },
+  medicineText: {
+    alignSelf: 'center',
+    color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   selectButton: {
     alignItems: 'center',
