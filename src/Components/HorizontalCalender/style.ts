@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
   },
   dateText: {
     color: colors.typedText,
-    fontSize: moderateScale(22),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(22)
   },
   dayContainer: {
     alignItems: 'center',
@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   },
   dayText: {
     color: colors.typedText,
-    fontSize: moderateScale(12),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
   },
   header: {
     alignItems: 'center',
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
   },
   monthYear: {
     color: colors.buttonBg,
+    fontFamily: 'WorkSansSemiBold',
     fontSize: moderateScale(14),
-    fontWeight: '500',
     marginLeft: scale(13)
   },
   navButton: {
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
     borderRadius: scale(18)
   },
   selectedDayText: {
-    color: colors.white
+    color: colors.white,
+    fontFamily: 'WorkSansMedium'
   },
   weekContainer: {
     flexDirection: 'row'

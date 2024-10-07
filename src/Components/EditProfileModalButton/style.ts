@@ -16,9 +16,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: colors.white,
-    fontFamily: 'Work Sans',
-    fontSize: moderateScale(18),
-    fontWeight: '600'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(18)
   }
 });
 

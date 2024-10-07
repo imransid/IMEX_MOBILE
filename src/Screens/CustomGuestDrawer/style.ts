@@ -6,19 +6,18 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   askAboutAccount: {
     alignItems: 'center',
-    flexDirection: 'row',
     justifyContent: 'center',
     marginTop: verticalScale(15)
   },
   askAboutAccountText: {
     color: colors.typedText,
-    fontSize: moderateScale(12),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
   },
   forgotPassword: {
     color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(12),
-    fontWeight: '400',
     textAlign: 'center'
   },
   guestGreetingsPosition: {
@@ -27,8 +26,8 @@ const styles = StyleSheet.create({
   },
   guestGreetingsText: {
     color: colors.header,
-    fontSize: moderateScale(16),
-    fontWeight: '600'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(16)
   },
   guestSignInButton: {
     alignItems: 'center',
@@ -46,8 +45,8 @@ const styles = StyleSheet.create({
   },
   guestSignInButtonText: {
     color: colors.white,
-    fontSize: moderateScale(13),
-    fontWeight: '400'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(13)
   },
   imagePosition: {
     alignItems: 'center',
@@ -55,19 +54,18 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(12),
-    fontWeight: '400',
     textDecorationLine: 'underline'
   },
   signUptext: {
     color: colors.header,
-    fontSize: moderateScale(14),
-    fontWeight: '300'
+    fontSize: moderateScale(14)
   },
   textForGuest: {
     color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
-    fontWeight: '300',
     textAlign: 'center'
   },
   textForGuestPosition: {

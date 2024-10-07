@@ -31,9 +31,9 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(25)
   },
   subHeader: {
-    color: colors.mainText,
-    fontSize: moderateScale(18),
-    fontWeight: '600',
+    color: colors.header,
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(16),
     marginTop: verticalScale(30)
   },
   subHeaderPosition: {

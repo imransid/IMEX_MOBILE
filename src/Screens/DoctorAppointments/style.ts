@@ -6,11 +6,11 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   NextbuttonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(125)
+    bottom: scale(15)
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
+    borderRadius: scale(6),
     height: verticalScale(43),
     justifyContent: 'center',
     marginTop: verticalScale(5),
@@ -32,10 +32,12 @@ const styles = StyleSheet.create({
   },
   chipText: {
     alignSelf: 'center',
-    color: colors.mainText
+    color: colors.header,
+    fontFamily: 'WorkSansMedium'
   },
   container: {
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
+    flex: 1
   },
   headingPosition: {
     alignItems: 'center',
@@ -52,12 +54,35 @@ const styles = StyleSheet.create({
     borderRadius: scale(2),
     borderWidth: scale(0.15),
     color: colors.header,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(16),
-    fontWeight: '400',
     height: scale(38),
     justifyContent: 'center',
     textAlign: 'center',
     width: scale(150)
+  },
+  reminderContainer: {
+    position: 'absolute',
+    right: scale(10),
+    top: verticalScale(445)
+  },
+  reminderProperties: {
+    alignItems: 'center',
+    backgroundColor: colors.textInput,
+    borderColor: colors.mainText,
+    borderRadius: scale(6),
+    borderWidth: scale(1),
+    height: scale(40),
+    justifyContent: 'center',
+    marginTop: scale(1),
+    width: scale(168)
+  },
+  reminderText: {
+    color: colors.header,
+    fontFamily: 'WorkSansMedium'
+  },
+  scrollViewContainer: {
+    paddingBottom: verticalScale(15)
   },
   selectButton: {
     alignItems: 'center',
@@ -70,7 +95,8 @@ const styles = StyleSheet.create({
     width: scale(145)
   },
   selectButtonText: {
-    color: colors.buttonBg
+    color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium'
   },
   subHeadingPosition: {
     left: scale(10),

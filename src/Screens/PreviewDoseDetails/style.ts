@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
   },
   chipText: {
     alignSelf: 'center',
-    color: colors.header
+    color: colors.header,
+    fontFamily: 'WorkSansMedium'
   },
   container: {
     backgroundColor: colors.white,
@@ -37,8 +38,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.textInput,
     borderRadius: scale(6),
     color: colors.header,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(13),
-    fontWeight: '400',
     height: scale(35),
     width: scale(330)
   },
@@ -50,8 +51,8 @@ const styles = StyleSheet.create({
   },
   headingStyle: {
     color: colors.header,
-    fontSize: moderateScale(14),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   historyButton: {
     backgroundColor: colors.textInput,
@@ -120,7 +121,8 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(10)
   },
   secondayButtonText: {
-    color: colors.header
+    color: colors.header,
+    fontFamily: 'WorkSansMedium'
   },
   subHeader: {
     alignItems: 'center'

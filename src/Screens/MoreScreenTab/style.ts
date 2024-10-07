@@ -6,7 +6,7 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(3),
+    borderRadius: scale(6),
     height: verticalScale(55),
     justifyContent: 'center',
     marginTop: verticalScale(5),
@@ -40,13 +40,13 @@ const styles = StyleSheet.create({
   },
   pillsLeft: {
     color: colors.buttonBg,
-    fontSize: moderateScale(12),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
   },
   pillsLeftDetailsText: {
     color: colors.typedText,
-    fontSize: moderateScale(12),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
   },
   pillsLeftPosition: {
     marginRight: scale(20)
@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
   },
   refillsText: {
     color: colors.header,
-    fontSize: moderateScale(14),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   viewAllPress: {
     alignItems: 'center',
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
   },
   viewAllText: {
     color: colors.buttonBg,
-    fontSize: moderateScale(12),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
   }
 });
 

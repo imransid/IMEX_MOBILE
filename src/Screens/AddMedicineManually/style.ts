@@ -6,7 +6,7 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   NextButtonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(20)
+    marginTop: verticalScale(410)
   },
   container: {
     backgroundColor: colors.white,
@@ -18,13 +18,13 @@ const styles = StyleSheet.create({
   },
   inputHeader: {
     color: colors.header,
-    fontSize: moderateScale(14),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   inputText: {
     color: colors.header,
-    fontSize: moderateScale(16),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(16)
   },
   textInputContent: {
     gap: verticalScale(5)

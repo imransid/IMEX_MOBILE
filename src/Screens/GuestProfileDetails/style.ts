@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
   },
   askAboutAccountText: {
     color: colors.typedText,
-    fontSize: moderateScale(14),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   componentsPosition: {
     alignItems: 'center',
@@ -25,14 +25,14 @@ const styles = StyleSheet.create({
   },
   forgotPassword: {
     color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
-    fontWeight: '400',
     textAlign: 'center'
   },
   guestGreetingsText: {
     color: colors.header,
-    fontSize: moderateScale(18),
-    fontWeight: '600'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(18)
   },
   guestSignInButton: {
     alignItems: 'center',
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
   },
   guestSignInButtonText: {
     color: colors.white,
-    fontSize: moderateScale(15),
-    fontWeight: '400'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(15)
   },
   headingPosition: {
     alignItems: 'center',
@@ -59,19 +59,19 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
-    fontWeight: '400',
     textDecorationLine: 'underline'
   },
   signUptext: {
     color: colors.header,
-    fontSize: moderateScale(16),
-    fontWeight: '300'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(16)
   },
   textForGuest: {
     color: colors.typedText,
-    fontSize: moderateScale(16),
-    fontWeight: '300',
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(15),
     textAlign: 'center'
   }
 });

@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
   },
   detailInfoText: {
     color: colors.header,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
-    fontWeight: '500',
     marginLeft: scale(20)
   },
   editProfileText: {
     color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
-    fontWeight: '500',
     marginTop: scale(5)
   },
   headingPosition: {
@@ -38,13 +38,8 @@ const styles = StyleSheet.create({
   },
   inputHeader: {
     color: colors.header,
-    fontSize: moderateScale(14),
-    fontWeight: '500'
-  },
-  inputText: {
-    color: colors.typedText,
-    fontSize: moderateScale(16),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   scrollViewContainer: {
     paddingBottom: verticalScale(15)
@@ -62,8 +57,8 @@ const styles = StyleSheet.create({
   },
   userNameUnderProfileImage: {
     color: colors.header,
+    fontFamily: 'WorkSansSemiBold',
     fontSize: moderateScale(18),
-    fontWeight: '500',
     marginTop: scale(5)
   }
 });

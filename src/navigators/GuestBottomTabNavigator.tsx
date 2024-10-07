@@ -29,7 +29,7 @@ const GuestBottomTabNavigator: FC = () => {
         },
         tabBarActiveTintColor: colors.buttonBg,
         tabBarInactiveTintColor: colors.typedText,
-        tabBarLabelStyle: { fontSize: 12 },
+        tabBarLabelStyle: { fontSize: 12, fontFamily: 'WorkSansMedium' },
         tabBarShowLabel: true,
         headerShown: false
       })}>

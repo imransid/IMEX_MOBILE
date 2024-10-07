@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
   },
   headingText: {
     color: colors.header,
-    fontSize: moderateScale(18),
-    fontWeight: '600'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(18)
   },
   imagePosition: {
     alignItems: 'center',
@@ -27,13 +27,13 @@ const styles = StyleSheet.create({
   },
   inputHeader: {
     color: colors.header,
-    fontSize: moderateScale(14),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   inputText: {
     color: colors.header,
-    fontSize: moderateScale(16),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(16)
   },
   progressBarPosition: {
     borderWidth: scale(0),
@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
   },
   skipText: {
     color: colors.buttonBg,
+    fontFamily: 'WorkSansSemiBold',
     fontSize: moderateScale(14),
-    fontWeight: '400',
     textAlign: 'center'
   },
   skipTextPosition: {
@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5)
   },
   unitItemsText: {
-    color: colors.mainText,
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
     marginLeft: scale(20)
   },
   unitProperties: {
@@ -82,8 +83,8 @@ const styles = StyleSheet.create({
   },
   unitText: {
     color: colors.header,
-    fontSize: moderateScale(14),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   unitTextPosition: {
     marginLeft: scale(12),

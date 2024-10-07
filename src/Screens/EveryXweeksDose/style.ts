@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
   },
   chipText: {
     alignSelf: 'center',
-    color: colors.mainText,
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
     marginLeft: scale(10)
   },
   chipheadingPosition: {
@@ -42,9 +43,9 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(30)
   },
   chipheadingText: {
-    color: colors.mainText,
-    fontSize: moderateScale(16),
-    fontWeight: '500'
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(16)
   },
   container: {
     backgroundColor: colors.white,
@@ -57,8 +58,8 @@ const styles = StyleSheet.create({
   },
   headingText: {
     color: colors.header,
-    fontSize: moderateScale(18),
-    fontWeight: '600'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(18)
   },
   imagePosition: {
     alignItems: 'center',
@@ -78,7 +79,8 @@ const styles = StyleSheet.create({
     width: scale(74)
   },
   selectButtonText: {
-    color: colors.buttonBg
+    color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium'
   },
   selectDateButton: {
     alignItems: 'center',

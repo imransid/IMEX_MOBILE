@@ -14,8 +14,9 @@ import styles from './style';
 
 const PreviewDoseDetails: FC = () => {
   const navigation = useNavigation();
+
   const handleDone: any = () => {
-    navigation.navigate('HomeScreen' as never);
+    navigation.goBack();
   };
 
   return (

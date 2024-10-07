@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(5)
   },
   formsItemsText: {
-    color: colors.mainText,
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
     marginLeft: scale(20)
   },
   formsPosition: {
@@ -25,8 +26,8 @@ const styles = StyleSheet.create({
   },
   formsText: {
     color: colors.header,
-    fontSize: moderateScale(14),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   headingPosition: {
     left: scale(10),
@@ -34,8 +35,8 @@ const styles = StyleSheet.create({
   },
   headingText: {
     color: colors.header,
-    fontSize: moderateScale(18),
-    fontWeight: '600'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(18)
   },
   imagePosition: {
     alignItems: 'center',
@@ -57,8 +58,8 @@ const styles = StyleSheet.create({
   },
   skipText: {
     color: colors.buttonBg,
+    fontFamily: 'WorkSansSemiBold',
     fontSize: moderateScale(14),
-    fontWeight: '400',
     textAlign: 'center'
   },
   skipTextPosition: {

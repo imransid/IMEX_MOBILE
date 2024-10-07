@@ -6,8 +6,8 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   brandNameText: {
     color: colors.mainText,
-    fontSize: moderateScale(12),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
   },
   buttonPosition: {
     bottom: verticalScale(10)
@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   },
   inputHeader: {
     color: colors.header,
-    fontSize: moderateScale(14),
-    fontWeight: '500'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(14)
   },
   medicineDetailsComponentPosition: {
     alignItems: 'center'
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     borderRadius: scale(6),
     flexDirection: 'row',
     height: 'auto',
-    width: scale(330)
+    width: scale(332)
   },
   medicineNameAndBrandPosition: {
     alignItems: 'center',
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
   },
   medicineNameText: {
     color: colors.header,
-    fontSize: moderateScale(24),
-    fontWeight: '600'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(24)
   },
   medicineNameTypeProperties: {
     flexDirection: 'row',
@@ -77,20 +77,21 @@ const styles = StyleSheet.create({
     width: scale(94)
   },
   medicineTypeAndQuantityText: {
-    color: colors.header
+    color: colors.header,
+    fontFamily: 'WorkSansMedium'
   },
   medicineTypePosition: {
     marginTop: scale(13)
   },
   medicineTypeText: {
     color: colors.typedText,
-    fontSize: moderateScale(12),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
   },
   scannedText: {
     color: colors.mainText,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(12),
-    fontWeight: '400',
     textAlign: 'justify'
   },
   scrollViewContainer: {

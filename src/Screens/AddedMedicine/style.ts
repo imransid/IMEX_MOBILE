@@ -18,16 +18,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   mainText: {
-    color: colors.mainText,
-    fontSize: moderateScale(24),
-    fontWeight: '600',
+    color: colors.header,
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(22),
     marginTop: verticalScale(55),
     textAlign: 'center'
   },
   noThanksText: {
     color: colors.buttonBg,
+    fontFamily: 'WorkSansSemiBold',
     fontSize: moderateScale(14),
-    fontWeight: '400',
     textAlign: 'center'
   },
   noThanksTextPosition: {
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
   },
   subText: {
     color: colors.buttonBg,
+    fontFamily: 'WorkSansSemiBold',
     fontSize: moderateScale(16),
-    fontWeight: '600',
     textAlign: 'center'
   }
 });

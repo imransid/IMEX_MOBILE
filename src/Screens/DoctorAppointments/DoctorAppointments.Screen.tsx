@@ -1,6 +1,7 @@
 import React, { type FC, useState } from 'react';
-import { Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
+import { ScrollView } from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
@@ -23,7 +24,8 @@ const DoctorAppointments: FC = () => {
   const [time, setTime] = useState(new Date()); // time setting
   const [selectedTime, setSelectedTime] = useState('');
   const [open, setOpen] = useState(false); // for time picker
-  const [isEnabled, setIsEnabled] = useState(false); // for toggle
+  const [reminder, setReminder] = useState('');
+  const [openReminder, setOpenReminder] = useState(false);
 
   const handleSetDate: any = (date: string) => {
     const formattedDate = format(new Date(date), 'EEE, d MMMM, yyyy');
@@ -38,9 +40,11 @@ const DoctorAppointments: FC = () => {
   const handleStartDateSelectInstruction: any = () => {
     setDateModalOpen(!dateModalOpen);
   };
-  const toggleSwitch: any = () => {
-    setIsEnabled(previousState => !previousState);
+
+  const handleSelectReminder: any = () => {
+    setOpenReminder(!open);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.headingPosition}>
@@ -49,89 +53,144 @@ const DoctorAppointments: FC = () => {
       <View style={styles.imagePosition}>
         <DoctorAppointmentsLogo />
       </View>
-      <View style={styles.subHeadingPosition}>
-        <Header subHeader="Add an appointment" />
-      </View>
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        <View style={styles.subHeadingPosition}>
+          <Header subHeader="Add an appointment" />
+        </View>
 
-      <View style={styles.chipPosition}>
-        <View style={styles.chip}>
-          <View style={styles.chipProperties}>
-            <View style={styles.chipContentProperties}>
-              <AntDesign name="calendar" size={25} color={colors.header} />
-              <Text style={styles.chipText}>Date</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.selectButton}
-              onPress={() => handleStartDateSelectInstruction()}>
-              <Text style={styles.selectButtonText}>{date !== '' ? date : 'Select'}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.chip}>
-          <View style={styles.chipProperties}>
-            <View style={styles.chipContentProperties}>
-              <AntDesign name="clockcircleo" size={22} color={colors.header} />
-              <Text style={styles.chipText}>Time</Text>
-            </View>
-            <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
-              <Text style={styles.selectButtonText}>
-                {selectedTime === '' ? 'Select' : selectedTime}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.chip}>
-          <View style={styles.chipProperties}>
-            <View style={styles.chipContentProperties}>
-              <FontAwesome6 name="user-doctor" size={22} color={colors.header} />
-              <Text style={styles.chipText}>Doctor’s Name</Text>
-            </View>
-            <View style={styles.inputPosition}>
-              <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="default"
-                style={styles.nameInput}
-                maxLength={3}
-              />
+        <View style={styles.chipPosition}>
+          <View style={styles.chip}>
+            <View style={styles.chipProperties}>
+              <View style={styles.chipContentProperties}>
+                <AntDesign name="calendar" size={25} color={colors.header} />
+                <Text style={styles.chipText}>Date</Text>
+              </View>
+              <TouchableOpacity
+                style={styles.selectButton}
+                onPress={() => handleStartDateSelectInstruction()}>
+                <Text style={styles.selectButtonText}>{date !== '' ? date : 'Select'}</Text>
+              </TouchableOpacity>
             </View>
           </View>
-        </View>
-        <View style={styles.chip}>
-          <View style={styles.chipProperties}>
-            <View style={styles.chipContentProperties}>
-              <Feather name="map-pin" size={22} color={colors.header} />
-              <Text style={styles.chipText}>Location</Text>
+          <View style={styles.chip}>
+            <View style={styles.chipProperties}>
+              <View style={styles.chipContentProperties}>
+                <AntDesign name="clockcircleo" size={22} color={colors.header} />
+                <Text style={styles.chipText}>Time</Text>
+              </View>
+              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
+                <Text style={styles.selectButtonText}>
+                  {selectedTime === '' ? 'Select' : selectedTime}
+                </Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.inputPosition}>
-              <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="default"
-                style={styles.nameInput}
-                maxLength={3}
-              />
+          </View>
+          <View style={styles.chip}>
+            <View style={styles.chipProperties}>
+              <View style={styles.chipContentProperties}>
+                <FontAwesome6 name="user-doctor" size={22} color={colors.header} />
+                <Text style={styles.chipText}>Doctor’s Name</Text>
+              </View>
+              <View style={styles.inputPosition}>
+                <TextInput
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  keyboardType="default"
+                  style={styles.nameInput}
+                  maxLength={10}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={styles.chip}>
+            <View style={styles.chipProperties}>
+              <View style={styles.chipContentProperties}>
+                <Feather name="map-pin" size={22} color={colors.header} />
+                <Text style={styles.chipText}>Location</Text>
+              </View>
+              <View style={styles.inputPosition}>
+                <TextInput
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  keyboardType="default"
+                  style={styles.nameInput}
+                  maxLength={10}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={styles.chip}>
+            <View style={styles.chipProperties}>
+              <View style={styles.chipContentProperties}>
+                <Feather name="bell" size={22} color={colors.header} />
+                <Text style={styles.chipText}>Set Reminder</Text>
+              </View>
+              <View style={styles.inputPosition}>
+                <TouchableOpacity
+                  style={styles.selectButton}
+                  onPress={() => handleSelectReminder()}>
+                  <Text style={styles.selectButtonText}>{date !== '' ? reminder : 'Set'}</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
-        <View style={styles.chip}>
-          <View style={styles.chipProperties}>
-            <View style={styles.chipContentProperties}>
-              <Feather name="bell" size={22} color={colors.header} />
-              <Text style={styles.chipText}>Set Reminder</Text>
-            </View>
-            <View style={styles.inputPosition}>
-              <Switch
-                trackColor={{ false: '#767577', true: colors.toggleEnabled }}
-                thumbColor={isEnabled ? colors.textInput : colors.textInput}
-                onValueChange={toggleSwitch}
-                value={isEnabled}
-              />
-            </View>
-          </View>
-        </View>
-      </View>
 
+        {openReminder && (
+          <View style={styles.reminderContainer}>
+            {[
+              'No Reminder',
+              '10 minutes before',
+              '30 minutes before',
+              '1 day before',
+              '1 week before',
+              '2 week before'
+            ].map(a => (
+              <TouchableOpacity
+                key={a}
+                style={styles.reminderProperties}
+                onPress={() => {
+                  setReminder(a);
+                  setOpenReminder(false);
+                }}>
+                <Text style={styles.reminderText}>{a}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+
+        {dateModalOpen && (
+          <CalendarModal
+            modalVisible={dateModalOpen}
+            setModalVisible={setDateModalOpen}
+            setStartDate={handleSetDate}
+            modalFOr="startDate"
+          />
+        )}
+        {open && (
+          <DatePicker
+            modal
+            mode="time"
+            open={open}
+            date={time}
+            dividerColor="white"
+            onConfirm={date => {
+              setOpen(false);
+              setTime(date);
+              const timeStr = new Intl.DateTimeFormat('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+              }).format(new Date(date));
+              setSelectedTime(timeStr);
+            }}
+            onCancel={() => {
+              setOpen(false);
+            }}
+            theme="dark"
+          />
+        )}
+      </ScrollView>
       <View style={styles.NextbuttonPosition}>
         <CustomButton
           onPress={handleNext}
@@ -139,38 +198,6 @@ const DoctorAppointments: FC = () => {
           text="Save"
         />
       </View>
-
-      {dateModalOpen && (
-        <CalendarModal
-          modalVisible={dateModalOpen}
-          setModalVisible={setDateModalOpen}
-          setStartDate={handleSetDate}
-          modalFOr="startDate"
-        />
-      )}
-      {open && (
-        <DatePicker
-          modal
-          mode="time"
-          open={open}
-          date={time}
-          dividerColor="white"
-          onConfirm={date => {
-            setOpen(false);
-            setTime(date);
-            const timeStr = new Intl.DateTimeFormat('en-US', {
-              hour: 'numeric',
-              minute: '2-digit',
-              hour12: true
-            }).format(new Date(date));
-            setSelectedTime(timeStr);
-          }}
-          onCancel={() => {
-            setOpen(false);
-          }}
-          theme="dark"
-        />
-      )}
     </View>
   );
 };

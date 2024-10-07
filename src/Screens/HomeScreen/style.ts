@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
   },
   chipheadingText: {
     color: colors.header,
-    fontSize: moderateScale(16),
-    fontWeight: '500'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(16)
   },
   container: {
     backgroundColor: colors.white,
@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
   },
   doseText: {
     color: colors.typedText,
-    fontSize: moderateScale(12),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
   },
   doseTimePosition: {
     marginRight: scale(40),
@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
   },
   medicineNameText: {
     color: colors.buttonBg,
-    fontSize: moderateScale(12),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
   }
 });
 

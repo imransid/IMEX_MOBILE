@@ -74,7 +74,7 @@ const EveryXweeksDose: FC = () => {
   };
 
   const handleNext: any = () => {
-    navigation.navigate('EveryXdaysDoseDetails' as never);
+    navigation.navigate('EveryXweeksDoseDetails' as never);
   };
 
   return (

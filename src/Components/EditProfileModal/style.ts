@@ -17,13 +17,13 @@ const styles = StyleSheet.create({
   },
   inputHeader: {
     color: colors.header,
-    fontSize: moderateScale(14),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   inputText: {
     color: colors.header,
-    fontSize: moderateScale(16),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   modalContainer: {
     backgroundColor: colors.modalBackground,

@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
   },
   logOutButtonText: {
     color: colors.white,
-    fontSize: moderateScale(13),
-    fontWeight: '400'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(13)
   },
   signUpText: {
     color: colors.typedText,
@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
   },
   userEmailText: {
     color: colors.mainText,
-    fontSize: moderateScale(13),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(13)
   },
   userHelpAndFaqItemsStyle: {
     flexDirection: 'row',
@@ -89,8 +89,8 @@ const styles = StyleSheet.create({
   },
   userItemsText: {
     color: colors.mainText,
-    fontSize: moderateScale(16),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(16)
   },
   userNamePosition: {
     left: scale(30),
@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
   },
   userNameText: {
     color: colors.header,
-    fontSize: moderateScale(16),
-    fontWeight: '600'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(16)
   },
   userProfileItemStyle: {
     flexDirection: 'row',

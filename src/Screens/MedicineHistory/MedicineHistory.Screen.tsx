@@ -24,7 +24,7 @@ const MedicineHistory: FC = () => {
 
         <View style={styles.chipPosition}>
           <View>
-            <Header subHeader="Today" />
+            <Text style={styles.medicineHistoryHeading}>Today</Text>
             <View style={styles.chip}>
               <View style={styles.chipContentProperties}>
                 <Text style={styles.chipText}>Adflox</Text>
@@ -47,7 +47,7 @@ const MedicineHistory: FC = () => {
             </View>
           </View>
           <View>
-            <Header subHeader="Yesterday" />
+            <Text style={styles.medicineHistoryHeading}>Yesterday</Text>
             <View style={styles.chip}>
               <View style={styles.chipContentProperties}>
                 <Text style={styles.chipText}>Adflox</Text>
@@ -70,7 +70,7 @@ const MedicineHistory: FC = () => {
             </View>
           </View>
           <View>
-            <Header subHeader="May 5" />
+            <Text style={styles.medicineHistoryHeading}>May 5</Text>
             <View style={styles.chip}>
               <View style={styles.chipContentProperties}>
                 <Text style={styles.chipText}>Adflox</Text>

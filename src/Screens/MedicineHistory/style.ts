@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
   chip: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
+    borderRadius: scale(6),
     height: verticalScale(35),
     justifyContent: 'center',
     marginTop: verticalScale(5),
@@ -34,9 +34,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   chipText: {
-    color: colors.mainText,
-    fontSize: moderateScale(16),
-    fontWeight: '400'
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(16)
   },
   container: {
     backgroundColor: colors.white,
@@ -46,24 +46,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     top: verticalScale(10)
   },
+  medicineHistoryHeading: {
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(16),
+    marginTop: scale(30)
+  },
   progressBarPosition: {
     borderWidth: scale(0)
   },
   scrollViewContainer: {
     paddingBottom: verticalScale(15)
-  },
-  selectButton: {
-    alignItems: 'center',
-    backgroundColor: colors.selectButtonBg,
-    borderRadius: scale(6),
-    height: verticalScale(27),
-    justifyContent: 'center',
-    position: 'relative',
-    right: scale(20),
-    width: scale(74)
-  },
-  selectButtonText: {
-    color: colors.buttonBg
   }
 });
 
