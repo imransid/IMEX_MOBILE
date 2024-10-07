@@ -137,7 +137,7 @@ const TwiceAdayDose: FC = () => {
           <View>
             <View style={styles.addMoreSettingsHeaderPosition}>
               <Text style={styles.addMoreSettingsHeaderText}>
-                When do you need to take the dose?
+                Would you like to add more settings?
               </Text>
             </View>
             <View style={styles.addMoresettingsContainer}>

@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(5)
   },
   itemText: {
-    color: colors.typedText,
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
     fontWeight: '400'
   },
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
   },
   okButtonText: {
     color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14)
   },
   selectedItem: {
@@ -45,13 +47,13 @@ const styles = StyleSheet.create({
   },
   selectedItemText: {
     color: colors.header,
-    fontSize: moderateScale(16),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(16)
   },
   sideText: {
     color: colors.header,
-    fontSize: moderateScale(16),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(16)
   }
 });
 

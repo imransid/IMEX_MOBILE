@@ -1,16 +1,17 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import styles from './style';
-import { scale, moderateScale } from 'react-native-size-matters';
-import { useNavigation } from '@react-navigation/native';
+import { moderateScale, scale } from 'react-native-size-matters';
+
 import { colors } from '../../theme/colors';
+
+import styles from './style';
 
 interface ICalendarModalProps {
   modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;
-  selectedDates: { [date: string]: { selected: boolean } };
-  setSelectedDates: (dates: { [date: string]: { selected: boolean } }) => void;
+  selectedDates: Record<string, { selected: boolean }>;
+  setSelectedDates: (dates: Record<string, { selected: boolean }>) => void;
 }
 
 const CalendarModalWithDates: React.FC<ICalendarModalProps> = ({
@@ -19,8 +20,6 @@ const CalendarModalWithDates: React.FC<ICalendarModalProps> = ({
   selectedDates,
   setSelectedDates
 }) => {
-  const navigation = useNavigation();
-
   const formatDate = (date: Date): string => {
     const options: Intl.DateTimeFormatOptions = {
       day: 'numeric',
@@ -29,25 +28,29 @@ const CalendarModalWithDates: React.FC<ICalendarModalProps> = ({
     return date.toLocaleDateString('en-GB', options);
   };
 
-  const handleDayPress = (day: any) => {
-    const dateString = day.dateString;
+  const handleDayPress: any = (day: any) => {
+    const { dateString } = day;
     const updatedDates = { ...selectedDates };
 
-    if (updatedDates[dateString]) {
-      delete updatedDates[dateString];
+    if (updatedDates[dateString] !== undefined) {
+      // If the date exists, create a new object without this date
+      const { [dateString]: _, ...rest } = updatedDates;
+      setSelectedDates(rest);
     } else {
-      updatedDates[dateString] = { selected: true };
+      // Otherwise, add the date with the selected: true property
+      setSelectedDates({
+        ...updatedDates,
+        [dateString]: { selected: true }
+      });
     }
-
-    setSelectedDates(updatedDates);
   };
 
-  const handleCancelPress = () => {
+  const handleCancelPress: any = () => {
     setModalVisible(false);
     setSelectedDates({});
   };
 
-  const handleOkPress = () => {
+  const handleOkPress: any = () => {
     setModalVisible(false);
   };
 
@@ -57,12 +60,14 @@ const CalendarModalWithDates: React.FC<ICalendarModalProps> = ({
         transparent={true}
         visible={modalVisible}
         animationType="slide"
-        onRequestClose={() => setModalVisible(false)}>
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}>
         <View style={styles.modalContainer}>
           <View style={styles.calendarContainer}>
             <Calendar
               onDayPress={handleDayPress}
-              markedDates={Object.keys(selectedDates).reduce((marked, date) => {
+              markedDates={Object.keys(selectedDates).reduce<any>((marked, date) => {
                 marked[date] = {
                   selected: true,
                   customStyles: {
@@ -76,7 +81,7 @@ const CalendarModalWithDates: React.FC<ICalendarModalProps> = ({
                   }
                 };
                 return marked;
-              }, {} as any)}
+              }, {})}
               markingType={'custom'}
               theme={{
                 todayTextColor: colors.buttonBg,
@@ -85,17 +90,14 @@ const CalendarModalWithDates: React.FC<ICalendarModalProps> = ({
                 arrowColor: colors.buttonBg,
                 selectedDayBackgroundColor: colors.buttonBg,
                 selectedDayTextColor: colors.white,
-                textDayFontWeight: '400',
-                textMonthFontWeight: '500',
-                textDayHeaderFontWeight: '500',
+                textDayFontFamily: 'WorkSansMedium',
+                textMonthFontFamily: 'WorkSansSemiBold',
+                textDayHeaderFontFamily: 'WorkSansMedium',
                 textMonthFontSize: moderateScale(16),
                 textDayFontSize: moderateScale(18),
                 textDayHeaderFontSize: moderateScale(14)
               }}
-              style={{
-                width: scale(270),
-                height: 'auto'
-              }}
+              style={styles.calendarStyle}
             />
             <ScrollView style={styles.scrollViewContainer}>
               <View style={styles.selectedDaysContainer}>

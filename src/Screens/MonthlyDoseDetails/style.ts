@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
   },
   addMoreSettingsHeaderText: {
     color: colors.header,
+    fontFamily: 'WorkSansSemiBold',
     fontSize: moderateScale(16),
-    fontWeight: '500',
     left: scale(5)
   },
   addMoresettingsContainer: {
@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
   },
   chipText: {
     alignSelf: 'center',
-    color: colors.mainText,
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
     marginLeft: scale(10)
   },
   container: {
@@ -56,17 +57,17 @@ const styles = StyleSheet.create({
   },
   headingText: {
     color: colors.header,
-    fontSize: moderateScale(18),
-    fontWeight: '600'
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(18)
   },
   imagePosition: {
     alignItems: 'center',
     top: verticalScale(10)
   },
   intakeNumberText: {
-    color: colors.typedText,
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
-    fontWeight: '500',
     left: scale(10),
     marginTop: verticalScale(10)
   },
@@ -87,7 +88,8 @@ const styles = StyleSheet.create({
     width: scale(74)
   },
   selectButtonText: {
-    color: colors.buttonBg
+    color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium'
   }
 });
 

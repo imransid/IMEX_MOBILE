@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   addMoreSettingsHeaderText: {
     color: colors.header,
-    fontFamily: 'WorkSansMedium',
+    fontFamily: 'WorkSansSemiBold',
     fontSize: moderateScale(16),
     left: scale(5)
   },

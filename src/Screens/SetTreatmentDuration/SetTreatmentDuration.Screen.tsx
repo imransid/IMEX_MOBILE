@@ -38,7 +38,7 @@ const SetTreatmentDuration: FC = () => {
   };
 
   const handleNext: any = () => {
-    navigation.navigate('OnceAdayDose' as never);
+    navigation.goBack();
   };
 
   return (

@@ -13,7 +13,7 @@ import styles from './style';
 const MedicineReminders: FC = () => {
   const navigation = useNavigation();
   const handleNext: any = () => {
-    navigation.navigate('OnceAdayDose' as never);
+    navigation.goBack();
   };
   return (
     <View style={styles.container}>

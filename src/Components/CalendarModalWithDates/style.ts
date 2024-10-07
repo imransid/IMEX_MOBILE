@@ -1,55 +1,60 @@
-import {StyleSheet} from 'react-native';
-import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.modalBackground,
-  },
   calendarContainer: {
-    backgroundColor: colors.textInput,
-    borderRadius: scale(16),
-    padding: verticalScale(12),
     alignItems: 'center',
-    width: scale(300), // Adjust width as needed
+    backgroundColor: colors.white,
+    borderRadius: scale(16),
     height: verticalScale(440), // Adjust height as needed
+    padding: verticalScale(12),
+    width: scale(300) // Adjust width as needed
   },
-  cancelAndOKbuttonPosition: {
-    flexDirection: 'row',
-    position: 'absolute',
-    left: scale(175),
-    gap: scale(14),
-    marginTop: verticalScale(400),
+  calendarStyle: {
+    height: 'auto',
+    width: scale(270)
   },
   cancelAndOKButtonText: {
     color: colors.buttonBg,
-    fontSize: moderateScale(14),
-    fontWeight: '500',
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
-  selectedDaysHeaderText: {
-    fontSize: moderateScale(12),
-    fontWeight: '600',
-    color: colors.typedText,
+  cancelAndOKbuttonPosition: {
+    flexDirection: 'row',
+    gap: scale(22),
+    left: scale(175),
+    marginTop: verticalScale(400),
+    position: 'absolute'
   },
-  selectedDaysText: {
-    fontSize: moderateScale(12),
-    fontWeight: '600',
-    color: colors.typedText,
-    textAlign: 'justify',
+  modalContainer: {
+    alignItems: 'center',
+    backgroundColor: colors.modalBackground,
+    flex: 1,
+    justifyContent: 'center'
+  },
+  scrollViewContainer: {
+    maxHeight: '27%',
+    width: '90%'
   },
   selectedDaysContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: scale(1),
-    marginTop: '5%',
+    marginTop: '5%'
   },
-  scrollViewContainer: {
-    width: '90%',
-    maxHeight: '27%',
+  selectedDaysHeaderText: {
+    color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
   },
+  selectedDaysText: {
+    color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12),
+    textAlign: 'justify'
+  }
 });
 
 export default styles;

@@ -28,7 +28,7 @@ const AddInstructions: FC = () => {
   };
 
   const handleNext: any = () => {
-    navigation.navigate('OnceAdayDose', { instruction });
+    navigation.goBack();
   };
 
   return (
