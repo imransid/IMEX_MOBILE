@@ -2,22 +2,22 @@ import React, { type FC, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { type NavigationProp, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import AddInstructionsLogo from '../../assets/add-instructions';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Header from '../../Components/Header/Header';
-import { type AppStackParamList } from '../../models/routePageModel';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
 
-type AddInstructionsScreenNavigationProp = NavigationProp<AppStackParamList, 'AddInstructions'>;
+import SetInstructionsModal from '../../Components/SetInstructionsModal/SetInstructionsModal';
 
 const AddInstructions: FC = () => {
-  const navigation = useNavigation<AddInstructionsScreenNavigationProp>();
+  const navigation = useNavigation();
   const [instruction, setInstruction] = useState('');
   const [open, setOpen] = useState(false); // for instruction picker
+  const [tempInstruction, setTempInstruction] = useState('');
 
   const handleSelectInstruction: any = () => {
     setOpen(!open);
@@ -25,6 +25,16 @@ const AddInstructions: FC = () => {
 
   const clearInstructionSelection: any = () => {
     setInstruction('');
+  };
+
+  const okPress: any = () => {
+    setInstruction(tempInstruction);
+    setOpen(false);
+  };
+
+  const cancelPress: any = () => {
+    setTempInstruction(instruction);
+    setOpen(false);
   };
 
   const handleNext: any = () => {
@@ -64,19 +74,13 @@ const AddInstructions: FC = () => {
       </View>
 
       {open && (
-        <View style={styles.instructionContainer}>
-          {['Before Meal', 'During Meal', 'After Meal'].map(a => (
-            <TouchableOpacity
-              key={a}
-              style={styles.instructionProperties}
-              onPress={() => {
-                setInstruction(a);
-                setOpen(false);
-              }}>
-              <Text style={styles.instructionText}>{a}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+        <SetInstructionsModal
+          isVisible={open}
+          selectedValue={tempInstruction}
+          onValueChange={setTempInstruction}
+          onOk={okPress}
+          onCancel={cancelPress}
+        />
       )}
 
       {instruction !== '' && (

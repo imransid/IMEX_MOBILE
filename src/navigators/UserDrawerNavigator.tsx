@@ -10,7 +10,22 @@ import UserBottomTabNavigator from './UserBottomTabNavigator';
 
 const Drawer = createDrawerNavigator();
 
+const getGreeting: any = () => {
+  const currentHour = new Date().getHours();
+
+  if (currentHour < 12) {
+    return 'Good Morning';
+  } else if (currentHour < 18) {
+    return 'Good Afternoon';
+  } else if (currentHour > 18 && currentHour <= 21) {
+    return 'Good Evening';
+  } else {
+    return 'Good Night';
+  }
+};
+
 const UserDrawerNavigator: FC = () => {
+  const greetings = getGreeting();
   return (
     <Drawer.Navigator
       initialRouteName="UserBottomTab"
@@ -19,7 +34,7 @@ const UserDrawerNavigator: FC = () => {
         headerTitle: () => (
           <>
             <Text style={styles.usernameText}>Hi, user</Text>
-            <Text style={styles.greetingsText}>Good Morning</Text>
+            <Text style={styles.greetingsText}>{greetings}</Text>
           </>
         ),
         headerTintColor: colors.buttonBg

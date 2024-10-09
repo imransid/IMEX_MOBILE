@@ -15,6 +15,7 @@ import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import SetReminderModal from '../../Components/SetReminderModal/SetReminderModal';
 
 const DoctorAppointments: FC = () => {
   const navigation = useNavigation();
@@ -25,7 +26,8 @@ const DoctorAppointments: FC = () => {
   const [selectedTime, setSelectedTime] = useState('');
   const [open, setOpen] = useState(false); // for time picker
   const [reminder, setReminder] = useState('');
-  const [openReminder, setOpenReminder] = useState(false);
+  const [tempReminder, setTempReminder] = useState('');
+  const [openReminderModal, setOpenReminderModal] = useState(false); // for set reminder
 
   const handleSetDate: any = (date: string) => {
     const formattedDate = format(new Date(date), 'EEE, d MMMM, yyyy');
@@ -42,7 +44,17 @@ const DoctorAppointments: FC = () => {
   };
 
   const handleSelectReminder: any = () => {
-    setOpenReminder(!open);
+    setOpenReminderModal(!openReminderModal);
+  };
+
+  const okPress: any = () => {
+    setReminder(tempReminder);
+    setOpenReminderModal(false);
+  };
+
+  const cancelPress: any = () => {
+    setTempReminder(reminder);
+    setOpenReminderModal(false);
   };
 
   return (
@@ -65,11 +77,13 @@ const DoctorAppointments: FC = () => {
                 <AntDesign name="calendar" size={25} color={colors.header} />
                 <Text style={styles.chipText}>Date</Text>
               </View>
-              <TouchableOpacity
-                style={styles.selectButton}
-                onPress={() => handleStartDateSelectInstruction()}>
-                <Text style={styles.selectButtonText}>{date !== '' ? date : 'Select'}</Text>
-              </TouchableOpacity>
+              <View style={styles.selectButtonPosition}>
+                <TouchableOpacity
+                  style={styles.selectButton}
+                  onPress={() => handleStartDateSelectInstruction()}>
+                  <Text style={styles.selectButtonText}>{date !== '' ? date : 'Select'}</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
           <View style={styles.chip}>
@@ -78,11 +92,15 @@ const DoctorAppointments: FC = () => {
                 <AntDesign name="clockcircleo" size={22} color={colors.header} />
                 <Text style={styles.chipText}>Time</Text>
               </View>
-              <TouchableOpacity style={styles.selectButton} onPress={() => handleSelectTime()}>
-                <Text style={styles.selectButtonText}>
-                  {selectedTime === '' ? 'Select' : selectedTime}
-                </Text>
-              </TouchableOpacity>
+              <View style={styles.selectButtonPosition}>
+                <TouchableOpacity
+                  style={styles.timeSelectButton}
+                  onPress={() => handleSelectTime()}>
+                  <Text style={styles.selectButtonText}>
+                    {selectedTime === '' ? 'Select' : selectedTime}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
           <View style={styles.chip}>
@@ -125,38 +143,25 @@ const DoctorAppointments: FC = () => {
                 <Feather name="bell" size={22} color={colors.header} />
                 <Text style={styles.chipText}>Set Reminder</Text>
               </View>
-              <View style={styles.inputPosition}>
+              <View style={styles.reminderSelectButtonPosition}>
                 <TouchableOpacity
-                  style={styles.selectButton}
+                  style={styles.reminderSelectButton}
                   onPress={() => handleSelectReminder()}>
-                  <Text style={styles.selectButtonText}>{date !== '' ? reminder : 'Set'}</Text>
+                  <Text style={styles.selectButtonText}>{reminder !== '' ? reminder : 'Set'}</Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
         </View>
 
-        {openReminder && (
-          <View style={styles.reminderContainer}>
-            {[
-              'No Reminder',
-              '10 minutes before',
-              '30 minutes before',
-              '1 day before',
-              '1 week before',
-              '2 week before'
-            ].map(a => (
-              <TouchableOpacity
-                key={a}
-                style={styles.reminderProperties}
-                onPress={() => {
-                  setReminder(a);
-                  setOpenReminder(false);
-                }}>
-                <Text style={styles.reminderText}>{a}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+        {openReminderModal && (
+          <SetReminderModal
+            isVisible={openReminderModal}
+            selectedValue={tempReminder}
+            onValueChange={setTempReminder}
+            onOk={okPress}
+            onCancel={cancelPress}
+          />
         )}
 
         {dateModalOpen && (

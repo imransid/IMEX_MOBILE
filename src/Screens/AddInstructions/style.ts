@@ -47,26 +47,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     top: verticalScale(30)
   },
-  instructionContainer: {
-    position: 'absolute',
-    right: scale(10),
-    top: verticalScale(240)
-  },
-  instructionProperties: {
-    alignItems: 'center',
-    backgroundColor: colors.textInput,
-    borderColor: colors.mainText,
-    borderRadius: scale(6),
-    borderWidth: scale(1),
-    height: scale(40),
-    justifyContent: 'center',
-    marginTop: scale(1),
-    width: scale(168)
-  },
-  instructionText: {
-    color: colors.header,
-    fontFamily: 'WorkSansMedium'
-  },
   selectButton: {
     alignItems: 'center',
     backgroundColor: colors.selectButtonBg,
@@ -75,7 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
     right: scale(20),
-    width: scale(85)
+    width: scale(100)
   },
   selectButtonText: {
     color: colors.buttonBg,

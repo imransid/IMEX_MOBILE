@@ -53,7 +53,6 @@ const EveryXweeksDose: FC = () => {
 
   const cancelWeekPickerModal: any = () => {
     setOpen(false);
-    setSelectedNumber('');
   };
 
   const closeTimePickerModal: any = () => {
@@ -62,7 +61,6 @@ const EveryXweeksDose: FC = () => {
 
   const cancelTimePickerModal: any = () => {
     setOpenTimeInterval(false);
-    setTimeInterval('');
   };
 
   const handleTimeIntervalChange: any = (data: string) => {

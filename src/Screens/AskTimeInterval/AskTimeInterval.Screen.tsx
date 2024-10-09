@@ -38,7 +38,6 @@ const AskTimeInterval: FC = () => {
   };
 
   const cancelPress: any = () => {
-    setSelectedNumber('');
     setOpen(false);
   };
 

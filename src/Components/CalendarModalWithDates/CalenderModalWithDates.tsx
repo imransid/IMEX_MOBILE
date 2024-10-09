@@ -47,7 +47,6 @@ const CalendarModalWithDates: React.FC<ICalendarModalProps> = ({
 
   const handleCancelPress: any = () => {
     setModalVisible(false);
-    setSelectedDates({});
   };
 
   const handleOkPress: any = () => {

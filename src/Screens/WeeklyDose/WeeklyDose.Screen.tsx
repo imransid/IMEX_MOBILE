@@ -52,7 +52,6 @@ const WeeklyDose: FC = () => {
   };
 
   const cancelPress: any = () => {
-    setSelectedNumber('');
     setOpen(false);
   };
 

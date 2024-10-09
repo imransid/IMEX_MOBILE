@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
     right: scale(20),
-    width: scale(145)
+    width: scale(170)
   },
   selectButtonText: {
     color: colors.buttonBg,
@@ -101,7 +101,33 @@ const styles = StyleSheet.create({
   subHeadingPosition: {
     left: scale(10),
     marginTop: verticalScale(30)
-  }
+  },
+  reminderSelectButtonPosition: {
+    left: scale(5)
+  },
+  reminderSelectButton: {
+    alignItems: 'center',
+    backgroundColor: colors.selectButtonBg,
+    borderRadius: scale(6),
+    height: verticalScale(30),
+    justifyContent: 'center',
+    position: 'relative',
+    right: scale(20),
+    width: scale(150)
+  },
+  timeSelectButton: {
+    alignItems: 'center',
+    backgroundColor: colors.selectButtonBg,
+    borderRadius: scale(6),
+    height: verticalScale(30),
+    justifyContent: 'center',
+    position: 'relative',
+    right: scale(20),
+    width: scale(150)
+  },
+  selectButtonPosition: {
+    left: scale(5)
+  },
 });
 
 export default styles;

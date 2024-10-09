@@ -38,7 +38,6 @@ const AskHourInterval: FC = () => {
   };
 
   const cancelPress: any = () => {
-    setSelectedNumber('');
     setOpen(false);
   };
 
