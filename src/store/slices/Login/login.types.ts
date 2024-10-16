@@ -1,8 +1,7 @@
-import { type PayloadAction } from '@reduxjs/toolkit';
-
-import { type BaseActionType } from '../../action.type';
-import { type LoginRequest, type LoginResponse } from '../../services/auth/auth.service.types';
-import { type FetchStatusEnum } from '../../services/fetch.type';
+import { BaseActionType } from "../../action.type";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { LoginRequest, LoginResponse } from "../../services/auth/auth.service.types";
+import { FetchStatusEnum } from "../../services/fetch.type";
 
 export interface LoginSliceStateType {
   loginFetchStatus: FetchStatusEnum;
@@ -21,7 +20,7 @@ export interface LoginActionType extends BaseActionType {
 
 export interface LoginSuccessActionType extends BaseActionType {
   payload: {
-    response: LoginResponse | any;
+    response: LoginResponse;
   };
 }
 

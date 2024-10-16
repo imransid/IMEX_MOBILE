@@ -9,16 +9,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
 
-import { BASE_URL } from '@/utils/environment';
+import { RootState } from '../../store/root-reducer';
 import useNetworkStatus from '@/utils/networkUtills';
 import ToastPopUp from '@/utils/Toast.android';
 
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Header from '../../Components/Header/Header';
-import { type RootState } from '../../store/root-reducer';
 import { loginActions } from '../../store/slices/Login/login.slice';
 import { colors } from '../../theme/colors';
 import { mobileSignInFormValidation } from '../../utils/formValidation';
@@ -32,9 +30,6 @@ interface ISignInFormDataProps {
 
 const Login: FC = () => {
   // yup validation with react-hook-form
-
-  // const [login, { data, loading: isLoading, error }] = useMutation(LOGIN_MUTATION);
-
   const {
     control,
     handleSubmit,
@@ -42,8 +37,8 @@ const Login: FC = () => {
   } = useForm<ISignInFormDataProps>({
     resolver: yupResolver(mobileSignInFormValidation),
     defaultValues: {
-      mobile: '013579',
-      password: '001122'
+      mobile: '',
+      password: ''
     }
   });
 
@@ -59,31 +54,7 @@ const Login: FC = () => {
       if (!isInternetReachable && !isCellularConnection) {
         ToastPopUp('Please Check Internet Connection!..');
       } else {
-        dispatch(loginActions.startLogin());
-
-        const response = await axios.post(BASE_URL, {
-          query: `
-            mutation Login {
-              login(mobileNumber: "233579111", password: "00112233") {
-                 user{
-                        fullName
-                        email
-                      }
-                    accessToken
-              }
-            }
-          `
-        });
-
-        if (response.data.data === null) {
-          ToastPopUp('Invalid User Name OR Password');
-          dispatch(loginActions.loginFailure());
-        } else {
-          const res = response.data.data.login;
-          const payload = { response: { res } };
-          dispatch(loginActions.loginSuccess(payload));
-          ToastPopUp('Login Successfully. ');
-        }
+        dispatch(loginActions.login({ request: formData }));
       }
     } catch (err) {
       console.error('error', err);
