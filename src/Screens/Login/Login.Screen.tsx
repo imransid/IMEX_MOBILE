@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
+import { updateFirstTimeQrScreen } from '@/store/slices/settings/slice';
 import { BASE_URL } from '@/utils/environment';
 import useNetworkStatus from '@/utils/networkUtills';
 import ToastPopUp from '@/utils/Toast.android';
@@ -42,8 +43,8 @@ const Login: FC = () => {
   } = useForm<ISignInFormDataProps>({
     resolver: yupResolver(mobileSignInFormValidation),
     defaultValues: {
-      mobile: '013579',
-      password: '001122'
+      mobile: '',
+      password: ''
     }
   });
 
@@ -64,7 +65,7 @@ const Login: FC = () => {
         const response = await axios.post(BASE_URL, {
           query: `
             mutation Login {
-              login(mobileNumber: "233579111", password: "00112233") {
+              login(mobileNumber: "${formData.mobile}", password: "${formData.password}") {
                  user{
                         fullName
                         email
@@ -82,6 +83,7 @@ const Login: FC = () => {
           const res = response.data.data.login;
           const payload = { response: { res } };
           dispatch(loginActions.loginSuccess(payload));
+          dispatch(updateFirstTimeQrScreen());
           ToastPopUp('Login Successfully. ');
         }
       }
