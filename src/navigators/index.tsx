@@ -3,7 +3,8 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { type RootState } from '../store/root-reducer';
+import { RootState } from '../store/root-reducer';
+
 import { checkingLoader } from '../store/slices/settings/slice';
 
 import AuthStackNav from './AuthStackNavigator';
