@@ -132,7 +132,8 @@ const GuestStackNavigator: any = () => {
           options={{
             ...defaultHeaderOptions,
             headerShown,
-            headerTitle: title
+            headerTitle: title,
+            headerTitleAlign: 'center'
           }}
         />
       ))}

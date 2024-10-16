@@ -128,7 +128,8 @@ const UserStackNavigator: FC = () => {
           options={{
             ...defaultHeaderOptions,
             headerShown,
-            headerTitle: title
+            headerTitle: title,
+            headerTitleAlign: 'center'
           }}
         />
       ))}

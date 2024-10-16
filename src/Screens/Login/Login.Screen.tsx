@@ -22,6 +22,8 @@ import { colors } from '../../theme/colors';
 import { mobileSignInFormValidation } from '../../utils/formValidation';
 
 import styles from './style';
+import { useMutation } from '@apollo/client';
+import { LOGIN_MUTATION } from '../../mutations/login_mutation';
 
 interface ISignInFormDataProps {
   mobile: string;
@@ -48,12 +50,26 @@ const Login: FC = () => {
 
   const loading = useSelector((state: RootState) => state.users.user.isLoading);
 
+  // using the login mutation
+  const [login, { data, loading: mutationLoading, error }] = useMutation(LOGIN_MUTATION);
+
   // SignIn handler
   const handleSignIn: SubmitHandler<ISignInFormDataProps> = async formData => {
     try {
       if (!isInternetReachable && !isCellularConnection) {
         ToastPopUp('Please Check Internet Connection!..');
       } else {
+        const response = await login({
+          variables: {
+            mobileNumber: formData.mobile,
+            password: formData.password
+          }
+        });
+        if (response?.data?.login) {
+          const { accessToken, user } = response.data.login;
+          console.log('Access Token:', accessToken);
+          console.log('User:', user.fullName);
+        }
         dispatch(getUserAction(formData));
       }
     } catch (err) {

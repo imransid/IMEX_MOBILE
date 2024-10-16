@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 import { type LoginResponse } from '@/store/types/types';
-import { BASE_URL, SIGN_IN_URL } from '@/utils/environment';
+import { BASE_URL} from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
-const apiUrl = BASE_URL + '/' + SIGN_IN_URL;
+const apiUrl = BASE_URL;
 
 interface IPayload {
   mobile: string;

@@ -8,6 +8,7 @@ import { settingSlice } from '../slices/features/settings/slice';
 import { usersSlice } from '../slices/features/users/slice';
 import { type AccessTokenInfo } from '../types/types';
 const { call } = Effects;
+
 interface IGetUserActionPayload {
   payload: {
     mobile: string;
@@ -29,7 +30,7 @@ export function* loginSaga(
       yield put(settingSlice.actions.updateFirstTimeQrScreen());
     } else {
       // case undefined
-      const data = 'Cridentials did not match. Please try again.';
+      const data = 'Invalid Mobile Number or Password. Please try again.';
       ToastPopUp(data);
       // yield put(stopLoader());
       yield put(usersSlice.actions.getUserErrorAction('Login failed')); // Handle error case
