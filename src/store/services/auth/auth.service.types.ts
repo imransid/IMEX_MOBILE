@@ -1,18 +1,16 @@
 export interface LoginRequest {
-    mobile: string;
-    password: string;
-  }
-  
-  interface ILogin {
-    name: string;
-    token: string;
-  }
-  
-  export interface LoginResponse {
-    login: ILogin;
-  }
-  
-  export interface Token {
-    accessToken: string;
-  }
-  
+  mobile: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  user: {
+    fullName: string;
+    email: string;
+  };
+  accessToken: string;
+}
+
+export interface Token {
+  accessToken: string;
+}

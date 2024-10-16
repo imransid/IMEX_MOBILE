@@ -1,12 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { FetchStatusEnum } from "../../services/fetch.type";
+import { createSlice } from '@reduxjs/toolkit';
 
+import { FetchStatusEnum } from '../../services/fetch.type';
 import {
-  LoginSliceStateType,
-  LoginActionType,
-  LoginSuccessActionType,
-  LoginFailureActionType,
-} from "../../slices/Login/login.types";
+  type LoginSliceStateType,
+  type LoginSuccessActionType
+} from '../../slices/Login/login.types';
 
 const initState: LoginSliceStateType = {
   loginFetchStatus: FetchStatusEnum.IDLE,
@@ -14,38 +12,36 @@ const initState: LoginSliceStateType = {
   loginResponse: undefined,
   isLoading: false,
   user: undefined,
-  loginStatus: false,
+  loginStatus: false
 };
 
 const loginSlice = createSlice({
-  name: "login",
+  name: 'login',
   initialState: initState,
   reducers: {
     resetAllState: () => ({ ...initState }),
 
-    login: (state, _action: LoginActionType) => {
-      state.loginFetchStatus = FetchStatusEnum.FETCHING;
-      state.loginError = "";
-      state.isLoading = true
-    },
     loginSuccess: (state, action: LoginSuccessActionType) => {
       state.loginFetchStatus = FetchStatusEnum.SUCCESS;
       state.loginStatus = true;
-      state.user = action.payload.response as any;
+      state.user = action.payload.response;
       state.loginResponse = action.payload.response;
-      state.isLoading = false
+      state.isLoading = false;
     },
-    loginFailure: (state, action: LoginFailureActionType) => {
-      state.loginFetchStatus = FetchStatusEnum.FAILURE;
-      state.loginError = action.payload.error;
+    loginFailure: state => {
       state.loginStatus = false;
-      state.isLoading = false
+      state.isLoading = false;
+    },
+    startLogin: state => {
+      state.isLoading = false;
+    },
+    stopLoader: state => {
+      state.isLoading = false;
     },
     resetLogin: () => {
       return initState;
-    },
-    logout: () => {},
-  },
+    }
+  }
 });
 
 export const loginActions = loginSlice.actions;
