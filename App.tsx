@@ -7,10 +7,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import Navigator from './src/navigators';
 import SplashScreen from './src/Screens/SplashScreen/Splash.Screen';
-import { store, persistor } from './src/store/store';
+import { persistor, store } from './src/store';
 import database from './src/store/database';
-import { ApolloProvider } from '@apollo/client';
-import client from './src/store/apolloClient';
 
 const theme = {
   ...DefaultTheme,
@@ -41,11 +39,11 @@ const App: FC = () => {
   return (
     <StoreProvider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ApolloProvider client={client}>
-          <PaperProvider theme={theme}>
+        <PaperProvider theme={theme}>
+          <DatabaseProvider database={database}>
             {isLoading ? <SplashScreen /> : <Navigator />}
-          </PaperProvider>
-        </ApolloProvider>
+          </DatabaseProvider>
+        </PaperProvider>
       </PersistGate>
     </StoreProvider>
   );

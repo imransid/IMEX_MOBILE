@@ -3,17 +3,17 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { RootState } from '../store/root-reducer';
+import { type RootState } from '@/store';
 
-import { checkingLoader } from '../store/slices/settings/slice';
+import { checkingLoader } from '../store/slices/features/settings/slice';
 
 import AuthStackNav from './AuthStackNavigator';
 import GuestStackNavigator from './GuestStackNavigator';
 import UserStackNavigator from './UserStackNavigator';
 
 const Navigator: FC = () => {
-  const authStatus = useSelector((state: RootState) => state.login.loginStatus);
-  const globalLoaderStatus = useSelector((state: RootState) => state.login.isLoading);
+  const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
+  const globalLoaderStatus = useSelector((state: RootState) => state.settings.isLoading);
   const appLoadFirstTime = useSelector((state: RootState) => state.settings.appLoadFirstTime);
   const dispatch = useDispatch();
 

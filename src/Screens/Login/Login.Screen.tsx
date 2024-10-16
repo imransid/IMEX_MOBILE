@@ -10,14 +10,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 
-import { RootState } from '../../store/root-reducer';
+import { type RootState } from '@/store';
 import useNetworkStatus from '@/utils/networkUtills';
 import ToastPopUp from '@/utils/Toast.android';
 
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Header from '../../Components/Header/Header';
-import { loginActions } from '../../store/slices/Login/login.slice';
+import { getUserAction } from '../../store/slices/features/users/slice';
 import { colors } from '../../theme/colors';
 import { mobileSignInFormValidation } from '../../utils/formValidation';
 
@@ -46,7 +46,7 @@ const Login: FC = () => {
   const navigation = useNavigation();
   const { isInternetReachable, isCellularConnection } = useNetworkStatus();
 
-  const loading = useSelector((state: RootState) => state.login.isLoading);
+  const loading = useSelector((state: RootState) => state.users.user.isLoading);
 
   // SignIn handler
   const handleSignIn: SubmitHandler<ISignInFormDataProps> = async formData => {
@@ -54,7 +54,7 @@ const Login: FC = () => {
       if (!isInternetReachable && !isCellularConnection) {
         ToastPopUp('Please Check Internet Connection!..');
       } else {
-        dispatch(loginActions.login({ request: formData }));
+        dispatch(getUserAction(formData));
       }
     } catch (err) {
       console.error('error', err);
