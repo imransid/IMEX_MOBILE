@@ -37,4 +37,4 @@ export const {
   updateFirstTimeQrScreen
 } = settingSlice.actions;
 
-export default settingSlice.reducer;
+export const settingsReducer = settingSlice.reducer;
