@@ -5,6 +5,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+
+import { BASE_URL } from '@/utils/environment';
+import ToastPopUp from '@/utils/Toast.android';
 
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
@@ -12,18 +16,6 @@ import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
-// import { useForm } from 'react-hook-form';
-// import { createAccountFormValidation } from '../../utils/formValidation';
-// import { yupResolver } from '@hookform/resolvers/yup';
-
-// interface ICreateAccountDataProps {
-//   fullName: string;
-//   mobile: string;
-//   email: string;
-//   password: string;
-//   gender: string;
-//   birthDate: string;
-// }
 
 const CreateAccount: FC = () => {
   const navigation = useNavigation();
@@ -52,8 +44,57 @@ const CreateAccount: FC = () => {
   //   }
   // });
 
-  const handleSignUp: any = () => {
-    navigation.navigate('MedicineDoses' as never);
+  const handleSignUp: any = async (): Promise<void> => {
+    const registerInput = {
+      fullName,
+      mobileNumber: mobile,
+      email,
+      gender,
+      birthday: birthdate,
+      password
+    };
+
+    try {
+      const response: any = await axios.post(BASE_URL, {
+        query: `
+          mutation {
+            register(registerInput: {
+              fullName: "${registerInput.fullName}",
+              mobileNumber: "${registerInput.mobileNumber}",
+              password: "${registerInput.password}",
+              email: "${registerInput.email}",
+              gender: "${registerInput.gender}",
+              birthday: "${registerInput.birthday}"
+            }) {
+              message
+            }
+          }
+        `
+      });
+
+      // Check if registration was successful
+      if (
+        response?.data?.data?.register?.message !== undefined &&
+        response.data.data.register.message !== null
+      ) {
+        ToastPopUp(response.data.data.register.message);
+        // Navigate to the next screen
+        navigation.navigate('MedicineDoses' as never);
+      }
+
+      // else if ('response?.data?.errors?.length' === typeof ) {
+      //   // Show error message from the response
+      //   const errorMessage: any = response?.data?.errors[0]?.message;
+      //   if (typeof errorMessage === 'string') {
+      //     ToastPopUp(errorMessage);
+      //   }
+      // }
+      else {
+        ToastPopUp('Something Went wrong ! please try again later.');
+      }
+    } catch (err) {
+      console.error('Error in registration:', err);
+    }
   };
 
   const handleSignIn: any = () => {
