@@ -26,6 +26,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION } from '../../mutations/login_mutation';
 import axios from 'axios';
 import { BASE_URL } from '../../utils/environment';
+import { updateFirstTimeQrScreen } from '@/store/slices/features/settings/slice';
 
 interface ISignInFormDataProps {
   mobile: string;
@@ -53,7 +54,7 @@ const Login: FC = () => {
   const loading = useSelector((state: RootState) => state.users.user.isLoading);
 
   // using the login mutation
-  const [login, { data, loading: mutationLoading, error }] = useMutation(LOGIN_MUTATION);
+  //const [login, { data, loading: mutationLoading, error }] = useMutation(LOGIN_MUTATION);
 
   // SignIn handler
   const handleSignIn: SubmitHandler<ISignInFormDataProps> = async formData => {
@@ -63,7 +64,7 @@ const Login: FC = () => {
       } else {
         const response: any = await axios.post(BASE_URL, {
           query: `
-            mutation Login($mobileNumber: String!, $password: String!) {
+            mutation login($mobileNumber: String!, $password: String!) {
                 login(mobileNumber: $mobileNumber, password: $password) {
                   accessToken
                   user {
@@ -71,7 +72,11 @@ const Login: FC = () => {
                 }
               }
             }
-          `
+          `,
+          variables: {
+            mobileNumber: formData.mobile,
+            password: formData.password
+          }
         });
 
         // check if login is successful
