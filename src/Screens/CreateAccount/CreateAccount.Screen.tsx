@@ -80,16 +80,13 @@ const CreateAccount: FC = () => {
         ToastPopUp(response.data.data.register.message);
         // Navigate to the next screen
         navigation.navigate('MedicineDoses' as never);
-      }
-
-      // else if ('response?.data?.errors?.length' === typeof ) {
-      //   // Show error message from the response
-      //   const errorMessage: any = response?.data?.errors[0]?.message;
-      //   if (typeof errorMessage === 'string') {
-      //     ToastPopUp(errorMessage);
-      //   }
-      // }
-      else {
+      } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
+        // Show error message from the response
+        const errorMessage: any = response?.data?.errors[0]?.message;
+        if (typeof errorMessage === 'string') {
+          ToastPopUp(errorMessage);
+        }
+      } else {
         ToastPopUp('Something Went wrong ! please try again later.');
       }
     } catch (err) {
