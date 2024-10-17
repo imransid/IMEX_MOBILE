@@ -47,4 +47,4 @@ export const usersSlice = createSlice({
 export const { getUserAction, getUserErrorAction, getUserSuccessAction, logoutUser } =
   usersSlice.actions;
 
-export default usersSlice.reducer;
+export const usersReducer = usersSlice.reducer;
