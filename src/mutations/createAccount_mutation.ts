@@ -3,14 +3,6 @@ import { gql } from '@apollo/client';
 export const CREATE_ACCOUNT_MUTATION = gql`
   mutation RegisterUser($registerInput: RegisterDto!) {
     register(registerInput: $registerInput) {
-      user {
-        id
-        fullName
-        email
-        mobileNumber
-        gender
-        birthday
-      }
       error {
         message
         code
@@ -18,3 +10,13 @@ export const CREATE_ACCOUNT_MUTATION = gql`
     }
   }
 `;
+
+// import { gql } from '@apollo/client';
+
+// export const CREATE_ACCOUNT_MUTATION = gql`
+//   mutation Register($registerInput: RegisterInput!) {
+//     register(registerInput: $registerInput) {
+//       message
+//     }
+//   }
+// `;
