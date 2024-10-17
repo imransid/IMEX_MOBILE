@@ -16,6 +16,9 @@ import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { createAccountFormValidation } from '../../utils/formValidation';
 
 const CreateAccount: FC = () => {
   const navigation = useNavigation();
@@ -27,31 +30,41 @@ const CreateAccount: FC = () => {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
 
+  // interface for creat account
+  interface ICreateAccountDataProps {
+    fullName: string;
+    mobile: string;
+    email: string;
+    password: string;
+    gender: string;
+    birthDate: string;
+  }
+
   // yup validation with react-hook-form
-  // const {
-  //   control,
-  //   handleSubmit,
-  //   formState: { errors }
-  // } = useForm<ICreateAccountDataProps>({
-  //   resolver: yupResolver(createAccountFormValidation),
-  //   defaultValues: {
-  //     fullName: '',
-  //     mobile: '',
-  //     email: '',
-  //     password: '',
-  //     gender: '',
-  //     birthDate: ''
-  //   }
-  // });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<ICreateAccountDataProps>({
+    resolver: yupResolver(createAccountFormValidation),
+    defaultValues: {
+      fullName: '',
+      mobile: '',
+      email: '',
+      password: '',
+      gender: '',
+      birthDate: ''
+    }
+  });
 
   const handleSignUp: any = async (): Promise<void> => {
     const registerInput = {
-      fullName,
+      fullName: fullName,
       mobileNumber: mobile,
-      email,
-      gender,
+      email: email,
+      gender: gender,
       birthday: birthdate,
-      password
+      password: password
     };
 
     try {
@@ -107,100 +120,169 @@ const CreateAccount: FC = () => {
         <View style={styles.textInputComponentPosition}>
           <View style={styles.textInputComponentProperties}>
             <Text style={styles.inputHeader}>Full Name</Text>
-            <CustomTextInput
-              type="email"
-              value={fullName}
-              onChangeText={setFullName}
-              placeholder="Enter your full name..."
-              maxLength={18}
-              inputStyle={styles.inputText}
-              leftIcon={<AntDesign name="user" size={25} color={'#888888'} />} // Left icon
+            <Controller
+              control={control}
+              name="fullName"
+              render={({ field: { onChange, value } }) => (
+                <CustomTextInput
+                  type="email"
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder="Enter your full name..."
+                  inputStyle={styles.inputText}
+                  leftIcon={<AntDesign name="user" size={25} color={'#888888'} />} // Left icon
+                />
+              )}
             />
+            {errors.fullName != null && (
+              <Text style={styles.errorTxt}>{errors.fullName.message}</Text>
+            )}
           </View>
+
           <View style={styles.textInputComponentProperties}>
             <Text style={styles.inputHeader}>Mobile Number</Text>
-            <CustomTextInput
-              type="mobile"
-              value={mobile}
-              onChangeText={setMobile}
-              placeholder="Enter your mobile number..."
-              maxLength={11}
-              inputStyle={styles.inputText}
-              leftIcon={<Feather name="smartphone" size={25} color={'#888888'} />}
+            <Controller
+              control={control}
+              name="mobile"
+              render={({ field: { onChange, value } }) => (
+                <CustomTextInput
+                  type="mobile"
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder="Enter your mobile number..."
+                  inputStyle={styles.inputText}
+                  leftIcon={<Feather name="smartphone" size={25} color={'#888888'} />}
+                />
+              )}
             />
+            {errors.mobile != null && <Text style={styles.errorTxt}>{errors.mobile.message}</Text>}
           </View>
+
           <View style={styles.textInputComponentProperties}>
             <Text style={styles.inputHeader}>Email Address</Text>
-            <CustomTextInput
-              type="email"
-              value={email}
-              onChangeText={setEmail}
-              placeholder="Enter your email address..."
-              maxLength={20}
-              inputStyle={styles.inputText}
-              leftIcon={<MaterialCommunityIcons name="email-outline" size={28} color={'#888888'} />}
+            <Controller
+              control={control}
+              name="email"
+              render={({ field: { onChange, value } }) => (
+                <CustomTextInput
+                  type="email"
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder="Enter your email address..."
+                  inputStyle={styles.inputText}
+                  leftIcon={
+                    <MaterialCommunityIcons name="email-outline" size={28} color={'#888888'} />
+                  }
+                />
+              )}
             />
+            {errors.email != null && <Text style={styles.errorTxt}>{errors.email.message}</Text>}
           </View>
+
           <View style={styles.textInputComponentProperties}>
             <Text style={styles.inputHeader}>Password</Text>
-            <CustomTextInput
-              type="password"
-              value={password}
-              onChangeText={setPassword}
-              placeholder="Enter your password..."
-              maxLength={8}
-              inputStyle={styles.inputText}
-              isPassword={true}
-              leftIcon={<MaterialCommunityIcons name="lock-outline" size={25} color={'#888888'} />} // Left icon
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange, value } }) => (
+                <CustomTextInput
+                  type="password"
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder="Enter your password..."
+                  inputStyle={styles.inputText}
+                  isPassword
+                  isError={Boolean(errors.password)}
+                  leftIcon={
+                    <MaterialCommunityIcons name="lock-outline" size={25} color="#888888" />
+                  }
+                />
+              )}
             />
+            {errors.password != null && (
+              <Text style={styles.errorTxt}>{errors.password.message}</Text>
+            )}
           </View>
+
           <View style={styles.textInputComponentProperties}>
             <Text style={styles.inputHeader}>Confirm Password</Text>
-            <CustomTextInput
-              type="password"
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              placeholder="Enter your password..."
-              maxLength={8}
-              inputStyle={styles.inputText}
-              isPassword={true}
-              leftIcon={<MaterialCommunityIcons name="lock-outline" size={25} color={'#888888'} />} // Left icon
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange, value } }) => (
+                <CustomTextInput
+                  type="password"
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder="Enter your password..."
+                  inputStyle={styles.inputText}
+                  isPassword
+                  isError={Boolean(errors.password)}
+                  leftIcon={
+                    <MaterialCommunityIcons name="lock-outline" size={25} color="#888888" />
+                  }
+                />
+              )}
             />
+            {errors.password != null && (
+              <Text style={styles.errorTxt}>{errors.password.message}</Text>
+            )}
           </View>
+
           <View style={styles.textInputComponentProperties}>
             <Text style={styles.inputHeader}>Gender</Text>
-            <CustomTextInput
-              type="email"
-              value={gender}
-              onChangeText={setGender}
-              placeholder="Enter your gender..."
-              maxLength={8}
-              inputStyle={styles.inputText}
-              leftIcon={<MaterialCommunityIcons name="gender-male" size={25} color={'#888888'} />} // Left icon
+            <Controller
+              control={control}
+              name="gender"
+              render={({ field: { onChange, value } }) => (
+                <CustomTextInput
+                  type="email"
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder="Enter your gender..."
+                  inputStyle={styles.inputText}
+                  leftIcon={
+                    <MaterialCommunityIcons name="gender-male" size={25} color={'#888888'} />
+                  } // Left icon
+                />
+              )}
             />
+            {errors.gender != null && <Text style={styles.errorTxt}>{errors.gender.message}</Text>}
           </View>
+
           <View style={styles.textInputComponentProperties}>
             <Text style={styles.inputHeader}>Birth Date</Text>
-            <CustomTextInput
-              type="email"
-              value={birthdate}
-              onChangeText={setBirthdate}
-              placeholder="Enter your birth date..."
-              maxLength={10}
-              inputStyle={styles.inputText}
-              leftIcon={<AntDesign name="calendar" size={25} color={'#888888'} />} // Left icon
+            <Controller
+              control={control}
+              name="birthDate"
+              render={({ field: { onChange, value } }) => (
+                <CustomTextInput
+                  type="email"
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder="Enter your birth date..."
+                  inputStyle={styles.inputText}
+                  leftIcon={<AntDesign name="calendar" size={25} color={'#888888'} />} // Left icon
+                />
+              )}
             />
+            {errors.birthDate != null && (
+              <Text style={styles.errorTxt}>{errors.birthDate.message}</Text>
+            )}
           </View>
         </View>
 
         <View style={styles.SignInbuttonPosition}>
           <CustomButton
-            onPress={handleSignUp}
+            onPress={() => {
+              void handleSubmit(handleSignUp)();
+            }}
             icon={<AntDesign name="arrowright" size={25} color={colors.white} />}
             text="Sign In"
           />
         </View>
-        <View style={styles.signUpWithPartPosition}>
+
+        {/* <View style={styles.signUpWithPartPosition}>
           <View style={styles.signUpWithPart}>
             <View style={styles.signUpWithHorizontalLine}></View>
             <Text style={styles.signUpWithText}>Sign Up With</Text>
@@ -223,7 +305,8 @@ const CreateAccount: FC = () => {
               <FontAwesome name="instagram" size={25} color={colors.buttonBg}></FontAwesome>
             </View>
           </TouchableOpacity>
-        </View>
+        </View> */}
+
         <View style={styles.askAboutAccount}>
           <Text style={styles.askAboutAccountText}>Already have an account? {'  '}</Text>
           <TouchableOpacity onPress={handleSignIn}>
