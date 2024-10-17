@@ -7,7 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
-import { BASE_URL } from '@/utils/environment';
+import { BASE_URL } from '../../utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
 
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -22,13 +22,12 @@ import { createAccountFormValidation } from '../../utils/formValidation';
 
 const CreateAccount: FC = () => {
   const navigation = useNavigation();
-  const [fullName, setFullName] = useState<string>('');
-  const [mobile, setMobile] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [gender, setGender] = useState<string>('');
-  const [birthdate, setBirthdate] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [fullName] = useState<string>('');
+  const [mobile] = useState<string>('');
+  const [email] = useState<string>('');
+  const [gender] = useState<string>('');
+  const [birthday] = useState<string>('');
+  const [password] = useState<string>('');
 
   // interface for creat account
   interface ICreateAccountDataProps {
@@ -63,7 +62,7 @@ const CreateAccount: FC = () => {
       mobileNumber: mobile,
       email: email,
       gender: gender,
-      birthday: birthdate,
+      birthday: birthday,
       password: password
     };
 

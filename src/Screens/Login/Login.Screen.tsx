@@ -24,6 +24,8 @@ import { mobileSignInFormValidation } from '../../utils/formValidation';
 import styles from './style';
 import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION } from '../../mutations/login_mutation';
+import axios from 'axios';
+import { BASE_URL } from '../../utils/environment';
 
 interface ISignInFormDataProps {
   mobile: string;
@@ -59,18 +61,36 @@ const Login: FC = () => {
       if (!isInternetReachable && !isCellularConnection) {
         ToastPopUp('Please Check Internet Connection!..');
       } else {
-        const response = await login({
-          variables: {
-            mobileNumber: formData.mobile,
-            password: formData.password
-          }
+        const response: any = await axios.post(BASE_URL, {
+          query: `
+            mutation Login($mobileNumber: String!, $password: String!) {
+                login(mobileNumber: $mobileNumber, password: $password) {
+                  accessToken
+                  user {
+                    fullName
+                }
+              }
+            }
+          `
         });
-        if (response?.data?.login) {
-          const { accessToken, user } = response.data.login;
-          console.log('Access Token:', accessToken);
-          console.log('User:', user.fullName);
+
+        // check if login is successful
+        if (
+          response?.data?.data?.login?.message !== undefined &&
+          response.data.data.login.message !== null
+        ) {
+          ToastPopUp(response.data.data.login.message);
+          // Navigate to the next screen
+          navigation.navigate('UserDrawer' as never);
+        } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
+          // Show error message from the response
+          const errorMessage: any = response?.data?.errors[0]?.message;
+          if (typeof errorMessage === 'string') {
+            ToastPopUp(errorMessage);
+          }
+        } else {
+          ToastPopUp('Something Went wrong ! please try again later.');
         }
-        dispatch(getUserAction(formData));
       }
     } catch (err) {
       console.error('error', err);
