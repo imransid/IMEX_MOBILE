@@ -130,6 +130,7 @@ const CreateAccount: FC = () => {
                   onChangeText={onChange}
                   placeholder="Enter your full name..."
                   inputStyle={styles.inputText}
+                  isError={Boolean(errors.fullName)}
                   leftIcon={<AntDesign name="user" size={25} color={'#888888'} />} // Left icon
                 />
               )}
@@ -151,6 +152,7 @@ const CreateAccount: FC = () => {
                   onChangeText={onChange}
                   placeholder="Enter your mobile number..."
                   inputStyle={styles.inputText}
+                  isError={Boolean(errors.mobile)}
                   leftIcon={<Feather name="smartphone" size={25} color={'#888888'} />}
                 />
               )}
@@ -170,6 +172,7 @@ const CreateAccount: FC = () => {
                   onChangeText={onChange}
                   placeholder="Enter your email address..."
                   inputStyle={styles.inputText}
+                  isError={Boolean(errors.email)}
                   leftIcon={
                     <MaterialCommunityIcons name="email-outline" size={28} color={'#888888'} />
                   }
@@ -241,6 +244,7 @@ const CreateAccount: FC = () => {
                   onChangeText={onChange}
                   placeholder="Enter your gender..."
                   inputStyle={styles.inputText}
+                  isError={Boolean(errors.gender)}
                   leftIcon={
                     <MaterialCommunityIcons name="gender-male" size={25} color={'#888888'} />
                   } // Left icon
@@ -262,6 +266,7 @@ const CreateAccount: FC = () => {
                   onChangeText={onChange}
                   placeholder="Enter your birth date..."
                   inputStyle={styles.inputText}
+                  isError={Boolean(errors.birthDate)}
                   leftIcon={<AntDesign name="calendar" size={25} color={'#888888'} />} // Left icon
                 />
               )}
