@@ -111,11 +111,10 @@ const Login: FC = () => {
             name="mobile"
             render={({ field: { onChange, value } }) => (
               <CustomTextInput
-                type="email"
+                type="mobile"
                 value={value}
                 onChangeText={onChange}
                 placeholder="Enter your mobile number..."
-                maxLength={11}
                 inputStyle={styles.inputText}
                 isError={Boolean(errors.mobile)} // Pass isError prop
                 leftIcon={<Feather name="smartphone" size={25} color="#888888" />}
@@ -137,7 +136,6 @@ const Login: FC = () => {
                 value={value}
                 onChangeText={onChange}
                 placeholder="Enter your password..."
-                maxLength={8}
                 inputStyle={styles.inputText}
                 isPassword
                 isError={Boolean(errors.password)}

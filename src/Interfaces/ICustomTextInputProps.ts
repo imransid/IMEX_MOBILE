@@ -7,7 +7,7 @@ interface ICustomTextInputProps extends TextInputProps {
   onChangeText: (text: string) => void;
   placeholder?: string;
   placeholderTextColor?: string;
-  maxLength: number;
+  maxLength?: number;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   inputStyle?: StyleProp<TextStyle>;
