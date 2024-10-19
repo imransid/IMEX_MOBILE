@@ -2,19 +2,22 @@ import React, { type FC, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+
+import { setExtraInstrucTion } from '@/store/slices/features/medicineDetailsExtraSetting/slice';
 
 import AddInstructionsLogo from '../../assets/add-instructions';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Header from '../../Components/Header/Header';
+import SetInstructionsModal from '../../Components/SetInstructionsModal/SetInstructionsModal';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
 
-import SetInstructionsModal from '../../Components/SetInstructionsModal/SetInstructionsModal';
-
 const AddInstructions: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [instruction, setInstruction] = useState('');
   const [open, setOpen] = useState(false); // for instruction picker
   const [tempInstruction, setTempInstruction] = useState('');
@@ -28,6 +31,7 @@ const AddInstructions: FC = () => {
   };
 
   const okPress: any = () => {
+    dispatch(setExtraInstrucTion({ instrucTion: tempInstruction }));
     setInstruction(tempInstruction);
     setOpen(false);
   };

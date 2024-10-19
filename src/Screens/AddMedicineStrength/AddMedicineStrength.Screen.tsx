@@ -2,7 +2,10 @@ import React, { type FC, useState } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+
+import { setStrengthUnit } from '@/store/slices/features/medicineDetails/slice';
 
 import MedicineDoseTime from '../../assets/medicine-dose-time';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -15,11 +18,12 @@ import styles from './style';
 
 const AddMedicineStrength: FC = () => {
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   const [strength, setStrength] = useState<string>('');
   const [selectedUnit, setSelectedUnit] = useState<string>('');
 
   const handleNext: any = () => {
+    dispatch(setStrengthUnit({ strengthMed: strength, unitMed: selectedUnit }));
     navigation.navigate('MedicineType' as never);
   };
 

@@ -2,21 +2,26 @@ import React, { type FC, useState } from 'react';
 import { Text, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Header from '../../Components/Header/Header';
+import { setMedicineName } from '../../store/slices/features/medicineDetails/slice';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
 
 const AddMedicineManually: FC = () => {
   const navigation = useNavigation();
-  const [medicineName, setMedicineName] = useState<string>('');
+  const dispatch = useDispatch();
+  const [medicineName, setMedName] = useState<string>('');
   const handleNext: any = () => {
+    dispatch(setMedicineName({ medicineName }));
     navigation.navigate('AddMedicineStrength' as never);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.headingPosition}>
@@ -28,7 +33,7 @@ const AddMedicineManually: FC = () => {
           <CustomTextInput
             type="email"
             value={medicineName}
-            onChangeText={setMedicineName}
+            onChangeText={setMedName}
             placeholder="Enter your medicine name..."
             maxLength={11}
             inputStyle={styles.inputText}

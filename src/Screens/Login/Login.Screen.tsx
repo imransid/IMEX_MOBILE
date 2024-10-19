@@ -9,24 +9,22 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 import { type RootState } from '@/store';
+import { updateFirstTimeQrScreen } from '@/store/slices/features/settings/slice';
 import useNetworkStatus from '@/utils/networkUtills';
 import ToastPopUp from '@/utils/Toast.android';
 
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Header from '../../Components/Header/Header';
-import { getUserAction } from '../../store/slices/features/users/slice';
+import { getUserSuccessAction } from '../../store/slices/features/users/slice';
 import { colors } from '../../theme/colors';
+import { BASE_URL } from '../../utils/environment';
 import { mobileSignInFormValidation } from '../../utils/formValidation';
 
 import styles from './style';
-import { useMutation } from '@apollo/client';
-import { LOGIN_MUTATION } from '../../mutations/login_mutation';
-import axios from 'axios';
-import { BASE_URL } from '../../utils/environment';
-import { updateFirstTimeQrScreen } from '@/store/slices/features/settings/slice';
 
 interface ISignInFormDataProps {
   mobile: string;
@@ -53,9 +51,6 @@ const Login: FC = () => {
 
   const loading = useSelector((state: RootState) => state.users.user.isLoading);
 
-  // using the login mutation
-  //const [login, { data, loading: mutationLoading, error }] = useMutation(LOGIN_MUTATION);
-
   // SignIn handler
   const handleSignIn: SubmitHandler<ISignInFormDataProps> = async formData => {
     try {
@@ -80,13 +75,13 @@ const Login: FC = () => {
         });
 
         // check if login is successful
-        if (
-          response?.data?.data?.login?.message !== undefined &&
-          response.data.data.login.message !== null
-        ) {
-          ToastPopUp(response.data.data.login.message);
-          // Navigate to the next screen
-          navigation.navigate('UserDrawer' as never);
+        if (response?.data?.data?.login?.accessToken !== undefined) {
+          ToastPopUp('Login successfully.');
+
+          const res = response.data.data.login;
+
+          dispatch(getUserSuccessAction(res));
+          dispatch(updateFirstTimeQrScreen());
         } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
           // Show error message from the response
           const errorMessage: any = response?.data?.errors[0]?.message;

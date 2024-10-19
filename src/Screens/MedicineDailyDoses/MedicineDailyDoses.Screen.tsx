@@ -1,7 +1,10 @@
 import React, { type FC } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+
+import { setTakeStatus } from '@/store/slices/features/medicineDetails/slice';
 
 import DailyDoseLogo from '../../assets/medicine-daily-dose';
 import medicineDailyDoseItems from '../../utils/medicineDailyDoseItems';
@@ -15,10 +18,11 @@ interface timePeriodItemProps {
 
 const MedicineDailyDoses: FC = () => {
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   const RenderItems: React.FC<timePeriodItemProps> = ({ item, index }) => {
     const handlePress: any = () => {
       if (index === 0) {
+        dispatch(setTakeStatus({ takeStatus: item }));
         navigation.navigate('OnceAdayDose' as never);
       } else if (index === 1) {
         navigation.navigate('TwiceAdayDose' as never);

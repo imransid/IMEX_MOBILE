@@ -1,7 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 import { MEDICINE_DETAILS_EXTRA_SETTING } from './constants';
-import { type IMedicineDetailsExtraSettingType } from './types';
+import {
+  type IMedicineDetailsExtraSettingType,
+  type IMedicineReminder,
+  type InstrucTion,
+  type ITreatmentDuration
+} from './types';
 
 const medicineDetailsExtraSettingData: IMedicineDetailsExtraSettingType = {
   instrucTion: '',
@@ -10,7 +15,7 @@ const medicineDetailsExtraSettingData: IMedicineDetailsExtraSettingType = {
   treatmentDurationEndTime: '',
   medicineReminderTotalReq: '',
   medicineReminderCurrentStock: '',
-  medicineReminderRemindToLeft: '',
+  medicineReminderRemindToLeft: ''
 };
 
 export const medicineDetailsExtraSettingSlice = createSlice({
@@ -25,10 +30,37 @@ export const medicineDetailsExtraSettingSlice = createSlice({
       state.medicineReminderTotalReq = '';
       state.medicineReminderCurrentStock = '';
       state.medicineReminderRemindToLeft = '';
+    },
+    setExtraInstrucTion: (
+      state: IMedicineDetailsExtraSettingType,
+      payload: PayloadAction<InstrucTion>
+    ) => {
+      state.instrucTion = payload.payload.instrucTion;
+    },
+    setExtraTreatmentDuration: (
+      state: IMedicineDetailsExtraSettingType,
+      payload: PayloadAction<ITreatmentDuration>
+    ) => {
+      state.treatmentDurationStartTime = payload.payload.treatmentDurationStartTime;
+      state.treatmentDurationEndTime = payload.payload.treatmentDurationEndTime;
+      state.medicineTakeEachDay = payload.payload.medicineTakeEachDay;
+    },
+    setExtraMedicineReminder: (
+      state: IMedicineDetailsExtraSettingType,
+      payload: PayloadAction<IMedicineReminder>
+    ) => {
+      state.treatmentDurationStartTime = payload.payload.medicineReminderCurrentStock;
+      state.treatmentDurationEndTime = payload.payload.medicineReminderTotalReq;
+      state.medicineTakeEachDay = payload.payload.medicineReminderRemindToLeft;
     }
   }
 });
 
-export const { getMedicineDetailsExtraSettingAction } = medicineDetailsExtraSettingSlice.actions;
+export const {
+  getMedicineDetailsExtraSettingAction,
+  setExtraInstrucTion,
+  setExtraTreatmentDuration,
+  setExtraMedicineReminder
+} = medicineDetailsExtraSettingSlice.actions;
 
 export const medicineDetailsExtraSettingReducer = medicineDetailsExtraSettingSlice.reducer;

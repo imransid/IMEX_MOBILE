@@ -97,11 +97,14 @@ export interface LoginResponse {
   result: IResult;
 }
 
-export interface AccessTokenInfo {
-  accessToken: string;
-  tokenType: string;
+interface User {
+  fullName: string;
   email: string;
-  name: string;
+}
+
+export interface AuthResponse {
+  accessToken: string;
+  user: User;
 }
 
 export interface APIQualityTransaction {

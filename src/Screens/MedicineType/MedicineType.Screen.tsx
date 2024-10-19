@@ -2,7 +2,10 @@ import React, { type FC, useState } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+
+import { setMedicineType } from '@/store/slices/features/medicineDetails/slice';
 
 import MedicineDoseTime from '../../assets/medicine-dose-time';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -14,10 +17,11 @@ import styles from './style';
 
 const MedicineType: FC = () => {
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   const [selectedUnit, setSelectedUnit] = useState<string>('');
 
   const handleNext: any = () => {
+    dispatch(setMedicineType({ typeMed: selectedUnit }));
     navigation.navigate('MedicineDoses' as never);
   };
 

@@ -1,7 +1,10 @@
-import React, { type FC } from 'react';
+import React, { type FC, useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+
+import { setExtraMedicineReminder } from '@/store/slices/features/medicineDetailsExtraSetting/slice';
 
 import MedicineReminderLogo from '../../assets/medicine-reminder';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -12,7 +15,20 @@ import styles from './style';
 
 const MedicineReminders: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const [medicineReminderTotalReq, setMedicineReminderTotalReq] = useState('');
+  const [medicineReminderCurrentStock, setMedicineReminderCurrentStock] = useState('');
+  const [medicineReminderRemindToLeft, setMedicineReminderRemindToLeft] = useState('');
+
   const handleNext: any = () => {
+    dispatch(
+      setExtraMedicineReminder({
+        medicineReminderTotalReq,
+        medicineReminderCurrentStock,
+        medicineReminderRemindToLeft
+      })
+    );
     navigation.goBack();
   };
   return (
@@ -38,6 +54,7 @@ const MedicineReminders: FC = () => {
                   autoCorrect={false}
                   keyboardType="numeric"
                   style={styles.medicineInput}
+                  onChangeText={setMedicineReminderTotalReq}
                   maxLength={3}
                 />
                 <Text style={styles.medicineText}>Medicine</Text>
@@ -55,6 +72,7 @@ const MedicineReminders: FC = () => {
                   autoCorrect={false}
                   keyboardType="numeric"
                   style={styles.medicineInput}
+                  onChangeText={setMedicineReminderCurrentStock}
                   maxLength={3}
                 />
                 <Text style={styles.medicineText}>Medicine</Text>
@@ -72,6 +90,7 @@ const MedicineReminders: FC = () => {
                   autoCorrect={false}
                   keyboardType="numeric"
                   style={styles.medicineInput}
+                  onChangeText={setMedicineReminderRemindToLeft}
                   maxLength={3}
                 />
                 <Text style={styles.medicineText}>Medicine</Text>
@@ -81,13 +100,17 @@ const MedicineReminders: FC = () => {
         </View>
       </View>
 
-      <View style={styles.NextbuttonPosition}>
-        <CustomButton
-          onPress={handleNext}
-          icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
-          text="Next"
-        />
-      </View>
+      {medicineReminderTotalReq.trim() !== '' &&
+        medicineReminderCurrentStock.trim() !== '' &&
+        medicineReminderRemindToLeft.trim() !== '' && (
+          <View style={styles.NextbuttonPosition}>
+            <CustomButton
+              onPress={handleNext}
+              icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
+              text="Next"
+            />
+          </View>
+        )}
     </View>
   );
 };

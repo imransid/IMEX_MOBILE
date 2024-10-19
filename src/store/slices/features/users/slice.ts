@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { type AccessTokenInfo } from '@/store/types/types';
+import { type AuthResponse } from '@/store/types/types';
 
 import { USERS } from './constants';
 import { type ILogInPayload, type UsersStateType } from './types';
@@ -29,7 +29,7 @@ export const usersSlice = createSlice({
       state.user.isLoading = false;
       state.user.errors = error;
     },
-    getUserSuccessAction: (state: UsersStateType, payload: PayloadAction<AccessTokenInfo>) => {
+    getUserSuccessAction: (state: UsersStateType, payload: PayloadAction<AuthResponse>) => {
       state.user.isLoading = false;
       state.user.data = payload.payload;
       state.user.loginStatus = true;

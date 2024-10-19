@@ -5,7 +5,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+
+import { setDoseQuantity, setDoseTime } from '@/store/slices/features/medicineDetails/slice';
 
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -17,7 +20,7 @@ import styles from './style';
 
 const OnceAdayDose: FC = () => {
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(Array(1).fill(''));
   const [doses, setDoses] = useState<number[]>(Array(1).fill(0));
@@ -55,6 +58,9 @@ const OnceAdayDose: FC = () => {
 
   const handleSubmit: any = (inputValue: number) => {
     if (selectedChip !== null) {
+      dispatch(setDoseQuantity({ doseQuantity: inputValue.toString() }));
+
+      // setDoseQuantity
       setDoses(prevDoses => {
         const newDoses = [...prevDoses];
         newDoses[selectedChip] = inputValue;
@@ -163,6 +169,7 @@ const OnceAdayDose: FC = () => {
                 hour12: true
               }).format(new Date(date));
               if (selectedChip !== null) {
+                dispatch(setDoseTime({ doseTime: timeStr }));
                 setTimes(prevTimes => {
                   const newTimes = [...prevTimes];
                   newTimes[selectedChip] = timeStr;

@@ -5,21 +5,24 @@ import { ScrollView } from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
+
+import { setAppointment } from '@/store/slices/features/appointment/slice';
 
 import DoctorAppointmentsLogo from '../../assets/doctor-appointments';
 import CalendarModal from '../../Components/CalendarModal/CalenderModal';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Header from '../../Components/Header/Header';
+import SetReminderModal from '../../Components/SetReminderModal/SetReminderModal';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
-import SetReminderModal from '../../Components/SetReminderModal/SetReminderModal';
 
 const DoctorAppointments: FC = () => {
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   const [dateModalOpen, setDateModalOpen] = useState(false);
   const [date, setDate] = useState('');
   const [time, setTime] = useState(new Date()); // time setting
@@ -27,6 +30,8 @@ const DoctorAppointments: FC = () => {
   const [open, setOpen] = useState(false); // for time picker
   const [reminder, setReminder] = useState('');
   const [tempReminder, setTempReminder] = useState('');
+  const [location, setLocation] = useState('');
+  const [doctorName, setDoctorName] = useState('');
   const [openReminderModal, setOpenReminderModal] = useState(false); // for set reminder
 
   const handleSetDate: any = (date: string) => {
@@ -34,6 +39,15 @@ const DoctorAppointments: FC = () => {
     setDate(formattedDate);
   };
   const handleNext: any = () => {
+    dispatch(
+      setAppointment({
+        date,
+        time: selectedTime,
+        doctorName,
+        location,
+        setReminder: reminder
+      })
+    );
     navigation.navigate('OnceAdayDose' as never);
   };
   const handleSelectTime: any = () => {
@@ -113,6 +127,7 @@ const DoctorAppointments: FC = () => {
                 <TextInput
                   autoCapitalize="none"
                   autoCorrect={false}
+                  onChangeText={setDoctorName}
                   keyboardType="default"
                   style={styles.nameInput}
                   maxLength={10}
@@ -131,6 +146,7 @@ const DoctorAppointments: FC = () => {
                   autoCapitalize="none"
                   autoCorrect={false}
                   keyboardType="default"
+                  onChangeText={setLocation}
                   style={styles.nameInput}
                   maxLength={10}
                 />
@@ -196,13 +212,20 @@ const DoctorAppointments: FC = () => {
           />
         )}
       </ScrollView>
-      <View style={styles.NextbuttonPosition}>
-        <CustomButton
-          onPress={handleNext}
-          icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
-          text="Save"
-        />
-      </View>
+
+      {date !== '' &&
+        selectedTime !== '' &&
+        reminder.trim() !== '' &&
+        doctorName.trim() !== '' &&
+        location.trim() !== '' && (
+          <View style={styles.NextbuttonPosition}>
+            <CustomButton
+              onPress={handleNext}
+              icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
+              text="Save"
+            />
+          </View>
+        )}
     </View>
   );
 };
