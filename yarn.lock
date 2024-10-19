@@ -10919,6 +10919,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-image-picker@npm:^7.1.2":
+  version: 7.1.2
+  resolution: "react-native-image-picker@npm:7.1.2"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: af52328b7cb06c28549442f0d923cfa92dde8d5a968a642336df4c882f81adbf0e5e606a14de27f96883a76fa1e03230061c4080011c9107942edebc8e09c478
+  languageName: node
+  linkType: hard
+
 "react-native-loading-spinner-overlay@npm:^3.0.1":
   version: 3.0.1
   resolution: "react-native-loading-spinner-overlay@npm:3.0.1"
@@ -12623,6 +12633,7 @@ __metadata:
     react-native-device-info: ^11.1.0
     react-native-easy-grid: ^0.2.2
     react-native-gesture-handler: ^2.18.1
+    react-native-image-picker: ^7.1.2
     react-native-loading-spinner-overlay: ^3.0.1
     react-native-paper: ^5.12.5
     react-native-permissions: ^4.1.5

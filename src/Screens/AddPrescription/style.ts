@@ -53,6 +53,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     top: verticalScale(30)
   },
+  imagePreview: {
+    height: 200, // Height of the image
+    resizeMode: 'contain', // Adjust image scaling
+    width: 200 // Width of the image
+  },
+  imagePreviewContainer: {
+    alignItems: 'center',
+    marginTop: 20 // Space between the preview and the rest of the content
+  },
   mainText: {
     color: colors.typedText,
     fontSize: moderateScale(16),
