@@ -13,9 +13,9 @@ const medicineDetailsExtraSettingData: IMedicineDetailsExtraSettingType = {
   medicineTakeEachDay: '',
   treatmentDurationStartTime: '',
   treatmentDurationEndTime: '',
-  medicineReminderTotalReq: '',
-  medicineReminderCurrentStock: '',
-  medicineReminderRemindToLeft: ''
+  medicineReminderTotalReq: '0',
+  medicineReminderCurrentStock: '0',
+  medicineReminderRemindToLeft: '0'
 };
 
 export const medicineDetailsExtraSettingSlice = createSlice({
@@ -49,9 +49,9 @@ export const medicineDetailsExtraSettingSlice = createSlice({
       state: IMedicineDetailsExtraSettingType,
       payload: PayloadAction<IMedicineReminder>
     ) => {
-      state.treatmentDurationStartTime = payload.payload.medicineReminderCurrentStock;
-      state.treatmentDurationEndTime = payload.payload.medicineReminderTotalReq;
-      state.medicineTakeEachDay = payload.payload.medicineReminderRemindToLeft;
+      state.medicineReminderCurrentStock = payload.payload.medicineReminderCurrentStock;
+      state.medicineReminderTotalReq = payload.payload.medicineReminderTotalReq;
+      state.medicineReminderRemindToLeft = payload.payload.medicineReminderRemindToLeft;
     }
   }
 });

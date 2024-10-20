@@ -19,6 +19,7 @@ export interface IMedicine {
   strengthMed?: string;
   unitMed?: string;
   typeMed?: string;
+  medicineId?: string;
 }
 
 export interface MedicineName {
