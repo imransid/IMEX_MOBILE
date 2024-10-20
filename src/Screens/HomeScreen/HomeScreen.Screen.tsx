@@ -8,18 +8,27 @@ import { useNavigation } from '@react-navigation/native';
 import MedicineImage from '../../assets/medicine-image';
 import HorizontalCalendar from '../../Components/HorizontalCalender/HorizontalCalendar';
 import { colors } from '../../theme/colors';
-
+import ClickToAddMedicine from '@/assets/click-to-add-med';
 import styles from './style';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const HomeScreen: FC = () => {
+  const storedMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
+  );
+
+  console.log(storedMedicineList, 'storedMedicineList');
+
   const navigation = useNavigation();
 
   const handleAddMedicine: any = () => {
     navigation.navigate('MedicineAddingMethod' as never);
   };
 
-  const handleDosePress: any = () => {
+  const handleDosePress: any = (medicineId: number) => {
     navigation.navigate('PreviewDoseDetails' as never);
+    console.log(`Pressed medicine with ID: ${medicineId}`);
   };
   return (
     <View style={styles.container}>
@@ -33,26 +42,40 @@ const HomeScreen: FC = () => {
           <View style={styles.chipheadingPosition}>
             <Text style={styles.chipheadingText}>Pills for today</Text>
           </View>
-          <TouchableOpacity style={styles.chip} onPress={() => handleDosePress()}>
-            <View style={styles.medicineDoseProperties}>
-              <MedicineImage />
-              <View style={styles.doseDetailsPosition}>
-                <View style={styles.doseProperties}>
-                  <MaterialCommunityIcons name="pill" size={18} color={colors.buttonBg} />
-                  <Text style={styles.medicineNameText}>Adflox</Text>
+          {storedMedicineList.length > 0 ? (
+            storedMedicineList.map((medicine, index) => (
+              <TouchableOpacity key={index} style={styles.chip} onPress={() => handleDosePress()}>
+                <View style={styles.medicineDoseProperties}>
+                  <MedicineImage />
+                  <View style={styles.doseDetailsPosition}>
+                    <View style={styles.doseProperties}>
+                      <MaterialCommunityIcons name="pill" size={18} color={colors.buttonBg} />
+                      <Text style={styles.medicineNameText}>{medicine.medicineName}</Text>
+                    </View>
+                    <Text style={styles.doseText}>{medicine.takeStatus}</Text>
+                    <View style={styles.doseDatesPosition}>
+                      <AntDesign name="calendar" size={18} color={colors.typedText} />
+                      <Text style={styles.doseText}>Sun, Tue, Thu, Sat</Text>
+                    </View>
+                  </View>
+                  <View style={styles.doseTimePosition}>
+                    <Text style={styles.medicineNameText}>Time</Text>
+                    <Text style={styles.doseText}>Upcoming</Text>
+                  </View>
                 </View>
-                <Text style={styles.doseText}>1 pill | Before meal</Text>
-                <View style={styles.doseDatesPosition}>
-                  <AntDesign name="calendar" size={18} color={colors.typedText} />
-                  <Text style={styles.doseText}>Sun, Tue, Thu, Sat</Text>
-                </View>
-              </View>
-              <View style={styles.doseTimePosition}>
-                <Text style={styles.medicineNameText}>Time</Text>
-                <Text style={styles.doseText}>Upcoming</Text>
+              </TouchableOpacity>
+            ))
+          ) : (
+            <View style={styles.clickToAddMedPosition}>
+              <ClickToAddMedicine />
+              <Text style={styles.donotHaveMedText}>You don’t have any meds</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.clickToAddText}>Click</Text>
+                <Text style={styles.plusIconText}>+</Text>
+                <Text style={styles.clickToAddText}>to add your first treatment</Text>
               </View>
             </View>
-          </TouchableOpacity>
+          )}
         </View>
       </View>
 

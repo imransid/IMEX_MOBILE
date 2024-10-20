@@ -12,6 +12,7 @@ export const mobileSignInFormValidation = yup.object().shape({
     .min(4, 'Password must contain at least 8 characters')
 });
 
+
 export const createAccountFormValidation = yup.object().shape({
   fullName: yup.string().required('Full Name is required'),
   mobile: yup.string().required('Mobile Number is required'),
@@ -19,7 +20,11 @@ export const createAccountFormValidation = yup.object().shape({
   password: yup
     .string()
     .required('Password is required')
-    .min(4, 'Password must contain at least 8 characters'),
+    .min(8, 'Password must contain at least 8 characters'), // Changed from 4 to 8 to match the message
+  confirmPassword: yup
+    .string()
+    .required('Password confirmation is required')
+    .oneOf([yup.ref('password'), ''], 'The password is not matched'), // Check if it matches the password
   gender: yup.string().required('Gender is required'),
   birthDate: yup.string().required('Birth Date is required')
 });

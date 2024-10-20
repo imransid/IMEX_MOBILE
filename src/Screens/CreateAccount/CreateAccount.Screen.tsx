@@ -35,6 +35,7 @@ const CreateAccount: FC = () => {
     mobile: string;
     email: string;
     password: string;
+    confirmPassword: string;
     gender: string;
     birthDate: string;
   }
@@ -52,7 +53,8 @@ const CreateAccount: FC = () => {
       email: '',
       password: '',
       gender: '',
-      birthDate: ''
+      birthDate: '',
+      confirmPassword: ''
     }
   });
 
@@ -65,7 +67,6 @@ const CreateAccount: FC = () => {
       birthday: birthday,
       password: password
     };
-
     try {
       const response: any = await axios.post(BASE_URL, {
         query: `
@@ -210,24 +211,24 @@ const CreateAccount: FC = () => {
             <Text style={styles.inputHeader}>Confirm Password</Text>
             <Controller
               control={control}
-              name="password"
+              name="confirmPassword"
               render={({ field: { onChange, value } }) => (
                 <CustomTextInput
                   type="password"
                   value={value}
                   onChangeText={onChange}
-                  placeholder="Enter your password..."
+                  placeholder="Confirm your password..."
                   inputStyle={styles.inputText}
                   isPassword
-                  isError={Boolean(errors.password)}
+                  isError={Boolean(errors.confirmPassword)}
                   leftIcon={
                     <MaterialCommunityIcons name="lock-outline" size={25} color="#888888" />
                   }
                 />
               )}
             />
-            {errors.password != null && (
-              <Text style={styles.errorTxt}>{errors.password.message}</Text>
+            {errors.confirmPassword != null && (
+              <Text style={styles.errorTxt}>{errors.confirmPassword.message}</Text>
             )}
           </View>
 
@@ -282,7 +283,7 @@ const CreateAccount: FC = () => {
               void handleSubmit(handleSignUp)();
             }}
             icon={<AntDesign name="arrowright" size={25} color={colors.white} />}
-            text="Sign In"
+            text="Sign Up"
           />
         </View>
 

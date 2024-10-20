@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-
 import React, { type FC, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
@@ -10,7 +9,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { setDoseList, setDoseQuantity, setDoseTime } from '@/store/slices/features/medicineDetails/slice';
+import {
+  setDoseList,
+  setDoseQuantity,
+  setDoseTime
+} from '@/store/slices/features/medicineDetails/slice';
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import DoseInputModal from '../../Components/DoseInputModal/DoseInputModal';
@@ -38,28 +41,42 @@ const OnceAdayDose: FC = () => {
   const doseQuantity = useSelector((state: RootState) => state.medicineDetails.doseQuantity);
   const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
   const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
-  const storedMedicineList = useSelector((state: RootState) => state.medicineDetails.storedMedicineList);
+  const storedMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
+  );
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
   const accessToken = useSelector((state: RootState) => state.users.user.data.accessToken);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
 
-  const instrucTion = useSelector((state: RootState) => state.medicineDetailsExtraSetting.instrucTion);
-  const medicineReminderCurrentStock = useSelector((state: RootState) => state.medicineDetailsExtraSetting.medicineReminderCurrentStock);
-  const medicineReminderRemindToLeft = useSelector((state: RootState) => state.medicineDetailsExtraSetting.medicineReminderRemindToLeft);
-  const medicineReminderTotalReq = useSelector((state: RootState) => state.medicineDetailsExtraSetting.medicineReminderTotalReq);
-  const medicineTakeEachDay = useSelector((state: RootState) => state.medicineDetailsExtraSetting.medicineTakeEachDay);
-  const treatmentDurationEndTime = useSelector((state: RootState) => state.medicineDetailsExtraSetting.treatmentDurationEndTime);
-  const treatmentDurationStartTime = useSelector((state: RootState) => state.medicineDetailsExtraSetting.treatmentDurationStartTime);
-
+  const instrucTion = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.instrucTion
+  );
+  const medicineReminderCurrentStock = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.medicineReminderCurrentStock
+  );
+  const medicineReminderRemindToLeft = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.medicineReminderRemindToLeft
+  );
+  const medicineReminderTotalReq = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.medicineReminderTotalReq
+  );
+  const medicineTakeEachDay = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.medicineTakeEachDay
+  );
+  const treatmentDurationEndTime = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.treatmentDurationEndTime
+  );
+  const treatmentDurationStartTime = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.treatmentDurationStartTime
+  );
 
   const doctorName = useSelector((state: RootState) => state.appointment.doctorName);
   const dateAp = useSelector((state: RootState) => state.appointment.date);
   const location = useSelector((state: RootState) => state.appointment.location);
   const setReminder = useSelector((state: RootState) => state.appointment.setReminder);
   const time = useSelector((state: RootState) => state.appointment.time);
-
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -101,7 +118,6 @@ const OnceAdayDose: FC = () => {
     }
   };
 
-
   const handleNext: any = async () => {
     const mutation = `
     mutation {
@@ -125,17 +141,16 @@ const OnceAdayDose: FC = () => {
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-          },
+            'Content-Type': 'application/json'
+          }
         }
       );
 
       // Check if registration was successful
       if (
         response?.data?.data?.medicineDetails?.message !== undefined &&
-        response.data.data.medicineDetails.message !== null
+        response?.data?.data?.medicineDetails?.message !== null
       ) {
-
         let updatedStoredList = [...storedMedicineList];
 
         let data = {
@@ -147,7 +162,7 @@ const OnceAdayDose: FC = () => {
           strengthMed: strengthMed,
           unitMed: unitMed,
           typeMed: typeMed,
-          medicineId: response.data.data.medicineDetails.medicineId, // Corrected ID reference
+          medicineId: response?.data?.data?.medicineDetails?.medicineId // Corrected ID reference
         };
 
         // Add the new data to the copied array
@@ -160,10 +175,10 @@ const OnceAdayDose: FC = () => {
           location: location,
           time: time,
           accessToken: accessToken
-        }
+        };
 
         await APPOINTMENT_MUTATION(response.data.data.medicineDetails.medicineId, dataAppointment);
-        await handleMedicineDetailsSetting(response.data.data.medicineDetails.medicineId)
+        await handleMedicineDetailsSetting(response.data.data.medicineDetails.medicineId);
 
         // Dispatch the updated array to the Redux store
         dispatch(setDoseList(updatedStoredList));
@@ -188,14 +203,22 @@ const OnceAdayDose: FC = () => {
     }
   };
 
-
   const handleMedicineDetailsSetting = async (medicineDetailsId: string) => {
-
     const mutation = `
       mutation{
-        medicineDetailsSetting(medicineInputSetting: { InstrucTion : "${instrucTion}", MedicineTakeEachDay : "${medicineTakeEachDay}", medicineReminderTotalReq : "${medicineReminderTotalReq}", treatmentDurationEndTime : "${treatmentDurationEndTime}", treatmentDurationStartTime : "${treatmentDurationStartTime}", medicineReminderCurrentStock : "${medicineReminderCurrentStock}", medicineReminderRemindToLeft: "${medicineReminderRemindToLeft}" }){
-          message,
-        }
+        medicineDetailsSetting(medicineInputSetting: 
+          { 
+            InstrucTion : "${instrucTion}", 
+            MedicineTakeEachDay : "${medicineTakeEachDay}", 
+            medicineReminderTotalReq : "${medicineReminderTotalReq}", 
+            treatmentDurationEndTime : "${treatmentDurationEndTime}", 
+            treatmentDurationStartTime : "${treatmentDurationStartTime}", 
+            medicineReminderCurrentStock : "${medicineReminderCurrentStock}", 
+            medicineReminderRemindToLeft: "${medicineReminderRemindToLeft}" 
+          })
+            {
+              message,
+            }
       }
     `;
 
@@ -205,23 +228,21 @@ const OnceAdayDose: FC = () => {
         {
           query: mutation,
           variables: {
-            "medicineDetailsID": medicineDetailsId
+            medicineDetailsID: medicineDetailsId
           }
         },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-          },
+            'Content-Type': 'application/json'
+          }
         }
       );
 
-
       if (
         response?.data?.data?.medicineDetailsSetting?.message !== undefined &&
-        response.data.data.medicineDetailsSetting.message !== null
+        response?.data?.data?.medicineDetailsSetting?.message !== null
       ) {
-
         ToastPopUp(response.data.data.medicineDetailsSetting.message);
       } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
         // Show error message from the response
@@ -232,8 +253,6 @@ const OnceAdayDose: FC = () => {
       } else {
         ToastPopUp('Something Went wrong ! please try again later.');
       }
-
-
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error('Axios Error:', error.message);
@@ -242,8 +261,7 @@ const OnceAdayDose: FC = () => {
       }
       ToastPopUp('Network Error! Please check your connection.');
     }
-  }
-
+  };
 
   return (
     <View style={styles.container}>

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
   errorTxt: {
     color: colors.error,
-    fontSize: moderateScale(14),
+    fontFamily: 'WorkSansMedium',
     marginBottom: 6
   },
   forgotPassword: {
