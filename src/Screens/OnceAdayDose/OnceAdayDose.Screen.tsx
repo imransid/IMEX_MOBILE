@@ -37,6 +37,8 @@ const OnceAdayDose: FC = () => {
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [date, setDate] = useState(new Date());
 
+
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
   const doseTime = useSelector((state: RootState) => state.medicineDetails.doseTime);
   const doseQuantity = useSelector((state: RootState) => state.medicineDetails.doseQuantity);
   const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
@@ -154,6 +156,7 @@ const OnceAdayDose: FC = () => {
         let updatedStoredList = [...storedMedicineList];
 
         let data = {
+          medicineLocalId: medicineLocalId,
           medicineName: medicineName,
           medicineStatus: medicineStatus,
           takeStatus: takeStatus,

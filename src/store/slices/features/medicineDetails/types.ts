@@ -5,9 +5,13 @@ export interface IMedicineDetailsType {
   doseQuantity: string;
   doseTime: string;
   storedMedicineList: IMedicine[];
+  storedMedicineWeeklyList: IStoredWeekly[];
   strengthMed: string;
   unitMed: string;
   typeMed: string;
+  medicineLocalId: string;
+  weeklyTime: string[];
+  timeInterval: string;
 }
 
 export interface IMedicine {
@@ -20,6 +24,7 @@ export interface IMedicine {
   unitMed?: string;
   typeMed?: string;
   medicineId?: string;
+  medicineLocalId: string;
 }
 
 export interface MedicineName {
@@ -49,4 +54,20 @@ export interface doseTimeStatus {
 
 export interface doseQuantityStatus {
   doseQuantity: string;
+}
+
+export interface IWeekly {
+  weeklyTime: string[];
+  timeInterval: string;
+  IStoredWeekly: IStoredWeekly;
+}
+
+export interface IStoredWeekly {
+  medicineLocalId: IMedicineLocalId;
+}
+
+export interface IMedicineLocalId {
+  weeklyTime: string[];
+  timeInterval: string;
+  medicineLocalId: string;
 }
