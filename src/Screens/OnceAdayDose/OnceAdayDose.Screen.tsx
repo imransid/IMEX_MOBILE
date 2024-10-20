@@ -27,7 +27,7 @@ import ToastPopUp from '@/utils/Toast.android';
 import { APPOINTMENT_MUTATION } from '@/mutations/appointment_mutation';
 
 const OnceAdayDose: FC = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(Array(1).fill(''));
@@ -177,11 +177,13 @@ const OnceAdayDose: FC = () => {
           accessToken: accessToken
         };
 
-        await APPOINTMENT_MUTATION(response.data.data.medicineDetails.medicineId, dataAppointment);
+        if (doctorName !== '') await APPOINTMENT_MUTATION(response.data.data.medicineDetails.medicineId, dataAppointment);
         await handleMedicineDetailsSetting(response.data.data.medicineDetails.medicineId);
 
         // Dispatch the updated array to the Redux store
         dispatch(setDoseList(updatedStoredList));
+
+        navigation.navigate("UserDrawer" as never)
 
         ToastPopUp(response.data.data.medicineDetails.message);
       } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {

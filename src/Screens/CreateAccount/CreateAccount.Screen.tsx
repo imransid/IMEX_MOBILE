@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { type FC, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -69,7 +71,7 @@ const CreateAccount: FC = () => {
     };
 
     try {
-      console.log(registerInput, 'registerInput');
+
 
       const response: any = await axios.post(BASE_URL, {
         query: `
@@ -90,7 +92,7 @@ const CreateAccount: FC = () => {
 
       if (response?.data?.data?.register?.message) {
         ToastPopUp(response.data.data.register.message);
-        navigation.navigate('MedicineDoses' as never);
+        navigation.navigate('Login' as never);
       } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
         const errorMessage: any = response.data.errors[0].message;
         ToastPopUp(typeof errorMessage === 'string' ? errorMessage : 'Error occurred');
