@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     marginTop: scale(5)
   },
   medicineDoseComponentPosition: {
-    left: scale(20)
+    alignItems: 'center'
   },
   medicineDoseProperties: {
     flexDirection: 'row',
