@@ -101,6 +101,9 @@ const styles = StyleSheet.create({
     color: colors.buttonBg,
     fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(12)
+  },
+  clickToAddMedTextPosition: {
+    flexDirection: 'row',
   }
 });
 
