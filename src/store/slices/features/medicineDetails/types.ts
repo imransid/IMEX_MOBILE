@@ -12,6 +12,13 @@ export interface IMedicineDetailsType {
   medicineLocalId: string;
   weeklyTime: string[];
   timeInterval: string;
+  weeklyDoseTime: IWeeklyDoseTime[];
+}
+
+export interface IWeeklyDoseTime {
+  doseTime: string;
+  doseQuantity: string;
+  medicineLocalId: string;
 }
 
 export interface IMedicine {

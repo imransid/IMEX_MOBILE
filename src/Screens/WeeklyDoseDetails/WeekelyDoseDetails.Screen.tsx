@@ -1,14 +1,16 @@
-import React, { type FC, useState } from 'react';
+import React, { type FC, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { type RootState } from '@/store';
+import { setWeeklyDoseTime } from '@/store/slices/features/medicineDetails/slice';
+import { type IWeeklyDoseTime } from '@/store/slices/features/medicineDetails/types';
 
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -20,8 +22,9 @@ import styles from './style';
 
 const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   const timeInterval = useSelector((state: RootState) => state.medicineDetails.timeInterval);
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
 
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(
@@ -76,6 +79,20 @@ const WeeklyDoseDetails: FC = () => {
   const handleNext: any = () => {
     navigation.navigate('AddedMedicine' as never);
   };
+
+  useEffect(() => {
+    if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
+      const weeklyDoses: IWeeklyDoseTime[] = times
+        .map((time, index) => ({
+          doseTime: time,
+          doseQuantity: doses[index].toString(),
+          medicineLocalId
+        }))
+        .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
+
+      dispatch(setWeeklyDoseTime(weeklyDoses));
+    }
+  }, [times, doses]);
 
   return (
     <View style={styles.container}>
