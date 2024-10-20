@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   addMedicineButtonPosition: {
     marginLeft: scale(175),
-    marginTop: verticalScale(260)
+    marginTop: verticalScale(100)
   },
   addMedicineButtonProperties: {
     flexDirection: 'row',

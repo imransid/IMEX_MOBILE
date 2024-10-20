@@ -11,8 +11,16 @@ import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const PreviewDoseDetails: FC = () => {
+  const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+  // const medicineType = useSelector((state: RootState) => state.medicineDetails.typeMed);
+  // const medicineUnit = useSelector((state: RootState) => state.medicineDetails.unitMed);
+
+  // const medicineLocalId = useSelector((state: RootState) => state.);
+
   const navigation = useNavigation();
 
   const handleDone: any = () => {
@@ -27,7 +35,7 @@ const PreviewDoseDetails: FC = () => {
         </View>
 
         <View style={styles.mainHeader}>
-          <Header mainHeader="Adflox" />
+          <Header mainHeader={medicineName} />
         </View>
         <View style={styles.subHeader}>
           <Header subHeader="Capsule, 12 mg" />
