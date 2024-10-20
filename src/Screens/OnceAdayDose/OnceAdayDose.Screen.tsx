@@ -21,6 +21,7 @@ import { RootState } from '@/store';
 import axios from 'axios';
 import { BASE_URL } from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
+import { APPOINTMENT_MUTATION } from '@/mutations/appointment_mutation';
 
 const OnceAdayDose: FC = () => {
   // const navigation = useNavigation();
@@ -51,6 +52,14 @@ const OnceAdayDose: FC = () => {
   const medicineTakeEachDay = useSelector((state: RootState) => state.medicineDetailsExtraSetting.medicineTakeEachDay);
   const treatmentDurationEndTime = useSelector((state: RootState) => state.medicineDetailsExtraSetting.treatmentDurationEndTime);
   const treatmentDurationStartTime = useSelector((state: RootState) => state.medicineDetailsExtraSetting.treatmentDurationStartTime);
+
+
+  const doctorName = useSelector((state: RootState) => state.appointment.doctorName);
+  const dateAp = useSelector((state: RootState) => state.appointment.date);
+  const location = useSelector((state: RootState) => state.appointment.location);
+  const setReminder = useSelector((state: RootState) => state.appointment.setReminder);
+  const time = useSelector((state: RootState) => state.appointment.time);
+
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -144,7 +153,16 @@ const OnceAdayDose: FC = () => {
         // Add the new data to the copied array
         updatedStoredList.push(data);
 
+        let dataAppointment = {
+          date: dateAp,
+          doctorName: doctorName,
+          setReminder: setReminder,
+          location: location,
+          time: time,
+          accessToken: accessToken
+        }
 
+        await APPOINTMENT_MUTATION(response.data.data.medicineDetails.medicineId, dataAppointment);
         await handleMedicineDetailsSetting(response.data.data.medicineDetails.medicineId)
 
         // Dispatch the updated array to the Redux store
@@ -224,8 +242,6 @@ const OnceAdayDose: FC = () => {
       }
       ToastPopUp('Network Error! Please check your connection.');
     }
-
-
   }
 
 
