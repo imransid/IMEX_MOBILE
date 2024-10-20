@@ -6,6 +6,7 @@ import {
   type doseTimeStatus,
   type IMedicine,
   type IMedicineDetailsType,
+  type IWeekly,
   type MedicineName,
   type MedicStatus,
   type MedicType,
@@ -14,6 +15,7 @@ import {
 } from './types';
 
 const medicineDetailsInitialData: IMedicineDetailsType = {
+  medicineLocalId: '',
   medicineName: '',
   medicineStatus: '',
   takeStatus: '',
@@ -22,7 +24,9 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   strengthMed: '',
   unitMed: '',
   typeMed: '',
-  storedMedicineList: []
+  storedMedicineList: [],
+  weeklyTime: [],
+  timeInterval: ''
 };
 
 export const medicineDetailsSlice = createSlice({
@@ -37,6 +41,7 @@ export const medicineDetailsSlice = createSlice({
       state.doseTime = '';
     },
     setMedicineName: (state: IMedicineDetailsType, payload: PayloadAction<MedicineName>) => {
+      state.medicineLocalId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       state.medicineName = payload.payload.medicineName;
     },
     setStrengthUnit: (state: IMedicineDetailsType, payload: PayloadAction<StrengthUnit>) => {
@@ -60,6 +65,10 @@ export const medicineDetailsSlice = createSlice({
     },
     setDoseList: (state: IMedicineDetailsType, payload: PayloadAction<IMedicine[]>) => {
       state.storedMedicineList = payload.payload;
+    },
+    setWeekly: (state: IMedicineDetailsType, payload: PayloadAction<IWeekly>) => {
+      state.weeklyTime = payload.payload.weeklyTime;
+      state.timeInterval = payload.payload.timeInterval;
     }
   }
 });
@@ -73,7 +82,8 @@ export const {
   setTakeStatus,
   setDoseTime,
   setDoseQuantity,
-  setDoseList
+  setDoseList,
+  setWeekly
 } = medicineDetailsSlice.actions;
 
 export const medicineDetailsReducer = medicineDetailsSlice.reducer;

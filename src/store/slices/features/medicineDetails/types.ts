@@ -8,6 +8,9 @@ export interface IMedicineDetailsType {
   strengthMed: string;
   unitMed: string;
   typeMed: string;
+  medicineLocalId: string;
+  weeklyTime: string[];
+  timeInterval: string;
 }
 
 export interface IMedicine {
@@ -20,6 +23,7 @@ export interface IMedicine {
   unitMed?: string;
   typeMed?: string;
   medicineId?: string;
+  medicineLocalId: string;
 }
 
 export interface MedicineName {
@@ -49,4 +53,9 @@ export interface doseTimeStatus {
 
 export interface doseQuantityStatus {
   doseQuantity: string;
+}
+
+export interface IWeekly {
+  weeklyTime: string[];
+  timeInterval: string;
 }
