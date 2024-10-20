@@ -34,6 +34,7 @@ const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const timeInterval = useSelector((state: RootState) => state.medicineDetails.timeInterval);
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
 
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(
@@ -283,6 +284,20 @@ const WeeklyDoseDetails: FC = () => {
   const location = useSelector((state: RootState) => state.appointment.location);
   const setReminder = useSelector((state: RootState) => state.appointment.setReminder);
   const time = useSelector((state: RootState) => state.appointment.time);
+
+  useEffect(() => {
+    if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
+      const weeklyDoses: IWeeklyDoseTime[] = times
+        .map((time, index) => ({
+          doseTime: time,
+          doseQuantity: doses[index].toString(),
+          medicineLocalId
+        }))
+        .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
+
+      dispatch(setWeeklyDoseTime(weeklyDoses));
+    }
+  }, [times, doses]);
 
   return (
     <View style={styles.container}>

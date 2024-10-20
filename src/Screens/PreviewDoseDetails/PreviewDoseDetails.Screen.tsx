@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import React, { useState, type FC } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -16,11 +16,16 @@ import { RootState } from '@/store';
 
 const PreviewDoseDetails: FC = () => {
   const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
-  // const medicineType = useSelector((state: RootState) => state.medicineDetails.typeMed);
-  // const medicineUnit = useSelector((state: RootState) => state.medicineDetails.unitMed);
+  const medicineType = useSelector((state: RootState) => state.medicineDetails.typeMed);
+  const medicineUnit = useSelector((state: RootState) => state.medicineDetails.unitMed);
+  const medicineStrength = useSelector((state: RootState) => state.medicineDetails.strengthMed);
 
-  const weeklyMedicineLocalId = useSelector(
-    (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
+  const weeklyDoseTime = useSelector((state: RootState) => state.medicineDetails.weeklyDoseTime);
+
+  const weeklyTime = useSelector((state: RootState) => state.medicineDetails.weeklyTime);
+
+  const storedMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
   );
 
   const navigation = useNavigation();
@@ -37,10 +42,14 @@ const PreviewDoseDetails: FC = () => {
         </View>
 
         <View style={styles.mainHeader}>
-          <Header mainHeader={medicineName} />
+          {storedMedicineList.length > 0
+            ? storedMedicineList.map((medicine, index) => (
+                <Header mainHeader={medicine.medicineName} />
+              ))
+            : ''}
         </View>
         <View style={styles.subHeader}>
-          <Header subHeader="Capsule, 12 mg" />
+          <Header subHeader={`${medicineType}, ${medicineStrength}${medicineUnit}`} />
         </View>
 
         <View style={styles.doseDetailsPosition}>
@@ -49,21 +58,28 @@ const PreviewDoseDetails: FC = () => {
               <Text style={styles.headingStyle}>Schedule</Text>
               <View style={styles.chip}>
                 <View style={styles.dayContentProperties}>
-                  <Text style={styles.chipText}>Sun, Tue, Thu, Sat</Text>
+                  <Text style={styles.chipText}>
+                    {weeklyTime.length > 0
+                      ? weeklyTime.map(day => day.charAt(0).toUpperCase() + day.slice(1)).join(', ')
+                      : ''}
+                  </Text>
                 </View>
               </View>
             </View>
           </View>
           <View style={styles.chip}>
             <View style={styles.timeAndQuantityProperties}>
-              <Text style={styles.chipText}>Time</Text>
-              <Text style={styles.chipText}>1 Capsule</Text>
-            </View>
-          </View>
-          <View style={styles.chip}>
-            <View style={styles.timeAndQuantityProperties}>
-              <Text style={styles.chipText}>Time</Text>
-              <Text style={styles.chipText}>1 Capsule</Text>
+              {weeklyDoseTime.length > 0
+                ? weeklyDoseTime.map((dose, index) => (
+                    <>
+                      <Text style={styles.chipText}>{dose.doseTime}</Text>
+                      <Text style={styles.chipText}>
+                        {dose.doseQuantity}{' '}
+                        {parseInt(dose.doseQuantity) > 1 ? 'Capsules' : 'Capsule'}
+                      </Text>
+                    </>
+                  ))
+                : ''}
             </View>
           </View>
         </View>
