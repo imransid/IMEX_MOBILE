@@ -52,10 +52,10 @@ const HomeScreen: FC = () => {
                       <MaterialCommunityIcons name="pill" size={18} color={colors.buttonBg} />
                       <Text style={styles.medicineNameText}>{medicine.medicineName}</Text>
                     </View>
-                    <Text style={styles.doseText}>{medicine.takeStatus}</Text>
+                    <Text style={styles.doseText}>{medicine.doseQuantity}</Text>
                     <View style={styles.doseDatesPosition}>
                       <AntDesign name="calendar" size={18} color={colors.typedText} />
-                      <Text style={styles.doseText}>Sun, Tue, Thu, Sat</Text>
+                      <Text style={styles.doseText}>{medicine.doseTime}</Text>
                     </View>
                   </View>
                   <View style={styles.doseTimePosition}>
@@ -69,7 +69,7 @@ const HomeScreen: FC = () => {
             <View style={styles.clickToAddMedPosition}>
               <ClickToAddMedicine />
               <Text style={styles.donotHaveMedText}>You don’t have any meds</Text>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={styles.clickToAddMedTextPosition}>
                 <Text style={styles.clickToAddText}>Click</Text>
                 <Text style={styles.plusIconText}>+</Text>
                 <Text style={styles.clickToAddText}>to add your first treatment</Text>

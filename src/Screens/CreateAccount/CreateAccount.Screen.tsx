@@ -58,16 +58,19 @@ const CreateAccount: FC = () => {
     }
   });
 
-  const handleSignUp: any = async (): Promise<void> => {
+  const handleSignUp = async (data: ICreateAccountDataProps): Promise<void> => {
     const registerInput = {
-      fullName: fullName,
-      mobileNumber: mobile,
-      email: email,
-      gender: gender,
-      birthday: birthday,
-      password: password
+      fullName: data.fullName,
+      mobileNumber: data.mobile,
+      email: data.email,
+      gender: data.gender,
+      birthday: data.birthDate,
+      password: data.password
     };
+
     try {
+      console.log(registerInput, 'registerInput');
+
       const response: any = await axios.post(BASE_URL, {
         query: `
           mutation {
@@ -85,22 +88,14 @@ const CreateAccount: FC = () => {
         `
       });
 
-      // Check if registration was successful
-      if (
-        response?.data?.data?.register?.message !== undefined &&
-        response.data.data.register.message !== null
-      ) {
+      if (response?.data?.data?.register?.message) {
         ToastPopUp(response.data.data.register.message);
-        // Navigate to the next screen
         navigation.navigate('MedicineDoses' as never);
       } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
-        // Show error message from the response
-        const errorMessage: any = response?.data?.errors[0]?.message;
-        if (typeof errorMessage === 'string') {
-          ToastPopUp(errorMessage);
-        }
+        const errorMessage: any = response.data.errors[0].message;
+        ToastPopUp(typeof errorMessage === 'string' ? errorMessage : 'Error occurred');
       } else {
-        ToastPopUp('Something Went wrong ! please try again later.');
+        ToastPopUp('Something went wrong! Please try again later.');
       }
     } catch (err) {
       console.error('Error in registration:', err);
@@ -279,9 +274,7 @@ const CreateAccount: FC = () => {
 
         <View style={styles.SignInbuttonPosition}>
           <CustomButton
-            onPress={() => {
-              void handleSubmit(handleSignUp)();
-            }}
+            onPress={handleSubmit(handleSignUp)}
             icon={<AntDesign name="arrowright" size={25} color={colors.white} />}
             text="Sign Up"
           />
