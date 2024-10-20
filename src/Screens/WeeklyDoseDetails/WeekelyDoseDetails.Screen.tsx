@@ -89,10 +89,6 @@ const WeeklyDoseDetails: FC = () => {
     }
   };
 
-  // const handleNext: any = () => {
-  //   navigation.navigate('AddedMedicine' as never);
-  // };
-
   const handleNext: any = async () => {
     const mutation = `
     mutation {
