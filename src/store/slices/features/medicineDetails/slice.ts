@@ -25,6 +25,7 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   unitMed: '',
   typeMed: '',
   storedMedicineList: [],
+  storedMedicineWeeklyList: [],
   weeklyTime: [],
   timeInterval: ''
 };
@@ -69,6 +70,10 @@ export const medicineDetailsSlice = createSlice({
     setWeekly: (state: IMedicineDetailsType, payload: PayloadAction<IWeekly>) => {
       state.weeklyTime = payload.payload.weeklyTime;
       state.timeInterval = payload.payload.timeInterval;
+      state.storedMedicineWeeklyList = [
+        ...state.storedMedicineWeeklyList,
+        payload.payload.IStoredWeekly
+      ];
     }
   }
 });

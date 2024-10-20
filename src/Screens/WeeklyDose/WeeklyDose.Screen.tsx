@@ -4,10 +4,12 @@ import { DayPicker } from 'react-native-picker-weekday';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
+import { type RootState } from '@/store';
 import { setWeekly } from '@/store/slices/features/medicineDetails/slice';
+import { type IStoredWeekly } from '@/store/slices/features/medicineDetails/types';
 
 import DailyDoseLogo from '../../assets/medicine-daily-dose';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -31,6 +33,9 @@ const WeeklyDose: FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [selectedNumber, setSelectedNumber] = useState('');
+
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
+
   const [weekdays, setWeekdays] = useState<number[]>([]);
   const [selectedDay, setSelectedDay] = useState<Record<number, { selected: boolean }>>({});
   const [open, setOpen] = useState(false);
@@ -46,7 +51,21 @@ const WeeklyDose: FC = () => {
   const handleNext: any = () => {
     const selectedDayNames = weekdays.map(day => dayNames[day]);
 
-    dispatch(setWeekly({ weeklyTime: selectedDayNames, timeInterval: selectedNumber }));
+    const data: IStoredWeekly = {
+      medicineLocalId: {
+        weeklyTime: selectedDayNames, // Use selectedDayNames here
+        timeInterval: selectedNumber,
+        medicineLocalId
+      }
+    };
+
+    dispatch(
+      setWeekly({
+        weeklyTime: selectedDayNames,
+        timeInterval: selectedNumber,
+        IStoredWeekly: data
+      })
+    );
 
     navigation.navigate('WeeklyDoseDetails' as never);
   };
