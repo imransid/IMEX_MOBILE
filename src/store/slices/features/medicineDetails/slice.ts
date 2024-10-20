@@ -4,6 +4,7 @@ import { MEDICINE_DETAILS } from './constants';
 import {
   type doseQuantityStatus,
   type doseTimeStatus,
+  type IMedicine,
   type IMedicineDetailsType,
   type MedicineName,
   type MedicStatus,
@@ -56,6 +57,9 @@ export const medicineDetailsSlice = createSlice({
     },
     setDoseQuantity: (state: IMedicineDetailsType, payload: PayloadAction<doseQuantityStatus>) => {
       state.doseQuantity = payload.payload.doseQuantity;
+    },
+    setDoseList: (state: IMedicineDetailsType, payload: PayloadAction<IMedicine[]>) => {
+      state.storedMedicineList = payload.payload;
     }
   }
 });
@@ -68,7 +72,8 @@ export const {
   setMedicineStatus,
   setTakeStatus,
   setDoseTime,
-  setDoseQuantity
+  setDoseQuantity,
+  setDoseList
 } = medicineDetailsSlice.actions;
 
 export const medicineDetailsReducer = medicineDetailsSlice.reducer;
