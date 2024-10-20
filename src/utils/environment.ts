@@ -1,8 +1,8 @@
 // // global url
-// const BASE_URL = 'http://18.220.136.226:4001/graphql';
+const BASE_URL = 'http://18.220.136.226:4001/graphql';
 
 // local url
-const BASE_URL = 'http://192.168.1.2:4001/graphql';
+// const BASE_URL = 'http://192.168.1.2:4001/graphql';
 
 // 'http://172.30.11.211:4001/graphql';
 

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   askAboutAccountText: {
     color: colors.typedText,
     fontSize: moderateScale(14),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
   },
   container: {
     backgroundColor: colors.white,
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   errorTxt: {
     color: colors.error,
     fontSize: moderateScale(14),
+    fontFamily: 'WorkSansMedium',
     marginBottom: 6
   },
   headingPosition: {
@@ -33,12 +34,12 @@ const styles = StyleSheet.create({
   inputHeader: {
     color: colors.header,
     fontSize: moderateScale(14),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
   },
   inputText: {
     color: colors.typedText,
     fontSize: moderateScale(16),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
   },
   scrollViewContainer: {
     paddingBottom: verticalScale(15)
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
   signUpText: {
     color: colors.typedText,
     fontSize: moderateScale(14),
-    fontWeight: '400',
+    fontFamily: 'WorkSansMedium',
     textDecorationLine: 'underline'
   },
   signUpWithHorizontalLine: {
@@ -74,15 +75,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: scale(16),
     justifyContent: 'space-between'
-  },
-  signUpWithPartPosition: {
-    alignItems: 'center',
-    marginTop: verticalScale(15)
-  },
-  signUpWithText: {
-    color: colors.mainText,
-    fontSize: moderateScale(18),
-    fontWeight: '400'
   },
   textInputComponentPosition: {
     alignItems: 'center'
