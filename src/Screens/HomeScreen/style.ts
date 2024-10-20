@@ -72,13 +72,32 @@ const styles = StyleSheet.create({
     marginTop: scale(5)
   },
   medicineDoseComponentPosition: {
-    alignItems: 'center'
+    left: scale(20)
   },
   medicineDoseProperties: {
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
   medicineNameText: {
+    color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
+  },
+  clickToAddMedPosition: {
+    left: scale(120),
+    top: scale(100)
+  },
+  donotHaveMedText: {
+    color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
+  },
+  clickToAddText: {
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
+  },
+  plusIconText: {
     color: colors.buttonBg,
     fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(12)
