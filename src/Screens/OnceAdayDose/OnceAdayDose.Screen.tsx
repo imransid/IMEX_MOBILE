@@ -72,13 +72,11 @@ const OnceAdayDose: FC = () => {
     (state: RootState) => state.medicineDetailsExtraSetting.treatmentDurationStartTime
   );
 
-
   const doctorName = useSelector((state: RootState) => state.appointment.doctorName);
   const dateAp = useSelector((state: RootState) => state.appointment.date);
   const location = useSelector((state: RootState) => state.appointment.location);
   const setReminder = useSelector((state: RootState) => state.appointment.setReminder);
   const time = useSelector((state: RootState) => state.appointment.time);
-
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -170,9 +168,6 @@ const OnceAdayDose: FC = () => {
         // Add the new data to the copied array
         updatedStoredList.push(data);
 
-<<<<<<< HEAD
-        await handleMedicineDetailsSetting(response?.data?.data?.medicineDetails?.medicineId);
-=======
         let dataAppointment = {
           date: dateAp,
           doctorName: doctorName,
@@ -180,11 +175,10 @@ const OnceAdayDose: FC = () => {
           location: location,
           time: time,
           accessToken: accessToken
-        }
+        };
 
         await APPOINTMENT_MUTATION(response.data.data.medicineDetails.medicineId, dataAppointment);
-        await handleMedicineDetailsSetting(response.data.data.medicineDetails.medicineId)
->>>>>>> 35b0e31d22e9fb04d7389bd57fc2b739b969e44c
+        await handleMedicineDetailsSetting(response.data.data.medicineDetails.medicineId);
 
         // Dispatch the updated array to the Redux store
         dispatch(setDoseList(updatedStoredList));
@@ -267,12 +261,7 @@ const OnceAdayDose: FC = () => {
       }
       ToastPopUp('Network Error! Please check your connection.');
     }
-<<<<<<< HEAD
   };
-=======
-  }
-
->>>>>>> 35b0e31d22e9fb04d7389bd57fc2b739b969e44c
 
   return (
     <View style={styles.container}>
