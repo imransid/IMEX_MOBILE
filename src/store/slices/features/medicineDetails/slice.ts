@@ -7,6 +7,7 @@ import {
   type IMedicine,
   type IMedicineDetailsType,
   type IWeekly,
+  type IWeeklyDoseTime,
   type MedicineName,
   type MedicStatus,
   type MedicType,
@@ -27,7 +28,8 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   storedMedicineList: [],
   storedMedicineWeeklyList: [],
   weeklyTime: [],
-  timeInterval: ''
+  timeInterval: '',
+  weeklyDoseTime: []
 };
 
 export const medicineDetailsSlice = createSlice({
@@ -74,6 +76,35 @@ export const medicineDetailsSlice = createSlice({
         ...state.storedMedicineWeeklyList,
         payload.payload.IStoredWeekly
       ];
+    },
+    setWeeklyDoseTime: (state: IMedicineDetailsType, payload: PayloadAction<IWeeklyDoseTime[]>) => {
+      // let data = [...state.weeklyDoseTime, ...payload.payload];
+      // state.weeklyDoseTime = data;
+
+      const existingEntries = new Map<string, IWeeklyDoseTime>();
+
+      // Populate the map with current weekly doses
+      state.weeklyDoseTime.forEach(entry => {
+        const key = `${entry.medicineLocalId}-${entry.doseTime}`;
+        existingEntries.set(key, entry);
+      });
+
+      // Iterate through the new payload and either update or add entries
+      payload.payload.forEach(newEntry => {
+        const key = `${newEntry.medicineLocalId}-${newEntry.doseTime}`;
+
+        if (existingEntries.has(key)) {
+          // Update the existing entry's doseQuantity
+          const existingEntry = existingEntries.get(key);
+          existingEntry.doseQuantity = newEntry.doseQuantity; // Update the quantity
+        } else {
+          // If it doesn't exist, add the new entry
+          existingEntries.set(key, newEntry);
+        }
+      });
+
+      // Convert the map back to an array
+      state.weeklyDoseTime = Array.from(existingEntries.values());
     }
   }
 });
@@ -88,7 +119,8 @@ export const {
   setDoseTime,
   setDoseQuantity,
   setDoseList,
-  setWeekly
+  setWeekly,
+  setWeeklyDoseTime
 } = medicineDetailsSlice.actions;
 
 export const medicineDetailsReducer = medicineDetailsSlice.reducer;

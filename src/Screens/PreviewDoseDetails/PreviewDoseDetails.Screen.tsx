@@ -19,7 +19,9 @@ const PreviewDoseDetails: FC = () => {
   // const medicineType = useSelector((state: RootState) => state.medicineDetails.typeMed);
   // const medicineUnit = useSelector((state: RootState) => state.medicineDetails.unitMed);
 
-  // const medicineLocalId = useSelector((state: RootState) => state.);
+  const weeklyMedicineLocalId = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
+  );
 
   const navigation = useNavigation();
 
