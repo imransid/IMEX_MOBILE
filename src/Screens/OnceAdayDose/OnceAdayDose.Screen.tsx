@@ -25,6 +25,7 @@ import axios from 'axios';
 import { BASE_URL } from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
 import { APPOINTMENT_MUTATION } from '@/mutations/appointment_mutation';
+import moment from 'moment';
 
 const OnceAdayDose: FC = () => {
   const navigation = useNavigation();
@@ -165,7 +166,8 @@ const OnceAdayDose: FC = () => {
           strengthMed: strengthMed,
           unitMed: unitMed,
           typeMed: typeMed,
-          medicineId: response?.data?.data?.medicineDetails?.medicineId // Corrected ID reference
+          medicineId: response?.data?.data?.medicineDetails?.medicineId, // Corrected ID reference,
+          createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
         };
 
         // Add the new data to the copied array

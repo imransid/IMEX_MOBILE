@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { IMonthlyDoseTime } from '@/store/slices/features/medicineDetails/types';
 import { setMonthlyDoseTime, setMonthlyStoreData, setWeeklyStoreData } from '@/store/slices/features/medicineDetails/slice';
+import moment from 'moment';
 
 const MonthlyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -95,8 +96,6 @@ const MonthlyDoseDetails: FC = () => {
       if (e.medicineLocalId === medicineLocalId) return e
     })
 
-    console.log('filterArray', filterArray)
-
     if (filterArray.length > 0) {
       let tempStore = filterArray.map((e) => {
         return {
@@ -109,7 +108,8 @@ const MonthlyDoseDetails: FC = () => {
           unitMed: unitMed,
           typeMed: typeMed,
           medicineId: '',
-          medicineLocalId: e.medicineLocalId
+          medicineLocalId: e.medicineLocalId,
+          createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
         }
       })
 

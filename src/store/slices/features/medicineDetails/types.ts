@@ -40,6 +40,7 @@ export interface IMedicine {
   typeMed?: string;
   medicineId?: string;
   medicineLocalId: string;
+  createdDate: string;
 }
 
 export interface MedicineName {
