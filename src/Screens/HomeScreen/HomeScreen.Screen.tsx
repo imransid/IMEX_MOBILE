@@ -3,15 +3,26 @@ import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { type StackNavigationProp } from '@react-navigation/stack';
+
+import ClickToAddMedicine from '@/assets/click-to-add-med';
+import { type RootState } from '@/store';
 
 import MedicineImage from '../../assets/medicine-image';
 import HorizontalCalendar from '../../Components/HorizontalCalender/HorizontalCalendar';
 import { colors } from '../../theme/colors';
-import ClickToAddMedicine from '@/assets/click-to-add-med';
+
 import styles from './style';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
+
+// Define your stack navigation parameter list
+interface RootStackParamList {
+  PreviewDoseDetails: { medicineId: number };
+  // Add other screens and their params here if needed
+}
+
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'PreviewDoseDetails'>;
 
 const HomeScreen: FC = () => {
   const storedMedicineList = useSelector(
@@ -24,17 +35,17 @@ const HomeScreen: FC = () => {
     (state: RootState) => state.medicineDetailsExtraSetting.instrucTion
   );
 
-  console.log(storedMedicineList, 'storedMedicineList');
+  // const navigation = useNavigation();
 
-  const navigation = useNavigation();
+  // Use the defined navigation prop type
+  const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const handleAddMedicine: any = () => {
     navigation.navigate('MedicineAddingMethod' as never);
   };
 
   const handleDosePress: any = (medicineId: number) => {
-    navigation.navigate('PreviewDoseDetails' as never);
-    console.log(`Pressed medicine with ID: ${medicineId}`);
+    navigation.navigate('PreviewDoseDetails', { medicineId });
   };
   return (
     <View style={styles.container}>
@@ -58,7 +69,7 @@ const HomeScreen: FC = () => {
                 <TouchableOpacity
                   key={index}
                   style={styles.chip}
-                  onPress={() => handleDosePress(medicine.medicineId)}>
+                  onPress={() => handleDosePress(medicine.medicineLocalId)}>
                   <View style={styles.medicineDoseProperties}>
                     <MedicineImage />
                     <View style={styles.doseDetailsPosition}>
