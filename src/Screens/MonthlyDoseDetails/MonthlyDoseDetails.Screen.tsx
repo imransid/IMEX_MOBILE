@@ -1,4 +1,6 @@
-import React, { type FC, useState } from 'react';
+/* eslint-disable */
+
+import React, { type FC, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -14,13 +16,36 @@ import MoreSettings from '../../Components/MoreSettingsComponent/MoreSettingsCom
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { IMonthlyDoseTime } from '@/store/slices/features/medicineDetails/types';
+import { setMonthlyDoseTime, setMonthlyStoreData, setWeeklyStoreData } from '@/store/slices/features/medicineDetails/slice';
 
 const MonthlyDoseDetails: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch()
+
+
+  const timeInterval = useSelector((state: RootState) => state.medicineDetails.timeInterval);
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
+  const monthlyDoseTime = useSelector((state: RootState) => state.medicineDetails.monthlyDoseTime);
+  const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+  const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
+  const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
+  const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
+  const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
+  const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
+
+
 
   // State for time and dose for each intake
-  const [times, setTimes] = useState<string[]>(Array(2).fill(''));
-  const [doses, setDoses] = useState<number[]>(Array(2).fill(0));
+  const [times, setTimes] = useState<string[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill('')
+  );
+  const [doses, setDoses] = useState<number[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(0)
+  );
+
 
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
@@ -65,8 +90,49 @@ const MonthlyDoseDetails: FC = () => {
   };
 
   const handleNext: any = () => {
+
+    let filterArray = monthlyDoseTime.filter((e) => {
+      if (e.medicineLocalId === medicineLocalId) return e
+    })
+
+    console.log('filterArray', filterArray)
+
+    if (filterArray.length > 0) {
+      let tempStore = filterArray.map((e) => {
+        return {
+          medicineName: medicineName,
+          medicineStatus: medicineStatus,
+          takeStatus: takeStatus,
+          doseQuantity: e.doseQuantity,
+          doseTime: e.doseTime,
+          strengthMed: strengthMed,
+          unitMed: unitMed,
+          typeMed: typeMed,
+          medicineId: '',
+          medicineLocalId: e.medicineLocalId
+        }
+      })
+
+      dispatch(setWeeklyStoreData(tempStore))
+    }
+
     navigation.navigate('AddedMedicine' as never);
   };
+
+
+  useEffect(() => {
+    if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
+      const monthlyDoses: IMonthlyDoseTime[] = times
+        .map((time, index) => ({
+          doseTime: time,
+          doseQuantity: doses[index].toString(),
+          medicineLocalId
+        }))
+        .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
+
+      dispatch(setMonthlyDoseTime(monthlyDoses));
+    }
+  }, [times, doses]);
 
   return (
     <View style={styles.container}>
