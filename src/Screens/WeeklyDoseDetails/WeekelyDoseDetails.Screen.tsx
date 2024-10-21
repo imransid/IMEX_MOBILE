@@ -34,6 +34,7 @@ import ToastPopUp from '@/utils/Toast.android';
 import axios from 'axios';
 import { BASE_URL } from '@/utils/environment';
 import { APPOINTMENT_MUTATION } from '@/mutations/appointment_mutation';
+import moment from 'moment';
 
 const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -96,176 +97,33 @@ const WeeklyDoseDetails: FC = () => {
   };
 
   const handleNext: any = async () => {
-    const mutation = `
-    mutation {
-      medicineDetails(medicineInput: {
-        medicineName: "${medicineName}", 
-        doseTime: "${doseTime}", 
-        doseQuantity: "${doseQuantity}", 
-        medicineStatus: "${medicineStatus}", 
-        takeStatus: "${takeStatus}"
-      }) {
-        message
-        medicineId
-      }
-    }
-    `;
 
-    try {
-      const response = await axios.post(
-        BASE_URL,
-        { query: mutation },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
+    let filterArray = weeklyDoseTime.filter((e) => {
+      if (e.medicineLocalId === medicineLocalId) return e
+    })
 
-      // Check if registration was successful
-      if (
-        response?.data?.data?.medicineDetails?.message !== undefined &&
-        response?.data?.data?.medicineDetails?.message !== null
-      ) {
-        let updatedStoredList = [...storedMedicineList];
-
-        let data = {
+    if (filterArray.length > 0) {
+      let tempStore = filterArray.map((e) => {
+        return {
           medicineName: medicineName,
           medicineStatus: medicineStatus,
           takeStatus: takeStatus,
-          doseQuantity: doseQuantity,
-          doseTime: doseTime,
+          doseQuantity: e.doseQuantity,
+          doseTime: e.doseTime,
           strengthMed: strengthMed,
           unitMed: unitMed,
           typeMed: typeMed,
-          medicineId: response?.data?.data?.medicineDetails?.medicineId // Corrected ID reference
-        };
-
-        // Add the new data to the copied array
-        updatedStoredList.push(data);
-
-        let dataAppointment = {
-          date: dateAp,
-          doctorName: doctorName,
-          setReminder: setReminder,
-          location: location,
-          time: time,
-          accessToken: accessToken
-        };
-
-        if (doctorName !== '')
-          await APPOINTMENT_MUTATION(
-            response.data.data.medicineDetails.medicineId,
-            dataAppointment
-          );
-        await handleMedicineDetailsSetting(response.data.data.medicineDetails.medicineId);
-
-        // Dispatch the updated array to the Redux store
-        dispatch(setDoseList(updatedStoredList));
-
-        let filterArray = weeklyDoseTime.filter(e => {
-          if (e.medicineLocalId === medicineLocalId) return e;
-        });
-
-        if (filterArray.length > 0) {
-          let tempStore = filterArray.map(e => {
-            return {
-              medicineName: medicineName,
-              medicineStatus: medicineStatus,
-              takeStatus: takeStatus,
-              doseQuantity: e.doseQuantity,
-              doseTime: e.doseTime,
-              strengthMed: strengthMed,
-              unitMed: unitMed,
-              typeMed: typeMed,
-              medicineId: '',
-              medicineLocalId: e.medicineLocalId
-            };
-          });
-
-          dispatch(setWeeklyStoreData(tempStore));
+          medicineId: '',
+          medicineLocalId: e.medicineLocalId,
+          createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
         }
-        navigation.navigate('AddedMedicine' as never);
+      })
 
-        ToastPopUp(response.data.data.medicineDetails.message);
-      } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
-        // Show error message from the response
-        const errorMessage: any = response?.data?.errors[0]?.message;
-        if (typeof errorMessage === 'string') {
-          ToastPopUp(errorMessage);
-        }
-      } else {
-        ToastPopUp('Something Went wrong ! please try again later.');
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error('Axios Error:', error.message);
-      } else {
-        console.error('Unexpected Error:', error);
-      }
-      ToastPopUp('Network Error! Please check your connection.');
+      dispatch(setWeeklyStoreData(tempStore))
     }
-  };
 
-  const handleMedicineDetailsSetting = async (medicineDetailsId: string) => {
-    const mutation = `
-      mutation{
-        medicineDetailsSetting(medicineInputSetting: 
-          { 
-            InstrucTion : "${instrucTion}", 
-            MedicineTakeEachDay : "${medicineTakeEachDay}", 
-            medicineReminderTotalReq : "${medicineReminderTotalReq}", 
-            treatmentDurationEndTime : "${treatmentDurationEndTime}", 
-            treatmentDurationStartTime : "${treatmentDurationStartTime}", 
-            medicineReminderCurrentStock : "${medicineReminderCurrentStock}", 
-            medicineReminderRemindToLeft: "${medicineReminderRemindToLeft}" 
-          })
-            {
-              message,
-            }
-      }
-    `;
+    navigation.navigate('AddedMedicine' as never);
 
-    try {
-      const response = await axios.post(
-        BASE_URL,
-        {
-          query: mutation,
-          variables: {
-            medicineDetailsID: medicineDetailsId
-          }
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-
-      if (
-        response?.data?.data?.medicineDetailsSetting?.message !== undefined &&
-        response?.data?.data?.medicineDetailsSetting?.message !== null
-      ) {
-        ToastPopUp(response.data.data.medicineDetailsSetting.message);
-      } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
-        // Show error message from the response
-        const errorMessage: any = response?.data?.errors[0]?.message;
-        if (typeof errorMessage === 'string') {
-          ToastPopUp(errorMessage);
-        }
-      } else {
-        ToastPopUp('Something Went wrong ! please try again later.');
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error('Axios Error:', error.message);
-      } else {
-        console.error('Unexpected Error:', error);
-      }
-      ToastPopUp('Network Error! Please check your connection.');
-    }
   };
 
   const doseTime = useSelector((state: RootState) => state.medicineDetails.doseTime);
