@@ -1,5 +1,5 @@
 import React, { type FC } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, Linking } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -50,7 +50,11 @@ const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
           </View>
           <Text style={styles.userItemsText}>My Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.userContactItemStyle}>
+        <TouchableOpacity
+          style={styles.userContactItemStyle}
+          onPress={() =>
+            Linking.openURL('http://www.teampharmabd.com/index.php/teampharma/contact_us')
+          }>
           <MaterialCommunityIcons name="email" size={25} color={colors.mainText} />
           <Text style={styles.userItemsText}>Contact Us</Text>
         </TouchableOpacity>
