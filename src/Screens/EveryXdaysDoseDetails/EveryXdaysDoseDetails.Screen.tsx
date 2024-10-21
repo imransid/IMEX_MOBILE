@@ -1,4 +1,5 @@
-import React, { type FC, useState } from 'react';
+/* eslint-disable */
+import React, { type FC, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -14,8 +15,16 @@ import MoreSettings from '../../Components/MoreSettingsComponent/MoreSettingsCom
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { IWeeklyDoseTime } from '@/store/slices/features/medicineDetails/types';
+import { setWeeklyStoreData, setXDaysTakeDose } from '@/store/slices/features/medicineDetails/slice';
+import moment from 'moment';
 
 const EveryXdaysDoseDetails: FC = () => {
+
+  const dispatch = useDispatch()
+
   const navigation = useNavigation();
 
   // State for time and dose for each intake
@@ -26,6 +35,17 @@ const EveryXdaysDoseDetails: FC = () => {
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [date, setDate] = useState(new Date());
+
+
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
+  const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+  const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
+  const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
+  const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
+  const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
+  const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
+  const xDaysTakeDoseTime = useSelector((state: RootState) => state.medicineDetails.xDaysTakeDoseTime);
+
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -64,9 +84,52 @@ const EveryXdaysDoseDetails: FC = () => {
     }
   };
 
-  const handleNext: any = () => {
+  const handleNext: any = async () => {
+
+    let filterArray = xDaysTakeDoseTime.filter((e) => {
+      if (e.medicineLocalId === medicineLocalId) return e
+    })
+
+    if (filterArray.length > 0) {
+      let tempStore = filterArray.map((e) => {
+        return {
+          medicineName: medicineName,
+          medicineStatus: medicineStatus,
+          takeStatus: takeStatus,
+          doseQuantity: e.doseQuantity,
+          doseTime: e.doseTime,
+          strengthMed: strengthMed,
+          unitMed: unitMed,
+          typeMed: typeMed,
+          medicineId: '',
+          medicineLocalId: e.medicineLocalId,
+          createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
+        }
+      })
+
+      dispatch(setWeeklyStoreData(tempStore))
+    }
+
     navigation.navigate('AddedMedicine' as never);
+
   };
+
+
+
+
+  useEffect(() => {
+    if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
+      const XDoses: IWeeklyDoseTime[] = times
+        .map((time, index) => ({
+          doseTime: time,
+          doseQuantity: doses[index].toString(),
+          medicineLocalId
+        }))
+        .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
+
+      dispatch(setXDaysTakeDose(XDoses));
+    }
+  }, [times, doses]);
 
   return (
     <View style={styles.container}>

@@ -10,6 +10,7 @@ import {
   type IStoredMonthly,
   type IWeekly,
   type IWeeklyDoseTime,
+  type IXDaysDoseTime,
   type MedicineName,
   type MedicStatus,
   type MedicType,
@@ -33,7 +34,11 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   weeklyTime: [],
   timeInterval: '',
   weeklyDoseTime: [],
-  monthlyDoseTime: []
+  monthlyDoseTime: [],
+  xDaysDoseTime: [],
+  xDaysTakeDoseTime: [],
+  xWeekDoseTime: [],
+  xMonthDoseTime: []
 };
 
 export const medicineDetailsSlice = createSlice({
@@ -103,6 +108,13 @@ export const medicineDetailsSlice = createSlice({
     },
     updateTimeInterval: (state: IMedicineDetailsType, payload: PayloadAction<string>) => {
       state.timeInterval = payload.payload;
+    },
+    // set X days
+    setXDaysDoseTime: (state: IMedicineDetailsType, payload: PayloadAction<IXDaysDoseTime[]>) => {
+      state.xDaysDoseTime = [...state.xDaysDoseTime, ...payload.payload];
+    },
+    setXDaysTakeDose: (state: IMedicineDetailsType, payload: PayloadAction<IWeeklyDoseTime[]>) => {
+      state.xDaysTakeDoseTime = [...state.xDaysTakeDoseTime, ...payload.payload];
     }
   }
 });
@@ -122,7 +134,9 @@ export const {
   setWeeklyStoreData,
   setMonthlyStoreData,
   updateTimeInterval,
-  setMonthlyDoseTime
+  setMonthlyDoseTime,
+  setXDaysDoseTime,
+  setXDaysTakeDose
 } = medicineDetailsSlice.actions;
 
 export const medicineDetailsReducer = medicineDetailsSlice.reducer;
