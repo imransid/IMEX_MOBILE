@@ -13,11 +13,23 @@ import GuestImage from '../../assets/guest-image';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { useNavigation } from '@react-navigation/native';
 
 const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
+  const navigation = useNavigation();
+
   const handleLogout: any = () => {
     // navigation.navigate('Login' as never);
   };
+
+  const handleShowUserProfile: any = () => {
+    navigation.navigate('Profile' as never);
+  };
+
+  const userName = useSelector((state: RootState) => state.users.user.data.user.fullName);
+  const userEmail = useSelector((state: RootState) => state.users.user.data.user.email);
 
   return (
     <DrawerContentScrollView {...props}>
@@ -25,12 +37,14 @@ const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
         <GuestImage />
       </View>
       <View style={styles.userNamePosition}>
-        <Text style={styles.userNameText}>User Name</Text>
-        <Text style={styles.userEmailText}>useremail@gmail.com</Text>
+        <Text style={styles.userNameText}>{userName}</Text>
+        <Text style={styles.userEmailText}>{userEmail}</Text>
       </View>
 
       <View style={styles.userItemsPosition}>
-        <TouchableOpacity style={styles.userProfileItemStyle}>
+        <TouchableOpacity
+          style={styles.userProfileItemStyle}
+          onPress={() => handleShowUserProfile()}>
           <View style={styles.userIconPosition}>
             <FontAwesome name="user" size={25} color={colors.mainText} />
           </View>
