@@ -180,13 +180,17 @@ const OnceAdayDose: FC = () => {
           accessToken: accessToken
         };
 
-        if (doctorName !== '') await APPOINTMENT_MUTATION(response.data.data.medicineDetails.medicineId, dataAppointment);
+        if (doctorName !== '')
+          await APPOINTMENT_MUTATION(
+            response.data.data.medicineDetails.medicineId,
+            dataAppointment
+          );
         await handleMedicineDetailsSetting(response.data.data.medicineDetails.medicineId);
 
         // Dispatch the updated array to the Redux store
         dispatch(setDoseList(updatedStoredList));
 
-        navigation.navigate("UserDrawer" as never)
+        navigation.navigate('AddedMedicine' as never);
 
         ToastPopUp(response.data.data.medicineDetails.message);
       } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {

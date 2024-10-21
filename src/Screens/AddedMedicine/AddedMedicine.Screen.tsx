@@ -30,6 +30,8 @@ const AddedMedicine: FC = () => {
 
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
 
+  const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+
   const scaleStyles = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }]
   }));
@@ -58,7 +60,7 @@ const AddedMedicine: FC = () => {
         You have successfully added
       </Animated.Text>
       <Animated.Text entering={FadeInUp.delay(1300)} exiting={FadeOut} style={styles.subText}>
-        Adflox
+        {medicineName}
       </Animated.Text>
       <Animated.View
         entering={FadeInUp.delay(1800)}

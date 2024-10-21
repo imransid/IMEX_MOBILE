@@ -7,6 +7,8 @@ import { colors } from '../theme/colors';
 
 import styles from './Styles';
 import UserBottomTabNavigator from './UserBottomTabNavigator';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const Drawer = createDrawerNavigator();
 
@@ -27,6 +29,7 @@ const getGreeting: any = () => {
 };
 
 const UserDrawerNavigator: FC = () => {
+  const userName = useSelector((state: RootState) => state.users.user.data.user.fullName);
   const greetings = getGreeting();
   return (
     <Drawer.Navigator
@@ -35,7 +38,7 @@ const UserDrawerNavigator: FC = () => {
       screenOptions={{
         headerTitle: () => (
           <>
-            <Text style={styles.usernameText}>Hi, user</Text>
+            <Text style={styles.usernameText}>Hi, {userName}</Text>
             <Text style={styles.greetingsText}>{greetings}</Text>
           </>
         ),

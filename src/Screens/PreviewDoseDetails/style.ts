@@ -125,7 +125,12 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSansMedium'
   },
   subHeader: {
-    alignItems: 'center'
+    alignItems: 'center',
+  },
+  medicineTypeAndUnitText: {
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   },
   timeAndQuantityProperties: {
     flexDirection: 'row',

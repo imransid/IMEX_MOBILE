@@ -12,7 +12,9 @@ const styles = StyleSheet.create({
   },
   addMedicineButtonPosition: {
     marginLeft: scale(175),
-    marginTop: verticalScale(260)
+    bottom: scale(90),
+    position: 'absolute'
+    
   },
   addMedicineButtonProperties: {
     flexDirection: 'row',
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
     marginTop: scale(5)
   },
   medicineDoseComponentPosition: {
-    left: scale(20)
+    alignItems: 'center'
   },
   medicineDoseProperties: {
     flexDirection: 'row',
@@ -84,26 +86,32 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(12)
   },
   clickToAddMedPosition: {
-    left: scale(120),
-    top: scale(100)
+    alignItems: 'center',
+    marginTop: scale(150)
+  },
+  donotHaveMedTextPosition: {
+    marginTop: scale(5)
   },
   donotHaveMedText: {
     color: colors.typedText,
     fontFamily: 'WorkSansMedium',
-    fontSize: moderateScale(12)
+    fontSize: moderateScale(14)
   },
   clickToAddText: {
     color: colors.header,
     fontFamily: 'WorkSansMedium',
-    fontSize: moderateScale(12)
+    fontSize: moderateScale(14)
   },
   plusIconText: {
     color: colors.buttonBg,
     fontFamily: 'WorkSansMedium',
-    fontSize: moderateScale(12)
+    fontSize: moderateScale(14)
   },
   clickToAddMedTextPosition: {
     flexDirection: 'row',
+  },
+  medicineDoseListStyle: {
+    maxHeight: '61%', 
   }
 });
 
