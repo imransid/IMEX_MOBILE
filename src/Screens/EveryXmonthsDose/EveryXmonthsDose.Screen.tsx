@@ -12,9 +12,16 @@ import CustomNumberPickerModal from '../../Components/CustomNumberPickerModal/Cu
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import {
+  setXmonthsDoseTime,
+  updateTimeInterval
+} from '@/store/slices/features/medicineDetails/slice';
 
 const EveryXmonthsDose: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [openTimeInterval, setOpenTimeInterval] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -22,6 +29,8 @@ const EveryXmonthsDose: FC = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [timeInterval, setTimeInterval] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
 
   const handleSelectDayNumber: any = () => {
     setOpen(!open);
@@ -72,6 +81,18 @@ const EveryXmonthsDose: FC = () => {
   };
 
   const handleNext: any = () => {
+    // Create the IXWeeksDoseTime object
+
+    const newDoseTime = {
+      month: selectedNumber,
+      date: selectedDate,
+      timeTravel: timeInterval, // Assuming timeInterval holds the time you want to store
+      medicineLocalId
+    };
+
+    dispatch(updateTimeInterval(timeInterval));
+    dispatch(setXmonthsDoseTime([newDoseTime]));
+
     navigation.navigate('EveryXmonthsDoseDetails' as never);
   };
 
