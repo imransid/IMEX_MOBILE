@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 import { MEDICINE_DETAILS } from './constants';
 import {
+  IXWeeklyDoseTime,
   type doseQuantityStatus,
   type doseTimeStatus,
   type IMedicine,
@@ -38,6 +39,7 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   xDaysDoseTime: [],
   xDaysTakeDoseTime: [],
   xWeekDoseTime: [],
+  xWeeksTakeDoseTime: [],
   xMonthDoseTime: []
 };
 
@@ -115,6 +117,14 @@ export const medicineDetailsSlice = createSlice({
     },
     setXDaysTakeDose: (state: IMedicineDetailsType, payload: PayloadAction<IWeeklyDoseTime[]>) => {
       state.xDaysTakeDoseTime = [...state.xDaysTakeDoseTime, ...payload.payload];
+    },
+
+    // set X weeks
+    setXweeksDoseTime: (state: IMedicineDetailsType, payload: PayloadAction<IXWeeklyDoseTime[]>) => {
+      state.xWeekDoseTime = [...state.xWeekDoseTime, ...payload.payload]
+    },
+    setXWeeksTakeDose: (state: IMedicineDetailsType, payload: PayloadAction<IWeeklyDoseTime[]>) => {
+      state.xWeeksTakeDoseTime = [...state.xWeeksTakeDoseTime, ...payload.payload]
     }
   }
 });
@@ -136,7 +146,9 @@ export const {
   updateTimeInterval,
   setMonthlyDoseTime,
   setXDaysDoseTime,
-  setXDaysTakeDose
+  setXDaysTakeDose,
+  setXweeksDoseTime,
+  setXWeeksTakeDose
 } = medicineDetailsSlice.actions;
 
 export const medicineDetailsReducer = medicineDetailsSlice.reducer;

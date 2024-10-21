@@ -18,6 +18,7 @@ export interface IMedicineDetailsType {
   xDaysDoseTime: IXDaysDoseTime[];
   xDaysTakeDoseTime: IMonthlyDoseTime[];
   xWeekDoseTime: IXWeeklyDoseTime[];
+  xWeeksTakeDoseTime: IMonthlyDoseTime[];
   xMonthDoseTime: IXMonthlyDoseTime[];
 }
 
@@ -29,7 +30,7 @@ export interface IXDaysDoseTime {
 }
 
 export interface IXWeeklyDoseTime {
-  day: string;
+  week: string;
   date: string;
   timeTravel: string;
   medicineLocalId: string;
