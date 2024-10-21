@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   addMedicineButtonPosition: {
     marginLeft: scale(175),
-    bottom: scale(90),
+    bottom: scale(70),
     position: 'absolute'
     
   },
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   medicineDoseListStyle: {
-    maxHeight: '61%', 
+    maxHeight: scale(330), 
   }
 });
 

@@ -53,7 +53,11 @@ const PreviewDoseDetails: FC = () => {
           <Header mainHeader={selectedMedicine?.medicineName} />
         </View>
         <View style={styles.subHeader}>
-          <Header subHeader={`${medicineType}, ${medicineStrength}${medicineUnit}`} />
+          <Header
+            subHeader={
+              medicineType !== '' ? `${medicineType}, ${medicineStrength}${medicineUnit}` : ''
+            }
+          />
         </View>
         {weeklyTime.length > 0 && (
           <View style={styles.doseDetailsPosition}>

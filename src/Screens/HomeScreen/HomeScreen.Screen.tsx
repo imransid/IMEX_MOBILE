@@ -100,11 +100,6 @@ const HomeScreen: FC = () => {
               )}
             />
           ) : (
-            // storedMedicineList.map((medicine, index) => (
-            //   <>
-
-            //   </>
-            // ))
             <View style={styles.clickToAddMedPosition}>
               <ClickToAddMedicine />
               <View style={styles.donotHaveMedTextPosition}>
