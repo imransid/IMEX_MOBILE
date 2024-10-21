@@ -1,5 +1,5 @@
 import React, { type FC } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -51,9 +51,14 @@ const HomeScreen: FC = () => {
             </View>
           )}
           {storedMedicineList.length > 0 ? (
-            storedMedicineList.map((medicine, index) => (
-              <>
-                <TouchableOpacity key={index} style={styles.chip} onPress={() => handleDosePress()}>
+            <FlatList
+              style={styles.medicineDoseListStyle}
+              data={storedMedicineList}
+              renderItem={({ item: medicine, index }) => (
+                <TouchableOpacity
+                  key={index}
+                  style={styles.chip}
+                  onPress={() => handleDosePress(medicine.medicineId)}>
                   <View style={styles.medicineDoseProperties}>
                     <MedicineImage />
                     <View style={styles.doseDetailsPosition}>
@@ -81,9 +86,14 @@ const HomeScreen: FC = () => {
                     </View>
                   </View>
                 </TouchableOpacity>
-              </>
-            ))
+              )}
+            />
           ) : (
+            // storedMedicineList.map((medicine, index) => (
+            //   <>
+
+            //   </>
+            // ))
             <View style={styles.clickToAddMedPosition}>
               <ClickToAddMedicine />
               <View style={styles.donotHaveMedTextPosition}>

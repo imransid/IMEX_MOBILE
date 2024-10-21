@@ -12,7 +12,9 @@ const styles = StyleSheet.create({
   },
   addMedicineButtonPosition: {
     marginLeft: scale(175),
-    marginTop: verticalScale(100),
+    bottom: scale(90),
+    position: 'absolute'
+    
   },
   addMedicineButtonProperties: {
     flexDirection: 'row',
@@ -108,6 +110,9 @@ const styles = StyleSheet.create({
   clickToAddMedTextPosition: {
     flexDirection: 'row',
   },
+  medicineDoseListStyle: {
+    maxHeight: '61%', 
+  }
 });
 
 export default styles;

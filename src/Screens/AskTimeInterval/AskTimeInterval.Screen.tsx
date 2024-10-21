@@ -11,9 +11,12 @@ import CustomNumberPickerModal from '../../Components/CustomNumberPickerModal/Cu
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import { useDispatch } from 'react-redux';
+import { updateTimeInterval } from '@/store/slices/features/medicineDetails/slice';
 
 const AskTimeInterval: FC = () => {
   const navigation = useNavigation();
+  const disptach = useDispatch();
   const [selectedNumber, setSelectedNumber] = useState('');
   const [open, setOpen] = useState(false); // for time picker
 
@@ -34,6 +37,7 @@ const AskTimeInterval: FC = () => {
   };
 
   const okPress: any = () => {
+    disptach(updateTimeInterval(selectedNumber));
     setOpen(false);
   };
 
