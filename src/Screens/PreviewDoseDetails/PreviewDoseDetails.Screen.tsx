@@ -55,38 +55,42 @@ const PreviewDoseDetails: FC = () => {
         <View style={styles.subHeader}>
           <Header subHeader={`${medicineType}, ${medicineStrength}${medicineUnit}`} />
         </View>
-
-        <View style={styles.doseDetailsPosition}>
-          <View style={styles.schedulePosition}>
-            <View style={styles.doseDetailsProperties}>
-              <Text style={styles.headingStyle}>Schedule</Text>
-              <View style={styles.chip}>
-                <View style={styles.dayContentProperties}>
-                  <Text style={styles.chipText}>
-                    {weeklyTime.length > 0
-                      ? weeklyTime.map(day => day.charAt(0).toUpperCase() + day.slice(1)).join(', ')
-                      : ''}
-                  </Text>
+        {weeklyTime.length > 0 && (
+          <View style={styles.doseDetailsPosition}>
+            <View style={styles.schedulePosition}>
+              <View style={styles.doseDetailsProperties}>
+                <Text style={styles.headingStyle}>Schedule</Text>
+                <View style={styles.chip}>
+                  <View style={styles.dayContentProperties}>
+                    <Text style={styles.chipText}>
+                      {weeklyTime.length > 0
+                        ? weeklyTime
+                            .map(day => day.charAt(0).toUpperCase() + day.slice(1))
+                            .join(', ')
+                        : ''}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-          <View style={styles.chip}>
-            <View style={styles.timeAndQuantityProperties}>
-              {weeklyDoseTime.length > 0
-                ? weeklyDoseTime.map((dose, index) => (
-                    <>
-                      <Text style={styles.chipText}>{dose.doseTime}</Text>
-                      <Text style={styles.chipText}>
-                        {dose.doseQuantity}{' '}
-                        {parseInt(dose.doseQuantity) > 1 ? 'Capsules' : 'Capsule'}
-                      </Text>
-                    </>
-                  ))
-                : ''}
+            <View style={styles.chip}>
+              <View style={styles.timeAndQuantityProperties}>
+                {weeklyDoseTime.length > 0
+                  ? weeklyDoseTime.map((dose, index) => (
+                      <>
+                        <Text style={styles.chipText}>{dose.doseTime}</Text>
+                        <Text style={styles.chipText}>
+                          {dose.doseQuantity}{' '}
+                          {parseInt(dose.doseQuantity) > 1 ? 'Capsules' : 'Capsule'}
+                        </Text>
+                      </>
+                    ))
+                  : ''}
+              </View>
             </View>
           </View>
-        </View>
+        )}
+
         <View style={styles.doseDetailsPosition}>
           <View style={styles.optionalDetailsPosition}>
             <View style={styles.doseDetailsProperties}>

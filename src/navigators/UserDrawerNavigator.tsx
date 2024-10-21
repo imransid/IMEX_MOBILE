@@ -54,6 +54,7 @@ const UserDrawerNavigator: FC = () => {
         component={PreviewDoseDetails}
         options={{ title: '' }}
       />
+      {/* <Drawer.Screen name='UserProfile' component={}/> */}
     </Drawer.Navigator>
   );
 };

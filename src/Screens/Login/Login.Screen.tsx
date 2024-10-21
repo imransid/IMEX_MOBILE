@@ -64,6 +64,10 @@ const Login: FC = () => {
                   accessToken
                   user {
                     fullName
+                    birthday
+      email
+      mobileNumber
+      gender
                 }
               }
             }
