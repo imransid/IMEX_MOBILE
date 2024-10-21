@@ -18,7 +18,9 @@ export interface IMedicineDetailsType {
   xDaysDoseTime: IXDaysDoseTime[];
   xDaysTakeDoseTime: IMonthlyDoseTime[];
   xWeekDoseTime: IXWeeklyDoseTime[];
+  xWeekTakeDoseTime: IWeeklyDoseTime[];
   xMonthDoseTime: IXMonthlyDoseTime[];
+  xMonthTakeDoseTime: IWeeklyDoseTime[];
 }
 
 export interface IXDaysDoseTime {

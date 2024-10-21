@@ -5,10 +5,11 @@ import { ScrollView } from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
 
+import { type RootState } from '@/store';
 import { setAppointment } from '@/store/slices/features/appointment/slice';
 
 import DoctorAppointmentsLogo from '../../assets/doctor-appointments';
@@ -34,19 +35,24 @@ const DoctorAppointments: FC = () => {
   const [doctorName, setDoctorName] = useState('');
   const [openReminderModal, setOpenReminderModal] = useState(false); // for set reminder
 
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
+
   const handleSetDate: any = (date: string) => {
     const formattedDate = format(new Date(date), 'EEE, d MMMM, yyyy');
     setDate(formattedDate);
   };
   const handleNext: any = () => {
     dispatch(
-      setAppointment({
-        date,
-        time: selectedTime,
-        doctorName,
-        location,
-        setReminder: reminder
-      })
+      setAppointment([
+        {
+          date,
+          time: selectedTime,
+          doctorName,
+          location,
+          setReminder: reminder,
+          medicineLocalId
+        }
+      ])
     );
     navigation.navigate('OnceAdayDose' as never);
   };

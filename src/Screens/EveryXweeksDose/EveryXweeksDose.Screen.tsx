@@ -4,7 +4,14 @@ import DatePicker from 'react-native-date-picker';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+
+import { type RootState } from '@/store';
+import {
+  setXWeekDoseTime,
+  updateTimeInterval
+} from '@/store/slices/features/medicineDetails/slice';
 
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -15,6 +22,7 @@ import styles from './style';
 
 const EveryXweeksDose: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [openTimeInterval, setOpenTimeInterval] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -22,6 +30,8 @@ const EveryXweeksDose: FC = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [timeInterval, setTimeInterval] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
 
   const handleSelectDayNumber: any = () => {
     setOpen(!open);
@@ -72,6 +82,16 @@ const EveryXweeksDose: FC = () => {
   };
 
   const handleNext: any = () => {
+    const newDoseTime = {
+      day: selectedNumber,
+      date: selectedDate,
+      timeTravel: timeInterval, // Assuming timeInterval holds the time you want to store
+      medicineLocalId
+    };
+
+    dispatch(updateTimeInterval(timeInterval));
+    dispatch(setXWeekDoseTime([newDoseTime]));
+
     navigation.navigate('EveryXweeksDoseDetails' as never);
   };
 

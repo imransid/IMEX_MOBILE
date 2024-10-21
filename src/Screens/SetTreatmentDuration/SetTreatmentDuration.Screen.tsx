@@ -1,10 +1,11 @@
 import React, { type FC, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
 
+import { type RootState } from '@/store';
 import { setExtraTreatmentDuration } from '@/store/slices/features/medicineDetailsExtraSetting/slice';
 
 import TreatmentDuration from '../../assets/treatment-duration';
@@ -23,6 +24,8 @@ const SetTreatmentDuration: FC = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [giveInput, setGiveInput] = useState('');
+
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
 
   const handleStartDateSelectInstruction: any = () => {
     setStartDateModalOpen(!startDateModalOpen);
@@ -43,11 +46,14 @@ const SetTreatmentDuration: FC = () => {
 
   const handleNext: any = () => {
     dispatch(
-      setExtraTreatmentDuration({
-        treatmentDurationStartTime: startDate,
-        treatmentDurationEndTime: endDate,
-        medicineTakeEachDay: giveInput
-      })
+      setExtraTreatmentDuration([
+        {
+          treatmentDurationStartTime: startDate,
+          treatmentDurationEndTime: endDate,
+          medicineTakeEachDay: giveInput,
+          medicineLocalId
+        }
+      ])
     );
     navigation.goBack();
   };

@@ -2,9 +2,10 @@ import React, { type FC, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
+import { type RootState } from '@/store';
 import { setExtraInstrucTion } from '@/store/slices/features/medicineDetailsExtraSetting/slice';
 
 import AddInstructionsLogo from '../../assets/add-instructions';
@@ -22,6 +23,8 @@ const AddInstructions: FC = () => {
   const [open, setOpen] = useState(false); // for instruction picker
   const [tempInstruction, setTempInstruction] = useState('');
 
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
+
   const handleSelectInstruction: any = () => {
     setOpen(!open);
   };
@@ -31,7 +34,7 @@ const AddInstructions: FC = () => {
   };
 
   const okPress: any = () => {
-    dispatch(setExtraInstrucTion({ instrucTion: tempInstruction }));
+    dispatch(setExtraInstrucTion([{ instrucTion: tempInstruction, medicineLocalId }]));
     setInstruction(tempInstruction);
     setOpen(false);
   };

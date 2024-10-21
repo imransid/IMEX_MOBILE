@@ -100,7 +100,7 @@ const MonthlyDoseDetails: FC = () => {
       let tempStore = filterArray.map((e) => {
         return {
           medicineName: medicineName,
-          medicineStatus: medicineStatus,
+          medicineStatus: 'month',
           takeStatus: takeStatus,
           doseQuantity: e.doseQuantity,
           doseTime: e.doseTime,

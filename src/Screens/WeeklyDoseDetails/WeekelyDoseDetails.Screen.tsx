@@ -106,7 +106,7 @@ const WeeklyDoseDetails: FC = () => {
       let tempStore = filterArray.map((e) => {
         return {
           medicineName: medicineName,
-          medicineStatus: medicineStatus,
+          medicineStatus: 'week',
           takeStatus: takeStatus,
           doseQuantity: e.doseQuantity,
           doseTime: e.doseTime,
@@ -126,46 +126,12 @@ const WeeklyDoseDetails: FC = () => {
 
   };
 
-  const doseTime = useSelector((state: RootState) => state.medicineDetails.doseTime);
-  const doseQuantity = useSelector((state: RootState) => state.medicineDetails.doseQuantity);
+
   const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
-  const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
-  const storedMedicineList = useSelector(
-    (state: RootState) => state.medicineDetails.storedMedicineList
-  );
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
-  const accessToken = useSelector((state: RootState) => state.users.user.data.accessToken);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
-
-  const instrucTion = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.instrucTion
-  );
-  const medicineReminderCurrentStock = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.medicineReminderCurrentStock
-  );
-  const medicineReminderRemindToLeft = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.medicineReminderRemindToLeft
-  );
-  const medicineReminderTotalReq = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.medicineReminderTotalReq
-  );
-  const medicineTakeEachDay = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.medicineTakeEachDay
-  );
-  const treatmentDurationEndTime = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.treatmentDurationEndTime
-  );
-  const treatmentDurationStartTime = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.treatmentDurationStartTime
-  );
-
-  const doctorName = useSelector((state: RootState) => state.appointment.doctorName);
-  const dateAp = useSelector((state: RootState) => state.appointment.date);
-  const location = useSelector((state: RootState) => state.appointment.location);
-  const setReminder = useSelector((state: RootState) => state.appointment.setReminder);
-  const time = useSelector((state: RootState) => state.appointment.time);
 
   useEffect(() => {
     if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {

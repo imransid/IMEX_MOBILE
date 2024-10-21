@@ -4,23 +4,35 @@ import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   type DrawerContentComponentProps,
   DrawerContentScrollView
 } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/native';
+
+import { type RootState } from '@/store';
+import { clearAppointment } from '@/store/slices/features/appointment/slice';
+import { clearStoreMedicineDetails } from '@/store/slices/features/medicineDetails/slice';
+import { clearExtraMedicineDetails } from '@/store/slices/features/medicineDetailsExtraSetting/slice';
+import { logoutUser } from '@/store/slices/features/users/slice';
 
 import GuestImage from '../../assets/guest-image';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
-import { useNavigation } from '@react-navigation/native';
 
 const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
   const navigation = useNavigation();
 
+  const dispatch = useDispatch();
+
   const handleLogout: any = () => {
+    dispatch(clearStoreMedicineDetails());
+    dispatch(clearExtraMedicineDetails());
+    dispatch(clearAppointment());
+    dispatch(logoutUser());
+
     // navigation.navigate('Login' as never);
   };
 
