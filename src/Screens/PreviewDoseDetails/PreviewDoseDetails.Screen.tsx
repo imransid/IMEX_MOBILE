@@ -1,9 +1,12 @@
-import React, { useState, type FC } from 'react';
+import React, { type FC } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
+import { type RootState } from '@/store';
 
 import MedicineImage from '../../assets/medicine-image';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -11,14 +14,14 @@ import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
 
 const PreviewDoseDetails: FC = () => {
-  const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+  // const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
   const medicineType = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const medicineUnit = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const medicineStrength = useSelector((state: RootState) => state.medicineDetails.strengthMed);
+  const route = useRoute(); // Access the route prop
+  const { medicineId } = route.params as { medicineId: any }; // Extract medicineId from route params
 
   const weeklyDoseTime = useSelector((state: RootState) => state.medicineDetails.weeklyDoseTime);
 
@@ -26,6 +29,11 @@ const PreviewDoseDetails: FC = () => {
 
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
+  );
+
+  // Find the medicine based on medicineId
+  const selectedMedicine = storedMedicineList.find(
+    medicine => medicine.medicineLocalId === medicineId
   );
 
   const navigation = useNavigation();
@@ -42,11 +50,7 @@ const PreviewDoseDetails: FC = () => {
         </View>
 
         <View style={styles.mainHeader}>
-          {storedMedicineList.length > 0
-            ? storedMedicineList.map((medicine, index) => (
-                <Header mainHeader={medicine.medicineName} />
-              ))
-            : ''}
+          <Header mainHeader={selectedMedicine?.medicineName} />
         </View>
         <View style={styles.subHeader}>
           <Header subHeader={`${medicineType}, ${medicineStrength}${medicineUnit}`} />
