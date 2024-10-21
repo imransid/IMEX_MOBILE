@@ -68,7 +68,7 @@ const PreviewDoseDetails: FC = () => {
                     <Text style={styles.chipText}>
                       {weeklyTime.length > 0
                         ? weeklyTime
-                            .map(day => day.charAt(0).toUpperCase() + day.slice(1))
+                            .map((day, index) => day.charAt(0).toUpperCase() + day.slice(1))
                             .join(', ')
                         : ''}
                     </Text>
@@ -83,8 +83,10 @@ const PreviewDoseDetails: FC = () => {
                       <>
                         <Text style={styles.chipText}>{dose.doseTime}</Text>
                         <Text style={styles.chipText}>
-                          {dose.doseQuantity}{' '}
-                          {parseInt(dose.doseQuantity) > 1 ? 'Capsules' : 'Capsule'}
+                          {selectedMedicine?.doseQuantity}{' '}
+                          {parseInt(dose.doseQuantity) > 1
+                            ? `${selectedMedicine?.typeMed}s`
+                            : `${selectedMedicine?.typeMed}`}
                         </Text>
                       </>
                     ))
