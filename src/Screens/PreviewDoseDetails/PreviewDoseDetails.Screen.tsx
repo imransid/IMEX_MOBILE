@@ -17,9 +17,6 @@ import styles from './style';
 
 const PreviewDoseDetails: FC = () => {
   // const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
-  const medicineType = useSelector((state: RootState) => state.medicineDetails.typeMed);
-  const medicineUnit = useSelector((state: RootState) => state.medicineDetails.unitMed);
-  const medicineStrength = useSelector((state: RootState) => state.medicineDetails.strengthMed);
   const route = useRoute(); // Access the route prop
   const { medicineId } = route.params as { medicineId: any }; // Extract medicineId from route params
 
@@ -55,7 +52,9 @@ const PreviewDoseDetails: FC = () => {
         <View style={styles.subHeader}>
           <Header
             subHeader={
-              medicineType !== '' ? `${medicineType}, ${medicineStrength}${medicineUnit}` : ''
+              selectedMedicine?.typeMed !== ''
+                ? `${selectedMedicine?.typeMed}, ${selectedMedicine?.strengthMed}${selectedMedicine?.unitMed}`
+                : ''
             }
           />
         </View>
