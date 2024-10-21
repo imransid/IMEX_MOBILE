@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { type FC, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
@@ -9,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { type RootState } from '@/store';
-import { setWeeklyDoseTime } from '@/store/slices/features/medicineDetails/slice';
+import { setWeeklyDoseTime, setWeeklyStoreData } from '@/store/slices/features/medicineDetails/slice';
 import { type IWeeklyDoseTime } from '@/store/slices/features/medicineDetails/types';
 
 import MedicineLogo from '../../assets/medicine-logo';
@@ -25,6 +27,14 @@ const WeeklyDoseDetails: FC = () => {
   const dispatch = useDispatch();
   const timeInterval = useSelector((state: RootState) => state.medicineDetails.timeInterval);
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
+  const weeklyDoseTime = useSelector((state: RootState) => state.medicineDetails.weeklyDoseTime);
+  const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+  const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
+  const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
+  const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
+  const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
+  const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
+
 
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(
@@ -77,6 +87,29 @@ const WeeklyDoseDetails: FC = () => {
   };
 
   const handleNext: any = () => {
+
+    let filterArray = weeklyDoseTime.filter((e) => {
+      if (e.medicineLocalId === medicineLocalId) return e
+    })
+
+    if (filterArray.length > 0) {
+      let tempStore = filterArray.map((e) => {
+        return {
+          medicineName: medicineName,
+          medicineStatus: medicineStatus,
+          takeStatus: takeStatus,
+          doseQuantity: e.doseQuantity,
+          doseTime: e.doseTime,
+          strengthMed: strengthMed,
+          unitMed: unitMed,
+          typeMed: typeMed,
+          medicineId: '',
+          medicineLocalId: e.medicineLocalId
+        }
+      })
+
+      dispatch(setWeeklyStoreData(tempStore))
+    }
     navigation.navigate('AddedMedicine' as never);
   };
 

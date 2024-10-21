@@ -13,6 +13,11 @@ export interface IMedicineDetailsType {
   weeklyTime: string[];
   timeInterval: string;
   weeklyDoseTime: IWeeklyDoseTime[];
+  monthlyDoseTime: IMonthlyDoseTime[];
+}
+
+export interface IMonthlyDoseTime {
+  doseTime: string;
 }
 
 export interface IWeeklyDoseTime {
