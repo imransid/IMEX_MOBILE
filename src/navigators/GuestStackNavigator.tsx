@@ -123,7 +123,7 @@ const defaultHeaderOptions = {
 
 const GuestStackNavigator: any = () => {
   return (
-    <publicStack.Navigator initialRouteName="Login">
+    <publicStack.Navigator>
       {screens.map(({ name, component, title, headerShown = true }) => (
         <publicStack.Screen
           key={name}

@@ -26,6 +26,7 @@ import {
   EveryXweeksDoseDetails,
   ForgotPassword,
   FourTimesAdayDose,
+  Login,
   MedicineAddingMethod,
   MedicineDailyDoses,
   MedicineDetails,
