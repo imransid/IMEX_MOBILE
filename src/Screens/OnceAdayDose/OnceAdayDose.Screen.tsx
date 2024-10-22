@@ -53,33 +53,7 @@ const OnceAdayDose: FC = () => {
   const accessToken = useSelector((state: RootState) => state.users.user.data.accessToken);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
 
-  const instrucTion = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.instrucTion
-  );
-  const medicineReminderCurrentStock = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.medicineReminderCurrentStock
-  );
-  const medicineReminderRemindToLeft = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.medicineReminderRemindToLeft
-  );
-  const medicineReminderTotalReq = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.medicineReminderTotalReq
-  );
-  const medicineTakeEachDay = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.medicineTakeEachDay
-  );
-  const treatmentDurationEndTime = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.treatmentDurationEndTime
-  );
-  const treatmentDurationStartTime = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.treatmentDurationStartTime
-  );
 
-  const doctorName = useSelector((state: RootState) => state.appointment.doctorName);
-  const dateAp = useSelector((state: RootState) => state.appointment.date);
-  const location = useSelector((state: RootState) => state.appointment.location);
-  const setReminder = useSelector((state: RootState) => state.appointment.setReminder);
-  const time = useSelector((state: RootState) => state.appointment.time);
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -122,17 +96,28 @@ const OnceAdayDose: FC = () => {
   };
 
   const handleNext: any = async () => {
+
     const mutation = `
     mutation {
-      medicineDetails(medicineInput: {
-        medicineName: "${medicineName}", 
-        doseTime: "${doseTime}", 
-        doseQuantity: "${doseQuantity}", 
-        medicineStatus: "${medicineStatus}", 
-        takeStatus: "${takeStatus}"
-      }) {
+      createMedicines(medicines: [
+        {
+          medicineLocalId: "${medicineLocalId}",
+          medicineName: "${medicineName}",
+          medicineStatus: "${medicineStatus}",
+          takeStatus: "${takeStatus}",
+          doseQuantity: "${doseQuantity}",
+          doseTime: "${doseTime}",
+          strengthMed: "${strengthMed}", 
+          unitMed: "${unitMed}",
+          typeMed: "${typeMed}",
+          createdDate: "${moment().format('YYYY-MM-DD HH:mm:ss')}"
+        }
+      ]) {
         message
-        medicineId
+        error {
+          message
+          code
+        }
       }
     }
     `;
@@ -149,13 +134,17 @@ const OnceAdayDose: FC = () => {
         }
       );
 
+
+      console.log('response', response)
+
       // Check if registration was successful
       if (
-        response?.data?.data?.medicineDetails?.message !== undefined &&
-        response?.data?.data?.medicineDetails?.message !== null
+        response?.data?.data?.createMedicines?.message !== undefined &&
+        response?.data?.data?.createMedicines?.message !== null
       ) {
         let updatedStoredList = [...storedMedicineList];
 
+        // Create data for the new medicine
         let data = {
           medicineLocalId: medicineLocalId,
           medicineName: medicineName,
@@ -166,37 +155,21 @@ const OnceAdayDose: FC = () => {
           strengthMed: strengthMed,
           unitMed: unitMed,
           typeMed: typeMed,
-          medicineId: response?.data?.data?.medicineDetails?.medicineId, // Corrected ID reference,
+          medicineId: 'R@f@', // Use the correct reference
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
         };
 
         // Add the new data to the copied array
         updatedStoredList.push(data);
-
-        let dataAppointment = {
-          date: dateAp,
-          doctorName: doctorName,
-          setReminder: setReminder,
-          location: location,
-          time: time,
-          accessToken: accessToken
-        };
-
-        if (doctorName !== '')
-          await APPOINTMENT_MUTATION(
-            response.data.data.medicineDetails.medicineId,
-            dataAppointment
-          );
-        await handleMedicineDetailsSetting(response.data.data.medicineDetails.medicineId);
-
-        // Dispatch the updated array to the Redux store
         dispatch(setDoseList(updatedStoredList));
-
         navigation.navigate('AddedMedicine' as never);
 
-        ToastPopUp(response.data.data.medicineDetails.message);
+        ToastPopUp(response.data.data.createMedicines.message);
       } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
         // Show error message from the response
+
+
+
         const errorMessage: any = response?.data?.errors[0]?.message;
         if (typeof errorMessage === 'string') {
           ToastPopUp(errorMessage);
@@ -206,6 +179,9 @@ const OnceAdayDose: FC = () => {
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
+
+        console.log('error', error)
+
         console.error('Axios Error:', error.message);
       } else {
         console.error('Unexpected Error:', error);
@@ -214,65 +190,7 @@ const OnceAdayDose: FC = () => {
     }
   };
 
-  const handleMedicineDetailsSetting = async (medicineDetailsId: string) => {
-    const mutation = `
-      mutation{
-        medicineDetailsSetting(medicineInputSetting: 
-          { 
-            InstrucTion : "${instrucTion}", 
-            MedicineTakeEachDay : "${medicineTakeEachDay}", 
-            medicineReminderTotalReq : "${medicineReminderTotalReq}", 
-            treatmentDurationEndTime : "${treatmentDurationEndTime}", 
-            treatmentDurationStartTime : "${treatmentDurationStartTime}", 
-            medicineReminderCurrentStock : "${medicineReminderCurrentStock}", 
-            medicineReminderRemindToLeft: "${medicineReminderRemindToLeft}" 
-          })
-            {
-              message,
-            }
-      }
-    `;
 
-    try {
-      const response = await axios.post(
-        BASE_URL,
-        {
-          query: mutation,
-          variables: {
-            medicineDetailsID: medicineDetailsId
-          }
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-
-      if (
-        response?.data?.data?.medicineDetailsSetting?.message !== undefined &&
-        response?.data?.data?.medicineDetailsSetting?.message !== null
-      ) {
-        ToastPopUp(response.data.data.medicineDetailsSetting.message);
-      } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
-        // Show error message from the response
-        const errorMessage: any = response?.data?.errors[0]?.message;
-        if (typeof errorMessage === 'string') {
-          ToastPopUp(errorMessage);
-        }
-      } else {
-        ToastPopUp('Something Went wrong ! please try again later.');
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error('Axios Error:', error.message);
-      } else {
-        console.error('Unexpected Error:', error);
-      }
-      ToastPopUp('Network Error! Please check your connection.');
-    }
-  };
 
   return (
     <View style={styles.container}>
