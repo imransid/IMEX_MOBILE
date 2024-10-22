@@ -17,9 +17,9 @@ import styles from './style';
 
 const PreviewDoseDetails: FC = () => {
   // const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
-  const medicineType = useSelector((state: RootState) => state.medicineDetails.typeMed);
-  const medicineUnit = useSelector((state: RootState) => state.medicineDetails.unitMed);
-  const medicineStrength = useSelector((state: RootState) => state.medicineDetails.strengthMed);
+  //const medicineType = useSelector((state: RootState) => state.medicineDetails.typeMed);
+  //const medicineUnit = useSelector((state: RootState) => state.medicineDetails.unitMed);
+  //const medicineStrength = useSelector((state: RootState) => state.medicineDetails.strengthMed);
   const route = useRoute(); // Access the route prop
   const { medicineId } = route.params as { medicineId: any }; // Extract medicineId from route params
 
@@ -35,6 +35,47 @@ const PreviewDoseDetails: FC = () => {
   const selectedMedicine = storedMedicineList.find(
     medicine => medicine.medicineLocalId === medicineId
   );
+
+  // for getting week days of specific medicine
+  const weeklyMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
+  );
+
+  const getWeeklyMedicineList = (medicineId: string) => {
+    let weeklyList = weeklyMedicineList.filter(e => {
+      if (e.medicineLocalId.medicineLocalId === medicineId) {
+        return e.medicineLocalId.weeklyTime;
+      }
+    });
+
+    if (weeklyList.length > 0) {
+      let x = weeklyList.map(e => {
+        let y = e.medicineLocalId.weeklyTime
+          .map(i => i.charAt(0).toUpperCase() + i.slice(1))
+          .join(', ');
+
+        return y;
+      });
+      return x;
+    }
+    return <></>;
+  };
+
+  // for retriving specific time
+  const weeklyDoseTimeList = useSelector(
+    (state: RootState) => state.medicineDetails.weeklyDoseTime
+  );
+
+  const getWeeklyDoseTimeList = (medicineId: string) => {
+    let timeMM = '';
+    weeklyDoseTimeList.filter(e => {
+      if (e.medicineLocalId === medicineId) {
+        timeMM = e.doseTime;
+      }
+    });
+
+    return timeMM === '' ? <></> : timeMM;
+  };
 
   const navigation = useNavigation();
 
@@ -53,7 +94,13 @@ const PreviewDoseDetails: FC = () => {
           <Header mainHeader={selectedMedicine?.medicineName} />
         </View>
         <View style={styles.subHeader}>
-          <Header subHeader={`${medicineType}, ${medicineStrength}${medicineUnit}`} />
+          <Header
+            subHeader={
+              selectedMedicine?.typeMed !== ''
+                ? `${selectedMedicine?.typeMed}, ${selectedMedicine?.strengthMed}${selectedMedicine?.unitMed}`
+                : ''
+            }
+          />
         </View>
         {weeklyTime.length > 0 && (
           <View style={styles.doseDetailsPosition}>
@@ -63,11 +110,7 @@ const PreviewDoseDetails: FC = () => {
                 <View style={styles.chip}>
                   <View style={styles.dayContentProperties}>
                     <Text style={styles.chipText}>
-                      {weeklyTime.length > 0
-                        ? weeklyTime
-                            .map(day => day.charAt(0).toUpperCase() + day.slice(1))
-                            .join(', ')
-                        : ''}
+                      {getWeeklyMedicineList(selectedMedicine?.medicineLocalId)}
                     </Text>
                   </View>
                 </View>
@@ -78,10 +121,12 @@ const PreviewDoseDetails: FC = () => {
                 {weeklyDoseTime.length > 0
                   ? weeklyDoseTime.map((dose, index) => (
                       <>
-                        <Text style={styles.chipText}>{dose.doseTime}</Text>
                         <Text style={styles.chipText}>
-                          {dose.doseQuantity}{' '}
-                          {parseInt(dose.doseQuantity) > 1 ? 'Capsules' : 'Capsule'}
+                          {getWeeklyDoseTimeList(selectedMedicine?.medicineLocalId)}
+                        </Text>
+                        <Text style={styles.chipText}>
+                          {/* {dose.doseQuantity}{' '}
+                          {parseInt(dose.doseQuantity) > 1 ? 'Capsules' : 'Capsule'} */}
                         </Text>
                       </>
                     ))
