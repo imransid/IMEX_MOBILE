@@ -11,7 +11,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
+import { fetchMedicines } from '@/mutations/medicine';
 import { type RootState } from '@/store';
+import { setDoseList } from '@/store/slices/features/medicineDetails/slice';
 import { updateFirstTimeQrScreen } from '@/store/slices/features/settings/slice';
 import useNetworkStatus from '@/utils/networkUtills';
 import ToastPopUp from '@/utils/Toast.android';
@@ -84,6 +86,9 @@ const Login: FC = () => {
 
           const res = response.data.data.login;
 
+          const medicine = await fetchMedicines(response?.data?.data?.login?.accessToken);
+
+          if (medicine.length > 0) dispatch(setDoseList(medicine));
           dispatch(getUserSuccessAction(res));
           dispatch(updateFirstTimeQrScreen());
         } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
