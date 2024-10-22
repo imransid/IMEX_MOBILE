@@ -42,7 +42,8 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   xWeekDoseTime: [],
   xWeekTakeDoseTime: [],
   xMonthDoseTime: [],
-  xMonthTakeDoseTime: []
+  xMonthTakeDoseTime: [],
+  selectedDates: ''
 };
 
 export const medicineDetailsSlice = createSlice({
@@ -158,6 +159,10 @@ export const medicineDetailsSlice = createSlice({
       state.xMonthTakeDoseTime = [...state.xMonthTakeDoseTime, ...payload.payload];
     },
 
+    setSelectedDay: (state: IMedicineDetailsType, payload: PayloadAction<string>) => {
+      state.selectedDates = payload.payload;
+    },
+
     clearStoreMedicineDetails: (state: IMedicineDetailsType) => {
       state.medicineLocalId = '';
       state.medicineName = '';
@@ -181,6 +186,7 @@ export const medicineDetailsSlice = createSlice({
       state.xWeekTakeDoseTime = [];
       state.xMonthDoseTime = [];
       state.xMonthTakeDoseTime = [];
+      state.selectedDates = '';
     }
   }
 });
@@ -207,7 +213,8 @@ export const {
   setXWeekTakeDose,
   setXMonthDoseTime,
   setXMonthTakeDose,
-  clearStoreMedicineDetails
+  clearStoreMedicineDetails,
+  setSelectedDay
 } = medicineDetailsSlice.actions;
 
 export const medicineDetailsReducer = medicineDetailsSlice.reducer;

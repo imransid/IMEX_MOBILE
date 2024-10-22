@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { type FC } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -15,6 +16,7 @@ import HorizontalCalendar from '../../Components/HorizontalCalender/HorizontalCa
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import moment from 'moment';
 
 // Define your stack navigation parameter list
 interface RootStackParamList {
@@ -28,6 +30,12 @@ const HomeScreen: FC = () => {
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
+
+
+  const selectedDate = useSelector(
+    (state: RootState) => state.medicineDetails.selectedDates
+  );
+
 
   // for retriving weekley times
   const weeklyMedicineList = useSelector(
@@ -59,6 +67,8 @@ const HomeScreen: FC = () => {
     (state: RootState) => state.medicineDetailsExtraSetting.storeInstrucTionList
   );
 
+
+
   const getInstructionList = (medicineId: string) => {
     let instruction = instructionList.filter(e => {
       if (e.medicineLocalId === medicineId) {
@@ -86,6 +96,15 @@ const HomeScreen: FC = () => {
   const handleDosePress: any = (medicineId: number) => {
     navigation.navigate('PreviewDoseDetails', { medicineId });
   };
+  const filteredMedicineList = storedMedicineList.filter(medicine => {
+    // Check if the medicine's date matches the selected date
+    const medicineDateString = medicine.createdDate.split(' ')[0];
+
+    const formattedDate = moment(selectedDate).format('YYYY-MM-DD');
+    return medicineDateString === formattedDate;
+  });
+
+  // console.log('filteredMedicineList', filteredMedicineList)
 
   return (
     <View style={styles.container}>
@@ -104,7 +123,7 @@ const HomeScreen: FC = () => {
           {storedMedicineList.length > 0 ? (
             <FlatList
               style={styles.medicineDoseListStyle}
-              data={storedMedicineList}
+              data={filteredMedicineList}
               renderItem={({ item: medicine, index }) => (
                 <TouchableOpacity
                   key={index}

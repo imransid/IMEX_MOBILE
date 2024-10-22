@@ -65,9 +65,9 @@ const Login: FC = () => {
                   user {
                     fullName
                     birthday
-      email
-      mobileNumber
-      gender
+                    email
+                    mobileNumber
+                    gender
                 }
               }
             }
