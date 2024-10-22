@@ -33,7 +33,7 @@ const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
     dispatch(clearAppointment());
     dispatch(logoutUser());
 
-    // navigation.navigate('Login' as never);
+    //navigation.navigate('Login' as never);
   };
 
   const handleShowUserProfile: any = () => {
