@@ -49,10 +49,8 @@ const OnceAdayDose: FC = () => {
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
-  const accessToken = useSelector((state: RootState) => state.users.user.data.accessToken);
+  const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
-
-
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -95,8 +93,34 @@ const OnceAdayDose: FC = () => {
   };
 
   const handleNext: any = async () => {
+    if (accessToken === null || accessToken === undefined) {
+      let updatedStoredList = [...storedMedicineList];
 
-    const mutation = `
+      console.log(accessToken);
+
+      // Create data for the new medicine
+      let data = {
+        medicineLocalId: medicineLocalId,
+        medicineName: medicineName,
+        medicineStatus: medicineStatus,
+        takeStatus: takeStatus,
+        doseQuantity: doseQuantity,
+        doseTime: doseTime,
+        strengthMed: strengthMed,
+        unitMed: unitMed,
+        typeMed: typeMed,
+        medicineId: 'R@f@', // Use the correct reference
+        createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
+      };
+
+      // Add the new data to the copied array
+      updatedStoredList.push(data);
+      dispatch(setDoseList(updatedStoredList));
+      navigation.navigate('AddedMedicine' as never);
+
+      ToastPopUp('Medicine Created Successfully');
+    } else {
+      const mutation = `
     mutation {
       createMedicines(medicines: [
         {
@@ -121,75 +145,70 @@ const OnceAdayDose: FC = () => {
     }
     `;
 
-    try {
-      const response = await axios.post(
-        BASE_URL,
-        { query: mutation },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
+      try {
+        const response = await axios.post(
+          BASE_URL,
+          { query: mutation },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              'Content-Type': 'application/json'
+            }
           }
+        );
+
+        console.log('response', response);
+
+        // Check if registration was successful
+        if (
+          response?.data?.data?.createMedicines?.message !== undefined &&
+          response?.data?.data?.createMedicines?.message !== null
+        ) {
+          let updatedStoredList = [...storedMedicineList];
+
+          // Create data for the new medicine
+          let data = {
+            medicineLocalId: medicineLocalId,
+            medicineName: medicineName,
+            medicineStatus: medicineStatus,
+            takeStatus: takeStatus,
+            doseQuantity: doseQuantity,
+            doseTime: doseTime,
+            strengthMed: strengthMed,
+            unitMed: unitMed,
+            typeMed: typeMed,
+            medicineId: 'R@f@', // Use the correct reference
+            createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
+          };
+
+          // Add the new data to the copied array
+          updatedStoredList.push(data);
+          dispatch(setDoseList(updatedStoredList));
+          navigation.navigate('AddedMedicine' as never);
+
+          ToastPopUp(response.data.data.createMedicines.message);
+        } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
+          // Show error message from the response
+
+          const errorMessage: any = response?.data?.errors[0]?.message;
+          if (typeof errorMessage === 'string') {
+            ToastPopUp(errorMessage);
+          }
+        } else {
+          ToastPopUp('Something Went wrong ! please try again later.');
         }
-      );
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.log('error', error);
 
-
-      console.log('response', response)
-
-      // Check if registration was successful
-      if (
-        response?.data?.data?.createMedicines?.message !== undefined &&
-        response?.data?.data?.createMedicines?.message !== null
-      ) {
-        let updatedStoredList = [...storedMedicineList];
-
-        // Create data for the new medicine
-        let data = {
-          medicineLocalId: medicineLocalId,
-          medicineName: medicineName,
-          medicineStatus: medicineStatus,
-          takeStatus: takeStatus,
-          doseQuantity: doseQuantity,
-          doseTime: doseTime,
-          strengthMed: strengthMed,
-          unitMed: unitMed,
-          typeMed: typeMed,
-          medicineId: 'R@f@', // Use the correct reference
-          createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
-        };
-
-        // Add the new data to the copied array
-        updatedStoredList.push(data);
-        dispatch(setDoseList(updatedStoredList));
-        navigation.navigate('AddedMedicine' as never);
-
-        ToastPopUp(response.data.data.createMedicines.message);
-      } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
-        // Show error message from the response
-
-
-
-        const errorMessage: any = response?.data?.errors[0]?.message;
-        if (typeof errorMessage === 'string') {
-          ToastPopUp(errorMessage);
+          console.error('Axios Error:', error.message);
+        } else {
+          console.error('Unexpected Error:', error);
         }
-      } else {
-        ToastPopUp('Something Went wrong ! please try again later.');
+        ToastPopUp('Network Error! Please check your connection.');
       }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-
-        console.log('error', error)
-
-        console.error('Axios Error:', error.message);
-      } else {
-        console.error('Unexpected Error:', error);
-      }
-      ToastPopUp('Network Error! Please check your connection.');
     }
   };
-
-
 
   return (
     <View style={styles.container}>

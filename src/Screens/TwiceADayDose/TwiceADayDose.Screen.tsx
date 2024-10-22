@@ -243,7 +243,7 @@ const TwiceAdayDose: FC = () => {
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
-  const accessToken = useSelector((state: RootState) => state.users.user.data.accessToken);
+  const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
 
   const instrucTion = useSelector(

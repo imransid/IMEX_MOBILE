@@ -50,6 +50,7 @@ import {
 
 import styles from './Styles';
 import UserDrawerNavigator from './UserDrawerNavigator';
+import GuestDrawerNavigator from './GuestDrawerNavigator';
 
 const Stack = createStackNavigator();
 
@@ -92,7 +93,8 @@ const screens = [
   { name: 'EveryXweeksDoseDetails', component: EveryXweeksDoseDetails, title: 'Medicine Name' },
   { name: 'EveryXmonthsDose', component: EveryXmonthsDose, title: 'Medicine Name' },
   { name: 'EveryXmonthsDoseDetails', component: EveryXmonthsDoseDetails, title: 'Medicine Name' },
-  { name: 'UserDrawer', component: UserDrawerNavigator, headerShown: false }
+  { name: 'UserDrawer', component: UserDrawerNavigator, headerShown: false },
+  { name: 'GuestDrawer', component: GuestDrawerNavigator, headerShown: false }
 ];
 
 const HeaderLeft: React.FC = (): React.ReactNode => {
