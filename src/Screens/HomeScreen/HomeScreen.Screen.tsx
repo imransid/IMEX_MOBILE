@@ -29,11 +29,50 @@ const HomeScreen: FC = () => {
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
 
-  const weeklyTime = useSelector((state: RootState) => state.medicineDetails.weeklyTime);
-
-  const instruction = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.instrucTion
+  // for retriving weekley times
+  const weeklyMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
   );
+
+  const getWeeklyMedicineList = (medicineId: string) => {
+    let weeklyList = weeklyMedicineList.filter(e => {
+      if (e.medicineLocalId.medicineLocalId === medicineId) {
+        return e.medicineLocalId.weeklyTime;
+      }
+    });
+
+    if (weeklyList.length > 0) {
+      let x = weeklyList.map(e => {
+        let y = e.medicineLocalId.weeklyTime
+          .map(i => i.charAt(0).toUpperCase() + i.slice(1))
+          .join(', ');
+
+        return y;
+      });
+      return x;
+    }
+    return <></>;
+  };
+
+  // for retriving given instruction
+  const instructionList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeInstrucTionList
+  );
+
+  const getInstructionList = (medicineId: string) => {
+    let instruction = instructionList.filter(e => {
+      if (e.medicineLocalId === medicineId) {
+        return e.instrucTion;
+      }
+    });
+    if (instruction.length > 0) {
+      let x = instruction.map(e => {
+        let y = e.instrucTion;
+        return y;
+      });
+      return x;
+    }
+  };
 
   // const navigation = useNavigation();
 
@@ -47,6 +86,7 @@ const HomeScreen: FC = () => {
   const handleDosePress: any = (medicineId: number) => {
     navigation.navigate('PreviewDoseDetails', { medicineId });
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.calendarContainer}>
@@ -80,14 +120,12 @@ const HomeScreen: FC = () => {
                       <Text style={styles.doseText}>
                         {medicine.doseQuantity}{' '}
                         {parseInt(medicine.doseQuantity) > 1 ? 'pills' : 'pill'}
-                        {instruction !== '' ? ` | ${instruction}` : ''}
+                        {` | ${getInstructionList(medicine.medicineLocalId)}`}
                       </Text>
                       <View style={styles.doseDatesPosition}>
                         <AntDesign name="calendar" size={18} color={colors.typedText} />
-                        <Text style={styles.doseText}>
-                          {weeklyTime
-                            .map(day => day.charAt(0).toUpperCase() + day.slice(1))
-                            .join(', ')}
+                        <Text style={styles.weekDayText}>
+                          {getWeeklyMedicineList(medicine.medicineLocalId)}
                         </Text>
                       </View>
                     </View>

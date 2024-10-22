@@ -65,6 +65,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   doseText: {
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
+  },
+  weekDayText: {
     color: colors.typedText,
     fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(12)

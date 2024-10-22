@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSansMedium',
   },
   inputText: {
-    color: colors.typedText,
+    color: colors.header,
     fontSize: moderateScale(16),
     fontFamily: 'WorkSansMedium',
   },
