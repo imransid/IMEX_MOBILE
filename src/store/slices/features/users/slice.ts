@@ -35,6 +35,9 @@ export const usersSlice = createSlice({
       state.user.loginStatus = true;
       state.user.errors = ''; // Clear any previous errors
     },
+    updateUser: (state: UsersStateType, payload: PayloadAction<AuthResponse>) => {
+      state.user.data = payload.payload;
+    },
     logoutUser: (state: UsersStateType) => {
       state.user.isLoading = false;
       state.user.errors = '';
@@ -44,7 +47,7 @@ export const usersSlice = createSlice({
   }
 });
 
-export const { getUserAction, getUserErrorAction, getUserSuccessAction, logoutUser } =
+export const { getUserAction, getUserErrorAction, getUserSuccessAction, logoutUser, updateUser } =
   usersSlice.actions;
 
 export const usersReducer = usersSlice.reducer;
