@@ -1,9 +1,10 @@
 import React, { type FC, useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
+import { type RootState } from '@/store';
 import { setExtraMedicineReminder } from '@/store/slices/features/medicineDetailsExtraSetting/slice';
 
 import MedicineReminderLogo from '../../assets/medicine-reminder';
@@ -21,13 +22,18 @@ const MedicineReminders: FC = () => {
   const [medicineReminderCurrentStock, setMedicineReminderCurrentStock] = useState('');
   const [medicineReminderRemindToLeft, setMedicineReminderRemindToLeft] = useState('');
 
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
+
   const handleNext: any = () => {
     dispatch(
-      setExtraMedicineReminder({
-        medicineReminderTotalReq,
-        medicineReminderCurrentStock,
-        medicineReminderRemindToLeft
-      })
+      setExtraMedicineReminder([
+        {
+          medicineReminderTotalReq,
+          medicineReminderCurrentStock,
+          medicineReminderRemindToLeft,
+          medicineLocalId
+        }
+      ])
     );
     navigation.goBack();
   };

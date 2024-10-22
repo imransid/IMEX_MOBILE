@@ -27,9 +27,16 @@ const EveryXdaysDoseDetails: FC = () => {
 
   const navigation = useNavigation();
 
+  const timeInterval = useSelector((state: RootState) => state.medicineDetails.timeInterval);
+
   // State for time and dose for each intake
-  const [times, setTimes] = useState<string[]>(Array(2).fill(''));
-  const [doses, setDoses] = useState<number[]>(Array(2).fill(0));
+  // State for time and dose for each intake
+  const [times, setTimes] = useState<string[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill('')
+  );
+  const [doses, setDoses] = useState<number[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(0)
+  );
 
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
@@ -39,7 +46,6 @@ const EveryXdaysDoseDetails: FC = () => {
 
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
   const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
-  const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
@@ -94,7 +100,7 @@ const EveryXdaysDoseDetails: FC = () => {
       let tempStore = filterArray.map((e) => {
         return {
           medicineName: medicineName,
-          medicineStatus: medicineStatus,
+          medicineStatus: 'xDay',
           takeStatus: takeStatus,
           doseQuantity: e.doseQuantity,
           doseTime: e.doseTime,

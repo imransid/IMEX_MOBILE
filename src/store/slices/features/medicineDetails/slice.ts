@@ -11,6 +11,8 @@ import {
   type IWeekly,
   type IWeeklyDoseTime,
   type IXDaysDoseTime,
+  type IXMonthlyDoseTime,
+  type IXWeeklyDoseTime,
   type MedicineName,
   type MedicStatus,
   type MedicType,
@@ -38,7 +40,9 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   xDaysDoseTime: [],
   xDaysTakeDoseTime: [],
   xWeekDoseTime: [],
-  xMonthDoseTime: []
+  xWeekTakeDoseTime: [],
+  xMonthDoseTime: [],
+  xMonthTakeDoseTime: []
 };
 
 export const medicineDetailsSlice = createSlice({
@@ -77,6 +81,16 @@ export const medicineDetailsSlice = createSlice({
     },
     setDoseList: (state: IMedicineDetailsType, payload: PayloadAction<IMedicine[]>) => {
       state.storedMedicineList = payload.payload;
+      state.medicineLocalId = '';
+      state.timeInterval = '';
+      state.doseTime = '';
+      state.medicineStatus = '';
+      state.takeStatus = '';
+      state.strengthMed = '';
+      state.unitMed = '';
+      state.typeMed = '';
+      state.doseQuantity = '';
+      state.medicineName = '';
     },
     setWeekly: (state: IMedicineDetailsType, payload: PayloadAction<IWeekly>) => {
       state.weeklyTime = payload.payload.weeklyTime;
@@ -99,6 +113,16 @@ export const medicineDetailsSlice = createSlice({
     },
     setWeeklyStoreData: (state: IMedicineDetailsType, payload: PayloadAction<IMedicine[]>) => {
       state.storedMedicineList = [...state.storedMedicineList, ...payload.payload];
+      state.medicineLocalId = '';
+      state.timeInterval = '';
+      state.doseTime = '';
+      state.medicineStatus = '';
+      state.takeStatus = '';
+      state.strengthMed = '';
+      state.unitMed = '';
+      state.typeMed = '';
+      state.doseQuantity = '';
+      state.medicineName = '';
     },
     setMonthlyStoreData: (
       state: IMedicineDetailsType,
@@ -115,6 +139,48 @@ export const medicineDetailsSlice = createSlice({
     },
     setXDaysTakeDose: (state: IMedicineDetailsType, payload: PayloadAction<IWeeklyDoseTime[]>) => {
       state.xDaysTakeDoseTime = [...state.xDaysTakeDoseTime, ...payload.payload];
+    },
+    // set X week
+    setXWeekDoseTime: (state: IMedicineDetailsType, payload: PayloadAction<IXWeeklyDoseTime[]>) => {
+      state.xWeekDoseTime = [...state.xWeekDoseTime, ...payload.payload];
+    },
+    setXWeekTakeDose: (state: IMedicineDetailsType, payload: PayloadAction<IWeeklyDoseTime[]>) => {
+      state.xWeekTakeDoseTime = [...state.xWeekTakeDoseTime, ...payload.payload];
+    },
+    // set X Month
+    setXMonthDoseTime: (
+      state: IMedicineDetailsType,
+      payload: PayloadAction<IXMonthlyDoseTime[]>
+    ) => {
+      state.xMonthDoseTime = [...state.xMonthDoseTime, ...payload.payload];
+    },
+    setXMonthTakeDose: (state: IMedicineDetailsType, payload: PayloadAction<IWeeklyDoseTime[]>) => {
+      state.xMonthTakeDoseTime = [...state.xMonthTakeDoseTime, ...payload.payload];
+    },
+
+    clearStoreMedicineDetails: (state: IMedicineDetailsType) => {
+      state.medicineLocalId = '';
+      state.medicineName = '';
+      state.medicineStatus = '';
+      state.takeStatus = '';
+      state.doseQuantity = '';
+      state.doseTime = '';
+      state.strengthMed = '';
+      state.unitMed = '';
+      state.typeMed = '';
+      state.storedMedicineList = [];
+      state.storedMedicineWeeklyList = [];
+      state.storedMedicineMonthlyList = [];
+      state.weeklyTime = [];
+      state.timeInterval = '';
+      state.weeklyDoseTime = [];
+      state.monthlyDoseTime = [];
+      state.xDaysDoseTime = [];
+      state.xDaysTakeDoseTime = [];
+      state.xWeekDoseTime = [];
+      state.xWeekTakeDoseTime = [];
+      state.xMonthDoseTime = [];
+      state.xMonthTakeDoseTime = [];
     }
   }
 });
@@ -136,7 +202,12 @@ export const {
   updateTimeInterval,
   setMonthlyDoseTime,
   setXDaysDoseTime,
-  setXDaysTakeDose
+  setXDaysTakeDose,
+  setXWeekDoseTime,
+  setXWeekTakeDose,
+  setXMonthDoseTime,
+  setXMonthTakeDose,
+  clearStoreMedicineDetails
 } = medicineDetailsSlice.actions;
 
 export const medicineDetailsReducer = medicineDetailsSlice.reducer;

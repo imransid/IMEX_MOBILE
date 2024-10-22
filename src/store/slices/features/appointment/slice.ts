@@ -1,37 +1,25 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 import { APPOINTMENT } from './constants';
-import { type IAppointmentType } from './types';
+import { type IAppointmentData, type IAppointmentType } from './types';
 
 const appointmentInitialData: IAppointmentType = {
-  date: '',
-  time: '',
-  doctorName: '',
-  location: '',
-  setReminder: ''
+  storeAppointmentList: []
 };
 
 export const appointmentSlice = createSlice({
   name: APPOINTMENT,
   initialState: appointmentInitialData,
   reducers: {
-    getAppointmentAction: (state: IAppointmentType) => {
-      state.date = '';
-      state.time = '';
-      state.doctorName = '';
-      state.location = '';
-      state.setReminder = '';
+    setAppointment: (state: IAppointmentType, payload: PayloadAction<IAppointmentData[]>) => {
+      state.storeAppointmentList = [...state.storeAppointmentList, ...payload.payload];
     },
-    setAppointment: (state: IAppointmentType, payload: PayloadAction<IAppointmentType>) => {
-      state.date = payload.payload.date;
-      state.time = payload.payload.time;
-      state.doctorName = payload.payload.doctorName;
-      state.location = payload.payload.location;
-      state.setReminder = payload.payload.setReminder;
+    clearAppointment: (state: IAppointmentType) => {
+      state.storeAppointmentList = [];
     }
   }
 });
 
-export const { getAppointmentAction, setAppointment } = appointmentSlice.actions;
+export const { setAppointment, clearAppointment } = appointmentSlice.actions;
 
 export const appointmentReducer = appointmentSlice.reducer;
