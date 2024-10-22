@@ -77,6 +77,17 @@ const PreviewDoseDetails: FC = () => {
     return timeMM === '' ? <></> : timeMM;
   };
 
+  const getWeeklyDoseQuantityList = (medicineId: string) => {
+    let quantityMM = '';
+    weeklyDoseTimeList.filter(e => {
+      if (e.medicineLocalId === medicineId) {
+        quantityMM = e.doseQuantity;
+      }
+    });
+
+    return quantityMM === '' ? <></> : quantityMM;
+  };
+
   const navigation = useNavigation();
 
   const handleDone: any = () => {
@@ -127,6 +138,7 @@ const PreviewDoseDetails: FC = () => {
                         <Text style={styles.chipText}>
                           {/* {dose.doseQuantity}{' '}
                           {parseInt(dose.doseQuantity) > 1 ? 'Capsules' : 'Capsule'} */}
+                          {getWeeklyDoseQuantityList(selectedMedicine?.medicineLocalId)}
                         </Text>
                       </>
                     ))

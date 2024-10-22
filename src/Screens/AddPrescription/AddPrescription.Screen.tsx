@@ -13,9 +13,13 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import styles from './style';
 import { colors } from '@/theme/colors';
+import CustomButton from '@/Components/CustomButton/CustomButton';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
 
 const AddPrescription: FC = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState<{ uri: string; name: string } | null>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0); // Track upload progress
   const [isUploading, setIsUploading] = useState<boolean>(false); // Track if uploading
@@ -82,6 +86,13 @@ const AddPrescription: FC = () => {
     }, 3000); // Total time for simulated upload
   };
 
+  const handleNext: any = () => {
+    // dispatch(setPrescriptionAction([
+
+    // ]));
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headingPosition}>
@@ -145,6 +156,13 @@ const AddPrescription: FC = () => {
       ) : (
         <></>
       )}
+      {/* <View style={styles.NextbuttonPosition}>
+        <CustomButton
+          onPress={handleNext}
+          icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
+          text="Save"
+        />
+      </View> */}
     </View>
   );
 };

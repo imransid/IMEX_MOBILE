@@ -1,5 +1,5 @@
 import React, { type FC } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Linking, Text, TouchableOpacity, View } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -62,18 +62,22 @@ const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
           </View>
           <Text style={styles.userItemsText}>My Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.userContactItemStyle}>
+        <TouchableOpacity
+          style={styles.userContactItemStyle}
+          onPress={() =>
+            Linking.openURL('http://www.teampharmabd.com/index.php/teampharma/contact_us')
+          }>
           <MaterialCommunityIcons name="email" size={25} color={colors.mainText} />
           <Text style={styles.userItemsText}>Contact Us</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.userSettingsItemStyle}>
+        {/* <TouchableOpacity style={styles.userSettingsItemStyle}>
           <Ionicons name="settings" size={25} color={colors.mainText} />
           <Text style={styles.userItemsText}>Settings</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.userHelpAndFaqItemsStyle}>
           <MaterialCommunityIcons name="message-question" size={28} color={colors.mainText} />
           <Text style={styles.userItemsText}>Helps & FAQs</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <View style={styles.logOutButtonPosition}>
