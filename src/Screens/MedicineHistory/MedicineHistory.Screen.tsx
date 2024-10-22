@@ -1,19 +1,48 @@
-import React, { type FC } from 'react';
+/* eslint-disable */
+
+import React, { FC } from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Header from '../../Components/Header/Header';
-
 import styles from './style';
+import { RootState } from '@/store';
+
+// Define the type for the medicine data
+interface Medicine {
+  medicineLocalId: string;
+  medicineName: string;
+  createdDate: string; // Assuming createdDate is a string formatted as "YYYY-MM-DD HH:mm:ss"
+}
 
 const MedicineHistory: FC = () => {
   const navigation = useNavigation();
 
-  const handleBack: any = () => {
+  const medicineHistoryData: Medicine[] = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
+  );
+
+  const handleBack = (): void => {
     navigation.navigate('AddedMedicine' as never);
   };
+
+  // Function to group medicine records by date
+  const groupByDate = (data: Medicine[]): Record<string, Medicine[]> => {
+    return data.reduce((acc, curr) => {
+      const date = curr.createdDate.split(' ')[0]; // Extract date only (YYYY-MM-DD)
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(curr);
+      return acc;
+    }, {} as Record<string, Medicine[]>);
+  };
+
+  const groupedMedicines = groupByDate(medicineHistoryData);
+  const today: string = new Date().toISOString().split('T')[0]; // Get today's date (YYYY-MM-DD)
 
   return (
     <View style={styles.container}>
@@ -23,76 +52,22 @@ const MedicineHistory: FC = () => {
         </View>
 
         <View style={styles.chipPosition}>
-          <View>
-            <Text style={styles.medicineHistoryHeading}>Today</Text>
-            <View style={styles.chip}>
-              <View style={styles.chipContentProperties}>
-                <Text style={styles.chipText}>Adflox</Text>
-              </View>
+          {Object.keys(groupedMedicines).map(date => (
+            <View key={date}>
+              <Text style={styles.medicineHistoryHeading}>
+                {date === today ? 'Today' : date}
+              </Text>
+              {groupedMedicines[date].map(medicine => (
+                <View key={medicine.medicineLocalId} style={styles.chip}>
+                  <View style={styles.chipContentProperties}>
+                    <Text style={styles.chipText}>{medicine.medicineName}</Text>
+                  </View>
+                </View>
+              ))}
             </View>
-            <View style={styles.chip}>
-              <View style={styles.chipContentProperties}>
-                <Text style={styles.chipText}>Adflox</Text>
-              </View>
-            </View>
-            <View style={styles.chip}>
-              <View style={styles.chipContentProperties}>
-                <Text style={styles.chipText}>Adflox</Text>
-              </View>
-            </View>
-            <View style={styles.chip}>
-              <View style={styles.chipContentProperties}>
-                <Text style={styles.chipText}>Insulin</Text>
-              </View>
-            </View>
-          </View>
-          <View>
-            <Text style={styles.medicineHistoryHeading}>Yesterday</Text>
-            <View style={styles.chip}>
-              <View style={styles.chipContentProperties}>
-                <Text style={styles.chipText}>Adflox</Text>
-              </View>
-            </View>
-            <View style={styles.chip}>
-              <View style={styles.chipContentProperties}>
-                <Text style={styles.chipText}>Adflox</Text>
-              </View>
-            </View>
-            <View style={styles.chip}>
-              <View style={styles.chipContentProperties}>
-                <Text style={styles.chipText}>Adflox</Text>
-              </View>
-            </View>
-            <View style={styles.chip}>
-              <View style={styles.chipContentProperties}>
-                <Text style={styles.chipText}>Insulin</Text>
-              </View>
-            </View>
-          </View>
-          <View>
-            <Text style={styles.medicineHistoryHeading}>May 5</Text>
-            <View style={styles.chip}>
-              <View style={styles.chipContentProperties}>
-                <Text style={styles.chipText}>Adflox</Text>
-              </View>
-            </View>
-            <View style={styles.chip}>
-              <View style={styles.chipContentProperties}>
-                <Text style={styles.chipText}>Adflox</Text>
-              </View>
-            </View>
-            <View style={styles.chip}>
-              <View style={styles.chipContentProperties}>
-                <Text style={styles.chipText}>Adflox</Text>
-              </View>
-            </View>
-            <View style={styles.chip}>
-              <View style={styles.chipContentProperties}>
-                <Text style={styles.chipText}>Insulin</Text>
-              </View>
-            </View>
-          </View>
+          ))}
         </View>
+
         <View style={styles.BackbuttonPosition}>
           <CustomButton onPress={handleBack} icon={<></>} text="Back" />
         </View>
