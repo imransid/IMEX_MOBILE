@@ -129,6 +129,10 @@ const styles = StyleSheet.create({
     color: colors.header, // Color for the cross icon
     fontSize: 16,
   },
+  NextbuttonPosition: {
+    alignItems: 'center',
+    bottom: scale(15)
+  },
 });
 
 export default styles;

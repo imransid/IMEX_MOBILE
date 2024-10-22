@@ -139,7 +139,9 @@ const HomeScreen: FC = () => {
                       <Text style={styles.doseText}>
                         {medicine.doseQuantity}{' '}
                         {parseInt(medicine.doseQuantity) > 1 ? 'pills' : 'pill'}
-                        {` | ${getInstructionList(medicine.medicineLocalId)}`}
+                        {getInstructionList(medicine.medicineLocalId)
+                          ? ` | ${getInstructionList(medicine.medicineLocalId)}`
+                          : ''}
                       </Text>
                       <View style={styles.doseDatesPosition}>
                         <AntDesign name="calendar" size={18} color={colors.typedText} />
@@ -157,11 +159,6 @@ const HomeScreen: FC = () => {
               )}
             />
           ) : (
-            // storedMedicineList.map((medicine, index) => (
-            //   <>
-
-            //   </>
-            // ))
             <View style={styles.clickToAddMedPosition}>
               <ClickToAddMedicine />
               <View style={styles.donotHaveMedTextPosition}>

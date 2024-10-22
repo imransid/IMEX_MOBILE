@@ -54,7 +54,7 @@ const DoctorAppointments: FC = () => {
         }
       ])
     );
-    navigation.navigate('OnceAdayDose' as never);
+    navigation.goBack();
   };
   const handleSelectTime: any = () => {
     setOpen(true);
