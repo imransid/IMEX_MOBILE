@@ -52,6 +52,8 @@ const OnceAdayDose: FC = () => {
   const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
 
+  const person = useSelector((state: RootState) => state.medicineDetails.person);
+
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
     setOpen(true);
@@ -93,10 +95,8 @@ const OnceAdayDose: FC = () => {
   };
 
   const handleNext: any = async () => {
-    if (accessToken === null || accessToken === undefined) {
+    if (accessToken === null || accessToken === undefined || person === '') {
       let updatedStoredList = [...storedMedicineList];
-
-      console.log(accessToken);
 
       // Create data for the new medicine
       let data = {

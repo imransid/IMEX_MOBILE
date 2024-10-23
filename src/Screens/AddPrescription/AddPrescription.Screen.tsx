@@ -87,9 +87,6 @@ const AddPrescription: FC = () => {
   };
 
   const handleNext: any = () => {
-    // dispatch(setPrescriptionAction([
-
-    // ]));
     navigation.goBack();
   };
 
@@ -129,17 +126,22 @@ const AddPrescription: FC = () => {
             <SimpleLineIcons name="docs" size={27} color={colors.buttonBg} />
             <View>
               {selectedImage != null ? ( // Use explicit null check
-                <View style={styles.imagePreviewContainer}>
-                  <Text style={styles.imageNameStyle}>{selectedImage?.name}</Text>
-                  {isUploading && <Text style={styles.uploadProgressText}>{uploadProgress}%</Text>}
+                <>
+                  <View style={styles.imagePreviewContainer}>
+                    <Text style={styles.imageNameStyle}>{selectedImage?.name}</Text>
+                    {isUploading && (
+                      <Text style={styles.uploadProgressText}>{uploadProgress}%</Text>
+                    )}
 
-                  {/* Remove or disselect image */}
-                  <TouchableOpacity
-                    style={styles.removeImageButton}
-                    onPress={() => removeSelectedImage()}>
-                    <Entypo name="cross" size={18} color={colors.header} />
-                  </TouchableOpacity>
-                </View>
+                    {/* Remove or disselect image */}
+                    <TouchableOpacity
+                      style={styles.removeImageButton}
+                      onPress={() => removeSelectedImage()}>
+                      <Entypo name="cross" size={18} color={colors.header} />
+                    </TouchableOpacity>
+                  </View>
+                  {/*  */}
+                </>
               ) : (
                 <></>
               )}
@@ -149,6 +151,17 @@ const AddPrescription: FC = () => {
                     <View style={[styles.progressBarFill, { width: `${uploadProgress}%` }]} />
                   </View>
                 </View>
+              )}
+              {selectedImage !== null ? (
+                <View style={styles.NextbuttonPosition}>
+                  <CustomButton
+                    onPress={handleNext}
+                    icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
+                    text="Save"
+                  />
+                </View>
+              ) : (
+                <></>
               )}
             </View>
           </View>

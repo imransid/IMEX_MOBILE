@@ -130,8 +130,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   NextbuttonPosition: {
-    alignItems: 'center',
-    bottom: scale(15)
+    marginTop: scale(85),
+    right: scale(52),
   },
 });
 

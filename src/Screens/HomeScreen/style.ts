@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   medicineDoseListStyle: {
-    maxHeight: '61%', 
+    maxHeight: '68%', 
   }
 });
 
