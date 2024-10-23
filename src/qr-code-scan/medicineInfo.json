@@ -1,0 +1,18 @@
+{
+  "medicine": {
+    "name": "Napa",
+    "generic_name": "Paracetamol",
+    "manufacturer": "Team Pharmaceuticals Ltd",
+    "form": "tablet",
+    "strength": "450 mg"
+  },
+  "product_details": {
+    "description": "Paracetamol is active against Gram-positive organisms including penicillinase producing strains. It has little activity against Gram-negative bacilli. Flucloxacillin acts by inhibiting the formation of cell wall of bacteria. Flucloxacillin is isoxazolyl penicillin which combined the properties of resistance to hydrolysis by penicillinase, gastric acid stability, and activity against Gram-positive bacteria. Flucloxacillin is a bactericidal antibiotic that is particularly useful against penicillinase-producing staphylococci. Flucloxacillin kills bacterial cell walls, thus interfering with peptidoglycan synthesis."
+  },
+  "dosage_and_administration": {
+    "administration": {
+      "adult": "250 mg four times daily",
+      "note": "Dosage may be doubled in severe infections. In osteomyelitis and endocarditis, up to 8 weeks of treatment may be necessary."
+    }
+  }
+}

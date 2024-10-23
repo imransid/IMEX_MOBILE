@@ -1,5 +1,7 @@
 export interface IMedicineDetailsType {
   medicineName: string;
+  medicineGenericName: string;
+  medicineManufacturer: string;
   medicineStatus: string;
   takeStatus: string;
   doseQuantity: string;
@@ -22,6 +24,9 @@ export interface IMedicineDetailsType {
   xMonthDoseTime: IXMonthlyDoseTime[];
   xMonthTakeDoseTime: IWeeklyDoseTime[];
   selectedDates: string;
+  description: string,
+  person: string;
+  note: string;
 }
 
 export interface IXDaysDoseTime {
@@ -123,4 +128,22 @@ export interface IMedicineLocalId {
   weeklyTime: string[];
   timeInterval: string;
   medicineLocalId: string;
+}
+
+export interface IProductDetails {
+  description: string;
+}
+
+export interface IAdministration {
+  person: string;
+  note: string;
+}
+
+export interface IDosageAndAdministration {
+  administration: IAdministration;
+}
+
+export interface IMedicineInfo {
+  product_details: IProductDetails;
+  dosage_and_administration: IDosageAndAdministration;
 }
