@@ -39,8 +39,6 @@ const MedicineDetails: FC = (): JSX.Element => {
       : navigation.navigate('Login' as never);
   };
 
-  console.log(scannedData);
-
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>

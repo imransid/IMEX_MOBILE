@@ -172,7 +172,7 @@ const PreviewDoseDetails: FC = () => {
               />
             </View>
           </View>
-          <View style={styles.secondaryButtonPosition}>
+          {/* <View style={styles.secondaryButtonPosition}>
             <TouchableOpacity style={styles.rescheduleButton}>
               <View style={styles.rescheduleButtonProperties}>
                 <Ionicons name="alarm-outline" size={22} color={colors.header} />
@@ -185,7 +185,7 @@ const PreviewDoseDetails: FC = () => {
                 <Text style={styles.secondayButtonText}>History</Text>
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
       <View style={styles.DonebuttonPosition}>
