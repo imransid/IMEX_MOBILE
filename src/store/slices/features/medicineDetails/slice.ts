@@ -23,6 +23,8 @@ import {
 const medicineDetailsInitialData: IMedicineDetailsType = {
   medicineLocalId: '',
   medicineName: '',
+  medicineGenericName: '',
+  medicineManufacturer: '',
   medicineStatus: '',
   takeStatus: '',
   doseQuantity: '',
@@ -43,7 +45,10 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   xWeekTakeDoseTime: [],
   xMonthDoseTime: [],
   xMonthTakeDoseTime: [],
-  selectedDates: ''
+  selectedDates: '',
+  description: '',
+  person: '',
+  note: ''
 };
 
 export const medicineDetailsSlice = createSlice({
@@ -56,6 +61,7 @@ export const medicineDetailsSlice = createSlice({
       state.takeStatus = '';
       state.doseQuantity = '';
       state.doseTime = '';
+      state.medicineGenericName = ''
     },
     setMedicineName: (state: IMedicineDetailsType, payload: PayloadAction<MedicineName>) => {
       state.medicineLocalId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -187,7 +193,20 @@ export const medicineDetailsSlice = createSlice({
       state.xMonthDoseTime = [];
       state.xMonthTakeDoseTime = [];
       state.selectedDates = '';
-    }
+    },
+
+    // for QR Code Scan 
+    setQrCodeToScanData: (state: IMedicineDetailsType, payload:PayloadAction<any> ) => {
+      state.medicineName = payload.payload.medicine.name;
+      state.medicineGenericName = payload.payload.medicine.generic_name;
+      state.medicineManufacturer = payload.payload.medicine.manufacturer;
+      state.typeMed = payload.payload.medicine.form;
+      state.strengthMed = payload.payload.medicine.strength;
+      state.description = payload.payload.product_details.description;
+      state.person = payload.payload.dosage_and_administration.administration.adult;
+      state.note = payload.payload.dosage_and_administration.administration.note;
+    },
+
   }
 });
 
@@ -214,7 +233,8 @@ export const {
   setXMonthDoseTime,
   setXMonthTakeDose,
   clearStoreMedicineDetails,
-  setSelectedDay
+  setSelectedDay,
+  setQrCodeToScanData
 } = medicineDetailsSlice.actions;
 
 export const medicineDetailsReducer = medicineDetailsSlice.reducer;

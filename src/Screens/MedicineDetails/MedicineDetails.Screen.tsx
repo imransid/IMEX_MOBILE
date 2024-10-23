@@ -22,11 +22,24 @@ const MedicineDetails: FC = (): JSX.Element => {
 
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
 
+  const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+  const genericName = useSelector((state: RootState) => state.medicineDetails.medicineGenericName);
+  const manufacturerName = useSelector(
+    (state: RootState) => state.medicineDetails.medicineManufacturer
+  );
+  const medicineForm = useSelector((state: RootState) => state.medicineDetails.typeMed);
+  const medicineStrength = useSelector((state: RootState) => state.medicineDetails.strengthMed);
+  const description = useSelector((state: RootState) => state.medicineDetails.description);
+  const person = useSelector((state: RootState) => state.medicineDetails.person);
+  const note = useSelector((state: RootState) => state.medicineDetails.note);
+
   const handlePress: any = () => {
     authStatus
       ? navigation.navigate('MedicineDoses' as never)
       : navigation.navigate('Login' as never);
   };
+
+  console.log(scannedData);
 
   return (
     <View style={styles.container}>
@@ -37,12 +50,12 @@ const MedicineDetails: FC = (): JSX.Element => {
 
         <View style={styles.medicineNameAndBrandPosition}>
           <View style={styles.medicineNameTypeProperties}>
-            <Text style={styles.medicineNameText}>Adflox</Text>
+            <Text style={styles.medicineNameText}>{medicineName}</Text>
             <View style={styles.medicineTypePosition}>
-              <Text style={styles.medicineTypeText}>Flucloxacillin</Text>
+              <Text style={styles.medicineTypeText}>{genericName}</Text>
             </View>
           </View>
-          <Text style={styles.brandNameText}>Team Pharmaceuticals Ltd</Text>
+          <Text style={styles.brandNameText}>{manufacturerName}</Text>
         </View>
 
         <View style={styles.medicineTypeAndQuantityPosition}>
@@ -51,7 +64,7 @@ const MedicineDetails: FC = (): JSX.Element => {
               <View style={styles.iconPosition}>
                 <MaterialCommunityIcons name="pill" size={17} color={colors.header} />
               </View>
-              <Text style={styles.medicineTypeAndQuantityText}>Capsule</Text>
+              <Text style={styles.medicineTypeAndQuantityText}>{medicineForm}</Text>
             </View>
           </View>
           <View style={styles.medicineTypeAndQuantityStyle}>
@@ -59,7 +72,7 @@ const MedicineDetails: FC = (): JSX.Element => {
               <View style={styles.iconPosition}>
                 <SimpleLineIcons name="drop" size={16} color={colors.header} />
               </View>
-              <Text style={styles.medicineTypeAndQuantityText}>250 mg</Text>
+              <Text style={styles.medicineTypeAndQuantityText}>{medicineStrength}</Text>
             </View>
           </View>
         </View>
@@ -69,7 +82,7 @@ const MedicineDetails: FC = (): JSX.Element => {
             <Text style={styles.inputHeader}>Product Details</Text>
             <View style={styles.medicineDetailscontainer}>
               <View style={styles.textPosition}>
-                <Text style={styles.scannedText}>{scannedData}</Text>
+                <Text style={styles.scannedText}>{description}</Text>
               </View>
             </View>
           </View>
@@ -77,7 +90,8 @@ const MedicineDetails: FC = (): JSX.Element => {
             <Text style={styles.inputHeader}>Dosage & Administration</Text>
             <View style={styles.medicineDetailscontainer}>
               <View style={styles.textPosition}>
-                <Text style={styles.scannedText}>{scannedData}</Text>
+                <Text style={styles.scannedText}>Adult: {person}</Text>
+                <Text style={styles.scannedText}>Note: {note}</Text>
               </View>
             </View>
           </View>

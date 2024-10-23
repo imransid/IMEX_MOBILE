@@ -11,11 +11,14 @@ import styles from './style';
 import { useNavigation } from '@react-navigation/native';
 import { type AppStackParamList } from '@/models/routePageModel';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useDispatch } from 'react-redux';
+import { setQrCodeToScanData } from '@/store/slices/features/medicineDetails/slice';
 
 type CameraScannerNavigationProp = StackNavigationProp<AppStackParamList, 'CameraScanner'>;
 
 const CameraScanner: FC = () => {
   const navigation = useNavigation<CameraScannerNavigationProp>();
+  const dispatch = useDispatch();
   const { hasPermission, requestPermission } = useCameraPermission();
   const device = useCameraDevice('back');
   const [latestScannedData, setLatestScannedData] = useState(null);
@@ -30,6 +33,9 @@ const CameraScanner: FC = () => {
       const value = codes[0].value ?? string;
       setLatestScannedData(value);
       if (value) {
+        //console.log(value);
+        const scannedData = JSON.parse(value);
+        dispatch(setQrCodeToScanData(scannedData));
         navigation.navigate('MedicineDetails', { scannedData: value });
       }
     }
