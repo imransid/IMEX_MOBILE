@@ -95,7 +95,7 @@ const Login: FC = () => {
           // Show error message from the response
           const errorMessage: any = response?.data?.errors[0]?.message;
           if (typeof errorMessage === 'string') {
-            ToastPopUp(errorMessage);
+            ToastPopUp('Invalid Mobile Number or Password');
           }
         } else {
           ToastPopUp('Something Went wrong ! please try again later.');

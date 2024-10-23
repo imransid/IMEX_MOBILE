@@ -19,13 +19,16 @@ import styles from './style';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { IMonthlyDoseTime } from '@/store/slices/features/medicineDetails/types';
-import { setMonthlyDoseTime, setMonthlyStoreData, setWeeklyStoreData } from '@/store/slices/features/medicineDetails/slice';
+import {
+  setMonthlyDoseTime,
+  setMonthlyStoreData,
+  setWeeklyStoreData
+} from '@/store/slices/features/medicineDetails/slice';
 import moment from 'moment';
 
 const MonthlyDoseDetails: FC = () => {
   const navigation = useNavigation();
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   const timeInterval = useSelector((state: RootState) => state.medicineDetails.timeInterval);
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
@@ -37,8 +40,6 @@ const MonthlyDoseDetails: FC = () => {
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
 
-
-
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(
     Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill('')
@@ -46,7 +47,6 @@ const MonthlyDoseDetails: FC = () => {
   const [doses, setDoses] = useState<number[]>(
     Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(0)
   );
-
 
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
@@ -91,13 +91,12 @@ const MonthlyDoseDetails: FC = () => {
   };
 
   const handleNext: any = () => {
-
-    let filterArray = monthlyDoseTime.filter((e) => {
-      if (e.medicineLocalId === medicineLocalId) return e
-    })
+    let filterArray = monthlyDoseTime.filter(e => {
+      if (e.medicineLocalId === medicineLocalId) return e;
+    });
 
     if (filterArray.length > 0) {
-      let tempStore = filterArray.map((e) => {
+      let tempStore = filterArray.map(e => {
         return {
           medicineName: medicineName,
           medicineStatus: 'month',
@@ -110,15 +109,14 @@ const MonthlyDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
-        }
-      })
+        };
+      });
 
-      dispatch(setWeeklyStoreData(tempStore))
+      dispatch(setWeeklyStoreData(tempStore));
     }
 
     navigation.navigate('AddedMedicine' as never);
   };
-
 
   useEffect(() => {
     if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
