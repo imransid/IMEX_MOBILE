@@ -13,14 +13,14 @@ const MoreScreenTab: FC = () => {
       <View style={styles.headingPosition}>
         <Header mainHeader="More Settings" />
       </View>
-      {/* <View style={styles.refillsHeadingProperties}>
+      <View style={styles.refillsHeadingProperties}>
         <Text style={styles.refillsText}>Refills</Text>
         <TouchableOpacity style={styles.viewAllPress}>
           <Text style={styles.viewAllText}>View All</Text>
           <AntDesign name="arrowright" size={14} color={colors.buttonBg} />
         </TouchableOpacity>
-      </View> */}
-      {/* <View style={styles.medicineDoseComponentPosition}>
+      </View>
+      <View style={styles.medicineDoseComponentPosition}>
         <TouchableOpacity style={styles.chip}>
           <View style={styles.medicineDoseProperties}>
             <View style={styles.doseDetailsPosition}>
@@ -36,7 +36,7 @@ const MoreScreenTab: FC = () => {
             </View>
           </View>
         </TouchableOpacity>
-      </View> */}
+      </View>
     </View>
   );
 };
