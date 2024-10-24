@@ -11,7 +11,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
+import { fetchMonthlyMedicines } from '@/mutations/createMonthly';
 import { type RootState } from '@/store';
+import { setMonthlyStoreData } from '@/store/slices/features/medicineDetails/slice';
 import { updateFirstTimeQrScreen } from '@/store/slices/features/settings/slice';
 import useNetworkStatus from '@/utils/networkUtills';
 import ToastPopUp from '@/utils/Toast.android';
@@ -65,9 +67,9 @@ const Login: FC = () => {
                   user {
                     fullName
                     birthday
-      email
-      mobileNumber
-      gender
+                    email
+                    mobileNumber
+                    gender
                 }
               }
             }
@@ -83,6 +85,11 @@ const Login: FC = () => {
           ToastPopUp('Login successfully.');
 
           const res = response.data.data.login;
+
+          const fetchMonthlyData = await fetchMonthlyMedicines(
+            response?.data?.data?.login?.accessToken
+          );
+          if (fetchMonthlyData !== undefined) dispatch(setMonthlyStoreData(fetchMonthlyData));
 
           dispatch(getUserSuccessAction(res));
           dispatch(updateFirstTimeQrScreen());
