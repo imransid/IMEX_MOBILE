@@ -16,10 +16,6 @@ import { colors } from '../../theme/colors';
 import styles from './style';
 
 const PreviewDoseDetails: FC = () => {
-  // const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
-  //const medicineType = useSelector((state: RootState) => state.medicineDetails.typeMed);
-  //const medicineUnit = useSelector((state: RootState) => state.medicineDetails.unitMed);
-  //const medicineStrength = useSelector((state: RootState) => state.medicineDetails.strengthMed);
   const route = useRoute(); // Access the route prop
   const { medicineId } = route.params as { medicineId: any }; // Extract medicineId from route params
 
@@ -136,9 +132,11 @@ const PreviewDoseDetails: FC = () => {
                           {getWeeklyDoseTimeList(selectedMedicine?.medicineLocalId)}
                         </Text>
                         <Text style={styles.chipText}>
-                          {/* {dose.doseQuantity}{' '}
-                          {parseInt(dose.doseQuantity) > 1 ? 'Capsules' : 'Capsule'} */}
-                          {getWeeklyDoseQuantityList(selectedMedicine?.medicineLocalId)}
+                          {/* {`${getWeeklyDoseQuantityList(selectedMedicine?.medicineLocalId)} ${selectedMedicine?.typeMed}`} */}
+                          {parseInt(getWeeklyDoseQuantityList(selectedMedicine?.medicineLocalId)) >
+                          1
+                            ? `${getWeeklyDoseQuantityList(selectedMedicine?.medicineLocalId)} ${selectedMedicine?.typeMed}(s)`
+                            : `${getWeeklyDoseQuantityList(selectedMedicine?.medicineLocalId)} ${selectedMedicine?.typeMed}`}
                         </Text>
                       </>
                     ))

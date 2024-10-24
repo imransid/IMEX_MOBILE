@@ -155,8 +155,6 @@ const OnceAdayDose: FC = () => {
           }
         );
 
-        console.log('response', response);
-
         // Check if registration was successful
         if (
           response?.data?.data?.createMedicines?.message !== undefined &&
