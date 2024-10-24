@@ -26,6 +26,7 @@ import { BASE_URL } from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
 import { APPOINTMENT_MUTATION } from '@/mutations/appointment_mutation';
 import moment from 'moment';
+import RNCalendarEvents from 'react-native-calendar-events';
 
 const OnceAdayDose: FC = () => {
   const navigation = useNavigation();
@@ -52,7 +53,50 @@ const OnceAdayDose: FC = () => {
   const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
 
-  const handleSelectTime: any = (index: number) => {
+  const handleSelectTime: any = async (index: number) => {
+
+    console.log('index', index)
+
+    const status = await RNCalendarEvents.requestPermissions();
+
+    console.log('Permission status:', status);
+
+    // mement to time set
+
+    if (status === 'authorized') {
+      // Calendar permission granted, proceed to save the event
+      await RNCalendarEvents.saveEvent('Team Pharmaceuticals Ltd ', {
+        startDate: '2024-10-25T19:26:00.000Z',
+        endDate: '2024-10-25T19:56:00.000Z',
+        alarms: [{
+          date: '2024-10-25T19:21:00.000Z' // Set alarm before event
+        }]
+      });
+      console.log('Event saved successfully');
+    } else if (status === 'denied') {
+      // Handle the case where the user denied calendar permission
+      alert('Calendar permission was denied. Please enable it in your settings.');
+      console.log('Calendar permission denied');
+    } else if (status === 'restricted') {
+      // Handle restricted permission (e.g., parental controls or system restrictions)
+      alert('Calendar access is restricted. Please check your device settings.');
+      console.log('Calendar permission restricted');
+    } else {
+      // Handle other statuses
+      alert('Permission status unknown');
+      console.log('Unknown permission status:', status);
+    }
+    // } catch (error) {
+    //   console.error('Error requesting calendar permissions:', error);
+    // }
+
+    // await RNCalendarEvents.saveEvent('Team Pharmaceuticals Ltd.', {
+    //   startDate: '2024-10-25T19:26:00.000Z',
+    //   endDate: '2024-10-25T19:56:00.000Z',
+    //   alarms: [{
+    //     date: '2024-10-25T19:21:00.000Z' // Set alarm before event
+    //   }]
+    // });
     setSelectedChip(index);
     setOpen(true);
   };
