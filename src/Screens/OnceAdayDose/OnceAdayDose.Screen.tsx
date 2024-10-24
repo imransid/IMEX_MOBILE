@@ -54,8 +54,7 @@ const OnceAdayDose: FC = () => {
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
 
   const handleSelectTime: any = async (index: number) => {
-
-    console.log('index', index)
+    console.log('index', index);
 
     const status = await RNCalendarEvents.requestPermissions();
 
@@ -67,10 +66,12 @@ const OnceAdayDose: FC = () => {
       // Calendar permission granted, proceed to save the event
       await RNCalendarEvents.saveEvent('Team Pharmaceuticals Ltd ', {
         startDate: '2024-10-25T19:26:00.000Z',
-        endDate: '2024-10-25T19:56:00.000Z',
-        alarms: [{
-          date: '2024-10-25T19:21:00.000Z' // Set alarm before event
-        }]
+        endDate: `2024-10-25T${index}:00:00.000Z`,
+        alarms: [
+          {
+            date: `2024-10-25T${index}:21:00.000Z` // Set alarm before event
+          }
+        ]
       });
       console.log('Event saved successfully');
     } else if (status === 'denied') {
