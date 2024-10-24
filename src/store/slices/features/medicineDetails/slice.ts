@@ -197,6 +197,7 @@ export const medicineDetailsSlice = createSlice({
 
     // for QR Code Scan 
     setQrCodeToScanData: (state: IMedicineDetailsType, payload:PayloadAction<any> ) => {
+      state.medicineLocalId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       state.medicineName = payload.payload.medicine.name;
       state.medicineGenericName = payload.payload.medicine.generic_name;
       state.medicineManufacturer = payload.payload.medicine.manufacturer;

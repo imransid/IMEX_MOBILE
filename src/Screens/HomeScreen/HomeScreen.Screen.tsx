@@ -78,6 +78,22 @@ const HomeScreen: FC = () => {
     }
   };
 
+  // for showing time
+  const getDoseTime = (medicineId: string) => {
+    let medDoseTime = storedMedicineList.filter(e => {
+      if (e.medicineLocalId === medicineId) {
+        return e.doseTime;
+      }
+    });
+    if (medDoseTime.length > 0) {
+      let x = medDoseTime.map(e => {
+        let y = e.doseTime;
+        return y;
+      });
+      return x;
+    }
+  };
+
   // const navigation = useNavigation();
 
   // Use the defined navigation prop type
@@ -190,7 +206,7 @@ const HomeScreen: FC = () => {
                         {parseInt(medicine.doseQuantity) > 1 ? 'pills' : 'pill'}
                         {getInstructionList(medicine.medicineLocalId)
                           ? ` | ${getInstructionList(medicine.medicineLocalId)}`
-                          : ''}
+                          : ' | Not Present'}
                       </Text>
                       <View style={styles.doseDatesPosition}>
                         <AntDesign name="calendar" size={18} color={colors.typedText} />
@@ -202,8 +218,10 @@ const HomeScreen: FC = () => {
                       </View>
                     </View>
                     <View style={styles.doseTimePosition}>
-                      <Text style={styles.medicineNameText}>Time</Text>
-                      <Text style={styles.doseText}>Upcoming</Text>
+                      <Text style={styles.medicineNameText}>
+                        {getDoseTime(medicine.medicineLocalId)}
+                      </Text>
+                      {/* <Text style={styles.doseText}>Upcoming</Text> */}
                     </View>
                   </View>
                 </TouchableOpacity>

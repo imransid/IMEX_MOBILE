@@ -25,6 +25,25 @@ const MedicineHistory: FC = () => {
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
 
+  const storedMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
+  );
+
+  const getDoseTime = (medicineId: string) => {
+    let medDoseTime = storedMedicineList.filter(e => {
+      if (e.medicineLocalId === medicineId) {
+        return e.doseTime;
+      }
+    });
+    if (medDoseTime.length > 0) {
+      let x = medDoseTime.map(e => {
+        let y = e.doseTime;
+        return y;
+      });
+      return x;
+    }
+  };
+
   const handleBack = (): void => {
     navigation.goBack();
   };
@@ -62,6 +81,7 @@ const MedicineHistory: FC = () => {
                 <View key={medicine.medicineLocalId} style={styles.chip}>
                   <View style={styles.chipContentProperties}>
                     <Text style={styles.chipText}>{medicine.medicineName}</Text>
+                    <Text style={styles.chipText}>{getDoseTime(medicine.medicineLocalId)}</Text>
                   </View>
                 </View>
               ))}

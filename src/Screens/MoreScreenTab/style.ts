@@ -78,6 +78,12 @@ const styles = StyleSheet.create({
     color: colors.buttonBg,
     fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(12)
+  },
+  moreSettingsListStyle: {
+    flexDirection: 'column'
+  },
+  scrollContainerStyle: {
+    paddingBottom: scale(15)
   }
 });
 
