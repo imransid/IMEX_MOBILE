@@ -12,7 +12,7 @@ import { RootState } from '@/store';
 const UserProfile: FC = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
-  const userName = useSelector((state: RootState) => state.users.user.data.user.fullName);
+  const userName = useSelector((state: RootState) => state.users.user?.data?.user?.fullName);
   const userMobileNumber = useSelector(
     (state: RootState) => state.users.user.data.user.mobileNumber
   );

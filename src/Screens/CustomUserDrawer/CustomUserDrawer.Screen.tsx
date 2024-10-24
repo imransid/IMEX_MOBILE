@@ -40,8 +40,8 @@ const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
     navigation.navigate('Profile' as never);
   };
 
-  const userName = useSelector((state: RootState) => state.users.user.data.user.fullName);
-  const userEmail = useSelector((state: RootState) => state.users.user.data.user.email);
+  const userName = useSelector((state: RootState) => state.users.user?.data?.user?.fullName);
+  const userEmail = useSelector((state: RootState) => state.users.user?.data?.user?.email);
 
   return (
     <DrawerContentScrollView {...props}>
