@@ -81,6 +81,9 @@ const styles = StyleSheet.create({
   },
   moreSettingsListStyle: {
     flexDirection: 'column'
+  },
+  scrollContainerStyle: {
+    paddingBottom: scale(15)
   }
 });
 
