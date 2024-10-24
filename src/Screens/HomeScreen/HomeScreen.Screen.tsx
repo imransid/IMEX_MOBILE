@@ -27,6 +27,8 @@ interface RootStackParamList {
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'PreviewDoseDetails'>;
 
 const HomeScreen: FC = () => {
+  const navigation = useNavigation();
+
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
@@ -94,15 +96,7 @@ const HomeScreen: FC = () => {
     }
   };
 
-  // const navigation = useNavigation();
-
-  // Use the defined navigation prop type
-  const navigation = useNavigation<HomeScreenNavigationProp>();
-
   const handleAddMedicine: any = async () => {
-
-
-
     try {
       // Request permissions to access the calendar
       const status = await RNCalendarEvents.requestPermissions();
@@ -114,9 +108,11 @@ const HomeScreen: FC = () => {
         await RNCalendarEvents.saveEvent('Team Pharmaceuticals Ltd', {
           startDate: '2024-10-25T19:26:00.000Z',
           endDate: '2024-15-25T19:56:00.000Z',
-          alarms: [{
-            date: '2024-10-25T19:21:00.000Z' // Set alarm before event
-          }]
+          alarms: [
+            {
+              date: '2024-10-25T19:21:00.000Z' // Set alarm before event
+            }
+          ]
         });
         console.log('Event saved successfully');
       } else if (status === 'denied') {
@@ -136,7 +132,6 @@ const HomeScreen: FC = () => {
       console.error('Error requesting calendar permissions:', error);
     }
 
-
     // const status = await RNCalendarEvents.requestPermissions();
 
     // console.log('status', status)
@@ -153,9 +148,7 @@ const HomeScreen: FC = () => {
     //   alert('Calendar permission not granted');
     // }
 
-
-
-    // navigation.navigate('MedicineAddingMethod' as never);
+    navigation.navigate('MedicineAddingMethod' as never);
   };
 
   const handleDosePress: any = (medicineId: number) => {

@@ -170,6 +170,40 @@ const MoreScreenTab: FC = () => {
             <></>
           )}
         </View>
+
+        <View style={styles.refillsHeadingProperties}>
+          {storedMedicineList.length > 0 ? (
+            <View style={styles.moreSettingsListStyle}>
+              <Text style={styles.refillsText}>Prescriptions</Text>
+              <View style={styles.medicineDoseComponentPosition}>
+                <FlatList
+                  data={appointMentList}
+                  renderItem={({ item: medicine, index }) => (
+                    <TouchableOpacity key={index} style={styles.chip}>
+                      <View style={styles.medicineDoseProperties}>
+                        <View style={styles.doseDetailsPosition}>
+                          <Text style={styles.pillsLeft}>
+                            {getDoctorNameList(medicine.medicineLocalId)}
+                          </Text>
+                          <Text style={styles.pillsLeftDetailsText}>
+                            {getAppointmentDateList(medicine.medicineLocalId)}
+                          </Text>
+                        </View>
+                        <View style={styles.pillsLeftPosition}>
+                          <Text style={styles.pillsLeft}>
+                            {getAppointmentTimeList(medicine.medicineLocalId)}
+                          </Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  )}
+                />
+              </View>
+            </View>
+          ) : (
+            <></>
+          )}
+        </View>
       </ScrollView>
     </View>
   );

@@ -35,7 +35,6 @@ const AddMedicineManually: FC = () => {
             value={medicineName}
             onChangeText={setMedName}
             placeholder="Enter your medicine name..."
-            maxLength={11}
             inputStyle={styles.inputText}
             leftIcon={<Fontisto name="drug-pack" size={30} color={'#888888'} />}
           />

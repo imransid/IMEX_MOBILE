@@ -26,7 +26,10 @@ const AddPrescription: FC = () => {
 
   const handleChoosePhoto = async (): Promise<void> => {
     try {
-      const response = await launchImageLibrary({ noData: true });
+      const response = await launchImageLibrary({
+        mediaType: 'photo', // Ensure only photos are picked
+        selectionLimit: 1 // Allow selecting only one file
+      });
 
       if (response.assets !== undefined) {
         const imageFile: ImageFiles[] = response.assets.map(asset => ({
@@ -41,7 +44,7 @@ const AddPrescription: FC = () => {
 
         // Store the first image's URI and file name
         setSelectedImage({
-          uri: imageFile[0]?.uri ?? '',
+          uri: imageFile[0].uri ?? '',
           name: imageFile[0]?.fileName ?? 'Unnamed'
         });
 
@@ -128,7 +131,7 @@ const AddPrescription: FC = () => {
               {selectedImage != null ? ( // Use explicit null check
                 <>
                   <View style={styles.imagePreviewContainer}>
-                    <Text style={styles.imageNameStyle}>{selectedImage?.name}</Text>
+                    <Text style={styles.imageNameStyle}>{selectedImage.name}</Text>
                     {isUploading && (
                       <Text style={styles.uploadProgressText}>{uploadProgress}%</Text>
                     )}
