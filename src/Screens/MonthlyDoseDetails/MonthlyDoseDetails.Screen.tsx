@@ -25,6 +25,7 @@ import {
   setWeeklyStoreData
 } from '@/store/slices/features/medicineDetails/slice';
 import moment from 'moment';
+import { createMothyMutation } from '@/mutations/createMonthly';
 
 const MonthlyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -34,11 +35,15 @@ const MonthlyDoseDetails: FC = () => {
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
   const monthlyDoseTime = useSelector((state: RootState) => state.medicineDetails.monthlyDoseTime);
   const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
-  const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
+  const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
   const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
+  const accessToken = useSelector((state: RootState) => state.users.user.data.accessToken);
+  const storedMedicineMonthlyList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineMonthlyList
+  );
 
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(
@@ -90,7 +95,7 @@ const MonthlyDoseDetails: FC = () => {
     }
   };
 
-  const handleNext: any = () => {
+  const handleNext: any = async () => {
     let filterArray = monthlyDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
@@ -111,6 +116,11 @@ const MonthlyDoseDetails: FC = () => {
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
         };
       });
+
+      // now check login or not
+      if (loginStatus) {
+        await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
+      }
 
       dispatch(setWeeklyStoreData(tempStore));
     }

@@ -12,8 +12,10 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
 import { fetchMedicines } from '@/mutations/medicine';
-import { type RootState } from '@/store';
 import { setDoseList } from '@/store/slices/features/medicineDetails/slice';
+import { fetchMonthlyMedicines } from '@/mutations/createMonthly';
+import { type RootState } from '@/store';
+import { setMonthlyStoreData } from '@/store/slices/features/medicineDetails/slice';
 import { updateFirstTimeQrScreen } from '@/store/slices/features/settings/slice';
 import useNetworkStatus from '@/utils/networkUtills';
 import ToastPopUp from '@/utils/Toast.android';
@@ -89,6 +91,11 @@ const Login: FC = () => {
           const medicine = await fetchMedicines(response?.data?.data?.login?.accessToken);
 
           if (medicine.length > 0) dispatch(setDoseList(medicine));
+          const fetchMonthlyData = await fetchMonthlyMedicines(
+            response?.data?.data?.login?.accessToken
+          );
+          if (fetchMonthlyData !== undefined) dispatch(setMonthlyStoreData(fetchMonthlyData));
+
           dispatch(getUserSuccessAction(res));
           //dispatch(updateFirstTimeQrScreen());
           navigation.navigate('UserDrawer' as never);
