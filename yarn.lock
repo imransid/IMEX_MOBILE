@@ -10881,13 +10881,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-alarm-notification@npm:^1.8.0":
-  version: 1.8.0
-  resolution: "react-native-alarm-notification@npm:1.8.0"
+"react-native-calendar-events@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "react-native-calendar-events@npm:2.2.0"
   peerDependencies:
-    react: ^16.8.1
-    react-native: ">=0.60.0-rc.0 <1.0.x"
-  checksum: 304b67a85c7f81ae89dc53d6d3e0682b4e0ed8919e0bce4ea85b3e098e26319daea69f673b35e27aedae8a9084637be2a55d13c90140d979f294680b6b009e35
+    react-native: ">=0.60.0"
+  checksum: cc86ece7c92df94cc2ccca2e640451fafda8517b7737301c1d5c9f586dcf061eb411152af9f186fac0ee53796d43ac82a2841c5977bae6a8efbb366085b35553
   languageName: node
   linkType: hard
 
@@ -12685,7 +12684,7 @@ __metadata:
     react: 18.2.0
     react-hook-form: ^7.53.0
     react-native: 0.74.3
-    react-native-alarm-notification: ^1.8.0
+    react-native-calendar-events: ^2.2.0
     react-native-calendars: ^1.1306.0
     react-native-config: ^1.5.3
     react-native-date-picker: ^5.0.4
