@@ -31,11 +31,7 @@ const HomeScreen: FC = () => {
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
 
-
-  const selectedDate = useSelector(
-    (state: RootState) => state.medicineDetails.selectedDates
-  );
-
+  const selectedDate = useSelector((state: RootState) => state.medicineDetails.selectedDates);
 
   // for retriving weekley times
   const weeklyMedicineList = useSelector(
@@ -66,8 +62,6 @@ const HomeScreen: FC = () => {
   const instructionList = useSelector(
     (state: RootState) => state.medicineDetailsExtraSetting.storeInstrucTionList
   );
-
-
 
   const getInstructionList = (medicineId: string) => {
     let instruction = instructionList.filter(e => {
@@ -146,7 +140,9 @@ const HomeScreen: FC = () => {
                       <View style={styles.doseDatesPosition}>
                         <AntDesign name="calendar" size={18} color={colors.typedText} />
                         <Text style={styles.weekDayText}>
-                          {getWeeklyMedicineList(medicine.medicineLocalId)}
+                          {getWeeklyMedicineList(medicine.medicineLocalId)
+                            ? getWeeklyMedicineList(medicine.medicineLocalId)
+                            : 'No Days Selected'}
                         </Text>
                       </View>
                     </View>

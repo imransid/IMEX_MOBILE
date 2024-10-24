@@ -26,19 +26,22 @@ const MedicineHistory: FC = () => {
   );
 
   const handleBack = (): void => {
-    navigation.navigate('AddedMedicine' as never);
+    navigation.goBack();
   };
 
   // Function to group medicine records by date
   const groupByDate = (data: Medicine[]): Record<string, Medicine[]> => {
-    return data.reduce((acc, curr) => {
-      const date = curr.createdDate.split(' ')[0]; // Extract date only (YYYY-MM-DD)
-      if (!acc[date]) {
-        acc[date] = [];
-      }
-      acc[date].push(curr);
-      return acc;
-    }, {} as Record<string, Medicine[]>);
+    return data.reduce(
+      (acc, curr) => {
+        const date = curr.createdDate.split(' ')[0]; // Extract date only (YYYY-MM-DD)
+        if (!acc[date]) {
+          acc[date] = [];
+        }
+        acc[date].push(curr);
+        return acc;
+      },
+      {} as Record<string, Medicine[]>
+    );
   };
 
   const groupedMedicines = groupByDate(medicineHistoryData);
@@ -54,9 +57,7 @@ const MedicineHistory: FC = () => {
         <View style={styles.chipPosition}>
           {Object.keys(groupedMedicines).map(date => (
             <View key={date}>
-              <Text style={styles.medicineHistoryHeading}>
-                {date === today ? 'Today' : date}
-              </Text>
+              <Text style={styles.medicineHistoryHeading}>{date === today ? 'Today' : date}</Text>
               {groupedMedicines[date].map(medicine => (
                 <View key={medicine.medicineLocalId} style={styles.chip}>
                   <View style={styles.chipContentProperties}>

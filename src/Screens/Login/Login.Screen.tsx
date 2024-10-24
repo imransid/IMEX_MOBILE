@@ -90,12 +90,13 @@ const Login: FC = () => {
 
           if (medicine.length > 0) dispatch(setDoseList(medicine));
           dispatch(getUserSuccessAction(res));
-          dispatch(updateFirstTimeQrScreen());
+          //dispatch(updateFirstTimeQrScreen());
+          navigation.navigate('UserDrawer' as never);
         } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
           // Show error message from the response
           const errorMessage: any = response?.data?.errors[0]?.message;
           if (typeof errorMessage === 'string') {
-            ToastPopUp(errorMessage);
+            ToastPopUp('Invalid Mobile Number or Password');
           }
         } else {
           ToastPopUp('Something Went wrong ! please try again later.');

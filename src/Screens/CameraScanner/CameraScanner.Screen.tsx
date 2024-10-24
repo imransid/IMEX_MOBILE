@@ -33,7 +33,6 @@ const CameraScanner: FC = () => {
       const value = codes[0].value ?? string;
       setLatestScannedData(value);
       if (value) {
-        //console.log(value);
         const scannedData = JSON.parse(value);
         dispatch(setQrCodeToScanData(scannedData));
         navigation.navigate('MedicineDetails', { scannedData: value });
@@ -51,12 +50,14 @@ const CameraScanner: FC = () => {
 
   return (
     <View style={styles.container}>
-      <Camera
-        style={StyleSheet.absoluteFill}
-        codeScanner={codeScanner}
-        device={device}
-        isActive={true}
-      />
+      {hasPermission && (
+        <Camera
+          style={StyleSheet.absoluteFill}
+          codeScanner={codeScanner}
+          device={device}
+          isActive={true}
+        />
+      )}
     </View>
   );
 };

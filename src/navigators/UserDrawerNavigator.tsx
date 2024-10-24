@@ -29,7 +29,7 @@ const getGreeting: any = () => {
 };
 
 const UserDrawerNavigator: FC = () => {
-  const userName = useSelector((state: RootState) => state.users.user.data.user.fullName);
+  const userName = useSelector((state: RootState) => state.users?.user?.data?.user?.fullName);
   const greetings = getGreeting();
   return (
     <Drawer.Navigator
