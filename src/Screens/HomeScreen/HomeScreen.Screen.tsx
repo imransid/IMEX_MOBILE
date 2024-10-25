@@ -155,7 +155,7 @@ const HomeScreen: FC = () => {
 
 
 
-    // navigation.navigate('MedicineAddingMethod' as never);
+    navigation.navigate('MedicineAddingMethod' as never);
   };
 
   const handleDosePress: any = (medicineId: number) => {
