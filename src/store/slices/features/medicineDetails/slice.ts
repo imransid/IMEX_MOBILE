@@ -48,7 +48,8 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   selectedDates: '',
   description: '',
   person: '',
-  note: ''
+  note: '',
+  selectedDateTime: null
 };
 
 export const medicineDetailsSlice = createSlice({
@@ -61,7 +62,7 @@ export const medicineDetailsSlice = createSlice({
       state.takeStatus = '';
       state.doseQuantity = '';
       state.doseTime = '';
-      state.medicineGenericName = ''
+      state.medicineGenericName = '';
     },
     setMedicineName: (state: IMedicineDetailsType, payload: PayloadAction<MedicineName>) => {
       state.medicineLocalId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -82,6 +83,7 @@ export const medicineDetailsSlice = createSlice({
     },
     setDoseTime: (state: IMedicineDetailsType, payload: PayloadAction<doseTimeStatus>) => {
       state.doseTime = payload.payload.doseTime;
+      state.selectedDateTime = payload.payload.selectedDateTime;
     },
     setDoseQuantity: (state: IMedicineDetailsType, payload: PayloadAction<doseQuantityStatus>) => {
       state.doseQuantity = payload.payload.doseQuantity;
@@ -193,10 +195,11 @@ export const medicineDetailsSlice = createSlice({
       state.xMonthDoseTime = [];
       state.xMonthTakeDoseTime = [];
       state.selectedDates = '';
+      state.selectedDateTime = null;
     },
 
-    // for QR Code Scan 
-    setQrCodeToScanData: (state: IMedicineDetailsType, payload:PayloadAction<any> ) => {
+    // for QR Code Scan
+    setQrCodeToScanData: (state: IMedicineDetailsType, payload: PayloadAction<any>) => {
       state.medicineLocalId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       state.medicineName = payload.payload.medicine.name;
       state.medicineGenericName = payload.payload.medicine.generic_name;
@@ -206,8 +209,7 @@ export const medicineDetailsSlice = createSlice({
       state.description = payload.payload.product_details.description;
       state.person = payload.payload.dosage_and_administration.administration.adult;
       state.note = payload.payload.dosage_and_administration.administration.note;
-    },
-
+    }
   }
 });
 

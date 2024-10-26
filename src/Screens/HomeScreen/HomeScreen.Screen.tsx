@@ -101,60 +101,6 @@ const HomeScreen: FC = () => {
 
   const handleAddMedicine: any = async () => {
 
-
-
-    try {
-      // Request permissions to access the calendar
-      const status = await RNCalendarEvents.requestPermissions();
-
-      console.log('Permission status:', status);
-
-      if (status === 'authorized') {
-        // Calendar permission granted, proceed to save the event
-        await RNCalendarEvents.saveEvent('Team Pharmaceuticals Ltd', {
-          startDate: '2024-10-25T19:26:00.000Z',
-          endDate: '2024-15-25T19:56:00.000Z',
-          alarms: [{
-            date: '2024-10-25T19:21:00.000Z' // Set alarm before event
-          }]
-        });
-        console.log('Event saved successfully');
-      } else if (status === 'denied') {
-        // Handle the case where the user denied calendar permission
-        alert('Calendar permission was denied. Please enable it in your settings.');
-        console.log('Calendar permission denied');
-      } else if (status === 'restricted') {
-        // Handle restricted permission (e.g., parental controls or system restrictions)
-        alert('Calendar access is restricted. Please check your device settings.');
-        console.log('Calendar permission restricted');
-      } else {
-        // Handle other statuses
-        alert('Permission status unknown');
-        console.log('Unknown permission status:', status);
-      }
-    } catch (error) {
-      console.error('Error requesting calendar permissions:', error);
-    }
-
-
-    // const status = await RNCalendarEvents.requestPermissions();
-
-    // console.log('status', status)
-    // if (status === 'authorized') {
-
-    //   await RNCalendarEvents.saveEvent('Test Event', {
-    //     startDate: '2024-08-24T19:26:00.000Z',
-    //     endDate: '2024-08-25T19:26:00.000Z',
-    //     alarms: [{
-    //       date: '2024-08-24T19:26:00.000Z'
-    //     }]
-    //   })
-    // } else {
-    //   alert('Calendar permission not granted');
-    // }
-
-
-
     navigation.navigate('MedicineAddingMethod' as never);
   };
 

@@ -24,9 +24,10 @@ export interface IMedicineDetailsType {
   xMonthDoseTime: IXMonthlyDoseTime[];
   xMonthTakeDoseTime: IWeeklyDoseTime[];
   selectedDates: string;
-  description: string,
+  description: string;
   person: string;
   note: string;
+  selectedDateTime: Date | null;
 }
 
 export interface IXDaysDoseTime {
@@ -73,6 +74,7 @@ export interface IMedicine {
   medicineId?: string;
   medicineLocalId: string;
   createdDate: string;
+  selectedDateTime: Date | null;
 }
 
 export interface MedicineName {
@@ -98,6 +100,7 @@ export interface TakeStatus {
 
 export interface doseTimeStatus {
   doseTime: string;
+  selectedDateTime: Date | null;
 }
 
 export interface doseQuantityStatus {

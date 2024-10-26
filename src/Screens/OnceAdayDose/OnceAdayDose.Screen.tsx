@@ -1,8 +1,8 @@
 /* eslint-disable */
 
 import React, { type FC, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-import DatePicker from 'react-native-date-picker';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -24,11 +24,12 @@ import { RootState } from '@/store';
 import axios from 'axios';
 import { BASE_URL } from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
-import { APPOINTMENT_MUTATION } from '@/mutations/appointment_mutation';
 import moment from 'moment';
-import RNCalendarEvents from 'react-native-calendar-events';
+import { localSchedule } from '@/helper/notify';
+import DatePicker from 'react-native-date-picker';
 
 const OnceAdayDose: FC = () => {
+  const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   // State for time and dose for each intake
@@ -52,52 +53,9 @@ const OnceAdayDose: FC = () => {
   const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
   const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
+  const selectedDateTime = useSelector((state: RootState) => state.medicineDetails.selectedDateTime);
 
   const handleSelectTime: any = async (index: number) => {
-    console.log('index', index);
-
-    const status = await RNCalendarEvents.requestPermissions();
-
-    console.log('Permission status:', status);
-
-    // mement to time set
-
-    if (status === 'authorized') {
-      // Calendar permission granted, proceed to save the event
-      await RNCalendarEvents.saveEvent('Team Pharmaceuticals Ltd ', {
-        startDate: '2024-10-25T19:26:00.000Z',
-        endDate: `2024-10-25T${index}:00:00.000Z`,
-        alarms: [
-          {
-            date: `2024-10-25T${index}:21:00.000Z` // Set alarm before event
-          }
-        ]
-      });
-      console.log('Event saved successfully');
-    } else if (status === 'denied') {
-      // Handle the case where the user denied calendar permission
-      alert('Calendar permission was denied. Please enable it in your settings.');
-      console.log('Calendar permission denied');
-    } else if (status === 'restricted') {
-      // Handle restricted permission (e.g., parental controls or system restrictions)
-      alert('Calendar access is restricted. Please check your device settings.');
-      console.log('Calendar permission restricted');
-    } else {
-      // Handle other statuses
-      alert('Permission status unknown');
-      console.log('Unknown permission status:', status);
-    }
-    // } catch (error) {
-    //   console.error('Error requesting calendar permissions:', error);
-    // }
-
-    // await RNCalendarEvents.saveEvent('Team Pharmaceuticals Ltd.', {
-    //   startDate: '2024-10-25T19:26:00.000Z',
-    //   endDate: '2024-10-25T19:56:00.000Z',
-    //   alarms: [{
-    //     date: '2024-10-25T19:21:00.000Z' // Set alarm before event
-    //   }]
-    // });
     setSelectedChip(index);
     setOpen(true);
   };
@@ -113,6 +71,26 @@ const OnceAdayDose: FC = () => {
       newTimes[index] = '';
       return newTimes;
     });
+  };
+
+  const handleDatePicker = async dateTime => {
+    var currentTime = Date.now();
+
+    const hours = dateTime.getHours();
+    const minutes = dateTime.getMinutes();
+
+    // Format time (e.g., "2:26 PM")
+    const formattedTime = `${hours % 12 || 12}:${minutes < 10 ? '0' : ''}${minutes} ${hours >= 12 ? 'PM' : 'AM'}`;
+
+    if (dateTime.getTime() < currentTime) {
+      Alert.alert('Please choose future time');
+      // hideDateTimePicker();
+      return;
+    }
+  }
+
+  const hideDateTimePicker = () => {
+    setIsDateTimePickerVisible(false);
   };
 
   const clearDoseSelection: any = (index: number) => {
@@ -138,6 +116,7 @@ const OnceAdayDose: FC = () => {
   };
 
   const handleNext: any = async () => {
+
     if (accessToken === null || accessToken === undefined) {
       let updatedStoredList = [...storedMedicineList];
 
@@ -153,11 +132,13 @@ const OnceAdayDose: FC = () => {
         unitMed: unitMed,
         typeMed: typeMed,
         medicineId: 'R@f@', // Use the correct reference
-        createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
+        createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+        selectedDateTime: selectedDateTime
       };
 
       // Add the new data to the copied array
       updatedStoredList.push(data);
+      await localSchedule(updatedStoredList, 'day', medicineLocalId)
       dispatch(setDoseList(updatedStoredList));
       navigation.navigate('AddedMedicine' as never);
 
@@ -219,12 +200,14 @@ const OnceAdayDose: FC = () => {
             unitMed: unitMed,
             typeMed: typeMed,
             medicineId: 'R@f@', // Use the correct reference
-            createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
+            createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+            selectedDateTime: selectedDateTime
           };
 
           // Add the new data to the copied array
           updatedStoredList.push(data);
           dispatch(setDoseList(updatedStoredList));
+          await localSchedule(updatedStoredList, 'day', medicineLocalId)
           navigation.navigate('AddedMedicine' as never);
 
           ToastPopUp(response.data.data.createMedicines.message);
@@ -238,9 +221,9 @@ const OnceAdayDose: FC = () => {
         } else {
           ToastPopUp('Something Went wrong ! please try again later.');
         }
+
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          console.log('error', error);
 
           console.error('Axios Error:', error.message);
         } else {
@@ -282,7 +265,10 @@ const OnceAdayDose: FC = () => {
                     </View>
                     <TouchableOpacity
                       style={styles.selectButton}
-                      onPress={() => handleSelectTime(index)}>
+                      onPress={() =>
+                        //setIsDateTimePickerVisible(true)}
+                        handleSelectTime(index)}
+                    >
                       <Text style={styles.selectButtonText}>
                         {times[index] === '' ? 'Select' : times[index]}
                       </Text>
@@ -346,7 +332,7 @@ const OnceAdayDose: FC = () => {
                 hour12: true
               }).format(new Date(date));
               if (selectedChip !== null) {
-                dispatch(setDoseTime({ doseTime: timeStr }));
+                dispatch(setDoseTime({ doseTime: timeStr, selectedDateTime: date }));
                 setTimes(prevTimes => {
                   const newTimes = [...prevTimes];
                   newTimes[selectedChip] = timeStr;
@@ -371,6 +357,17 @@ const OnceAdayDose: FC = () => {
           onSubmit={handleSubmit}
         />
       </ScrollView>
+
+      {/* extra option to show date */}
+
+      <DateTimePicker
+        mode="datetime"
+        isVisible={isDateTimePickerVisible}
+        onConfirm={handleDatePicker}
+        onCancel={hideDateTimePicker}
+      />
+
+      {/* extra option to show date */}
 
       {/* Next Button */}
       {times.every(time => time !== '') && doses.every(dose => dose !== 0) && (

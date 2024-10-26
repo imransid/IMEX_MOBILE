@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { type FC, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {
@@ -16,6 +18,7 @@ import {
   setMedicineName,
   setQrCodeToScanData
 } from '@/store/slices/features/medicineDetails/slice';
+import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 type CameraScannerNavigationProp = StackNavigationProp<AppStackParamList, 'CameraScanner'>;
 
@@ -24,20 +27,23 @@ const CameraScanner: FC = () => {
   const dispatch = useDispatch();
   const { hasPermission, requestPermission } = useCameraPermission();
   const device = useCameraDevice('back');
-  const [latestScannedData, setLatestScannedData] = useState(null);
 
   useEffect(() => {
-    requestPermission();
-  }, []);
+
+    if (hasPermission !== true) requestPermission();
+
+  }, [hasPermission]);
+
+
 
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: (codes: Code[]) => {
       const value = codes[0].value ?? string;
-      setLatestScannedData(value);
       if (value) {
         const scannedData = JSON.parse(value);
 
+        // 
         dispatch(setQrCodeToScanData(scannedData));
         navigation.navigate('MedicineDetails', { scannedData: value });
       }
