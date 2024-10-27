@@ -14,8 +14,12 @@ import { Platform } from 'react-native';
 
 PushNotification.configure({
   onRegister: function (token) {},
-
-  onNotification: function (notification) {},
+  onNotification: function (notification) {
+    if (notification.action === 'Stop Alarm') {
+      PushNotification.cancelLocalNotification({ id: notification.id });
+      console.log('Notification stopped:', notification.id);
+    }
+  },
 
   onAction: function (notification) {},
 

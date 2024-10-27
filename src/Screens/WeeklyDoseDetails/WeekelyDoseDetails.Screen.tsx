@@ -35,6 +35,7 @@ import axios from 'axios';
 import { BASE_URL } from '@/utils/environment';
 import { APPOINTMENT_MUTATION } from '@/mutations/appointment_mutation';
 import moment from 'moment';
+import { createWeeklyMutation } from '@/mutations/createWeekly';
 
 const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -42,6 +43,10 @@ const WeeklyDoseDetails: FC = () => {
   const timeInterval = useSelector((state: RootState) => state.medicineDetails.timeInterval);
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
   const weeklyDoseTime = useSelector((state: RootState) => state.medicineDetails.weeklyDoseTime);
+  const selectedDateTime = useSelector((state: RootState) => state.medicineDetails.selectedDateTime);
+  const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
+  const accessToken = useSelector((state: RootState) => state.users.user.data.accessToken);
+  const storedMedicineWeeklyList = useSelector((state: RootState) => state.medicineDetails.storedMedicineWeeklyList);
 
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(
@@ -115,9 +120,15 @@ const WeeklyDoseDetails: FC = () => {
           typeMed: typeMed,
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
-          createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
+          createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+          selectedDateTime: selectedDateTime
         }
       })
+
+      // now check login or not
+      if (loginStatus) {
+        await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
+      }
 
       dispatch(setWeeklyStoreData(tempStore))
     }

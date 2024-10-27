@@ -43,25 +43,24 @@ export const localSchedule = async (listOfItem: any[], name: string, medicineId:
             date: { value: moment(e.selectedDateTime).format('YYYY-MM-DD HH:mm:ss') }
           };
 
-          // Cancel existing notification with the same ID if already scheduled
-          PushNotification.cancelLocalNotifications({ id: `${alarmNotifData.id}` });
-
           // Schedule the new notification
           PushNotification.localNotificationSchedule({
+            autoCancel: true, // (optional)
             channelId: alarmNotifData.channelId,
             title: alarmNotifData.title,
             id: alarmNotifData.id,
             message: alarmNotifData.message,
             date: alarmNotifData.fire_date,
             soundName: alarmNotifData.soundName,
+            timeoutAfter: 120000,
             actions: ['Snooze', 'Stop Alarm'],
             importance: Importance.HIGH,
             playSound: true,
             allowWhileIdle: true,
-            invokeApp: true
+            invokeApp: true,
+            repeatType: 'time', // Repeat at custom interval
+            repeatTime: 30000 // Repeat every 1 minute (60000 ms)
           });
-
-          console.log('Scheduled notification:', alarmNotifData);
         })
       );
     } else {
