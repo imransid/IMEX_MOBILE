@@ -125,6 +125,9 @@ const WeeklyDoseDetails: FC = () => {
         }
       })
 
+
+      console.log('loginStatus', loginStatus)
+
       // now check login or not
       if (loginStatus) {
         await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
