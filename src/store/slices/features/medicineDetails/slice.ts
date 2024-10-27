@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 import { MEDICINE_DETAILS } from './constants';
 import {
+  ITwiceAdayDoseTime,
   type doseQuantityStatus,
   type doseTimeStatus,
   type IMedicine,
@@ -33,10 +34,12 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   unitMed: '',
   typeMed: '',
   storedMedicineList: [],
+  storedMedicineTwiceAdayList: [],
   storedMedicineWeeklyList: [],
   storedMedicineMonthlyList: [],
   weeklyTime: [],
   timeInterval: '',
+  twiceAdayDoseTime: [],
   weeklyDoseTime: [],
   monthlyDoseTime: [],
   xDaysDoseTime: [],
@@ -109,6 +112,11 @@ export const medicineDetailsSlice = createSlice({
         payload.payload.IStoredWeekly
       ];
     },
+    setTwiceAdayDoseTime: (state: IMedicineDetailsType, payload: PayloadAction<ITwiceAdayDoseTime[]>) => {
+      const data = [...state.twiceAdayDoseTime, ...payload.payload];
+      state.twiceAdayDoseTime = data
+    },
+
     setWeeklyDoseTime: (state: IMedicineDetailsType, payload: PayloadAction<IWeeklyDoseTime[]>) => {
       const data = [...state.weeklyDoseTime, ...payload.payload];
       state.weeklyDoseTime = data;
@@ -182,6 +190,7 @@ export const medicineDetailsSlice = createSlice({
       state.unitMed = '';
       state.typeMed = '';
       state.storedMedicineList = [];
+      state.storedMedicineTwiceAdayList = [];
       state.storedMedicineWeeklyList = [];
       state.storedMedicineMonthlyList = [];
       state.weeklyTime = [];
@@ -224,6 +233,7 @@ export const {
   setDoseQuantity,
   setDoseList,
   setWeekly,
+  setTwiceAdayDoseTime,
   setWeeklyDoseTime,
   setWeeklyStoreData,
   setMonthlyStoreData,

@@ -132,7 +132,6 @@ const PreviewDoseDetails: FC = () => {
                           {getWeeklyDoseTimeList(selectedMedicine?.medicineLocalId)}
                         </Text>
                         <Text style={styles.chipText}>
-                          {/* {`${getWeeklyDoseQuantityList(selectedMedicine?.medicineLocalId)} ${selectedMedicine?.typeMed}`} */}
                           {parseInt(getWeeklyDoseQuantityList(selectedMedicine?.medicineLocalId)) >
                           1
                             ? `${getWeeklyDoseQuantityList(selectedMedicine?.medicineLocalId)} ${selectedMedicine?.typeMed}(s)`

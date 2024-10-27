@@ -59,10 +59,13 @@ const styles = StyleSheet.create({
   },
   doseDetailsPosition: {
     justifyContent: 'center',
-    marginRight: scale(30)
+    marginLeft: scale(70),
+    position: 'absolute',
+    marginTop: scale(3)
   },
   doseProperties: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    top: scale(2)
   },
   doseText: {
     color: colors.header,
@@ -75,15 +78,16 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(12)
   },
   doseTimePosition: {
-    marginRight: scale(40),
-    marginTop: scale(5)
+    marginLeft: scale(200),
+    marginTop: scale(4)
   },
   medicineDoseComponentPosition: {
     alignItems: 'center'
   },
   medicineDoseProperties: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    position: 'absolute'
   },
   medicineNameText: {
     color: colors.buttonBg,

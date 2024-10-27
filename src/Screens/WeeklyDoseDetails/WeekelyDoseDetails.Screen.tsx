@@ -43,10 +43,14 @@ const WeeklyDoseDetails: FC = () => {
   const timeInterval = useSelector((state: RootState) => state.medicineDetails.timeInterval);
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
   const weeklyDoseTime = useSelector((state: RootState) => state.medicineDetails.weeklyDoseTime);
-  const selectedDateTime = useSelector((state: RootState) => state.medicineDetails.selectedDateTime);
+  const selectedDateTime = useSelector(
+    (state: RootState) => state.medicineDetails.selectedDateTime
+  );
   const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
-  const accessToken = useSelector((state: RootState) => state.users.user.data.accessToken);
-  const storedMedicineWeeklyList = useSelector((state: RootState) => state.medicineDetails.storedMedicineWeeklyList);
+  const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
+  const storedMedicineWeeklyList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
+  );
 
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(
@@ -102,13 +106,12 @@ const WeeklyDoseDetails: FC = () => {
   };
 
   const handleNext: any = async () => {
-
-    let filterArray = weeklyDoseTime.filter((e) => {
-      if (e.medicineLocalId === medicineLocalId) return e
-    })
+    let filterArray = weeklyDoseTime.filter(e => {
+      if (e.medicineLocalId === medicineLocalId) return e;
+    });
 
     if (filterArray.length > 0) {
-      let tempStore = filterArray.map((e) => {
+      let tempStore = filterArray.map(e => {
         return {
           medicineName: medicineName,
           medicineStatus: 'week',
@@ -122,24 +125,19 @@ const WeeklyDoseDetails: FC = () => {
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
           selectedDateTime: selectedDateTime
-        }
-      })
-
-
-      console.log('loginStatus', loginStatus)
+        };
+      });
 
       // now check login or not
       if (loginStatus) {
         await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
       }
 
-      dispatch(setWeeklyStoreData(tempStore))
+      dispatch(setWeeklyStoreData(tempStore));
     }
 
     navigation.navigate('AddedMedicine' as never);
-
   };
-
 
   const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);

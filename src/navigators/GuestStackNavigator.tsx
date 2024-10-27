@@ -57,7 +57,7 @@ const screens = [
   { name: 'ScanQrCodeScreen', component: ScanQrCode, headerShown: false },
   { name: 'CameraScanner', component: CameraScanner, headerShown: false },
   { name: 'MedicineDetails', component: MedicineDetails, title: 'Medicine Details' },
-  { name: 'Login', component: Login, title: '' },
+  { name: 'Login', component: Login, title: '', headerShown: false },
   { name: 'MedicineDoses', component: MedicineDoses, title: 'Medicine Name' },
   { name: 'MedicineDailyDoses', component: MedicineDailyDoses, title: 'Medicine Name' },
   { name: 'CreateAccount', component: CreateAccount, title: '' },
@@ -123,7 +123,7 @@ const defaultHeaderOptions = {
 
 const GuestStackNavigator: any = () => {
   return (
-    <publicStack.Navigator initialRouteName="ScanQrCodeScreen">
+    <publicStack.Navigator initialRouteName="Login">
       {screens.map(({ name, component, title, headerShown = true }) => (
         <publicStack.Screen
           key={name}
