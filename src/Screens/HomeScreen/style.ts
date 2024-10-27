@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
     marginTop: scale(3)
   },
   doseProperties: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    top: scale(2)
   },
   doseText: {
     color: colors.header,
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
   },
   doseTimePosition: {
     marginLeft: scale(200),
-    marginTop: scale(3)
+    marginTop: scale(4)
   },
   medicineDoseComponentPosition: {
     alignItems: 'center'

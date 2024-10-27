@@ -22,15 +22,18 @@ const Navigator: FC = () => {
   }, []);
 
   return (
+    // <NavigationContainer>
+    //   {!authStatus && appLoadFirstTime ? (
+    //     <GuestStackNavigator />
+    //   ) : authStatus && !appLoadFirstTime ? (
+    //     <UserStackNavigator />
+    //   ) : (
+    //     <AuthStackNav />
+    //   )}
+    //   <Spinner visible={globalLoaderStatus} textContent={'Loading...'} />
+    // </NavigationContainer>
     <NavigationContainer>
-      {!authStatus && appLoadFirstTime ? (
-        <GuestStackNavigator />
-      ) : authStatus && !appLoadFirstTime ? (
-        <UserStackNavigator />
-      ) : (
-        <AuthStackNav />
-      )}
-      <Spinner visible={globalLoaderStatus} textContent={'Loading...'} />
+      {!authStatus ? <GuestStackNavigator /> : <UserStackNavigator />}
     </NavigationContainer>
   );
 };

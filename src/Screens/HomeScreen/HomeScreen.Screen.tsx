@@ -90,6 +90,7 @@ const HomeScreen: FC = () => {
       });
       return x;
     }
+    return <></>;
   };
 
   // const navigation = useNavigation();
