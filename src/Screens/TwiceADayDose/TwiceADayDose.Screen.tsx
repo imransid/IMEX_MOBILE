@@ -1,4 +1,4 @@
-import React, { type FC, useState } from 'react';
+import React, { type FC, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -20,13 +20,15 @@ import { RootState } from '@/store';
 import {
   setDoseList,
   setDoseQuantity,
-  setDoseTime
+  setDoseTime,
+  setTwiceAdayDoseTime
 } from '@/store/slices/features/medicineDetails/slice';
 
 import { BASE_URL } from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
 import axios from 'axios';
 import moment from 'moment';
+import { ITwiceAdayDoseTime } from '@/store/slices/features/medicineDetails/types';
 
 const TwiceAdayDose: FC = () => {
   const navigation = useNavigation();
@@ -210,6 +212,20 @@ const TwiceAdayDose: FC = () => {
         ToastPopUp('Network Error! Please check your connection.');
       }
     }
+
+    useEffect(() => {
+      if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
+        const twiceAdayDoses: ITwiceAdayDoseTime[] = times
+          .map((time, index) => ({
+            doseTime: time,
+            doseQuantity: doses[index].toString(),
+            medicineLocalId
+          }))
+          .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
+
+        dispatch(setTwiceAdayDoseTime(twiceAdayDoses));
+      }
+    }, [times, doses]);
   };
 
   return (

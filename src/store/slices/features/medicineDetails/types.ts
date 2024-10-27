@@ -7,6 +7,7 @@ export interface IMedicineDetailsType {
   doseQuantity: string;
   doseTime: string;
   storedMedicineList: IMedicine[];
+  storedMedicineTwiceAdayList: IStoredTwiceAday[]
   storedMedicineWeeklyList: IStoredWeekly[];
   storedMedicineMonthlyList: IStoredMonthly[];
   strengthMed: string;
@@ -15,6 +16,7 @@ export interface IMedicineDetailsType {
   medicineLocalId: string;
   weeklyTime: string[];
   timeInterval: string;
+  twiceAdayDoseTime: ITwiceAdayDoseTime[]
   weeklyDoseTime: IWeeklyDoseTime[];
   monthlyDoseTime: IMonthlyDoseTime[];
   xDaysDoseTime: IXDaysDoseTime[];
@@ -57,6 +59,12 @@ export interface IMonthlyDoseTime {
 }
 
 export interface IWeeklyDoseTime {
+  doseTime: string;
+  doseQuantity: string;
+  medicineLocalId: string;
+}
+
+export interface ITwiceAdayDoseTime {
   doseTime: string;
   doseQuantity: string;
   medicineLocalId: string;
@@ -114,6 +122,10 @@ export interface IWeekly {
 }
 
 export interface IStoredWeekly {
+  medicineLocalId: IMedicineLocalId;
+}
+
+export interface IStoredTwiceAday {
   medicineLocalId: IMedicineLocalId;
 }
 

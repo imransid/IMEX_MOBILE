@@ -32,12 +32,14 @@ const HomeScreen: FC = () => {
   );
 
   const selectedDate = useSelector((state: RootState) => state.medicineDetails.selectedDates);
-
-  // for retriving weekley times
+  const instructionList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeInstrucTionList
+  );
   const weeklyMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
   );
 
+  // for retriving weekley times
   const getWeeklyMedicineList = (medicineId: string) => {
     let weeklyList = weeklyMedicineList.filter(e => {
       if (e.medicineLocalId.medicineLocalId === medicineId) {
@@ -59,10 +61,6 @@ const HomeScreen: FC = () => {
   };
 
   // for retriving given instruction
-  const instructionList = useSelector(
-    (state: RootState) => state.medicineDetailsExtraSetting.storeInstrucTionList
-  );
-
   const getInstructionList = (medicineId: string) => {
     let instruction = instructionList.filter(e => {
       if (e.medicineLocalId === medicineId) {
@@ -79,7 +77,7 @@ const HomeScreen: FC = () => {
   };
 
   // for showing time
-  const getDoseTime = (medicineId: string) => {
+  const getWeeklyDoseTime = (medicineId: string) => {
     let medDoseTime = storedMedicineList.filter(e => {
       if (e.medicineLocalId === medicineId) {
         return e.doseTime;
@@ -100,7 +98,6 @@ const HomeScreen: FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const handleAddMedicine: any = async () => {
-
     navigation.navigate('MedicineAddingMethod' as never);
   };
 
@@ -165,7 +162,7 @@ const HomeScreen: FC = () => {
                     </View>
                     <View style={styles.doseTimePosition}>
                       <Text style={styles.medicineNameText}>
-                        {getDoseTime(medicine.medicineLocalId)}
+                        {getWeeklyDoseTime(medicine.medicineLocalId)}
                       </Text>
                       {/* <Text style={styles.doseText}>Upcoming</Text> */}
                     </View>

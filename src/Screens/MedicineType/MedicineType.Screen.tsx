@@ -25,9 +25,9 @@ const MedicineType: FC = () => {
     navigation.navigate('MedicineDoses' as never);
   };
 
-  const handleSkip: any = () => {
-    navigation.navigate('MedicineDoses' as never);
-  };
+  // const handleSkip: any = () => {
+  //   navigation.navigate('MedicineDoses' as never);
+  // };
 
   const RenderItems: React.FC<IMedicineStrengthProps> = ({ item, selectedUnit, onPress }) => {
     return (
@@ -71,18 +71,22 @@ const MedicineType: FC = () => {
           />
         )}
       />
-      <View style={styles.NextButtonPosition}>
-        <CustomButton
-          onPress={handleNext}
-          icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
-          text="Next"
-        />
-      </View>
-      <View style={styles.skipTextPosition}>
+      {selectedUnit !== '' ? (
+        <View style={styles.NextButtonPosition}>
+          <CustomButton
+            onPress={handleNext}
+            icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
+            text="Next"
+          />
+        </View>
+      ) : (
+        <></>
+      )}
+      {/* <View style={styles.skipTextPosition}>
         <TouchableOpacity onPress={handleSkip}>
           <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };

@@ -39,11 +39,13 @@ export const createWeeklyMutation = async (
       }
     );
 
+    console.log('response', response);
+
     if (
-      response?.data?.data?.createMonthlyMedicines?.message !== undefined &&
-      response?.data?.data?.createMonthlyMedicines?.message !== null
+      response?.data?.data?.createWeeklyMedicines?.message !== undefined &&
+      response?.data?.data?.createWeeklyMedicines?.message !== null
     ) {
-      ToastPopUp(response?.data?.data?.createMonthlyMedicines?.message);
+      ToastPopUp(response?.data?.data?.createWeeklyMedicines?.message);
     } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
       // Show error message from the response
       const errorMessage: any = response?.data?.errors[0]?.message;
