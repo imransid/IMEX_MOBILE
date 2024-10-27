@@ -40,11 +40,13 @@ const MonthlyDoseDetails: FC = () => {
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
-  const accessToken = useSelector((state: RootState) => state.users.user.data.accessToken);
+  const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
   const storedMedicineMonthlyList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineMonthlyList
   );
-  const selectedDateTime = useSelector((state: RootState) => state.medicineDetails.selectedDateTime);
+  const selectedDateTime = useSelector(
+    (state: RootState) => state.medicineDetails.selectedDateTime
+  );
 
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(
@@ -119,7 +121,7 @@ const MonthlyDoseDetails: FC = () => {
         };
       });
 
-      // 
+      //
       // now check login or not
       if (loginStatus) {
         await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
