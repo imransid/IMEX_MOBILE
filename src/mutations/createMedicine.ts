@@ -1,32 +1,44 @@
 /* eslint-disable */
 
+import { IMedicine } from '@/store/slices/features/medicineDetails/types';
 import { BASE_URL } from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
 import axios from 'axios';
 
-export const createMedicine = async (accessToken: string) => {
-  const mutation = `
-    mutation {
-       createMonthlyMedicines(
-        medicines: [{
-            medicineLocalId: { Days: ["sat", "Sun", "Mon"], eachOfDays: "12", medicineLocalId: "12121" }
-        },
-        {
-            medicineLocalId: { Days: ["sat", "Sun", "Mon"], eachOfDays: "2", medicineLocalId: "213" }
-        }
-        ]
-    )
-    {
+export const createMedicineData = async (medicines: IMedicine[], accessToken: string) => {
+  const buildMutation = `
+  mutation {
+    createMedicines(medicines: [
+      ${medicines
+        .map(
+          medicine => `{
+        medicineLocalId: "${medicine.medicineLocalId}",
+        medicineName: "${medicine.medicineName}",
+        medicineStatus: "${medicine.medicineStatus}",
+        takeStatus: "${medicine.takeStatus}",
+        doseQuantity: "${medicine.doseQuantity}",
+        doseTime: "${medicine.doseTime}",
+        strengthMed: "${medicine.strengthMed}",
+        unitMed: "${medicine.unitMed}",
+        typeMed: "${medicine.typeMed}",
+        createdDate: "${medicine.createdDate}"
+      }`
+        )
+        .join(',')}
+    ]) {
+      message
+      error {
         message
-        
+        code
       }
     }
-    `;
+  }
+`;
 
   try {
     const response = await axios.post(
       BASE_URL,
-      { query: mutation },
+      { query: buildMutation },
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -35,10 +47,12 @@ export const createMedicine = async (accessToken: string) => {
       }
     );
 
+    console.log('response', response);
     if (
-      response?.data?.data?.createMonthlyMedicines?.message !== undefined &&
-      response?.data?.data?.createMonthlyMedicines?.message !== null
+      response?.data?.data?.createMedicines?.message !== undefined &&
+      response?.data?.data?.createMedicines?.message !== null
     ) {
+      ToastPopUp(response?.data?.data?.createMedicines?.message);
     } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
       // Show error message from the response
       const errorMessage: any = response?.data?.errors[0]?.message;

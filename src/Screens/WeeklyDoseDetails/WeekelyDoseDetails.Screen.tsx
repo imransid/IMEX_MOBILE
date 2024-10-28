@@ -9,7 +9,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-
 import { type RootState } from '@/store';
 import {
   setWeeklyDoseTime,
@@ -22,20 +21,13 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 import DoseInputModal from '../../Components/DoseInputModal/DoseInputModal';
 import MoreSettings from '../../Components/MoreSettingsComponent/MoreSettingsComponent';
 import { colors } from '../../theme/colors';
-
-import {
-  setDoseList,
-  setDoseQuantity,
-  setDoseTime
-} from '@/store/slices/features/medicineDetails/slice';
+import { setDoseQuantity } from '@/store/slices/features/medicineDetails/slice';
 
 import styles from './style';
-import ToastPopUp from '@/utils/Toast.android';
-import axios from 'axios';
-import { BASE_URL } from '@/utils/environment';
-import { APPOINTMENT_MUTATION } from '@/mutations/appointment_mutation';
 import moment from 'moment';
 import { createWeeklyMutation } from '@/mutations/createWeekly';
+import { localSchedule } from '@/helper/notify';
+import { createMedicineData } from '@/mutations/createMedicine';
 
 const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -59,6 +51,8 @@ const WeeklyDoseDetails: FC = () => {
   const [doses, setDoses] = useState<number[]>(
     Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(0)
   );
+  const [doseDates, setDoseDates] = useState<Date[]>(Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(new Date()));
+
 
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
@@ -124,15 +118,16 @@ const WeeklyDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime
+          selectedDateTime: e.doseDate
         };
       });
 
       // now check login or not
       if (loginStatus) {
         await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
+        await createMedicineData(tempStore, accessToken)
       }
-
+      await localSchedule(tempStore, 'week', medicineLocalId)
       dispatch(setWeeklyStoreData(tempStore));
     }
 
@@ -151,7 +146,8 @@ const WeeklyDoseDetails: FC = () => {
         .map((time, index) => ({
           doseTime: time,
           doseQuantity: doses[index].toString(),
-          medicineLocalId
+          medicineLocalId,
+          doseDate: doseDates[index]
         }))
         .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
 
@@ -258,6 +254,12 @@ const WeeklyDoseDetails: FC = () => {
                   const newTimes = [...prevTimes];
                   newTimes[selectedChip] = timeStr;
                   return newTimes;
+                });
+
+                setDoseDates(prevDates => {
+                  const newDates = [...prevDates];
+                  newDates[selectedChip] = date; // Store the selected date
+                  return newDates;
                 });
               }
             }}

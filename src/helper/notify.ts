@@ -10,8 +10,7 @@ function generateRandomNumber(min: number, max: number) {
 export const localSchedule = async (listOfItem: any[], name: string, medicineId: string) => {
   try {
     // Filter items based on the provided condition
-    const alarmData =
-      name === 'day' ? listOfItem.filter(e => e.medicineLocalId === medicineId) : [];
+    const alarmData = listOfItem.filter(e => e.medicineLocalId === medicineId);
 
     // Proceed only if there is data to schedule
     if (alarmData.length > 0) {
@@ -20,7 +19,6 @@ export const localSchedule = async (listOfItem: any[], name: string, medicineId:
           // Generate fire date and ensure it's in the future
           const fireDate = moment(e.selectedDateTime).toDate();
           if (fireDate <= new Date()) {
-            console.warn('Attempted to schedule a notification in the past:', fireDate);
             return;
           }
 
@@ -57,7 +55,7 @@ export const localSchedule = async (listOfItem: any[], name: string, medicineId:
             importance: Importance.HIGH,
             playSound: true,
             allowWhileIdle: true,
-            invokeApp: true,
+            invokeApp: false,
             repeatType: 'time', // Repeat at custom interval
             repeatTime: 30000 // Repeat every 1 minute (60000 ms)
           });
