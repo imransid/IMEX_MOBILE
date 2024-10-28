@@ -53,7 +53,9 @@ const OnceAdayDose: FC = () => {
   const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
   const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
-  const selectedDateTime = useSelector((state: RootState) => state.medicineDetails.selectedDateTime);
+  const selectedDateTime = useSelector(
+    (state: RootState) => state.medicineDetails.selectedDateTime
+  );
 
   const handleSelectTime: any = async (index: number) => {
     setSelectedChip(index);
@@ -87,7 +89,7 @@ const OnceAdayDose: FC = () => {
       // hideDateTimePicker();
       return;
     }
-  }
+  };
 
   const hideDateTimePicker = () => {
     setIsDateTimePickerVisible(false);
@@ -116,7 +118,6 @@ const OnceAdayDose: FC = () => {
   };
 
   const handleNext: any = async () => {
-
     if (accessToken === null || accessToken === undefined) {
       let updatedStoredList = [...storedMedicineList];
 
@@ -138,7 +139,7 @@ const OnceAdayDose: FC = () => {
 
       // Add the new data to the copied array
       updatedStoredList.push(data);
-      await localSchedule(updatedStoredList, 'day', medicineLocalId)
+      await localSchedule(updatedStoredList, 'day', medicineLocalId);
       dispatch(setDoseList(updatedStoredList));
       navigation.navigate('AddedMedicine' as never);
 
@@ -207,7 +208,7 @@ const OnceAdayDose: FC = () => {
           // Add the new data to the copied array
           updatedStoredList.push(data);
           dispatch(setDoseList(updatedStoredList));
-          await localSchedule(updatedStoredList, 'day', medicineLocalId)
+          await localSchedule(updatedStoredList, 'day', medicineLocalId);
           navigation.navigate('AddedMedicine' as never);
 
           ToastPopUp(response.data.data.createMedicines.message);
@@ -221,10 +222,8 @@ const OnceAdayDose: FC = () => {
         } else {
           ToastPopUp('Something Went wrong ! please try again later.');
         }
-
       } catch (error) {
         if (axios.isAxiosError(error)) {
-
           console.error('Axios Error:', error.message);
         } else {
           console.error('Unexpected Error:', error);
@@ -267,8 +266,8 @@ const OnceAdayDose: FC = () => {
                       style={styles.selectButton}
                       onPress={() =>
                         //setIsDateTimePickerVisible(true)}
-                        handleSelectTime(index)}
-                    >
+                        handleSelectTime(index)
+                      }>
                       <Text style={styles.selectButtonText}>
                         {times[index] === '' ? 'Select' : times[index]}
                       </Text>

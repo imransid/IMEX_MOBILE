@@ -26,6 +26,8 @@ import {
 } from '@/store/slices/features/medicineDetails/slice';
 import moment from 'moment';
 import { createMothyMutation } from '@/mutations/createMonthly';
+import { createMedicineData } from '@/mutations/createMedicine';
+import { localSchedule } from '@/helper/notify';
 
 const MonthlyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -54,6 +56,10 @@ const MonthlyDoseDetails: FC = () => {
   );
   const [doses, setDoses] = useState<number[]>(
     Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(0)
+  );
+
+  const [doseDates, setDoseDates] = useState<Date[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(new Date())
   );
 
   const [open, setOpen] = useState(false); // for time picker
@@ -117,7 +123,7 @@ const MonthlyDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime
+          selectedDateTime: e.doseDate
         };
       });
 
@@ -125,8 +131,9 @@ const MonthlyDoseDetails: FC = () => {
       // now check login or not
       if (loginStatus) {
         await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
+        await createMedicineData(tempStore, accessToken);
       }
-
+      await localSchedule(tempStore, 'month', medicineLocalId);
       dispatch(setWeeklyStoreData(tempStore));
     }
 
@@ -139,7 +146,8 @@ const MonthlyDoseDetails: FC = () => {
         .map((time, index) => ({
           doseTime: time,
           doseQuantity: doses[index].toString(),
-          medicineLocalId
+          medicineLocalId,
+          doseDate: doseDates[index]
         }))
         .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
 
@@ -246,6 +254,12 @@ const MonthlyDoseDetails: FC = () => {
                   const newTimes = [...prevTimes];
                   newTimes[selectedChip] = timeStr;
                   return newTimes;
+                });
+
+                setDoseDates(prevDates => {
+                  const newDates = [...prevDates];
+                  newDates[selectedChip] = date; // Store the selected date
+                  return newDates;
                 });
               }
             }}
