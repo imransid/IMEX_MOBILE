@@ -10,6 +10,7 @@ import { checkingLoader } from '../store/slices/features/settings/slice';
 import AuthStackNav from './AuthStackNavigator';
 import GuestStackNavigator from './GuestStackNavigator';
 import UserStackNavigator from './UserStackNavigator';
+import PublicStackNavigator from './PublicStackNavigator';
 
 const Navigator: FC = () => {
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
@@ -24,16 +25,26 @@ const Navigator: FC = () => {
   return (
     // <NavigationContainer>
     //   {!authStatus && appLoadFirstTime ? (
-    //     <GuestStackNavigator />
+    //     <PublicStackNavigator />
     //   ) : authStatus && !appLoadFirstTime ? (
     //     <UserStackNavigator />
     //   ) : (
-    //     <AuthStackNav />
+    //     <GuestStackNavigator />
     //   )}
     //   <Spinner visible={globalLoaderStatus} textContent={'Loading...'} />
     // </NavigationContainer>
+
+    // <NavigationContainer>
+    //   {!authStatus ? <GuestStackNavigator /> : <UserStackNavigator />}
+    // </NavigationContainer>
     <NavigationContainer>
-      {!authStatus ? <GuestStackNavigator /> : <UserStackNavigator />}
+      {!authStatus && !appLoadFirstTime ? (
+        <GuestStackNavigator />
+      ) : authStatus ? (
+        <UserStackNavigator />
+      ) : (
+        <PublicStackNavigator />
+      )}
     </NavigationContainer>
   );
 };

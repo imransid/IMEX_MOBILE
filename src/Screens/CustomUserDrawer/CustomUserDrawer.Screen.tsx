@@ -23,6 +23,7 @@ import { colors } from '../../theme/colors';
 import styles from './style';
 
 const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
+  const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
@@ -34,6 +35,8 @@ const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
     dispatch(logoutUser());
 
     //navigation.navigate('Login' as never);
+
+    console.log(authStatus);
   };
 
   const handleShowUserProfile: any = () => {

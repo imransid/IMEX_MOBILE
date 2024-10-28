@@ -52,6 +52,9 @@ const TwiceAdayDose: FC = () => {
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
+  const selectedDateTime = useSelector(
+    (state: RootState) => state.medicineDetails.selectedDateTime
+  );
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
@@ -114,7 +117,8 @@ const TwiceAdayDose: FC = () => {
         unitMed: unitMed,
         typeMed: typeMed,
         medicineId: 'R@f@', // Use the correct reference
-        createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
+        createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+        selectedDateTime: selectedDateTime
       };
 
       // Add the new data to the copied array
@@ -182,7 +186,8 @@ const TwiceAdayDose: FC = () => {
             unitMed: unitMed,
             typeMed: typeMed,
             medicineId: 'R@f@', // Use the correct reference
-            createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
+            createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+            selectedDateTime: selectedDateTime
           };
 
           // Add the new data to the copied array
