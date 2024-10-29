@@ -70,6 +70,47 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     fontWeight: '500',
     marginTop: scale(5)
+  },
+  genderInputView: {
+    alignItems: 'center',
+    backgroundColor: colors.textInput,
+    borderRadius: scale(6),
+    flexDirection: 'row',
+    height: verticalScale(40),
+    position: 'relative',
+    width: scale(300)
+  },
+  genderIconPosition: {
+    left: scale(8),
+    position: 'absolute'
+  },
+  genderPlaceHolderStyle: {
+    paddingLeft: scale(38),
+    paddingVertical: verticalScale(8)
+  },
+  genderPlaceHolderText: {
+    color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
+  },
+  genderText: {
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
+  },
+  dropDownIconPosition: {
+    right: scale(10),
+    position: 'absolute'
+  },
+  dropDownStyle: {
+    position: 'absolute',
+    marginTop: scale(70),
+    width: scale(300),
+    backgroundColor: colors.textInput,
+    borderRadius: scale(6),
+    borderWidth: 1,
+    borderColor: colors.textInput,
+    zIndex: 1000
   }
 });
 

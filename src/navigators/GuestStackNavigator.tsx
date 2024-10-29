@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
   AddedMedicine,
@@ -51,7 +51,7 @@ import { colors } from '../theme/colors';
 import GuestDrawerNavigator from './GuestDrawerNavigator';
 import styles from './Styles';
 
-const publicStack = createStackNavigator();
+const publicStack = createNativeStackNavigator();
 
 const screens = [
   //{ name: 'ScanQrCodeScreen', component: ScanQrCode, headerShown: false },

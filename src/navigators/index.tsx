@@ -11,6 +11,7 @@ import AuthStackNav from './AuthStackNavigator';
 import GuestStackNavigator from './GuestStackNavigator';
 import UserStackNavigator from './UserStackNavigator';
 import PublicStackNavigator from './PublicStackNavigator';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Navigator: FC = () => {
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
@@ -21,9 +22,6 @@ const Navigator: FC = () => {
   useEffect(() => {
     dispatch(checkingLoader());
   }, []);
-
-  console.log('---------------', authStatus);
-  console.log('---------------', appLoadFirstTime);
 
   return (
     // <NavigationContainer>
@@ -49,16 +47,19 @@ const Navigator: FC = () => {
     //     <PublicStackNavigator />
     //   )}
     // </NavigationContainer>
-    <NavigationContainer>
-      {
-        appLoadFirstTime ? <PublicStackNavigator /> : <AuthStackNav />
-        // ) : authStatus ? (
-        //   <UserStackNavigator />
-        // ) : (
-        //   <GuestStackNavigator />
-        // )
-      }
-    </NavigationContainer>
+    <GestureHandlerRootView>
+      <NavigationContainer>
+        {appLoadFirstTime ? (
+          <PublicStackNavigator />
+        ) : !appLoadFirstTime ? (
+          <AuthStackNav />
+        ) : authStatus ? (
+          <UserStackNavigator />
+        ) : (
+          <GuestStackNavigator />
+        )}
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 };
 

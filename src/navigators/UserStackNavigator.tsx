@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
   AddedMedicine,
@@ -50,10 +50,10 @@ import { colors } from '../theme/colors';
 import styles from './Styles';
 import UserDrawerNavigator from './UserDrawerNavigator';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const screens = [
-  { name: 'CameraScanner3', component: CameraScanner, headerShown: false },
+  { name: 'CameraScanner', component: CameraScanner, headerShown: false },
   { name: 'MedicineDetails3', component: MedicineDetails, title: 'Medicine Details' },
   { name: 'MedicineDoses', component: MedicineDoses, title: 'Medicine Name' },
   { name: 'MedicineDailyDoses', component: MedicineDailyDoses, title: 'Medicine Name' },

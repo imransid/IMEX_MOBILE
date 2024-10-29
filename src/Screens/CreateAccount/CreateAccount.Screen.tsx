@@ -4,14 +4,13 @@ import React, { type FC, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
 import { BASE_URL } from '../../utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
-
+import RNPickerSelect from 'react-native-picker-select';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Header from '../../Components/Header/Header';
@@ -71,8 +70,6 @@ const CreateAccount: FC = () => {
     };
 
     try {
-
-
       const response: any = await axios.post(BASE_URL, {
         query: `
           mutation {
@@ -235,16 +232,16 @@ const CreateAccount: FC = () => {
               control={control}
               name="gender"
               render={({ field: { onChange, value } }) => (
-                <CustomTextInput
-                  type="email"
+                <RNPickerSelect
+                  onValueChange={gender => onChange(gender)}
                   value={value}
-                  onChangeText={onChange}
-                  placeholder="Enter your gender..."
-                  inputStyle={styles.inputText}
-                  isError={Boolean(errors.gender)}
-                  leftIcon={
-                    <MaterialCommunityIcons name="gender-male" size={25} color={'#888888'} />
-                  } // Left icon
+                  //placeholder={{ label: 'Select your gender...', value: null }}
+                  items={[
+                    { label: 'Male', value: 'male' },
+                    { label: 'Female', value: 'female' }
+                  ]}
+                  //style={styles.inputText}
+                  Icon={() => <AntDesign name="down" size={20} color="#888888" />} // Dropdown icon
                 />
               )}
             />
