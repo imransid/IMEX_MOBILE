@@ -21,6 +21,7 @@ import GuestImage from '../../assets/guest-image';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import { updateFirstTimeQrScreen } from '@/store/slices/features/settings/slice';
 
 const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
@@ -33,10 +34,11 @@ const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
     dispatch(clearExtraMedicineDetails());
     dispatch(clearAppointment());
     dispatch(logoutUser());
+    dispatch(updateFirstTimeQrScreen());
 
-    //navigation.navigate('Login' as never);
+    navigation.navigate('Login' as never);
 
-    console.log(authStatus);
+    //console.log(authStatus);
   };
 
   const handleShowUserProfile: any = () => {

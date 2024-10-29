@@ -22,6 +22,9 @@ const Navigator: FC = () => {
     dispatch(checkingLoader());
   }, []);
 
+  console.log('---------------', authStatus);
+  console.log('---------------', appLoadFirstTime);
+
   return (
     // <NavigationContainer>
     //   {!authStatus && appLoadFirstTime ? (

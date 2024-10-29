@@ -22,6 +22,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: verticalScale(12)
   },
+
+  addAppointmentButtonPosition: {
+    marginLeft: scale(175),
+    bottom: scale(30),
+    position: 'absolute'
+    
+  },
+  addAppointmentButton: {
+    backgroundColor: colors.buttonBg,
+    borderRadius: scale(30),
+    height: verticalScale(42),
+    width: scale(162)
+  },
+  addAppointmentButtonProperties: {
+    flexDirection: 'row',
+    gap: scale(2),
+    justifyContent: 'center',
+    marginTop: verticalScale(12)
+  },
+  
   addMedicineText: {
     color: colors.white,
     fontSize: moderateScale(15),
