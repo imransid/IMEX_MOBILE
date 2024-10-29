@@ -39,6 +39,35 @@ const HomeScreen: FC = () => {
     (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
   );
 
+  // const getFormattedDate = () => {
+  //   const today = new Date();
+
+  //   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  //   const months = [
+  //     'Jan',
+  //     'Feb',
+  //     'Mar',
+  //     'Apr',
+  //     'May',
+  //     'Jun',
+  //     'Jul',
+  //     'Aug',
+  //     'Sep',
+  //     'Oct',
+  //     'Nov',
+  //     'Dec'
+  //   ];
+
+  //   const dayName = days[today.getDay()];
+  //   const monthName = months[today.getMonth()];
+  //   const day = today.getDate();
+  //   const year = today.getFullYear();
+
+  //   return `${dayName} ${monthName} ${day} ${year}`;
+  // };
+
+  //let today = getFormattedDate();
+
   // for retriving weekley times
   const getWeeklyMedicineList = (medicineId: string) => {
     let weeklyList = weeklyMedicineList.filter(e => {
@@ -124,11 +153,10 @@ const HomeScreen: FC = () => {
       {/* Medicine Name and Dose Chip   */}
       <View style={styles.medicineDoseComponentPosition}>
         <View style={styles.doseComponent}>
-          {storedMedicineList.length > 0 && (
-            <View style={styles.chipheadingPosition}>
-              <Text style={styles.chipheadingText}>Pills for today</Text>
-            </View>
-          )}
+          <View style={styles.chipheadingPosition}>
+            <Text style={styles.chipheadingText}>Pills for today</Text>
+          </View>
+
           {storedMedicineList.length > 0 ? (
             <FlatList
               style={styles.medicineDoseListStyle}

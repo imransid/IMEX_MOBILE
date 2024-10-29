@@ -56,6 +56,7 @@ export interface IMonthlyDoseTime {
   doseTime: string;
   doseQuantity: string;
   medicineLocalId: string;
+  doseDate: Date;
 }
 
 export interface IWeeklyDoseTime {

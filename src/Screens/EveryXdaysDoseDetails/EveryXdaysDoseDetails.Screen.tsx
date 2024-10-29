@@ -18,12 +18,14 @@ import styles from './style';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { IWeeklyDoseTime } from '@/store/slices/features/medicineDetails/types';
-import { setWeeklyStoreData, setXDaysTakeDose } from '@/store/slices/features/medicineDetails/slice';
+import {
+  setWeeklyStoreData,
+  setXDaysTakeDose
+} from '@/store/slices/features/medicineDetails/slice';
 import moment from 'moment';
 
 const EveryXdaysDoseDetails: FC = () => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const navigation = useNavigation();
 
@@ -43,15 +45,15 @@ const EveryXdaysDoseDetails: FC = () => {
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [date, setDate] = useState(new Date());
 
-
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
   const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
-  const xDaysTakeDoseTime = useSelector((state: RootState) => state.medicineDetails.xDaysTakeDoseTime);
-
+  const xDaysTakeDoseTime = useSelector(
+    (state: RootState) => state.medicineDetails.xDaysTakeDoseTime
+  );
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -91,13 +93,12 @@ const EveryXdaysDoseDetails: FC = () => {
   };
 
   const handleNext: any = async () => {
-
-    let filterArray = xDaysTakeDoseTime.filter((e) => {
-      if (e.medicineLocalId === medicineLocalId) return e
-    })
+    let filterArray = xDaysTakeDoseTime.filter(e => {
+      if (e.medicineLocalId === medicineLocalId) return e;
+    });
 
     if (filterArray.length > 0) {
-      let tempStore = filterArray.map((e) => {
+      let tempStore = filterArray.map(e => {
         return {
           medicineName: medicineName,
           medicineStatus: 'xDay',
@@ -110,18 +111,14 @@ const EveryXdaysDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
-        }
-      })
+        };
+      });
 
-      dispatch(setWeeklyStoreData(tempStore))
+      dispatch(setWeeklyStoreData(tempStore));
     }
 
     navigation.navigate('AddedMedicine' as never);
-
   };
-
-
-
 
   useEffect(() => {
     if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
