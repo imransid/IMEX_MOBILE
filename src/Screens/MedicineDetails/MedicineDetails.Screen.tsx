@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { type RootState } from '@/store';
@@ -14,11 +14,12 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import { updateFirstTimeQrScreen } from '@/store/slices/features/settings/slice';
 
 const MedicineDetails: FC = (): JSX.Element => {
   const navigation = useNavigation();
-  const route = useRoute();
-  const { scannedData } = route.params as { scannedData: string };
+
+  const dispatch = useDispatch();
 
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
 
@@ -32,11 +33,14 @@ const MedicineDetails: FC = (): JSX.Element => {
   const description = useSelector((state: RootState) => state.medicineDetails.description);
   const person = useSelector((state: RootState) => state.medicineDetails.person);
   const note = useSelector((state: RootState) => state.medicineDetails.note);
+  const appLoadFirstTime = useSelector((state: RootState) => state.settings.appLoadFirstTime);
 
   const handlePress: any = () => {
     authStatus
       ? navigation.navigate('MedicineDoses' as never)
       : navigation.navigate('Login' as never);
+
+    //if (appLoadFirstTime) dispatch(updateFirstTimeQrScreen());
   };
 
   return (

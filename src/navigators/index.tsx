@@ -40,14 +40,24 @@ const Navigator: FC = () => {
     // <NavigationContainer>
     //   {!authStatus ? <GuestStackNavigator /> : <UserStackNavigator />}
     // </NavigationContainer>
+    // <NavigationContainer>
+    //   {!authStatus && !appLoadFirstTime ? (
+    //     <GuestStackNavigator />
+    //   ) : authStatus ? (
+    //     <UserStackNavigator />
+    //   ) : (
+    //     <PublicStackNavigator />
+    //   )}
+    // </NavigationContainer>
     <NavigationContainer>
-      {!authStatus && !appLoadFirstTime ? (
-        <GuestStackNavigator />
-      ) : authStatus ? (
-        <UserStackNavigator />
-      ) : (
-        <PublicStackNavigator />
-      )}
+      {
+        appLoadFirstTime ? <PublicStackNavigator /> : <AuthStackNav />
+        // ) : authStatus ? (
+        //   <UserStackNavigator />
+        // ) : (
+        //   <GuestStackNavigator />
+        // )
+      }
     </NavigationContainer>
   );
 };

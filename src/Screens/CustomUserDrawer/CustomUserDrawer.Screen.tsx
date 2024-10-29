@@ -34,7 +34,6 @@ const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
     dispatch(clearExtraMedicineDetails());
     dispatch(clearAppointment());
     dispatch(logoutUser());
-    dispatch(updateFirstTimeQrScreen());
 
     navigation.navigate('Login' as never);
 

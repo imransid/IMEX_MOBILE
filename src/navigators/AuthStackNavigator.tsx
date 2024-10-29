@@ -5,6 +5,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import CameraScanner2 from '../Screens/CameraScanner/CameraScanner.Screen';
+
 import { colors } from '@/theme/colors';
 
 import {
@@ -55,7 +57,7 @@ import GuestDrawerNavigator from './GuestDrawerNavigator';
 const Stack = createStackNavigator();
 
 const screens = [
-  { name: 'CameraScanner', component: CameraScanner, headerShown: false },
+  { name: 'CameraScanner2', component: CameraScanner2, headerShown: false },
   { name: 'MedicineDetails', component: MedicineDetails, title: 'Medicine Details' },
   { name: 'MedicineDoses', component: MedicineDoses, title: 'Medicine Name' },
   { name: 'Login', component: Login, title: '' },
@@ -132,7 +134,7 @@ const AuthStackNav: any = () => {
           component={component}
           options={{
             ...defaultHeaderOptions,
-            headerShown,
+            headerShown: name === 'Login' ? false : true,
             headerTitle: title,
             headerTitleAlign: 'center'
           }}
