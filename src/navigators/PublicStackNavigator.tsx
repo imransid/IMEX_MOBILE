@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
   AddedMedicine,
@@ -53,50 +53,50 @@ import GuestDrawerNavigator from './GuestDrawerNavigator';
 import styles from './Styles';
 import UserDrawerNavigator from './UserDrawerNavigator';
 
-const publicStack = createStackNavigator();
+const publicStack = createNativeStackNavigator();
 
 const screens = [
   { name: 'ScanQrCodeScreen', component: ScanQrCode, headerShown: false },
   { name: 'CameraScanner', component: CameraScanner, headerShown: false },
   { name: 'MedicineDetails', component: MedicineDetails, title: 'Medicine Details' },
   { name: 'Login', component: Login, title: '', headerShown: false }
-  //   { name: 'MedicineDoses', component: MedicineDoses, title: 'Medicine Name' },
-  //   { name: 'MedicineDailyDoses', component: MedicineDailyDoses, title: 'Medicine Name' },
-  //   { name: 'CreateAccount', component: CreateAccount, title: '' },
-  //   { name: 'ForgotPassword', component: ForgotPassword, title: '' },
-  //   { name: 'EnterOtp', component: EnterOtp, title: '' },
-  //   { name: 'ResetPassword', component: ResetPassword, title: '' },
-  //   { name: 'PasswordChanged', component: PasswordChanged, title: '' },
-  //   { name: 'OnceAdayDose', component: OnceAdayDose, title: 'Medicine Name' },
-  //   { name: 'AddedMedicine', component: AddedMedicine, headerShown: false },
-  //   { name: 'MedicineAddingMethod', component: MedicineAddingMethod, title: '' },
-  //   { name: 'AddMedicineManually', component: AddMedicineManually, title: '' },
-  //   { name: 'AddMedicineStrength', component: AddMedicineStrength, title: '' },
-  //   { name: 'MedicineType', component: MedicineType, title: '' },
-  //   { name: 'AddInstructions', component: AddInstructions, title: '' },
-  //   { name: 'SetTreatmentDuration', component: SetTreatmentDuration, title: '' },
-  //   { name: 'MedicineReminders', component: MedicineReminders, title: '' },
-  //   { name: 'DoctorAppointments', component: DoctorAppointments, title: '' },
-  //   { name: 'AddPrescription', component: AddPrescription, title: '' },
-  //   { name: 'TwiceAdayDose', component: TwiceAdayDose, title: 'Medicine Name' },
-  //   { name: 'ThreeTimesAdayDose', component: ThreeTimesAdayDose, title: 'Medicine Name' },
-  //   { name: 'FourTimesAdayDose', component: FourTimesAdayDose, title: 'Medicine Name' },
-  //   { name: 'AskTimeInterval', component: AskTimeInterval, title: 'Medicine Name' },
-  //   { name: 'XtimesAdayDose', component: XtimesAdayDose, title: 'Medicine Name' },
-  //   { name: 'AskHourInterval', component: AskHourInterval, title: 'Medicine Name' },
-  //   { name: 'EveryXhoursDose', component: EveryXhoursDose, title: 'Medicine Name' },
-  //   { name: 'WeeklyDose', component: WeeklyDose, title: 'Medicine Name' },
-  //   { name: 'WeeklyDoseDetails', component: WeeklyDoseDetails, title: 'Medicine Name' },
-  //   { name: 'MonthlyDose', component: MonthlyDose, title: 'Medicine Name' },
-  //   { name: 'MonthlyDoseDetails', component: MonthlyDoseDetails, title: 'Medicine Name' },
-  //   { name: 'EveryXdaysDose', component: EveryXdaysDose, title: 'Medicine Name' },
-  //   { name: 'EveryXdaysDoseDetails', component: EveryXdaysDoseDetails, title: 'Medicine Name' },
-  //   { name: 'EveryXweeksDose', component: EveryXweeksDose, title: 'Medicine Name' },
-  //   { name: 'EveryXweeksDoseDetails', component: EveryXweeksDoseDetails, title: 'Medicine Name' },
-  //   { name: 'EveryXmonthsDose', component: EveryXmonthsDose, title: 'Medicine Name' },
-  //   { name: 'EveryXmonthsDoseDetails', component: EveryXmonthsDoseDetails, title: 'Medicine Name' },
-  //   { name: 'GuestDrawer', component: GuestDrawerNavigator, headerShown: false },
-  //   { name: 'UserDrawer', component: UserDrawerNavigator, headerShown: false }
+  // { name: 'MedicineDoses', component: MedicineDoses, title: 'Medicine Name' },
+  // { name: 'MedicineDailyDoses', component: MedicineDailyDoses, title: 'Medicine Name' },
+  // { name: 'CreateAccount', component: CreateAccount, title: '' },
+  // { name: 'ForgotPassword', component: ForgotPassword, title: '' },
+  // { name: 'EnterOtp', component: EnterOtp, title: '' },
+  // { name: 'ResetPassword', component: ResetPassword, title: '' },
+  // { name: 'PasswordChanged', component: PasswordChanged, title: '' },
+  // { name: 'OnceAdayDose', component: OnceAdayDose, title: 'Medicine Name' },
+  // { name: 'AddedMedicine', component: AddedMedicine, headerShown: false },
+  // { name: 'MedicineAddingMethod', component: MedicineAddingMethod, title: '' },
+  // { name: 'AddMedicineManually', component: AddMedicineManually, title: '' },
+  // { name: 'AddMedicineStrength', component: AddMedicineStrength, title: '' },
+  // { name: 'MedicineType', component: MedicineType, title: '' },
+  // { name: 'AddInstructions', component: AddInstructions, title: '' },
+  // { name: 'SetTreatmentDuration', component: SetTreatmentDuration, title: '' },
+  // { name: 'MedicineReminders', component: MedicineReminders, title: '' },
+  // { name: 'DoctorAppointments', component: DoctorAppointments, title: '' },
+  // { name: 'AddPrescription', component: AddPrescription, title: '' },
+  // { name: 'TwiceAdayDose', component: TwiceAdayDose, title: 'Medicine Name' },
+  // { name: 'ThreeTimesAdayDose', component: ThreeTimesAdayDose, title: 'Medicine Name' },
+  // { name: 'FourTimesAdayDose', component: FourTimesAdayDose, title: 'Medicine Name' },
+  // { name: 'AskTimeInterval', component: AskTimeInterval, title: 'Medicine Name' },
+  // { name: 'XtimesAdayDose', component: XtimesAdayDose, title: 'Medicine Name' },
+  // { name: 'AskHourInterval', component: AskHourInterval, title: 'Medicine Name' },
+  // { name: 'EveryXhoursDose', component: EveryXhoursDose, title: 'Medicine Name' },
+  // { name: 'WeeklyDose', component: WeeklyDose, title: 'Medicine Name' },
+  // { name: 'WeeklyDoseDetails', component: WeeklyDoseDetails, title: 'Medicine Name' },
+  // { name: 'MonthlyDose', component: MonthlyDose, title: 'Medicine Name' },
+  // { name: 'MonthlyDoseDetails', component: MonthlyDoseDetails, title: 'Medicine Name' },
+  // { name: 'EveryXdaysDose', component: EveryXdaysDose, title: 'Medicine Name' },
+  // { name: 'EveryXdaysDoseDetails', component: EveryXdaysDoseDetails, title: 'Medicine Name' },
+  // { name: 'EveryXweeksDose', component: EveryXweeksDose, title: 'Medicine Name' },
+  // { name: 'EveryXweeksDoseDetails', component: EveryXweeksDoseDetails, title: 'Medicine Name' },
+  // { name: 'EveryXmonthsDose', component: EveryXmonthsDose, title: 'Medicine Name' },
+  // { name: 'EveryXmonthsDoseDetails', component: EveryXmonthsDoseDetails, title: 'Medicine Name' },
+  // { name: 'GuestDrawer', component: GuestDrawerNavigator, headerShown: false },
+  // { name: 'UserDrawer', component: UserDrawerNavigator, headerShown: false }
 ];
 
 const HeaderLeft: React.FC = (): React.ReactNode => {

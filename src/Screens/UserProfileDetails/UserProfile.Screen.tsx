@@ -16,8 +16,8 @@ const UserProfile: FC = () => {
   const userMobileNumber = useSelector(
     (state: RootState) => state.users.user.data.user.mobileNumber
   );
-  const userGender = useSelector((state: RootState) => state.users.user.data.user.gender);
-  const userBirthDay = useSelector((state: RootState) => state.users.user.data.user.birthday);
+  const userGender = useSelector((state: RootState) => state.users.user?.data?.user?.gender);
+  const userBirthDay = useSelector((state: RootState) => state.users.user?.data?.user?.birthday);
 
   // Function to open modal
   const openModal: any = () => {

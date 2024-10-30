@@ -3,7 +3,9 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+//import CameraScanner2 from '../Screens/CameraScanner/CameraScanner.Screen';
 
 import { colors } from '@/theme/colors';
 
@@ -52,7 +54,7 @@ import styles from './Styles';
 import UserDrawerNavigator from './UserDrawerNavigator';
 import GuestDrawerNavigator from './GuestDrawerNavigator';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const screens = [
   { name: 'CameraScanner', component: CameraScanner, headerShown: false },
@@ -132,7 +134,18 @@ const AuthStackNav: any = () => {
           component={component}
           options={{
             ...defaultHeaderOptions,
-            headerShown,
+            headerShown:
+              name === 'Login'
+                ? false
+                : name === 'AddedMedicine'
+                  ? false
+                  : name === 'GuestDrawer'
+                    ? false
+                    : name === 'UserDrawer'
+                      ? false
+                      : name === 'CameraScanner'
+                        ? false
+                        : true,
             headerTitle: title,
             headerTitleAlign: 'center'
           }}

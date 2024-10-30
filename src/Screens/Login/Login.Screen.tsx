@@ -97,7 +97,7 @@ const Login: FC = () => {
           if (fetchMonthlyData !== undefined) dispatch(setMonthlyStoreData(fetchMonthlyData));
 
           dispatch(getUserSuccessAction(res));
-          //dispatch(updateFirstTimeQrScreen());
+          dispatch(updateFirstTimeQrScreen());
           navigation.navigate('UserDrawer' as never);
         } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
           // Show error message from the response

@@ -4,14 +4,14 @@ import React, { type FC, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
 import { BASE_URL } from '../../utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
-
+import RNPickerSelect from 'react-native-picker-select';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Header from '../../Components/Header/Header';
@@ -71,8 +71,6 @@ const CreateAccount: FC = () => {
     };
 
     try {
-
-
       const response: any = await axios.post(BASE_URL, {
         query: `
           mutation {
@@ -229,26 +227,50 @@ const CreateAccount: FC = () => {
             )}
           </View>
 
-          <View style={styles.textInputComponentProperties}>
-            <Text style={styles.inputHeader}>Gender</Text>
+          {/* Gender Drop down picker Here */}
+          <Text style={[styles.inputHeader, styles.genderHeaderStyle]}>Gender</Text>
+          <View style={styles.genderInputView}>
             <Controller
               control={control}
               name="gender"
               render={({ field: { onChange, value } }) => (
-                <CustomTextInput
-                  type="email"
-                  value={value}
-                  onChangeText={onChange}
-                  placeholder="Enter your gender..."
-                  inputStyle={styles.inputText}
-                  isError={Boolean(errors.gender)}
-                  leftIcon={
-                    <MaterialCommunityIcons name="gender-male" size={25} color={'#888888'} />
-                  } // Left icon
-                />
+                <View style={styles.genderInputContainer}>
+                  <MaterialCommunityIcons name="gender-male" size={27} color="#888888" />
+                  <RNPickerSelect
+                    onValueChange={gender => onChange(gender)}
+                    value={value || null} // Handle initial value correctly
+                    placeholder={{
+                      label: 'Select Your Gender...',
+                      value: null
+                    }}
+                    items={[
+                      { label: 'Male', value: 'male' },
+                      { label: 'Female', value: 'female' }
+                    ]}
+                    style={{
+                      inputAndroid: {
+                        color: value ? 'black' : '#888888', // Placeholder vs. selected value color on Android
+                        fontSize: 16,
+                        paddingHorizontal: 10
+                      },
+                      inputIOS: {
+                        color: value ? 'black' : '#888888', // Placeholder vs. selected value color on iOS
+                        fontSize: 16,
+                        paddingHorizontal: 10
+                      },
+                      placeholder: {
+                        color: '#888888', // Ensure placeholder text color shows on both platforms
+                        fontFamily: 'WorkSansMedium'
+                      }
+                    }}
+                    useNativeAndroidPickerStyle={false} // Use custom styling on Android
+                  />
+                </View>
               )}
             />
-            {errors.gender != null && <Text style={styles.errorTxt}>{errors.gender.message}</Text>}
+          </View>
+          <View style={styles.genderErrorTextPosition}>
+            {errors.gender && <Text style={styles.errorTxt}>{errors.gender.message}</Text>}
           </View>
 
           <View style={styles.textInputComponentProperties}>

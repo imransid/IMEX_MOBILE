@@ -10,16 +10,16 @@ import styles from './Styles';
 
 const Drawer = createDrawerNavigator();
 
-const getGreeting: any = () => {
+const getGreeting = (): string => {
   const currentHour = new Date().getHours();
 
-  if (currentHour > 0 && currentHour < 12) {
+  if (currentHour >= 0 && currentHour < 12) {
     return 'Good Morning';
-  } else if (currentHour > 12 && currentHour < 16) {
-    return 'Good Noon';
-  } else if (currentHour > 16 && currentHour < 18) {
-    return 'Good AfterNoon';
-  } else if (currentHour > 18 && currentHour < 21) {
+  } else if (currentHour >= 12 && currentHour < 16) {
+    return 'Good Afternoon';
+  } else if (currentHour >= 16 && currentHour < 18) {
+    return 'Good Evening';
+  } else if (currentHour >= 18 && currentHour < 21) {
     return 'Good Evening';
   } else {
     return 'Good Night';

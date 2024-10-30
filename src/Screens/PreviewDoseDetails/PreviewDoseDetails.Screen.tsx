@@ -17,72 +17,11 @@ import styles from './style';
 
 const PreviewDoseDetails: FC = () => {
   const route = useRoute(); // Access the route prop
-  const { medicineId } = route.params as { medicineId: any }; // Extract medicineId from route params
 
-  const weeklyDoseTime = useSelector((state: RootState) => state.medicineDetails.weeklyDoseTime);
+  const { medicine } = route.params as { medicine: any }; // Extract medicineId from route params
+  console.log(medicine, 'medicine');
 
   const weeklyTime = useSelector((state: RootState) => state.medicineDetails.weeklyTime);
-
-  const storedMedicineList = useSelector(
-    (state: RootState) => state.medicineDetails.storedMedicineList
-  );
-
-  // Find the medicine based on medicineId
-  const selectedMedicine = storedMedicineList.find(
-    medicine => medicine.medicineLocalId === medicineId
-  );
-
-  // for getting week days of specific medicine
-  const weeklyMedicineList = useSelector(
-    (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
-  );
-
-  const getWeeklyMedicineList = (medicineId: string) => {
-    let weeklyList = weeklyMedicineList.filter(e => {
-      if (e.medicineLocalId.medicineLocalId === medicineId) {
-        return e.medicineLocalId.weeklyTime;
-      }
-    });
-
-    if (weeklyList.length > 0) {
-      let x = weeklyList.map(e => {
-        let y = e.medicineLocalId.weeklyTime
-          .map(i => i.charAt(0).toUpperCase() + i.slice(1))
-          .join(', ');
-
-        return y;
-      });
-      return x;
-    }
-    return <></>;
-  };
-
-  // for retriving specific time
-  const weeklyDoseTimeList = useSelector(
-    (state: RootState) => state.medicineDetails.weeklyDoseTime
-  );
-
-  const getWeeklyDoseTimeList = (medicineId: string) => {
-    let timeMM = '';
-    weeklyDoseTimeList.filter(e => {
-      if (e.medicineLocalId === medicineId) {
-        timeMM = e.doseTime;
-      }
-    });
-
-    return timeMM === '' ? <></> : timeMM;
-  };
-
-  const getWeeklyDoseQuantityList = (medicineId: string) => {
-    let quantityMM = '';
-    weeklyDoseTimeList.filter(e => {
-      if (e.medicineLocalId === medicineId) {
-        quantityMM = e.doseQuantity;
-      }
-    });
-
-    return quantityMM === '' ? <></> : quantityMM;
-  };
 
   const navigation = useNavigation();
 
@@ -98,52 +37,36 @@ const PreviewDoseDetails: FC = () => {
         </View>
 
         <View style={styles.mainHeader}>
-          <Header mainHeader={selectedMedicine?.medicineName} />
+          <Header mainHeader={medicine.medicineName} />
         </View>
         <View style={styles.subHeader}>
-          <Header
-            subHeader={
-              selectedMedicine?.typeMed !== ''
-                ? `${selectedMedicine?.typeMed}, ${selectedMedicine?.strengthMed}${selectedMedicine?.unitMed}`
-                : ''
-            }
-          />
+          <Header subHeader={`${medicine.typeMed}, ${medicine.strengthMed}`} />
         </View>
-        {weeklyTime.length > 0 && (
-          <View style={styles.doseDetailsPosition}>
-            <View style={styles.schedulePosition}>
-              <View style={styles.doseDetailsProperties}>
-                <Text style={styles.headingStyle}>Schedule</Text>
-                <View style={styles.chip}>
-                  <View style={styles.dayContentProperties}>
-                    <Text style={styles.chipText}>
-                      {getWeeklyMedicineList(selectedMedicine?.medicineLocalId)}
-                    </Text>
-                  </View>
+
+        <View style={styles.doseDetailsPosition}>
+          <View style={styles.schedulePosition}>
+            <View style={styles.doseDetailsProperties}>
+              <Text style={styles.headingStyle}>Schedule</Text>
+              <View style={styles.chip}>
+                <View style={styles.dayContentProperties}>
+                  <Text style={styles.chipText}>
+                    {medicine.medicineStatus === 'week'
+                      ? weeklyTime.map(e => e).join(', ')
+                      : 'No week Days Selected'}
+                  </Text>
                 </View>
               </View>
             </View>
-            <View style={styles.chip}>
-              <View style={styles.timeAndQuantityProperties}>
-                {weeklyDoseTime.length > 0
-                  ? weeklyDoseTime.map((dose, index) => (
-                      <>
-                        <Text style={styles.chipText}>
-                          {getWeeklyDoseTimeList(selectedMedicine?.medicineLocalId)}
-                        </Text>
-                        <Text style={styles.chipText}>
-                          {parseInt(getWeeklyDoseQuantityList(selectedMedicine?.medicineLocalId)) >
-                          1
-                            ? `${getWeeklyDoseQuantityList(selectedMedicine?.medicineLocalId)} ${selectedMedicine?.typeMed}(s)`
-                            : `${getWeeklyDoseQuantityList(selectedMedicine?.medicineLocalId)} ${selectedMedicine?.typeMed}`}
-                        </Text>
-                      </>
-                    ))
-                  : ''}
-              </View>
+          </View>
+          <View style={styles.chip}>
+            <View style={styles.timeAndQuantityProperties}>
+              <Text style={styles.chipText}>{medicine?.doseTime}</Text>
+              <Text style={styles.chipText}>
+                {medicine?.doseQuantity} {medicine?.typeMed}
+              </Text>
             </View>
           </View>
-        )}
+        </View>
 
         <View style={styles.doseDetailsPosition}>
           <View style={styles.optionalDetailsPosition}>

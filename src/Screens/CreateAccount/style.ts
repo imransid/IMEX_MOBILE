@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     color: colors.error,
     fontSize: moderateScale(14),
     fontFamily: 'WorkSansMedium',
-    marginBottom: 6
   },
   headingPosition: {
     alignItems: 'center'
@@ -82,6 +81,28 @@ const styles = StyleSheet.create({
   textInputComponentProperties: {
     gap: verticalScale(6),
     marginTop: verticalScale(12)
+  },
+  genderInputView: {
+    width: scale(330),
+    paddingHorizontal: scale(10),
+    height: scale(40),
+    borderRadius: scale(6),
+    backgroundColor: '#F2F1F6',
+    justifyContent: 'center'
+  },
+  genderInputContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center' 
+  },
+  genderHeaderStyle: {
+    textAlign: 'left',
+    width: '100%',
+    left: scale(10),
+    marginVertical: scale(8)
+  },
+  genderErrorTextPosition: {
+    marginTop: scale(5), 
+    right: scale(100)
   }
 });
 
