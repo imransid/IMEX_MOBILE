@@ -6,7 +6,6 @@ import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { type StackNavigationProp } from '@react-navigation/stack';
 
 import ClickToAddMedicine from '@/assets/click-to-add-med';
 import { type RootState } from '@/store';
@@ -14,9 +13,9 @@ import { type RootState } from '@/store';
 import MedicineImage from '../../assets/medicine-image';
 import HorizontalCalendar from '../../Components/HorizontalCalender/HorizontalCalendar';
 import { colors } from '../../theme/colors';
-import RNCalendarEvents from 'react-native-calendar-events';
 import styles from './style';
 import moment from 'moment';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // Define your stack navigation parameter list
 interface RootStackParamList {
@@ -24,7 +23,7 @@ interface RootStackParamList {
   // Add other screens and their params here if needed
 }
 
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'PreviewDoseDetails'>;
+type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'PreviewDoseDetails'>;
 
 const HomeScreen: FC = () => {
   const storedMedicineList = useSelector(
@@ -39,6 +38,8 @@ const HomeScreen: FC = () => {
   const weeklyMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
   );
+
+  //const currentTime = moment();
 
   // for retriving weekley times
   const getWeeklyMedicineList = (medicineId: string) => {
@@ -100,8 +101,6 @@ const HomeScreen: FC = () => {
     return medicineDateString === formattedDate;
   });
 
-  // console.log('filteredMedicineList', filteredMedicineList)
-
   return (
     <View style={styles.container}>
       <View style={styles.calendarContainer}>
@@ -119,41 +118,51 @@ const HomeScreen: FC = () => {
               <FlatList
                 style={styles.medicineDoseListStyle}
                 data={storedMedicineList}
-                renderItem={({ item: medicine, index }) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={styles.chip}
-                    onPress={() => handleDosePress(medicine)}>
-                    <View style={styles.medicineDoseProperties}>
-                      <MedicineImage />
-                      <View style={styles.doseDetailsPosition}>
-                        <View style={styles.doseProperties}>
-                          <MaterialCommunityIcons name="pill" size={18} color={colors.buttonBg} />
-                          <Text style={styles.medicineNameText}>{medicine.medicineName}</Text>
+                renderItem={({ item: medicine, index }) => {
+                  const currentTime = moment(); // Get the current time
+
+                  // Parse medicine.doseTime with today's date for accurate comparison
+                  const today = moment().format('YYYY-MM-DD');
+                  const doseTime = moment(`${today} ${medicine.doseTime}`, 'YYYY-MM-DD hh:mm A');
+
+                  return (
+                    <TouchableOpacity
+                      key={index}
+                      style={styles.chip}
+                      onPress={() => handleDosePress(medicine)}>
+                      <View style={styles.medicineDoseProperties}>
+                        <MedicineImage />
+                        <View style={styles.doseDetailsPosition}>
+                          <View style={styles.doseProperties}>
+                            <MaterialCommunityIcons name="pill" size={18} color={colors.buttonBg} />
+                            <Text style={styles.medicineNameText}>{medicine.medicineName}</Text>
+                          </View>
+                          <Text style={styles.doseText}>
+                            {medicine.doseQuantity}{' '}
+                            {parseInt(medicine.doseQuantity) > 1 ? 'pills' : 'pill'}
+                            {getInstructionList(medicine.medicineLocalId)
+                              ? ` | ${getInstructionList(medicine.medicineLocalId)}`
+                              : ' | Not Present'}
+                          </Text>
+                          <View style={styles.doseDatesPosition}>
+                            <AntDesign name="calendar" size={18} color={colors.typedText} />
+                            <Text style={styles.weekDayText}>
+                              {getWeeklyMedicineList(medicine.medicineLocalId)
+                                ? getWeeklyMedicineList(medicine.medicineLocalId)
+                                : 'No Days Selected'}
+                            </Text>
+                          </View>
                         </View>
-                        <Text style={styles.doseText}>
-                          {medicine.doseQuantity}{' '}
-                          {parseInt(medicine.doseQuantity) > 1 ? 'pills' : 'pill'}
-                          {getInstructionList(medicine.medicineLocalId)
-                            ? ` | ${getInstructionList(medicine.medicineLocalId)}`
-                            : ' | Not Present'}
-                        </Text>
-                        <View style={styles.doseDatesPosition}>
-                          <AntDesign name="calendar" size={18} color={colors.typedText} />
-                          <Text style={styles.weekDayText}>
-                            {getWeeklyMedicineList(medicine.medicineLocalId)
-                              ? getWeeklyMedicineList(medicine.medicineLocalId)
-                              : 'No Days Selected'}
+                        <View style={styles.doseTimePosition}>
+                          <Text style={styles.medicineNameText}>{medicine.doseTime}</Text>
+                          <Text style={styles.doseText}>
+                            {currentTime.isBefore(doseTime) ? 'Upcoming' : 'Passed'}
                           </Text>
                         </View>
                       </View>
-                      <View style={styles.doseTimePosition}>
-                        <Text style={styles.medicineNameText}>{medicine.doseTime}</Text>
-                        <Text style={styles.doseText}>Upcoming</Text>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                )}
+                    </TouchableOpacity>
+                  );
+                }}
               />
             </>
           ) : (

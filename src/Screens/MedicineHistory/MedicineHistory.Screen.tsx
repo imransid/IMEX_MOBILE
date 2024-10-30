@@ -3,7 +3,7 @@
 import React, { FC } from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -16,6 +16,7 @@ interface Medicine {
   medicineLocalId: string;
   medicineName: string;
   createdDate: string; // Assuming createdDate is a string formatted as "YYYY-MM-DD HH:mm:ss"
+  doseTime: string;
 }
 
 const MedicineHistory: FC = () => {
@@ -81,7 +82,7 @@ const MedicineHistory: FC = () => {
                 <View key={medicine.medicineLocalId} style={styles.chip}>
                   <View style={styles.chipContentProperties}>
                     <Text style={styles.chipText}>{medicine.medicineName}</Text>
-                    <Text style={styles.chipText}>{getDoseTime(medicine.medicineLocalId)}</Text>
+                    <Text style={styles.chipText}>{medicine.doseTime}</Text>
                   </View>
                 </View>
               ))}
