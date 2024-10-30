@@ -4,6 +4,7 @@ import React, { type FC, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -226,26 +227,50 @@ const CreateAccount: FC = () => {
             )}
           </View>
 
-          <View style={styles.textInputComponentProperties}>
-            <Text style={styles.inputHeader}>Gender</Text>
+          {/* Gender Drop down picker Here */}
+          <Text style={[styles.inputHeader, styles.genderHeaderStyle]}>Gender</Text>
+          <View style={styles.genderInputView}>
             <Controller
               control={control}
               name="gender"
               render={({ field: { onChange, value } }) => (
-                <RNPickerSelect
-                  onValueChange={gender => onChange(gender)}
-                  value={value}
-                  //placeholder={{ label: 'Select your gender...', value: null }}
-                  items={[
-                    { label: 'Male', value: 'male' },
-                    { label: 'Female', value: 'female' }
-                  ]}
-                  //style={styles.inputText}
-                  Icon={() => <AntDesign name="down" size={20} color="#888888" />} // Dropdown icon
-                />
+                <View style={styles.genderInputContainer}>
+                  <MaterialCommunityIcons name="gender-male" size={27} color="#888888" />
+                  <RNPickerSelect
+                    onValueChange={gender => onChange(gender)}
+                    value={value || null} // Handle initial value correctly
+                    placeholder={{
+                      label: 'Select Your Gender...',
+                      value: null
+                    }}
+                    items={[
+                      { label: 'Male', value: 'male' },
+                      { label: 'Female', value: 'female' }
+                    ]}
+                    style={{
+                      inputAndroid: {
+                        color: value ? 'black' : '#888888', // Placeholder vs. selected value color on Android
+                        fontSize: 16,
+                        paddingHorizontal: 10
+                      },
+                      inputIOS: {
+                        color: value ? 'black' : '#888888', // Placeholder vs. selected value color on iOS
+                        fontSize: 16,
+                        paddingHorizontal: 10
+                      },
+                      placeholder: {
+                        color: '#888888', // Ensure placeholder text color shows on both platforms
+                        fontFamily: 'WorkSansMedium'
+                      }
+                    }}
+                    useNativeAndroidPickerStyle={false} // Use custom styling on Android
+                  />
+                </View>
               )}
             />
-            {errors.gender != null && <Text style={styles.errorTxt}>{errors.gender.message}</Text>}
+          </View>
+          <View style={styles.genderErrorTextPosition}>
+            {errors.gender && <Text style={styles.errorTxt}>{errors.gender.message}</Text>}
           </View>
 
           <View style={styles.textInputComponentProperties}>

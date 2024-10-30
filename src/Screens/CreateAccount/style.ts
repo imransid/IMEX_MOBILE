@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     color: colors.error,
     fontSize: moderateScale(14),
     fontFamily: 'WorkSansMedium',
-    marginBottom: 6
   },
   headingPosition: {
     alignItems: 'center'
@@ -83,47 +82,27 @@ const styles = StyleSheet.create({
     gap: verticalScale(6),
     marginTop: verticalScale(12)
   },
-
   genderInputView: {
-    alignItems: 'center',
-    backgroundColor: colors.textInput,
+    width: scale(330),
+    paddingHorizontal: scale(10),
+    height: scale(40),
     borderRadius: scale(6),
-    flexDirection: 'row',
-    height: verticalScale(40),
-    position: 'relative',
-    width: scale(330)
+    backgroundColor: '#F2F1F6',
+    justifyContent: 'center'
   },
-  genderIconPosition: {
-    left: scale(8),
-    position: 'absolute'
+  genderInputContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center' 
   },
-  genderPlaceHolderStyle: {
-    paddingLeft: scale(38),
-    paddingVertical: verticalScale(8)
+  genderHeaderStyle: {
+    textAlign: 'left',
+    width: '100%',
+    left: scale(10),
+    marginVertical: scale(8)
   },
-  genderPlaceHolderText: {
-    color: colors.typedText,
-    fontFamily: 'WorkSansMedium',
-    fontSize: moderateScale(14)
-  },
-  genderText: {
-    color: colors.header,
-    fontFamily: 'WorkSansMedium',
-    fontSize: moderateScale(14)
-  },
-  dropDownIconPosition: {
-    right: scale(10),
-    position: 'absolute'
-  },
-  dropDownStyle: {
-    position: 'absolute',
-    marginTop: scale(70), // Adjust based on the input's position
-    width: scale(300),
-    backgroundColor: colors.textInput,
-    borderRadius: scale(6),
-    borderWidth: 1,
-    borderColor: colors.textInput,
-    zIndex: 1000
+  genderErrorTextPosition: {
+    marginTop: scale(5), 
+    right: scale(100)
   }
 });
 
