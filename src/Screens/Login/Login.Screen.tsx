@@ -11,7 +11,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
+import { fetchMedicines } from '@/mutations/medicine';
 import { type RootState } from '@/store';
+import { setDoseList } from '@/store/slices/features/medicineDetails/slice';
+import { updateAppStatus } from '@/store/slices/features/settings/slice';
 import useNetworkStatus from '@/utils/networkUtills';
 import ToastPopUp from '@/utils/Toast.android';
 
@@ -50,6 +53,7 @@ const Login: FC = () => {
 
   const loading = useSelector((state: RootState) => state.users.user.isLoading);
   const appLoadFirstTime = useSelector((state: RootState) => state.settings.appLoadFirstTime);
+  const appStatus = useSelector((state: RootState) => state.settings.appStatus);
   // SignIn handler
   const handleSignIn: SubmitHandler<ISignInFormDataProps> = async formData => {
     try {
@@ -85,11 +89,9 @@ const Login: FC = () => {
 
           // axiso error
 
-          // const medicine = await fetchMedicines(response?.data?.data?.login?.accessToken);
+          const medicine = await fetchMedicines(response?.data?.data?.login?.accessToken);
 
-          // console.log('medicine', medicine)
-
-          // if (medicine.length > 0) dispatch(setDoseList(medicine));
+          if (medicine.length > 0) dispatch(setDoseList(medicine));
           // const fetchMonthlyData = await fetchMonthlyMedicines(
           //   response?.data?.data?.login?.accessToken
           // );
@@ -117,8 +119,12 @@ const Login: FC = () => {
     if (appLoadFirstTime) {
       navigation.navigate('MedicineDoses' as never);
     } else {
-      navigation.navigate('ScanQrCodeScreenNew' as never);
-      // ScanQrCodeScreenNew
+      if (appStatus === 'initial') {
+        dispatch(updateAppStatus());
+        navigation.navigate('MedicineDoses' as never);
+      } else {
+        navigation.navigate('ScanQrCodeScreenNew' as never);
+      }
     }
   };
   const handleCreateAccount: any = () => {

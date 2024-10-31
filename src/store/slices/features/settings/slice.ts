@@ -4,7 +4,8 @@ import { SETTING } from './constants';
 import { type IPayload, type ISettingState } from './types';
 const settingsInitialState: ISettingState = {
   isLoading: false,
-  appLoadFirstTime: true
+  appLoadFirstTime: true,
+  appStatus: 'initial'
 };
 
 export const settingSlice = createSlice({
@@ -25,6 +26,9 @@ export const settingSlice = createSlice({
     },
     updateFirstTimeQrScreen: (state: ISettingState) => {
       state.appLoadFirstTime = !state.appLoadFirstTime;
+    },
+    updateAppStatus: (state: ISettingState) => {
+      state.appStatus = 'loaded';
     }
   }
 });
@@ -34,7 +38,8 @@ export const {
   checkingLoader,
   stopLoader,
   startLoader,
-  updateFirstTimeQrScreen
+  updateFirstTimeQrScreen,
+  updateAppStatus
 } = settingSlice.actions;
 
 export const settingsReducer = settingSlice.reducer;
