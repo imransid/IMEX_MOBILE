@@ -21,12 +21,11 @@ import MoreSettings from '../../Components/MoreSettingsComponent/MoreSettingsCom
 import { colors } from '../../theme/colors';
 import styles from './style';
 import { RootState } from '@/store';
-import axios from 'axios';
-import { BASE_URL } from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
 import moment from 'moment';
 import { localSchedule } from '@/helper/notify';
 import DatePicker from 'react-native-date-picker';
+import { createMedicineData } from '@/mutations/createMedicine';
 
 const OnceAdayDose: FC = () => {
   const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false);
@@ -56,6 +55,10 @@ const OnceAdayDose: FC = () => {
   const selectedDateTime = useSelector(
     (state: RootState) => state.medicineDetails.selectedDateTime
   );
+  const loginStatus = useSelector(
+    (state: RootState) => state.users?.user?.loginStatus
+  );
+
 
   const handleSelectTime: any = async (index: number) => {
     setSelectedChip(index);
@@ -140,96 +143,40 @@ const OnceAdayDose: FC = () => {
       // Add the new data to the copied array
       updatedStoredList.push(data);
       await localSchedule(updatedStoredList, 'day', medicineLocalId);
+      await createMedicineData(updatedStoredList, accessToken)
       dispatch(setDoseList(updatedStoredList));
       navigation.navigate('AddedMedicine' as never);
 
       ToastPopUp('Medicine Created Successfully');
     } else {
-      const mutation = `
-    mutation {
-      createMedicines(medicines: [
-        {
-          medicineLocalId: "${medicineLocalId}",
-          medicineName: "${medicineName}",
-          medicineStatus: "${medicineStatus}",
-          takeStatus: "${takeStatus}",
-          doseQuantity: "${doseQuantity}",
-          doseTime: "${doseTime}",
-          strengthMed: "${strengthMed}", 
-          unitMed: "${unitMed}",
-          typeMed: "${typeMed}",
-          createdDate: "${moment().format('YYYY-MM-DD HH:mm:ss')}"
-        }
-      ]) {
-        message
-        error {
-          message
-          code
-        }
-      }
-    }
-    `;
 
-      try {
-        const response = await axios.post(
-          BASE_URL,
-          { query: mutation },
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        );
 
-        // Check if registration was successful
-        if (
-          response?.data?.data?.createMedicines?.message !== undefined &&
-          response?.data?.data?.createMedicines?.message !== null
-        ) {
-          let updatedStoredList = [...storedMedicineList];
 
-          // Create data for the new medicine
-          let data = {
-            medicineLocalId: medicineLocalId,
-            medicineName: medicineName,
-            medicineStatus: medicineStatus,
-            takeStatus: takeStatus,
-            doseQuantity: doseQuantity,
-            doseTime: doseTime,
-            strengthMed: strengthMed,
-            unitMed: unitMed,
-            typeMed: typeMed,
-            medicineId: 'R@f@', // Use the correct reference
-            createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-            selectedDateTime: selectedDateTime
-          };
+      let updatedStoredList = [...storedMedicineList];
 
-          // Add the new data to the copied array
-          updatedStoredList.push(data);
-          dispatch(setDoseList(updatedStoredList));
-          await localSchedule(updatedStoredList, 'day', medicineLocalId);
-          navigation.navigate('AddedMedicine' as never);
+      // Create data for the new medicine
+      let data = {
+        medicineLocalId: medicineLocalId,
+        medicineName: medicineName,
+        medicineStatus: medicineStatus,
+        takeStatus: takeStatus,
+        doseQuantity: doseQuantity,
+        doseTime: doseTime,
+        strengthMed: strengthMed,
+        unitMed: unitMed,
+        typeMed: typeMed,
+        medicineId: 'R@f@', // Use the correct reference
+        createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+        selectedDateTime: selectedDateTime
+      };
+      // Add the new data to the copied array
+      updatedStoredList.push(data);
 
-          ToastPopUp(response.data.data.createMedicines.message);
-        } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
-          // Show error message from the response
+      console.log('updatedStoredList', updatedStoredList)
+      dispatch(setDoseList(updatedStoredList));
+      await localSchedule(updatedStoredList, 'day', medicineLocalId);
+      navigation.navigate('AddedMedicine' as never);
 
-          const errorMessage: any = response?.data?.errors[0]?.message;
-          if (typeof errorMessage === 'string') {
-            ToastPopUp(errorMessage);
-          }
-        } else {
-          ToastPopUp('Something Went wrong ! please try again later.');
-        }
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error('Axios Error:', error.message);
-        } else {
-          console.error('Unexpected Error:', error);
-        }
-        ToastPopUp('Network Error! Please check your connection.');
-      }
     }
   };
 

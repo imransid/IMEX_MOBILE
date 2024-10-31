@@ -5,16 +5,16 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import { type RootState } from '@/store';
+import { updateFirstTimeQrScreen } from '@/store/slices/features/settings/slice';
 
 import MedicineImage from '../../assets/medicine-image';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
-import { updateFirstTimeQrScreen } from '@/store/slices/features/settings/slice';
 
 const MedicineDetails: FC = (): JSX.Element => {
   const navigation = useNavigation();
@@ -38,9 +38,9 @@ const MedicineDetails: FC = (): JSX.Element => {
   const handlePress: any = () => {
     authStatus
       ? navigation.navigate('MedicineDoses' as never)
-      : navigation.navigate('Login' as never);
+      : navigation.navigate('MedicineDoses' as never);
 
-    //if (appLoadFirstTime) dispatch(updateFirstTimeQrScreen());
+    if (appLoadFirstTime) dispatch(updateFirstTimeQrScreen());
   };
 
   return (

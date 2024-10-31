@@ -14,6 +14,7 @@ interface Medicine {
   typeMed: string;
   createdDate: string;
   medicineLocalId: string;
+  selectedDateTime: Date | null;
 }
 
 // Interface for the response data
@@ -38,6 +39,7 @@ export const fetchMedicines = async (token: string): Promise<Medicine[]> => {
           typeMed
           createdDate
           medicineLocalId
+          selectedDateTime
         }
       }
     `;

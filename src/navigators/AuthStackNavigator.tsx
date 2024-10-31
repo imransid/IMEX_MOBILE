@@ -5,8 +5,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-//import CameraScanner2 from '../Screens/CameraScanner/CameraScanner.Screen';
-
+import ScanQrCodeScreen from '@/Screens/ScanQrCode/ScanQrCode.Screen';
+// import CameraScanner2 from '../Screens/CameraScanner/CameraScanner.Screen';
 import { colors } from '@/theme/colors';
 
 import {
@@ -50,13 +50,13 @@ import {
   XtimesAdayDose
 } from '../Screens';
 
+import GuestDrawerNavigator from './GuestDrawerNavigator';
 import styles from './Styles';
 import UserDrawerNavigator from './UserDrawerNavigator';
-import GuestDrawerNavigator from './GuestDrawerNavigator';
 
 const Stack = createNativeStackNavigator();
 
-const screens = [
+export const screensListForComponent = [
   { name: 'CameraScanner', component: CameraScanner, headerShown: false },
   { name: 'MedicineDetails', component: MedicineDetails, title: 'Medicine Details' },
   { name: 'MedicineDoses', component: MedicineDoses, title: 'Medicine Name' },
@@ -96,7 +96,8 @@ const screens = [
   { name: 'EveryXmonthsDose', component: EveryXmonthsDose, title: 'Medicine Name' },
   { name: 'EveryXmonthsDoseDetails', component: EveryXmonthsDoseDetails, title: 'Medicine Name' },
   { name: 'UserDrawer', component: UserDrawerNavigator, headerShown: false },
-  { name: 'GuestDrawer', component: GuestDrawerNavigator, headerShown: false }
+  { name: 'GuestDrawer', component: GuestDrawerNavigator, headerShown: false },
+  { name: 'ScanQrCodeScreenNew', component: ScanQrCodeScreen, title: '' }
 ];
 
 const HeaderLeft: React.FC = (): React.ReactNode => {
@@ -127,7 +128,7 @@ const defaultHeaderOptions = {
 const AuthStackNav: any = () => {
   return (
     <Stack.Navigator initialRouteName="Login">
-      {screens.map(({ name, component, title, headerShown = true }) => (
+      {screensListForComponent.map(({ name, component, title, headerShown = true }) => (
         <Stack.Screen
           key={name}
           name={name}
@@ -143,9 +144,7 @@ const AuthStackNav: any = () => {
                     ? false
                     : name === 'UserDrawer'
                       ? false
-                      : name === 'CameraScanner'
-                        ? false
-                        : true,
+                      : name !== 'CameraScanner',
             headerTitle: title,
             headerTitleAlign: 'center'
           }}

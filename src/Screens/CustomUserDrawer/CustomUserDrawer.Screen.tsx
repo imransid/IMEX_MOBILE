@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { type FC } from 'react';
 import { Linking, Text, TouchableOpacity, View } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
@@ -34,10 +35,6 @@ const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
     dispatch(clearExtraMedicineDetails());
     dispatch(clearAppointment());
     dispatch(logoutUser());
-
-    navigation.navigate('Login' as never);
-
-    //console.log(authStatus);
   };
 
   const handleShowUserProfile: any = () => {

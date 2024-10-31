@@ -11,12 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
-import { fetchMedicines } from '@/mutations/medicine';
-import { setDoseList } from '@/store/slices/features/medicineDetails/slice';
-import { fetchMonthlyMedicines } from '@/mutations/createMonthly';
 import { type RootState } from '@/store';
-import { setMonthlyStoreData } from '@/store/slices/features/medicineDetails/slice';
-import { updateFirstTimeQrScreen } from '@/store/slices/features/settings/slice';
 import useNetworkStatus from '@/utils/networkUtills';
 import ToastPopUp from '@/utils/Toast.android';
 
@@ -54,7 +49,7 @@ const Login: FC = () => {
   const { isInternetReachable, isCellularConnection } = useNetworkStatus();
 
   const loading = useSelector((state: RootState) => state.users.user.isLoading);
-
+  const appLoadFirstTime = useSelector((state: RootState) => state.settings.appLoadFirstTime);
   // SignIn handler
   const handleSignIn: SubmitHandler<ISignInFormDataProps> = async formData => {
     try {
@@ -88,17 +83,20 @@ const Login: FC = () => {
 
           const res = response.data.data.login;
 
-          const medicine = await fetchMedicines(response?.data?.data?.login?.accessToken);
+          // axiso error
 
-          if (medicine.length > 0) dispatch(setDoseList(medicine));
-          const fetchMonthlyData = await fetchMonthlyMedicines(
-            response?.data?.data?.login?.accessToken
-          );
-          if (fetchMonthlyData !== undefined) dispatch(setMonthlyStoreData(fetchMonthlyData));
+          // const medicine = await fetchMedicines(response?.data?.data?.login?.accessToken);
 
+          // console.log('medicine', medicine)
+
+          // if (medicine.length > 0) dispatch(setDoseList(medicine));
+          // const fetchMonthlyData = await fetchMonthlyMedicines(
+          //   response?.data?.data?.login?.accessToken
+          // );
+          // if (fetchMonthlyData !== undefined) dispatch(setMonthlyStoreData(fetchMonthlyData));
+          // dispatch(updateFirstTimeQrScreen());
           dispatch(getUserSuccessAction(res));
-          dispatch(updateFirstTimeQrScreen());
-          navigation.navigate('UserDrawer' as never);
+          // navigation.navigate('UserDrawer' as never);
         } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
           // Show error message from the response
           const errorMessage: any = response?.data?.errors[0]?.message;
@@ -116,7 +114,12 @@ const Login: FC = () => {
 
   // Navigation handlers
   const handleGuestLogin: any = () => {
-    navigation.navigate('MedicineDoses' as never);
+    if (appLoadFirstTime) {
+      navigation.navigate('MedicineDoses' as never);
+    } else {
+      navigation.navigate('ScanQrCodeScreenNew' as never);
+      // ScanQrCodeScreenNew
+    }
   };
   const handleCreateAccount: any = () => {
     navigation.navigate('CreateAccount' as never);

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { type FC, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
@@ -42,6 +43,8 @@ const DoctorAppointments: FC = () => {
     setDate(formattedDate);
   };
   const handleNext: any = () => {
+
+
     dispatch(
       setAppointment([
         {
@@ -50,7 +53,7 @@ const DoctorAppointments: FC = () => {
           doctorName,
           location,
           setReminder: reminder,
-          medicineLocalId
+          medicineLocalId: "RANDOM" + Math.random().toString(36)
         }
       ])
     );

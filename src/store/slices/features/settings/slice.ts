@@ -24,7 +24,7 @@ export const settingSlice = createSlice({
       state.isLoading = true;
     },
     updateFirstTimeQrScreen: (state: ISettingState) => {
-      state.appLoadFirstTime = false;
+      state.appLoadFirstTime = !state.appLoadFirstTime;
     }
   }
 });
