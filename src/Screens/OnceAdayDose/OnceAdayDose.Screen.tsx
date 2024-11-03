@@ -121,7 +121,7 @@ const OnceAdayDose: FC = () => {
   };
 
   const handleNext: any = async () => {
-    if (accessToken === null || accessToken === undefined) {
+    if (loginStatus === true) {
       let updatedStoredList = [...storedMedicineList];
 
       // Create data for the new medicine
@@ -171,8 +171,6 @@ const OnceAdayDose: FC = () => {
       };
       // Add the new data to the copied array
       updatedStoredList.push(data);
-
-      console.log('updatedStoredList', updatedStoredList)
       dispatch(setDoseList(updatedStoredList));
       await localSchedule(updatedStoredList, 'day', medicineLocalId);
       navigation.navigate('AddedMedicine' as never);
