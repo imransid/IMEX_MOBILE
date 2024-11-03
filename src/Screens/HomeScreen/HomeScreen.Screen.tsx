@@ -139,7 +139,7 @@ const HomeScreen: FC = () => {
                           </View>
                           <Text style={styles.doseText}>
                             {medicine.doseQuantity}{' '}
-                            {parseInt(medicine.doseQuantity) > 1 ? 'pills' : 'pill'}
+                            {parseInt(medicine.doseQuantity) > 1 ? 'pills' : '0 pill'}
                             {getInstructionList(medicine.medicineLocalId)
                               ? ` | ${getInstructionList(medicine.medicineLocalId)}`
                               : ' | Not Present'}
@@ -149,7 +149,7 @@ const HomeScreen: FC = () => {
                             <Text style={styles.weekDayText}>
                               {getWeeklyMedicineList(medicine.medicineLocalId)
                                 ? getWeeklyMedicineList(medicine.medicineLocalId)
-                                : 'No Days Selected'}
+                                : 'No Week Days Selected'}
                             </Text>
                           </View>
                         </View>

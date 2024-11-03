@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
     right: scale(20),
-    width: scale(158)
+    width: scale(175)
   },
   selectedDaysList: {
     maxHeight: '15%'

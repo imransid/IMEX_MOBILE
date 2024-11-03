@@ -53,6 +53,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.buttonBg,
     borderRadius: scale(18)
   },
+  notSelectedDay: {
+    backgroundColor: colors.darkBlue,
+    borderRadius: scale(18)
+  },
   selectedDayText: {
     color: colors.white,
     fontFamily: 'WorkSansMedium'

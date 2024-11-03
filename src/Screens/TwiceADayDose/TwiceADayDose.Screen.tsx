@@ -29,6 +29,8 @@ import ToastPopUp from '@/utils/Toast.android';
 import axios from 'axios';
 import moment from 'moment';
 import { ITwiceAdayDoseTime } from '@/store/slices/features/medicineDetails/types';
+import { localSchedule } from '@/helper/notify';
+import { createMedicineData } from '@/mutations/createMedicine';
 
 const TwiceAdayDose: FC = () => {
   const navigation = useNavigation();
@@ -101,8 +103,142 @@ const TwiceAdayDose: FC = () => {
     }
   };
 
+  const loginStatus = useSelector((state: RootState) => state.users?.user?.loginStatus);
+
+  // const handleNext: any = async () => {
+  //   if (accessToken === null || accessToken === undefined) {
+  //     let updatedStoredList = [...storedMedicineList];
+
+  //     // Create data for the new medicine
+  //     let data = {
+  //       medicineLocalId: medicineLocalId,
+  //       medicineName: medicineName,
+  //       medicineStatus: medicineStatus,
+  //       takeStatus: takeStatus,
+  //       doseQuantity: doseQuantity,
+  //       doseTime: doseTime,
+  //       strengthMed: strengthMed,
+  //       unitMed: unitMed,
+  //       typeMed: typeMed,
+  //       medicineId: 'R@f@', // Use the correct reference
+  //       createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+  //       selectedDateTime: selectedDateTime
+  //     };
+
+  //     // Add the new data to the copied array
+  //     updatedStoredList.push(data);
+  //     dispatch(setDoseList(updatedStoredList));
+  //     navigation.navigate('AddedMedicine' as never);
+
+  //     ToastPopUp('Medicine Created Successfully');
+  //   } else {
+  //     const mutation = `
+  //   mutation {
+  //     createMedicines(medicines: [
+  //       {
+  //         medicineLocalId: "${medicineLocalId}",
+  //         medicineName: "${medicineName}",
+  //         medicineStatus: "${medicineStatus}",
+  //         takeStatus: "${takeStatus}",
+  //         doseQuantity: "${doseQuantity}",
+  //         doseTime: "${doseTime}",
+  //         strengthMed: "${strengthMed}",
+  //         unitMed: "${unitMed}",
+  //         typeMed: "${typeMed}",
+  //         createdDate: "${moment().format('YYYY-MM-DD HH:mm:ss')}"
+  //       }
+  //     ]) {
+  //       message
+  //       error {
+  //         message
+  //         code
+  //       }
+  //     }
+  //   }
+  //   `;
+
+  //     try {
+  //       const response = await axios.post(
+  //         BASE_URL,
+  //         { query: mutation },
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${accessToken}`,
+  //             'Content-Type': 'application/json'
+  //           }
+  //         }
+  //       );
+
+  //       console.log('response', response);
+
+  //       // Check if registration was successful
+  //       if (
+  //         response?.data?.data?.createMedicines?.message !== undefined &&
+  //         response?.data?.data?.createMedicines?.message !== null
+  //       ) {
+  //         let updatedStoredList = [...storedMedicineList];
+
+  //         // Create data for the new medicine
+  //         let data = {
+  //           medicineLocalId: medicineLocalId,
+  //           medicineName: medicineName,
+  //           medicineStatus: medicineStatus,
+  //           takeStatus: takeStatus,
+  //           doseQuantity: doseQuantity,
+  //           doseTime: doseTime,
+  //           strengthMed: strengthMed,
+  //           unitMed: unitMed,
+  //           typeMed: typeMed,
+  //           medicineId: 'R@f@', // Use the correct reference
+  //           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+  //           selectedDateTime: selectedDateTime
+  //         };
+
+  //         // Add the new data to the copied array
+  //         updatedStoredList.push(data);
+  //         dispatch(setDoseList(updatedStoredList));
+  //         navigation.navigate('AddedMedicine' as never);
+
+  //         ToastPopUp(response.data.data.createMedicines.message);
+  //       } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
+  //         // Show error message from the response
+
+  //         const errorMessage: any = response?.data?.errors[0]?.message;
+  //         if (typeof errorMessage === 'string') {
+  //           ToastPopUp(errorMessage);
+  //         }
+  //       } else {
+  //         ToastPopUp('Something Went wrong ! please try again later.');
+  //       }
+  //     } catch (error) {
+  //       if (axios.isAxiosError(error)) {
+  //         console.log('error', error);
+
+  //         console.error('Axios Error:', error.message);
+  //       } else {
+  //         console.error('Unexpected Error:', error);
+  //       }
+  //       ToastPopUp('Network Error! Please check your connection.');
+  //     }
+  //   }
+
+  //   useEffect(() => {
+  //     if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
+  //       const twiceAdayDoses: ITwiceAdayDoseTime[] = times
+  //         .map((time, index) => ({
+  //           doseTime: time,
+  //           doseQuantity: doses[index].toString(),
+  //           medicineLocalId
+  //         }))
+  //         .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
+
+  //       dispatch(setTwiceAdayDoseTime(twiceAdayDoses));
+  //     }
+  //   }, [times, doses]);
+  // };
+
   const handleNext: any = async () => {
-    if (accessToken === null || accessToken === undefined) {
+    if (loginStatus === true) {
       let updatedStoredList = [...storedMedicineList];
 
       // Create data for the new medicine
@@ -123,114 +259,36 @@ const TwiceAdayDose: FC = () => {
 
       // Add the new data to the copied array
       updatedStoredList.push(data);
+      await localSchedule(updatedStoredList, 'day', medicineLocalId);
+      await createMedicineData(updatedStoredList, accessToken);
       dispatch(setDoseList(updatedStoredList));
       navigation.navigate('AddedMedicine' as never);
 
       ToastPopUp('Medicine Created Successfully');
     } else {
-      const mutation = `
-    mutation {
-      createMedicines(medicines: [
-        {
-          medicineLocalId: "${medicineLocalId}",
-          medicineName: "${medicineName}",
-          medicineStatus: "${medicineStatus}",
-          takeStatus: "${takeStatus}",
-          doseQuantity: "${doseQuantity}",
-          doseTime: "${doseTime}",
-          strengthMed: "${strengthMed}", 
-          unitMed: "${unitMed}",
-          typeMed: "${typeMed}",
-          createdDate: "${moment().format('YYYY-MM-DD HH:mm:ss')}"
-        }
-      ]) {
-        message
-        error {
-          message
-          code
-        }
-      }
+      let updatedStoredList = [...storedMedicineList];
+
+      // Create data for the new medicine
+      let data = {
+        medicineLocalId: medicineLocalId,
+        medicineName: medicineName,
+        medicineStatus: medicineStatus,
+        takeStatus: takeStatus,
+        doseQuantity: doseQuantity,
+        doseTime: doseTime,
+        strengthMed: strengthMed,
+        unitMed: unitMed,
+        typeMed: typeMed,
+        medicineId: 'R@f@', // Use the correct reference
+        createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+        selectedDateTime: selectedDateTime
+      };
+      // Add the new data to the copied array
+      updatedStoredList.push(data);
+      dispatch(setDoseList(updatedStoredList));
+      await localSchedule(updatedStoredList, 'day', medicineLocalId);
+      navigation.navigate('AddedMedicine' as never);
     }
-    `;
-
-      try {
-        const response = await axios.post(
-          BASE_URL,
-          { query: mutation },
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        );
-
-        console.log('response', response);
-
-        // Check if registration was successful
-        if (
-          response?.data?.data?.createMedicines?.message !== undefined &&
-          response?.data?.data?.createMedicines?.message !== null
-        ) {
-          let updatedStoredList = [...storedMedicineList];
-
-          // Create data for the new medicine
-          let data = {
-            medicineLocalId: medicineLocalId,
-            medicineName: medicineName,
-            medicineStatus: medicineStatus,
-            takeStatus: takeStatus,
-            doseQuantity: doseQuantity,
-            doseTime: doseTime,
-            strengthMed: strengthMed,
-            unitMed: unitMed,
-            typeMed: typeMed,
-            medicineId: 'R@f@', // Use the correct reference
-            createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-            selectedDateTime: selectedDateTime
-          };
-
-          // Add the new data to the copied array
-          updatedStoredList.push(data);
-          dispatch(setDoseList(updatedStoredList));
-          navigation.navigate('AddedMedicine' as never);
-
-          ToastPopUp(response.data.data.createMedicines.message);
-        } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
-          // Show error message from the response
-
-          const errorMessage: any = response?.data?.errors[0]?.message;
-          if (typeof errorMessage === 'string') {
-            ToastPopUp(errorMessage);
-          }
-        } else {
-          ToastPopUp('Something Went wrong ! please try again later.');
-        }
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.log('error', error);
-
-          console.error('Axios Error:', error.message);
-        } else {
-          console.error('Unexpected Error:', error);
-        }
-        ToastPopUp('Network Error! Please check your connection.');
-      }
-    }
-
-    useEffect(() => {
-      if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
-        const twiceAdayDoses: ITwiceAdayDoseTime[] = times
-          .map((time, index) => ({
-            doseTime: time,
-            doseQuantity: doses[index].toString(),
-            medicineLocalId
-          }))
-          .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
-
-        dispatch(setTwiceAdayDoseTime(twiceAdayDoses));
-      }
-    }, [times, doses]);
   };
 
   return (

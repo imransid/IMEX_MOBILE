@@ -1,14 +1,17 @@
 /* eslint-disable */
 
-import React, { type FC, useState } from 'react';
+import React, { type FC, useEffect, useState } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import moment from 'moment'; // Import moment for date manipulation
 import styles from './style';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedDay } from '@/store/slices/features/medicineDetails/slice';
+import { useNavigation } from '@react-navigation/native';
+import { RootState } from '@/store';
 
 const HorizontalCalendar: FC = () => {
-  const dispatch = useDispatch()
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
 
   // Function to format date to string (YYYY-MM-DD HH:mm:ss)
@@ -41,14 +44,35 @@ const HorizontalCalendar: FC = () => {
     });
   };
 
-  // Function to render each day item in the FlatList
+  const selectedDay = useSelector((state: RootState) => state.medicineDetails.selectedDates);
+
+  useEffect(() => {
+    //console.log(selec)
+
+    const unsubscribe = navigation.addListener('focus', () => {
+      // do something
+      // const formattedDate = currentDate;
+      setCurrentDate(currentDate);
+      dispatch(setSelectedDay(currentDate.toDateString()));
+    });
+
+    return unsubscribe;
+  }, [navigation, dispatch]);
+
   const renderDay = ({ item }: { item: { date: Date; dayName: string } }) => {
-    const isSelected = formatDate(item.date) === formatDate(currentDate);
+    // Format currentDate and item.date for comparison
+    const formattedCurrentDate = moment(currentDate).format('ddd MMM DD YYYY');
+    const formattedItemDate = moment(item.date).format('ddd MMM DD YYYY');
+
+    // Check if the current date or selected day matches the item date
+    const isSelected =
+      selectedDay === formattedItemDate || formattedCurrentDate === formattedItemDate;
+
     return (
       <TouchableOpacity
         onPress={() => {
-          dispatch(setSelectedDay(item.date.toString()))
-          setCurrentDate(item.date);
+          dispatch(setSelectedDay(formattedItemDate)); // Update selectedDay with formatted date
+          setCurrentDate(item.date); // Update currentDate to the clicked date
         }}>
         <View style={[styles.dayContainer, isSelected && styles.selectedDay]}>
           <Text style={[styles.dateText, isSelected && styles.selectedDayText]}>

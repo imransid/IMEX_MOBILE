@@ -35,8 +35,7 @@ const Navigator: FC = () => {
         <Stack.Screen name="MedicineDetails" component={MedicineDetails} />
       </Stack.Navigator>
     );
-  }
-
+  };
 
   const UserStack = () => {
     return (
@@ -44,15 +43,17 @@ const Navigator: FC = () => {
         screenOptions={{
           headerShown: false
         }}>
-        {
-          authStatus ? <Stack.Screen name="UserDrawerNavigator" component={UserDrawerNavigator} /> : <Stack.Screen name="AuthStackNav" component={AuthStackNav} />
-        }
+        {authStatus ? (
+          <Stack.Screen name="UserDrawerNavigator" component={UserDrawerNavigator} />
+        ) : (
+          <Stack.Screen name="AuthStackNav" component={AuthStackNav} />
+        )}
       </Stack.Navigator>
     );
-  }
+  };
 
   return (
-    <GestureHandlerRootView >
+    <GestureHandlerRootView>
       <NavigationContainer>
         {appLoadFirstTime ? <InitialLoadTime /> : <UserStack />}
       </NavigationContainer>

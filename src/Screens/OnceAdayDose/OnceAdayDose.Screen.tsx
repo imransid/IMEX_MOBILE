@@ -55,10 +55,7 @@ const OnceAdayDose: FC = () => {
   const selectedDateTime = useSelector(
     (state: RootState) => state.medicineDetails.selectedDateTime
   );
-  const loginStatus = useSelector(
-    (state: RootState) => state.users?.user?.loginStatus
-  );
-
+  const loginStatus = useSelector((state: RootState) => state.users?.user?.loginStatus);
 
   const handleSelectTime: any = async (index: number) => {
     setSelectedChip(index);
@@ -143,15 +140,12 @@ const OnceAdayDose: FC = () => {
       // Add the new data to the copied array
       updatedStoredList.push(data);
       await localSchedule(updatedStoredList, 'day', medicineLocalId);
-      await createMedicineData(updatedStoredList, accessToken)
+      await createMedicineData(updatedStoredList, accessToken);
       dispatch(setDoseList(updatedStoredList));
       navigation.navigate('AddedMedicine' as never);
 
       ToastPopUp('Medicine Created Successfully');
     } else {
-
-
-
       let updatedStoredList = [...storedMedicineList];
 
       // Create data for the new medicine
@@ -175,6 +169,7 @@ const OnceAdayDose: FC = () => {
       await localSchedule(updatedStoredList, 'day', medicineLocalId);
       navigation.navigate('AddedMedicine' as never);
 
+      console.log(updatedStoredList);
     }
   };
 
