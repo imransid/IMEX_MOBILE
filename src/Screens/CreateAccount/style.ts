@@ -103,6 +103,39 @@ const styles = StyleSheet.create({
   genderErrorTextPosition: {
     marginTop: scale(5), 
     right: scale(100)
+  },
+
+
+  birthdayInputcontainer: {
+    alignItems: 'center',
+    backgroundColor: colors.textInput,
+    borderRadius: scale(6),
+    flexDirection: 'row',
+    height: verticalScale(40),
+    position: 'relative',
+    width: scale(330)
+  },
+  birthdayInputPlaceholderText: {
+    color: colors.typedText,
+    fontSize: moderateScale(16),
+    fontFamily: 'WorkSansMedium',
+  },
+  textInput: {
+    flex: 1,
+    paddingLeft: scale(10),
+    paddingVertical: verticalScale(8)
+  },
+  // textInputError: {
+  //   borderColor: colors.error,
+  //   borderWidth: 1
+  // },
+  // textInputFocused: {
+  //   borderColor: colors.buttonBg,
+  //   borderWidth: 1
+  // }
+  birthdayInputPlaceholderStyle: {
+    flexDirection: 'row', 
+    gap: scale(12) 
   }
 });
 

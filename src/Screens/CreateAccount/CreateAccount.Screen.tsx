@@ -21,6 +21,7 @@ import styles from './style';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createAccountFormValidation } from '../../utils/formValidation';
+import DatePicker from 'react-native-date-picker';
 
 const CreateAccount: FC = () => {
   const navigation = useNavigation();
@@ -30,6 +31,10 @@ const CreateAccount: FC = () => {
   const [gender] = useState<string>('');
   const [birthday] = useState<string>('');
   const [password] = useState<string>('');
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState('');
 
   // interface for creat account
   interface ICreateAccountDataProps {
@@ -46,6 +51,7 @@ const CreateAccount: FC = () => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors }
   } = useForm<ICreateAccountDataProps>({
     resolver: yupResolver(createAccountFormValidation),
@@ -59,6 +65,28 @@ const CreateAccount: FC = () => {
       confirmPassword: ''
     }
   });
+
+  const handleSelectDate: any = () => {
+    setModalVisible(true);
+  };
+
+  const handleConfirmDate = (date: Date) => {
+    setModalVisible(false);
+    setDate(date);
+
+    // Format the date as needed
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'short',
+      month: 'long',
+      day: '2-digit',
+      year: 'numeric'
+    };
+    const dateStr = new Intl.DateTimeFormat('en-US', options).format(date);
+
+    // Update selected date and form field
+    setSelectedDate(dateStr);
+    setValue('birthDate', dateStr); // Update birthDate in the form
+  };
 
   const handleSignUp = async (data: ICreateAccountDataProps): Promise<void> => {
     const registerInput = {
@@ -279,17 +307,45 @@ const CreateAccount: FC = () => {
               control={control}
               name="birthDate"
               render={({ field: { onChange, value } }) => (
-                <CustomTextInput
-                  type="email"
-                  value={value}
-                  onChangeText={onChange}
-                  placeholder="Enter your birth date..."
-                  inputStyle={styles.inputText}
-                  isError={Boolean(errors.birthDate)}
-                  leftIcon={<AntDesign name="calendar" size={25} color={'#888888'} />} // Left icon
-                />
+                // <CustomTextInput
+                //   type="email"
+                //   value={value}
+                //   onChangeText={onChange}
+                //   placeholder="Enter your birth date..."
+                //   inputStyle={styles.inputText}
+                //   isError={Boolean(errors.birthDate)}
+                //   leftIcon={<AntDesign name="calendar" size={25} color={'#888888'} />} // Left icon
+                // />
+                <TouchableOpacity style={styles.birthdayInputcontainer} onPress={handleSelectDate}>
+                  <View style={styles.textInput}>
+                    <View style={styles.birthdayInputPlaceholderStyle}>
+                      <AntDesign name="calendar" size={25} color={'#888888'} />
+                      <Text style={styles.birthdayInputPlaceholderText}>
+                        {selectedDate === '' ? (
+                          'Enter your birth date...'
+                        ) : (
+                          <Text style={styles.inputText}>{selectedDate}</Text>
+                        )}
+                      </Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
               )}
             />
+            {modalVisible && (
+              <DatePicker
+                modal
+                mode="date"
+                open={modalVisible}
+                date={date}
+                dividerColor="white"
+                onConfirm={handleConfirmDate}
+                onCancel={() => {
+                  setModalVisible(false);
+                }}
+                theme="dark"
+              />
+            )}
             {errors.birthDate != null && (
               <Text style={styles.errorTxt}>{errors.birthDate.message}</Text>
             )}
