@@ -2,23 +2,33 @@ import React, { type FC } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../navigators/AuthStackNavigator';
 import { type RootState } from '@/store';
 
 import { colors } from '../../theme/colors';
 
 import styles from './style';
-
+interface NavigationParams {
+  prevRoute: string;
+}
+type NavigationProp = StackNavigationProp<RootStackParamList, 'AddInstructions'>;
 const MoreSettings: FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
+
+  const route = useRoute();
+
+  const currentRoute = route.name;
+
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
+
   return (
     <>
       <TouchableOpacity
         style={styles.addMoreSettingsItems}
         onPress={() => {
-          navigation.navigate('AddInstructions' as never);
+          navigation.navigate('AddInstructions', { prevRoute: currentRoute });
         }}>
         <View style={styles.addMoreSettingsContentProperties}>
           <Ionicons name="add-circle-sharp" size={30} color={colors.addCircle} />
@@ -28,7 +38,7 @@ const MoreSettings: FC = () => {
       <TouchableOpacity
         style={styles.addMoreSettingsItems}
         onPress={() => {
-          navigation.navigate('SetTreatmentDuration' as never);
+          navigation.navigate('SetTreatmentDuration', { prevRoute: currentRoute });
         }}>
         <View style={styles.addMoreSettingsContentProperties}>
           <Ionicons name="add-circle-sharp" size={30} color={colors.addCircle} />
@@ -38,7 +48,7 @@ const MoreSettings: FC = () => {
       <TouchableOpacity
         style={styles.addMoreSettingsItems}
         onPress={() => {
-          navigation.navigate('MedicineReminders' as never);
+          navigation.navigate('MedicineReminders', { prevRoute: currentRoute });
         }}>
         <View style={styles.addMoreSettingsContentProperties}>
           <Ionicons name="add-circle-sharp" size={30} color={colors.addCircle} />
@@ -51,7 +61,7 @@ const MoreSettings: FC = () => {
           <TouchableOpacity
             style={styles.addMoreSettingsItems}
             onPress={() => {
-              navigation.navigate('DoctorAppointments' as never);
+              navigation.navigate('DoctorAppointments', { prevRoute: currentRoute });
             }}>
             <View style={styles.addMoreSettingsContentProperties}>
               <Ionicons name="add-circle-sharp" size={30} color={colors.addCircle} />
@@ -61,7 +71,7 @@ const MoreSettings: FC = () => {
           <TouchableOpacity
             style={styles.addMoreSettingsItems}
             onPress={() => {
-              navigation.navigate('AddPrescription' as never);
+              navigation.navigate('AddPrescription', { prevRoute: currentRoute });
             }}>
             <View style={styles.addMoreSettingsContentProperties}>
               <Ionicons name="add-circle-sharp" size={30} color={colors.addCircle} />

@@ -56,6 +56,52 @@ import UserDrawerNavigator from './UserDrawerNavigator';
 
 const Stack = createNativeStackNavigator();
 
+export type RootStackParamList = {
+  CameraScanner: undefined;
+  MedicineDetails: undefined;
+  MedicineDoses: undefined;
+  Login: undefined;
+  MedicineDailyDoses: undefined;
+  CreateAccount: undefined;
+  ForgotPassword: undefined;
+  EnterOtp: undefined;
+  ResetPassword: undefined;
+  PasswordChanged: undefined;
+  OnceAdayDose: undefined;
+  AddedMedicine: undefined;
+  MedicineAddingMethod: undefined;
+  AddMedicineManually: undefined;
+  AddMedicineStrength: undefined;
+  MedicineType: undefined;
+
+  AddInstructions: { prevRoute: string };
+  SetTreatmentDuration: { prevRoute: string };
+  MedicineReminders: { prevRoute: string };
+  DoctorAppointments: { prevRoute: string };
+  AddPrescription: { prevRoute: string };
+
+  TwiceAdayDose: undefined;
+  ThreeTimesAdayDose: undefined;
+  FourTimesAdayDose: undefined;
+  AskTimeInterval: undefined;
+  XtimesAdayDose: undefined;
+  AskHourInterval: undefined;
+  EveryXhoursDose: undefined;
+  WeeklyDose: undefined;
+  WeeklyDoseDetails: undefined;
+  MonthlyDose: undefined;
+  MonthlyDoseDetails: undefined;
+  EveryXdaysDose: undefined;
+  EveryXdaysDoseDetails: undefined;
+  EveryXweeksDose: undefined;
+  EveryXweeksDoseDetails: undefined;
+  EveryXmonthsDose: undefined;
+  EveryXmonthsDoseDetails: undefined;
+  UserDrawer: undefined;
+  GuestDrawer: undefined;
+  ScanQrCodeScreenNew: undefined;
+};
+
 export const screensListForComponent = [
   { name: 'CameraScanner', component: CameraScanner, headerShown: false },
   { name: 'MedicineDetails', component: MedicineDetails, title: 'Medicine Details' },
