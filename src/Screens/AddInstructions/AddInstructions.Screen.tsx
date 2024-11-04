@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { type RootState } from '@/store';
 import { setExtraInstrucTion } from '@/store/slices/features/medicineDetailsExtraSetting/slice';
@@ -15,9 +15,19 @@ import SetInstructionsModal from '../../Components/SetInstructionsModal/SetInstr
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+interface RouteParams {
+  prevRoute: string;
+}
 
 const AddInstructions: FC = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  // Access the parameter
+  const prevRoute = (route.params as RouteParams)?.prevRoute;
+
+  console.log('prevRoute', prevRoute);
+
   const dispatch = useDispatch();
   const [instruction, setInstruction] = useState('');
   const [open, setOpen] = useState(false); // for instruction picker
@@ -45,7 +55,7 @@ const AddInstructions: FC = () => {
   };
 
   const handleNext: any = () => {
-    navigation.navigate('OnceAdayDose' as never);
+    navigation.navigate(`${prevRoute}` as never);
   };
 
   return (
