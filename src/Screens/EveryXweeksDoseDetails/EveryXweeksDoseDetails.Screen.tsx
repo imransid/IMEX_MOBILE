@@ -17,9 +17,17 @@ import { colors } from '../../theme/colors';
 import styles from './style';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { setWeeklyStoreData, setXWeekTakeDose } from '@/store/slices/features/medicineDetails/slice';
+import {
+  setDoseList,
+  setWeeklyStoreData,
+  setXWeekTakeDose
+} from '@/store/slices/features/medicineDetails/slice';
 import moment from 'moment';
-import { IWeeklyDoseTime } from '@/store/slices/features/medicineDetails/types';
+import { IWeeklyDoseTime, IXWeeklyDoseTime } from '@/store/slices/features/medicineDetails/types';
+import { localSchedule } from '@/helper/notify';
+import { createMedicineData } from '@/mutations/createMedicine';
+import ToastPopUp from '@/utils/Toast.android';
+import { createWeeklyMutation } from '@/mutations/createWeekly';
 
 const EveryXweeksDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -27,7 +35,7 @@ const EveryXweeksDoseDetails: FC = () => {
   const timeInterval = useSelector((state: RootState) => state.medicineDetails.timeInterval);
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // State for time and dose for each intake
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(
@@ -43,11 +51,20 @@ const EveryXweeksDoseDetails: FC = () => {
   const [date, setDate] = useState(new Date());
 
   const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+  const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
-  const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
-  const xWeekTakeDoseTime = useSelector((state: RootState) => state.medicineDetails.xWeekTakeDoseTime);
+  const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
+  const doseTime = useSelector((state: RootState) => state.medicineDetails.doseTime);
+  const doseQuantity = useSelector((state: RootState) => state.medicineDetails.doseQuantity);
+  const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
+  const storedMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
+  );
+  const xWeekTakeDoseTime = useSelector(
+    (state: RootState) => state.medicineDetails.xWeekTakeDoseTime
+  );
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -86,14 +103,23 @@ const EveryXweeksDoseDetails: FC = () => {
     }
   };
 
-  const handleNext: any = () => {
+  const selectedDateTime = useSelector(
+    (state: RootState) => state.medicineDetails.selectedDateTime
+  );
 
-    let filterArray = xWeekTakeDoseTime.filter((e) => {
-      if (e.medicineLocalId === medicineLocalId) return e
-    })
+  const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
+
+  const storedMedicineWeeklyList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
+  );
+
+  const handleNext: any = async () => {
+    let filterArray = xWeekTakeDoseTime.filter(e => {
+      if (e.medicineLocalId === medicineLocalId) return e;
+    });
 
     if (filterArray.length > 0) {
-      let tempStore = filterArray.map((e) => {
+      let tempStore = filterArray.map(e => {
         return {
           medicineName: medicineName,
           medicineStatus: 'xWeek',
@@ -105,11 +131,18 @@ const EveryXweeksDoseDetails: FC = () => {
           typeMed: typeMed,
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
-          createdDate: moment().format('YYYY-MM-DD HH:mm:ss')
-        }
-      })
+          createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+          selectedDateTime: selectedDateTime
+        };
+      });
 
-      dispatch(setWeeklyStoreData(tempStore))
+      // now check login or not
+      if (loginStatus) {
+        await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
+        await createMedicineData(tempStore, accessToken);
+      }
+      await localSchedule(tempStore, 'week', medicineLocalId);
+      dispatch(setWeeklyStoreData(tempStore));
     }
 
     navigation.navigate('AddedMedicine' as never);
@@ -117,7 +150,7 @@ const EveryXweeksDoseDetails: FC = () => {
 
   useEffect(() => {
     if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
-      const weeklyDoses: IWeeklyDoseTime[] = times
+      const xWeekDoses: IXWeeklyDoseTime[] = times
         .map((time, index) => ({
           doseTime: time,
           doseQuantity: doses[index].toString(),
@@ -125,7 +158,7 @@ const EveryXweeksDoseDetails: FC = () => {
         }))
         .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
 
-      dispatch(setXWeekTakeDose(weeklyDoses));
+      dispatch(setXWeekTakeDose(xWeekDoses));
     }
   }, [times, doses]);
 

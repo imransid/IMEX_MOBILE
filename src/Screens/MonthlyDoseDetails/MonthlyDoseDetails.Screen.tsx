@@ -113,7 +113,7 @@ const MonthlyDoseDetails: FC = () => {
       let tempStore = filterArray.map(e => {
         return {
           medicineName: medicineName,
-          medicineStatus: 'month',
+          medicineStatus: 'week',
           takeStatus: takeStatus,
           doseQuantity: e.doseQuantity,
           doseTime: e.doseTime,
@@ -123,17 +123,16 @@ const MonthlyDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: e.doseDate
+          selectedDateTime: selectedDateTime
         };
       });
 
-      //
       // now check login or not
       if (loginStatus) {
         await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
         await createMedicineData(tempStore, accessToken);
       }
-      await localSchedule(tempStore, 'month', medicineLocalId);
+      await localSchedule(tempStore, 'week', medicineLocalId);
       dispatch(setWeeklyStoreData(tempStore));
     }
 

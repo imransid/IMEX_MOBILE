@@ -51,8 +51,9 @@ const WeeklyDoseDetails: FC = () => {
   const [doses, setDoses] = useState<number[]>(
     Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(0)
   );
-  const [doseDates, setDoseDates] = useState<Date[]>(Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(new Date()));
-
+  const [doseDates, setDoseDates] = useState<Date[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(new Date())
+  );
 
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
@@ -118,16 +119,16 @@ const WeeklyDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: e.doseDate
+          selectedDateTime: selectedDateTime
         };
       });
 
       // now check login or not
       if (loginStatus) {
         await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
-        await createMedicineData(tempStore, accessToken)
+        await createMedicineData(tempStore, accessToken);
       }
-      await localSchedule(tempStore, 'week', medicineLocalId)
+      await localSchedule(tempStore, 'week', medicineLocalId);
       dispatch(setWeeklyStoreData(tempStore));
     }
 
