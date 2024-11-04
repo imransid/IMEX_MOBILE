@@ -93,6 +93,8 @@ export const fetchMonthlyMedicines = async (accessToken: string) => {
     // Handle the response
     const data = response?.data?.data?.getMonthlyMedicinesByUser;
 
+    console.log('data', data);
+
     if (data) {
       // Return the fetched data
       return data;

@@ -22,6 +22,7 @@ export const createMedicineData = async (medicines: IMedicine[], accessToken: st
         unitMed: "${medicine.unitMed}",
         typeMed: "${medicine.typeMed}",
         createdDate: "${medicine.createdDate}"
+        selectedDateTime: "${medicine.selectedDateTime}"
       }`
         )
         .join(',')}

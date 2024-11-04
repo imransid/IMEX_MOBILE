@@ -9,10 +9,11 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { type RootState } from '@/store';
+import { clearStoreMedicineDetails } from '@/store/slices/features/medicineDetails/slice';
 
 import AddMedicineLogo from '../../assets/add-medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -25,6 +26,7 @@ const easing = Easing.bezier(0.25, -0.5, 0.25, 1);
 
 const AddedMedicine: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const sv = useSharedValue(0);
   const scale = useSharedValue(1);
 
@@ -42,10 +44,14 @@ const AddedMedicine: FC = () => {
   }, []);
 
   const handleAddAnotherMedicine: any = () => {
+    // confirm clear ID
+    dispatch(clearStoreMedicineDetails());
     navigation.navigate('MedicineAddingMethod' as never);
   };
 
   const handleNoThanks: any = () => {
+    dispatch(clearStoreMedicineDetails());
+
     authStatus
       ? navigation.navigate('UserDrawer' as never)
       : navigation.navigate('GuestDrawer' as never);
