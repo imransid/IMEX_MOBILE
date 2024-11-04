@@ -15,11 +15,15 @@ import styles from './style';
 import { colors } from '@/theme/colors';
 import CustomButton from '@/Components/CustomButton/CustomButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const AddPrescription: FC = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const route = useRoute();
+  const { prevRoute } = route.params as { prevRoute: string };
+
   const [selectedImage, setSelectedImage] = useState<{ uri: string; name: string } | null>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0); // Track upload progress
   const [isUploading, setIsUploading] = useState<boolean>(false); // Track if uploading
@@ -87,7 +91,7 @@ const AddPrescription: FC = () => {
   };
 
   const handleNext: any = () => {
-    navigation.goBack();
+    navigation.navigate(`${prevRoute}` as never);
   };
 
   return (

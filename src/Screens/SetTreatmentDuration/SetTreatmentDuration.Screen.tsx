@@ -2,7 +2,7 @@ import React, { type FC, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { format } from 'date-fns';
 
 import { type RootState } from '@/store';
@@ -19,6 +19,10 @@ import styles from './style';
 const SetTreatmentDuration: FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const route = useRoute();
+  const { prevRoute } = route.params as { prevRoute: string };
+
   const [startDateModalOpen, setStartDateModalOpen] = useState(false);
   const [endDateModalOpen, setendDateModalOpen] = useState(false);
   const [startDate, setStartDate] = useState('');
@@ -55,7 +59,7 @@ const SetTreatmentDuration: FC = () => {
         }
       ])
     );
-    navigation.goBack();
+    navigation.navigate(`${prevRoute}` as never);
   };
 
   return (

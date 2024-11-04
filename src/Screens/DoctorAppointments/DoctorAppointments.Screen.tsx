@@ -7,7 +7,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { format } from 'date-fns';
 
 import { type RootState } from '@/store';
@@ -25,6 +25,10 @@ import styles from './style';
 const DoctorAppointments: FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const route = useRoute();
+  const { prevRoute } = route.params as { prevRoute: string };
+
   const [dateModalOpen, setDateModalOpen] = useState(false);
   const [date, setDate] = useState('');
   const [time, setTime] = useState(new Date()); // time setting
@@ -43,8 +47,6 @@ const DoctorAppointments: FC = () => {
     setDate(formattedDate);
   };
   const handleNext: any = () => {
-
-
     dispatch(
       setAppointment([
         {
@@ -53,11 +55,11 @@ const DoctorAppointments: FC = () => {
           doctorName,
           location,
           setReminder: reminder,
-          medicineLocalId: "RANDOM" + Math.random().toString(36)
+          medicineLocalId: 'RANDOM' + Math.random().toString(36)
         }
       ])
     );
-    navigation.goBack();
+    navigation.navigate(`${prevRoute}` as never);
   };
   const handleSelectTime: any = () => {
     setOpen(true);

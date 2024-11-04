@@ -2,7 +2,7 @@ import React, { type FC, useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { type RootState } from '@/store';
 import { setExtraMedicineReminder } from '@/store/slices/features/medicineDetailsExtraSetting/slice';
@@ -17,6 +17,9 @@ import styles from './style';
 const MedicineReminders: FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const route = useRoute();
+  const { prevRoute } = route.params as { prevRoute: string };
 
   const [medicineReminderTotalReq, setMedicineReminderTotalReq] = useState('');
   const [medicineReminderCurrentStock, setMedicineReminderCurrentStock] = useState('');
@@ -35,7 +38,7 @@ const MedicineReminders: FC = () => {
         }
       ])
     );
-    navigation.goBack();
+    navigation.navigate(`${prevRoute}` as never);
   };
   return (
     <View style={styles.container}>

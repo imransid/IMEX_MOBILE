@@ -73,11 +73,13 @@ export type RootStackParamList = {
   AddMedicineManually: undefined;
   AddMedicineStrength: undefined;
   MedicineType: undefined;
+
   AddInstructions: { prevRoute: string };
-  SetTreatmentDuration: undefined;
-  MedicineReminders: undefined;
-  DoctorAppointments: undefined;
-  AddPrescription: undefined;
+  SetTreatmentDuration: { prevRoute: string };
+  MedicineReminders: { prevRoute: string };
+  DoctorAppointments: { prevRoute: string };
+  AddPrescription: { prevRoute: string };
+
   TwiceAdayDose: undefined;
   ThreeTimesAdayDose: undefined;
   FourTimesAdayDose: undefined;
