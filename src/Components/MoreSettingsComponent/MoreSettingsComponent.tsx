@@ -20,7 +20,6 @@ const MoreSettings: FC = () => {
   const route = useRoute();
 
   const currentRoute = route.name;
-  console.log('currentRoute', currentRoute);
 
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
 
