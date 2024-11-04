@@ -1,14 +1,15 @@
+import uuid from 'react-native-uuid';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 import { MEDICINE_DETAILS } from './constants';
 import {
-  ITwiceAdayDoseTime,
   type doseQuantityStatus,
   type doseTimeStatus,
   type IMedicine,
   type IMedicineDetailsType,
   type IMonthlyDoseTime,
   type IStoredMonthly,
+  type ITwiceAdayDoseTime,
   type IWeekly,
   type IWeeklyDoseTime,
   type IXDaysDoseTime,
@@ -55,6 +56,10 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   selectedDateTime: null
 };
 
+const GenerateUniqueIdUUID = (): string => {
+  return uuid.v4() as string;
+};
+
 export const medicineDetailsSlice = createSlice({
   name: MEDICINE_DETAILS,
   initialState: medicineDetailsInitialData,
@@ -68,7 +73,7 @@ export const medicineDetailsSlice = createSlice({
       state.medicineGenericName = '';
     },
     setMedicineName: (state: IMedicineDetailsType, payload: PayloadAction<MedicineName>) => {
-      state.medicineLocalId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      state.medicineLocalId = GenerateUniqueIdUUID();
       state.medicineName = payload.payload.medicineName;
     },
     setStrengthUnit: (state: IMedicineDetailsType, payload: PayloadAction<StrengthUnit>) => {
@@ -112,9 +117,12 @@ export const medicineDetailsSlice = createSlice({
         payload.payload.IStoredWeekly
       ];
     },
-    setTwiceAdayDoseTime: (state: IMedicineDetailsType, payload: PayloadAction<ITwiceAdayDoseTime[]>) => {
+    setTwiceAdayDoseTime: (
+      state: IMedicineDetailsType,
+      payload: PayloadAction<ITwiceAdayDoseTime[]>
+    ) => {
       const data = [...state.twiceAdayDoseTime, ...payload.payload];
-      state.twiceAdayDoseTime = data
+      state.twiceAdayDoseTime = data;
     },
 
     setWeeklyDoseTime: (state: IMedicineDetailsType, payload: PayloadAction<IWeeklyDoseTime[]>) => {
@@ -209,7 +217,7 @@ export const medicineDetailsSlice = createSlice({
 
     // for QR Code Scan
     setQrCodeToScanData: (state: IMedicineDetailsType, payload: PayloadAction<any>) => {
-      state.medicineLocalId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      state.medicineLocalId = GenerateUniqueIdUUID();
       state.medicineName = payload.payload.medicine.name;
       state.medicineGenericName = payload.payload.medicine.generic_name;
       state.medicineManufacturer = payload.payload.medicine.manufacturer;
