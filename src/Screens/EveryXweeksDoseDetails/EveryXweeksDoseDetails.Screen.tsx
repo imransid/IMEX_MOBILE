@@ -23,10 +23,11 @@ import {
   setXWeekTakeDose
 } from '@/store/slices/features/medicineDetails/slice';
 import moment from 'moment';
-import { IWeeklyDoseTime } from '@/store/slices/features/medicineDetails/types';
+import { IWeeklyDoseTime, IXWeeklyDoseTime } from '@/store/slices/features/medicineDetails/types';
 import { localSchedule } from '@/helper/notify';
 import { createMedicineData } from '@/mutations/createMedicine';
 import ToastPopUp from '@/utils/Toast.android';
+import { createWeeklyMutation } from '@/mutations/createWeekly';
 
 const EveryXweeksDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -108,59 +109,58 @@ const EveryXweeksDoseDetails: FC = () => {
 
   const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
 
+  const storedMedicineWeeklyList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
+  );
+
   const handleNext: any = async () => {
-    if (loginStatus === true) {
-      let updatedStoredList = [...storedMedicineList];
+    let filterArray = xWeekTakeDoseTime.filter(e => {
+      if (e.medicineLocalId === medicineLocalId) return e;
+    });
 
-      // Create data for the new medicine
-      let data = {
-        medicineLocalId: medicineLocalId,
-        medicineName: medicineName,
-        medicineStatus: medicineStatus,
-        takeStatus: takeStatus,
-        doseQuantity: doseQuantity,
-        doseTime: doseTime,
-        strengthMed: strengthMed,
-        unitMed: unitMed,
-        typeMed: typeMed,
-        medicineId: 'R@f@', // Use the correct reference
-        createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-        selectedDateTime: selectedDateTime
-      };
+    if (filterArray.length > 0) {
+      let tempStore = filterArray.map(e => {
+        return {
+          medicineName: medicineName,
+          medicineStatus: 'xWeek',
+          takeStatus: takeStatus,
+          doseQuantity: e.doseQuantity,
+          doseTime: e.doseTime,
+          strengthMed: strengthMed,
+          unitMed: unitMed,
+          typeMed: typeMed,
+          medicineId: '',
+          medicineLocalId: e.medicineLocalId,
+          createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+          selectedDateTime: selectedDateTime
+        };
+      });
 
-      // Add the new data to the copied array
-      updatedStoredList.push(data);
-      await localSchedule(updatedStoredList, 'day', medicineLocalId);
-      await createMedicineData(updatedStoredList, accessToken);
-      dispatch(setDoseList(updatedStoredList));
-      navigation.navigate('AddedMedicine' as never);
-
-      ToastPopUp('Medicine Created Successfully');
-    } else {
-      let updatedStoredList = [...storedMedicineList];
-
-      // Create data for the new medicine
-      let data = {
-        medicineLocalId: medicineLocalId,
-        medicineName: medicineName,
-        medicineStatus: medicineStatus,
-        takeStatus: takeStatus,
-        doseQuantity: doseQuantity,
-        doseTime: doseTime,
-        strengthMed: strengthMed,
-        unitMed: unitMed,
-        typeMed: typeMed,
-        medicineId: 'R@f@', // Use the correct reference
-        createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-        selectedDateTime: selectedDateTime
-      };
-      // Add the new data to the copied array
-      updatedStoredList.push(data);
-      dispatch(setDoseList(updatedStoredList));
-      await localSchedule(updatedStoredList, 'week', medicineLocalId);
-      navigation.navigate('AddedMedicine' as never);
+      // now check login or not
+      if (loginStatus) {
+        await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
+        await createMedicineData(tempStore, accessToken);
+      }
+      await localSchedule(tempStore, 'week', medicineLocalId);
+      dispatch(setWeeklyStoreData(tempStore));
     }
+
+    navigation.navigate('AddedMedicine' as never);
   };
+
+  useEffect(() => {
+    if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
+      const xWeekDoses: IXWeeklyDoseTime[] = times
+        .map((time, index) => ({
+          doseTime: time,
+          doseQuantity: doses[index].toString(),
+          medicineLocalId
+        }))
+        .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
+
+      dispatch(setXWeekTakeDose(xWeekDoses));
+    }
+  }, [times, doses]);
 
   return (
     <View style={styles.container}>

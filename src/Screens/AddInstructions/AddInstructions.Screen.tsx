@@ -45,7 +45,7 @@ const AddInstructions: FC = () => {
   };
 
   const handleNext: any = () => {
-    navigation.goBack();
+    navigation.navigate('OnceAdayDose' as never);
   };
 
   return (
