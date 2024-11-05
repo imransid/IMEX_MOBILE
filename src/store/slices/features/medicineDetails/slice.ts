@@ -226,6 +226,18 @@ export const medicineDetailsSlice = createSlice({
       state.description = payload.payload.product_details.description;
       state.person = payload.payload.dosage_and_administration.administration.adult;
       state.note = payload.payload.dosage_and_administration.administration.note;
+    },
+    clearStoreMedicine: (state: IMedicineDetailsType) => {
+      state.medicineLocalId = '';
+      state.timeInterval = '';
+      state.doseTime = '';
+      state.medicineStatus = '';
+      state.takeStatus = '';
+      state.strengthMed = '';
+      state.unitMed = '';
+      state.typeMed = '';
+      state.doseQuantity = '';
+      state.medicineName = '';
     }
   }
 });
@@ -255,7 +267,8 @@ export const {
   setXMonthTakeDose,
   clearStoreMedicineDetails,
   setSelectedDay,
-  setQrCodeToScanData
+  setQrCodeToScanData,
+  clearStoreMedicine
 } = medicineDetailsSlice.actions;
 
 export const medicineDetailsReducer = medicineDetailsSlice.reducer;

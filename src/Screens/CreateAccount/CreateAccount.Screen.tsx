@@ -307,15 +307,6 @@ const CreateAccount: FC = () => {
               control={control}
               name="birthDate"
               render={({ field: { onChange, value } }) => (
-                // <CustomTextInput
-                //   type="email"
-                //   value={value}
-                //   onChangeText={onChange}
-                //   placeholder="Enter your birth date..."
-                //   inputStyle={styles.inputText}
-                //   isError={Boolean(errors.birthDate)}
-                //   leftIcon={<AntDesign name="calendar" size={25} color={'#888888'} />} // Left icon
-                // />
                 <TouchableOpacity style={styles.birthdayInputcontainer} onPress={handleSelectDate}>
                   <View style={styles.textInput}>
                     <View style={styles.birthdayInputPlaceholderStyle}>
