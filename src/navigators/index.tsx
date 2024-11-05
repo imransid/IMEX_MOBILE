@@ -44,7 +44,7 @@ const Navigator: FC = () => {
           headerShown: false
         }}>
         {authStatus ? (
-          <Stack.Screen name="UserDrawerNavigator" component={UserDrawerNavigator} />
+          <Stack.Screen name="UserDrawer" component={UserDrawerNavigator} />
         ) : (
           <Stack.Screen name="AuthStackNav" component={AuthStackNav} />
         )}

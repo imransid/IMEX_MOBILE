@@ -1,6 +1,6 @@
 /* eslint-disable */
-import React, { type FC } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, type FC } from 'react';
+import { Alert, BackHandler, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -20,7 +20,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // Define your stack navigation parameter list
 interface RootStackParamList {
   PreviewDoseDetails: { medicine: any };
-  // Add other screens and their params here if needed
+  [key: string]: undefined | { medicine: any } | any;
 }
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'PreviewDoseDetails'>;
@@ -100,6 +100,25 @@ const HomeScreen: FC = () => {
     const formattedDate = moment(selectedDate).format('YYYY-MM-DD');
     return medicineDateString === formattedDate;
   });
+
+  // setting back handler
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Hold on!', 'Are you sure you want exit the app?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel'
+        },
+        { text: 'YES', onPress: () => BackHandler.exitApp() }
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove();
+  }, []);
 
   return (
     <View style={styles.container}>
