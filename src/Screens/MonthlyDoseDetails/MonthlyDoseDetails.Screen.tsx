@@ -1,4 +1,6 @@
-import React, { type FC, useState } from 'react';
+/* eslint-disable */
+
+import React, { type FC, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -14,13 +16,51 @@ import MoreSettings from '../../Components/MoreSettingsComponent/MoreSettingsCom
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { IMonthlyDoseTime } from '@/store/slices/features/medicineDetails/types';
+import {
+  setMonthlyDoseTime,
+  setMonthlyStoreData,
+  setWeeklyStoreData
+} from '@/store/slices/features/medicineDetails/slice';
+import moment from 'moment';
+import { createMothyMutation } from '@/mutations/createMonthly';
+import { createMedicineData } from '@/mutations/createMedicine';
+import { localSchedule } from '@/helper/notify';
 
 const MonthlyDoseDetails: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const timeInterval = useSelector((state: RootState) => state.medicineDetails.timeInterval);
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
+  const monthlyDoseTime = useSelector((state: RootState) => state.medicineDetails.monthlyDoseTime);
+  const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+  const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
+  const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
+  const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
+  const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
+  const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
+  const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
+  const storedMedicineMonthlyList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineMonthlyList
+  );
+  const selectedDateTime = useSelector(
+    (state: RootState) => state.medicineDetails.selectedDateTime
+  );
 
   // State for time and dose for each intake
-  const [times, setTimes] = useState<string[]>(Array(2).fill(''));
-  const [doses, setDoses] = useState<number[]>(Array(2).fill(0));
+  const [times, setTimes] = useState<string[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill('')
+  );
+  const [doses, setDoses] = useState<number[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(0)
+  );
+
+  const [doseDates, setDoseDates] = useState<Date[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(new Date())
+  );
 
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
@@ -64,9 +104,55 @@ const MonthlyDoseDetails: FC = () => {
     }
   };
 
-  const handleNext: any = () => {
+  const handleNext: any = async () => {
+    let filterArray = monthlyDoseTime.filter(e => {
+      if (e.medicineLocalId === medicineLocalId) return e;
+    });
+
+    if (filterArray.length > 0) {
+      let tempStore = filterArray.map(e => {
+        return {
+          medicineName: medicineName,
+          medicineStatus: 'week',
+          takeStatus: takeStatus,
+          doseQuantity: e.doseQuantity,
+          doseTime: e.doseTime,
+          strengthMed: strengthMed,
+          unitMed: unitMed,
+          typeMed: typeMed,
+          medicineId: '',
+          medicineLocalId: e.medicineLocalId,
+          createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+          selectedDateTime: selectedDateTime
+        };
+      });
+
+      // now check login or not
+      if (loginStatus) {
+        await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
+        await createMedicineData(tempStore, accessToken);
+      }
+      await localSchedule(tempStore, 'week', medicineLocalId);
+      dispatch(setWeeklyStoreData(tempStore));
+    }
+
     navigation.navigate('AddedMedicine' as never);
   };
+
+  useEffect(() => {
+    if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
+      const monthlyDoses: IMonthlyDoseTime[] = times
+        .map((time, index) => ({
+          doseTime: time,
+          doseQuantity: doses[index].toString(),
+          medicineLocalId,
+          doseDate: doseDates[index]
+        }))
+        .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
+
+      dispatch(setMonthlyDoseTime(monthlyDoses));
+    }
+  }, [times, doses]);
 
   return (
     <View style={styles.container}>
@@ -167,6 +253,12 @@ const MonthlyDoseDetails: FC = () => {
                   const newTimes = [...prevTimes];
                   newTimes[selectedChip] = timeStr;
                   return newTimes;
+                });
+
+                setDoseDates(prevDates => {
+                  const newDates = [...prevDates];
+                  newDates[selectedChip] = date; // Store the selected date
+                  return newDates;
                 });
               }
             }}

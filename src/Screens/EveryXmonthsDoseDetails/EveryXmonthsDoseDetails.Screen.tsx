@@ -1,4 +1,5 @@
-import React, { type FC, useState } from 'react';
+/* eslint-disable */
+import React, { type FC, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -14,18 +15,60 @@ import MoreSettings from '../../Components/MoreSettingsComponent/MoreSettingsCom
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { IWeeklyDoseTime, IXMonthlyDoseTime } from '@/store/slices/features/medicineDetails/types';
+import {
+  setDoseList,
+  setMonthlyStoreData,
+  setWeeklyStoreData,
+  setXMonthTakeDose
+} from '@/store/slices/features/medicineDetails/slice';
+import moment from 'moment';
+import { localSchedule } from '@/helper/notify';
+import { createMedicineData } from '@/mutations/createMedicine';
+import ToastPopUp from '@/utils/Toast.android';
+import { createMothyMutation } from '@/mutations/createMonthly';
 
 const EveryXmonthsDoseDetails: FC = () => {
   const navigation = useNavigation();
 
+  const timeInterval = useSelector((state: RootState) => state.medicineDetails.timeInterval);
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
+
+  const dispatch = useDispatch();
   // State for time and dose for each intake
-  const [times, setTimes] = useState<string[]>(Array(2).fill(''));
-  const [doses, setDoses] = useState<number[]>(Array(2).fill(0));
+  // State for time and dose for each intake
+  const [times, setTimes] = useState<string[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill('')
+  );
+  const [doses, setDoses] = useState<number[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(0)
+  );
 
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [date, setDate] = useState(new Date());
+
+  const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+  const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
+  const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
+  const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
+  const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
+  const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
+  const doseTime = useSelector((state: RootState) => state.medicineDetails.doseTime);
+  const doseQuantity = useSelector((state: RootState) => state.medicineDetails.doseQuantity);
+  const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
+  const storedMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
+  );
+  const storedMedicineMonthlyList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineMonthlyList
+  );
+  const xMonthTakeDoseTime = useSelector(
+    (state: RootState) => state.medicineDetails.xMonthTakeDoseTime
+  );
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -64,9 +107,60 @@ const EveryXmonthsDoseDetails: FC = () => {
     }
   };
 
-  const handleNext: any = () => {
+  const selectedDateTime = useSelector(
+    (state: RootState) => state.medicineDetails.selectedDateTime
+  );
+
+  const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
+
+  const handleNext: any = async () => {
+    let filterArray = xMonthTakeDoseTime.filter(e => {
+      if (e.medicineLocalId === medicineLocalId) return e;
+    });
+
+    if (filterArray.length > 0) {
+      let tempStore = filterArray.map(e => {
+        return {
+          medicineName: medicineName,
+          medicineStatus: 'xMonth',
+          takeStatus: takeStatus,
+          doseQuantity: e.doseQuantity,
+          doseTime: e.doseTime,
+          strengthMed: strengthMed,
+          unitMed: unitMed,
+          typeMed: typeMed,
+          medicineId: '',
+          medicineLocalId: e.medicineLocalId,
+          createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+          selectedDateTime: selectedDateTime
+        };
+      });
+
+      // now check login or not
+      if (loginStatus) {
+        await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
+        await createMedicineData(tempStore, accessToken);
+      }
+      await localSchedule(tempStore, 'month', medicineLocalId);
+      dispatch(setMonthlyStoreData(tempStore));
+    }
+
     navigation.navigate('AddedMedicine' as never);
   };
+
+  useEffect(() => {
+    if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
+      const xMonthsDoses: IXMonthlyDoseTime[] = times
+        .map((time, index) => ({
+          doseTime: time,
+          doseQuantity: doses[index].toString(),
+          medicineLocalId
+        }))
+        .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
+
+      dispatch(setXMonthTakeDose(xMonthsDoses));
+    }
+  }, [times, doses]);
 
   return (
     <View style={styles.container}>

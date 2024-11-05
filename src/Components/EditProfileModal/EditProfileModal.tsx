@@ -1,5 +1,6 @@
+/* eslint-disable */
 import React, { type FC, useState } from 'react';
-import { Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -9,21 +10,136 @@ import EditProfileModalButton from '../EditProfileModalButton/EditProfileModalBu
 import ModalTextInput from '../ModalTextInput/ModalTextInput';
 
 import styles from './style';
+import ToastPopUp from '@/utils/Toast.android';
+import axios from 'axios';
+import { BASE_URL } from '@/utils/environment';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { updateUser } from '@/store/slices/features/users/slice';
 
 interface EditProfileModalProps {
   modalVisible: boolean;
   closeModal: () => void;
 }
 
+const GenderOptions = ['Male', 'Female'];
+
 const EditProfileModal: FC<EditProfileModalProps> = ({ modalVisible, closeModal }) => {
   const [fullName, setFullName] = useState<string>('');
   const [mobile, setMobile] = useState<string>('');
   const [gender, setGender] = useState<string>('');
   const [birthdate, setBirthdate] = useState<string>('');
+  const dispatch = useDispatch();
+  const accessToken = useSelector((state: RootState) => state.users.user.data.accessToken);
 
-  const handleUpdateProfile: any = () => {
-    // navigation.navigate('MedicineDoses' as never);
+  const [isGenderDropdownVisible, setIsGenderDropdownVisible] = useState<boolean>(false);
+
+  const handleUpdateProfile: any = async () => {
+    if (!fullName && !mobile && !gender && !birthdate) {
+      ToastPopUp('Please fill in at least one field to update your profile.');
+      return; // Exit the function early
+    }
+
+    const updateFields: string[] = [];
+
+    // Add each field to the updateFields array if it has a value
+    if (fullName) {
+      updateFields.push(`fullName: "${fullName}"`);
+    }
+    if (mobile) {
+      updateFields.push(`mobileNumber: "${mobile}"`);
+    }
+    if (gender) {
+      updateFields.push(`gender: "${gender}"`);
+    }
+    if (birthdate) {
+      updateFields.push(`birthday: "${birthdate}"`);
+    }
+
+    // Join the fields to create the mutation input
+    const mutationInput = updateFields.join(', ');
+
+    const mutation = `
+      mutation {
+        updateProfile(updateProfileInput: {
+             ${mutationInput}
+        }) {
+          id
+          fullName
+          mobileNumber
+          email
+          gender
+          birthday
+        }
+      }
+    `;
+
+    try {
+      const response = await axios.post(
+        BASE_URL,
+        {
+          query: mutation
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      // Handle response messages
+      if (response?.data?.data?.updateProfile) {
+        const updatedProfile = response.data.data.updateProfile;
+
+        // Create an object similar to the desired structure
+        const updatedUserData = {
+          accessToken: accessToken, // Retain the existing access token
+          user: {
+            fullName: updatedProfile.fullName,
+            birthday: updatedProfile.birthday,
+            email: updatedProfile.email, // Ensure email is available in the response
+            mobileNumber: updatedProfile.mobileNumber,
+            gender: updatedProfile.gender
+          }
+        };
+
+        dispatch(updateUser(updatedUserData));
+        closeModal();
+        ToastPopUp('Profile updated successfully!');
+      } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
+        const errorMessage: any = response?.data?.errors[0]?.message;
+        if (typeof errorMessage === 'string') {
+          ToastPopUp(errorMessage);
+        }
+      } else {
+        ToastPopUp('Something went wrong! Please try again later.');
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Axios Error:', error.response?.data); // Log the error response
+      } else {
+        console.error('Unexpected Error:', error);
+      }
+      ToastPopUp('Network Error! Please check your connection.');
+    }
   };
+
+  const renderGenderOption = (option: string) => (
+    <TouchableOpacity
+      style={{
+        padding: 12,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+        backgroundColor: '#fff'
+      }}
+      onPress={() => {
+        setGender(option);
+        setIsGenderDropdownVisible(false);
+      }}>
+      <Text style={{ color: 'black', fontSize: 16 }}>{option}</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
@@ -70,17 +186,32 @@ const EditProfileModal: FC<EditProfileModalProps> = ({ modalVisible, closeModal 
 
                 <View style={styles.textInputComponentProperties}>
                   <Text style={styles.inputHeader}>Gender</Text>
-                  <ModalTextInput
-                    type="email"
-                    value={gender}
-                    onChangeText={setGender}
-                    placeholder="Enter your gender..."
-                    maxLength={8}
-                    inputStyle={styles.inputText}
-                    leftIcon={
-                      <MaterialCommunityIcons name="gender-male" size={25} color={'#888888'} />
-                    } // Left icon
-                  />
+                  <View style={styles.genderInputView}>
+                    <View style={styles.genderIconPosition}>
+                      <MaterialCommunityIcons name="gender-male" size={25} color="#888888" />
+                    </View>
+                    <TouchableOpacity
+                      style={styles.dropDownIconPosition}
+                      onPress={() => setIsGenderDropdownVisible(!isGenderDropdownVisible)}>
+                      <AntDesign name="down" size={18} color="#888888" />
+                    </TouchableOpacity>
+                    <View style={styles.genderPlaceHolderStyle}>
+                      {gender === '' ? (
+                        <Text style={styles.genderPlaceHolderText}>{'Select Gender...'}</Text>
+                      ) : (
+                        <Text style={styles.genderText}>{gender}</Text>
+                      )}
+                    </View>
+                  </View>
+                  {isGenderDropdownVisible && (
+                    <View style={styles.dropDownStyle}>
+                      <FlatList
+                        data={GenderOptions}
+                        keyExtractor={item => item}
+                        renderItem={({ item }) => renderGenderOption(item)}
+                      />
+                    </View>
+                  )}
                 </View>
 
                 <View style={styles.textInputComponentProperties}>

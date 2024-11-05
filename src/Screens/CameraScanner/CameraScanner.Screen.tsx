@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { type FC, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {
@@ -11,25 +13,38 @@ import styles from './style';
 import { useNavigation } from '@react-navigation/native';
 import { type AppStackParamList } from '@/models/routePageModel';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useDispatch } from 'react-redux';
+import {
+  setMedicineName,
+  setQrCodeToScanData
+} from '@/store/slices/features/medicineDetails/slice';
+import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 type CameraScannerNavigationProp = StackNavigationProp<AppStackParamList, 'CameraScanner'>;
 
 const CameraScanner: FC = () => {
   const navigation = useNavigation<CameraScannerNavigationProp>();
+  const dispatch = useDispatch();
   const { hasPermission, requestPermission } = useCameraPermission();
   const device = useCameraDevice('back');
-  const [latestScannedData, setLatestScannedData] = useState(null);
 
   useEffect(() => {
-    requestPermission();
-  }, []);
+
+    if (hasPermission !== true) requestPermission();
+
+  }, [hasPermission]);
+
+
 
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: (codes: Code[]) => {
       const value = codes[0].value ?? string;
-      setLatestScannedData(value);
       if (value) {
+        const scannedData = JSON.parse(value);
+
+        // 
+        dispatch(setQrCodeToScanData(scannedData));
         navigation.navigate('MedicineDetails', { scannedData: value });
       }
     }
@@ -45,12 +60,14 @@ const CameraScanner: FC = () => {
 
   return (
     <View style={styles.container}>
-      <Camera
-        style={StyleSheet.absoluteFill}
-        codeScanner={codeScanner}
-        device={device}
-        isActive={true}
-      />
+      {hasPermission && (
+        <Camera
+          style={StyleSheet.absoluteFill}
+          codeScanner={codeScanner}
+          device={device}
+          isActive={true}
+        />
+      )}
     </View>
   );
 };

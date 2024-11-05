@@ -2,6 +2,7 @@
 export interface ISettingState {
   isLoading: boolean;
   appLoadFirstTime: boolean;
+  appStatus: string;
 }
 
 export interface IPayload {

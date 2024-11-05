@@ -3,7 +3,10 @@ import { Text, TextInput, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
+import { type RootState } from '@/store';
 
 import MedicineImage from '../../assets/medicine-image';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -13,6 +16,13 @@ import { colors } from '../../theme/colors';
 import styles from './style';
 
 const PreviewDoseDetails: FC = () => {
+  const route = useRoute(); // Access the route prop
+
+  const { medicine } = route.params as { medicine: any }; // Extract medicineId from route params
+  console.log(medicine, 'medicine');
+
+  const weeklyTime = useSelector((state: RootState) => state.medicineDetails.weeklyTime);
+
   const navigation = useNavigation();
 
   const handleDone: any = () => {
@@ -27,10 +37,10 @@ const PreviewDoseDetails: FC = () => {
         </View>
 
         <View style={styles.mainHeader}>
-          <Header mainHeader="Adflox" />
+          <Header mainHeader={medicine.medicineName} />
         </View>
         <View style={styles.subHeader}>
-          <Header subHeader="Capsule, 12 mg" />
+          <Header subHeader={`${medicine.typeMed}, ${medicine.strengthMed}`} />
         </View>
 
         <View style={styles.doseDetailsPosition}>
@@ -39,24 +49,25 @@ const PreviewDoseDetails: FC = () => {
               <Text style={styles.headingStyle}>Schedule</Text>
               <View style={styles.chip}>
                 <View style={styles.dayContentProperties}>
-                  <Text style={styles.chipText}>Sun, Tue, Thu, Sat</Text>
+                  <Text style={styles.chipText}>
+                    {medicine.medicineStatus === 'week'
+                      ? weeklyTime.map(e => e).join(', ')
+                      : 'No week Days Selected'}
+                  </Text>
                 </View>
               </View>
             </View>
           </View>
           <View style={styles.chip}>
             <View style={styles.timeAndQuantityProperties}>
-              <Text style={styles.chipText}>Time</Text>
-              <Text style={styles.chipText}>1 Capsule</Text>
-            </View>
-          </View>
-          <View style={styles.chip}>
-            <View style={styles.timeAndQuantityProperties}>
-              <Text style={styles.chipText}>Time</Text>
-              <Text style={styles.chipText}>1 Capsule</Text>
+              <Text style={styles.chipText}>{medicine?.doseTime}</Text>
+              <Text style={styles.chipText}>
+                {medicine?.doseQuantity} {medicine?.typeMed}
+              </Text>
             </View>
           </View>
         </View>
+
         <View style={styles.doseDetailsPosition}>
           <View style={styles.optionalDetailsPosition}>
             <View style={styles.doseDetailsProperties}>
@@ -81,7 +92,7 @@ const PreviewDoseDetails: FC = () => {
               />
             </View>
           </View>
-          <View style={styles.secondaryButtonPosition}>
+          {/* <View style={styles.secondaryButtonPosition}>
             <TouchableOpacity style={styles.rescheduleButton}>
               <View style={styles.rescheduleButtonProperties}>
                 <Ionicons name="alarm-outline" size={22} color={colors.header} />
@@ -94,7 +105,7 @@ const PreviewDoseDetails: FC = () => {
                 <Text style={styles.secondayButtonText}>History</Text>
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
       <View style={styles.DonebuttonPosition}>

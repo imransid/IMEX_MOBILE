@@ -9,21 +9,25 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
+import { fetchMonthlyMedicines } from '@/mutations/createMonthly';
+import { fetchMedicines } from '@/mutations/medicine';
 import { type RootState } from '@/store';
+import { setDoseList, setMonthlyStoreData } from '@/store/slices/features/medicineDetails/slice';
+import { updateAppStatus } from '@/store/slices/features/settings/slice';
 import useNetworkStatus from '@/utils/networkUtills';
 import ToastPopUp from '@/utils/Toast.android';
 
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Header from '../../Components/Header/Header';
-import { getUserAction } from '../../store/slices/features/users/slice';
+import { getUserSuccessAction } from '../../store/slices/features/users/slice';
 import { colors } from '../../theme/colors';
+import { BASE_URL } from '../../utils/environment';
 import { mobileSignInFormValidation } from '../../utils/formValidation';
 
 import styles from './style';
-import { useMutation } from '@apollo/client';
-import { LOGIN_MUTATION } from '../../mutations/login_mutation';
 
 interface ISignInFormDataProps {
   mobile: string;
@@ -49,28 +53,60 @@ const Login: FC = () => {
   const { isInternetReachable, isCellularConnection } = useNetworkStatus();
 
   const loading = useSelector((state: RootState) => state.users.user.isLoading);
-
-  // using the login mutation
-  const [login, { data, loading: mutationLoading, error }] = useMutation(LOGIN_MUTATION);
-
+  const appLoadFirstTime = useSelector((state: RootState) => state.settings.appLoadFirstTime);
+  const appStatus = useSelector((state: RootState) => state.settings.appStatus);
   // SignIn handler
   const handleSignIn: SubmitHandler<ISignInFormDataProps> = async formData => {
     try {
       if (!isInternetReachable && !isCellularConnection) {
         ToastPopUp('Please Check Internet Connection!..');
       } else {
-        const response = await login({
+        const response: any = await axios.post(BASE_URL, {
+          query: `
+            mutation login($mobileNumber: String!, $password: String!) {
+                login(mobileNumber: $mobileNumber, password: $password) {
+                  accessToken
+                  user {
+                    fullName
+                    birthday
+                    email
+                    mobileNumber
+                    gender
+                }
+              }
+            }
+          `,
           variables: {
             mobileNumber: formData.mobile,
             password: formData.password
           }
         });
-        if (response?.data?.login) {
-          const { accessToken, user } = response.data.login;
-          console.log('Access Token:', accessToken);
-          console.log('User:', user.fullName);
+
+        // check if login is successful
+        if (response?.data?.data?.login?.accessToken !== undefined) {
+          ToastPopUp('Login successfully.');
+
+          const res = response.data.data.login;
+
+          const medicine = await fetchMedicines(response?.data?.data?.login?.accessToken);
+
+          if (medicine.length > 0) dispatch(setDoseList(medicine));
+          const fetchMonthlyData = await fetchMonthlyMedicines(
+            response?.data?.data?.login?.accessToken
+          );
+
+          if (fetchMonthlyData !== undefined) dispatch(setMonthlyStoreData(fetchMonthlyData));
+
+          dispatch(getUserSuccessAction(res));
+        } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
+          // Show error message from the response
+          const errorMessage: any = response?.data?.errors[0]?.message;
+          if (typeof errorMessage === 'string') {
+            ToastPopUp('Invalid Mobile Number or Password');
+          }
+        } else {
+          ToastPopUp('Something Went wrong ! please try again later.');
         }
-        dispatch(getUserAction(formData));
       }
     } catch (err) {
       console.error('error', err);
@@ -79,7 +115,16 @@ const Login: FC = () => {
 
   // Navigation handlers
   const handleGuestLogin: any = () => {
-    navigation.navigate('MedicineDoses' as never);
+    if (appLoadFirstTime) {
+      navigation.navigate('MedicineDoses' as never);
+    } else {
+      if (appStatus === 'initial') {
+        dispatch(updateAppStatus());
+        navigation.navigate('MedicineDoses' as never);
+      } else {
+        navigation.navigate('ScanQrCodeScreenNew' as never);
+      }
+    }
   };
   const handleCreateAccount: any = () => {
     navigation.navigate('CreateAccount' as never);
@@ -111,11 +156,10 @@ const Login: FC = () => {
             name="mobile"
             render={({ field: { onChange, value } }) => (
               <CustomTextInput
-                type="email"
+                type="mobile"
                 value={value}
                 onChangeText={onChange}
                 placeholder="Enter your mobile number..."
-                maxLength={11}
                 inputStyle={styles.inputText}
                 isError={Boolean(errors.mobile)} // Pass isError prop
                 leftIcon={<Feather name="smartphone" size={25} color="#888888" />}
@@ -137,7 +181,6 @@ const Login: FC = () => {
                 value={value}
                 onChangeText={onChange}
                 placeholder="Enter your password..."
-                maxLength={8}
                 inputStyle={styles.inputText}
                 isPassword
                 isError={Boolean(errors.password)}

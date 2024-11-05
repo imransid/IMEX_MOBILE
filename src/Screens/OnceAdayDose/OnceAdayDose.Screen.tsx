@@ -1,33 +1,63 @@
+/* eslint-disable */
+
 import React, { type FC, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-import DatePicker from 'react-native-date-picker';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-
+import {
+  setDoseList,
+  setDoseQuantity,
+  setDoseTime
+} from '@/store/slices/features/medicineDetails/slice';
 import MedicineLogo from '../../assets/medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import DoseInputModal from '../../Components/DoseInputModal/DoseInputModal';
 import MoreSettings from '../../Components/MoreSettingsComponent/MoreSettingsComponent';
 import { colors } from '../../theme/colors';
-
 import styles from './style';
+import { RootState } from '@/store';
+import ToastPopUp from '@/utils/Toast.android';
+import moment from 'moment';
+import { localSchedule } from '@/helper/notify';
+import DatePicker from 'react-native-date-picker';
+import { createMedicineData } from '@/mutations/createMedicine';
 
 const OnceAdayDose: FC = () => {
+  const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false);
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(Array(1).fill(''));
   const [doses, setDoses] = useState<number[]>(Array(1).fill(0));
-
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [date, setDate] = useState(new Date());
 
-  const handleSelectTime: any = (index: number) => {
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
+  const doseTime = useSelector((state: RootState) => state.medicineDetails.doseTime);
+  const doseQuantity = useSelector((state: RootState) => state.medicineDetails.doseQuantity);
+  const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+  const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
+  const storedMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
+  );
+  const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
+  const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
+  const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
+  const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
+  const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
+  const selectedDateTime = useSelector(
+    (state: RootState) => state.medicineDetails.selectedDateTime
+  );
+  const loginStatus = useSelector((state: RootState) => state.users?.user?.loginStatus);
+
+  const handleSelectTime: any = async (index: number) => {
     setSelectedChip(index);
     setOpen(true);
   };
@@ -45,6 +75,26 @@ const OnceAdayDose: FC = () => {
     });
   };
 
+  const handleDatePicker = async dateTime => {
+    var currentTime = Date.now();
+
+    const hours = dateTime.getHours();
+    const minutes = dateTime.getMinutes();
+
+    // Format time (e.g., "2:26 PM")
+    const formattedTime = `${hours % 12 || 12}:${minutes < 10 ? '0' : ''}${minutes} ${hours >= 12 ? 'PM' : 'AM'}`;
+
+    if (dateTime.getTime() < currentTime) {
+      Alert.alert('Please choose future time');
+      // hideDateTimePicker();
+      return;
+    }
+  };
+
+  const hideDateTimePicker = () => {
+    setIsDateTimePickerVisible(false);
+  };
+
   const clearDoseSelection: any = (index: number) => {
     setDoses(prevDoses => {
       const newDoses = [...prevDoses];
@@ -55,6 +105,9 @@ const OnceAdayDose: FC = () => {
 
   const handleSubmit: any = (inputValue: number) => {
     if (selectedChip !== null) {
+      dispatch(setDoseQuantity({ doseQuantity: inputValue.toString() }));
+
+      // setDoseQuantity
       setDoses(prevDoses => {
         const newDoses = [...prevDoses];
         newDoses[selectedChip] = inputValue;
@@ -64,8 +117,60 @@ const OnceAdayDose: FC = () => {
     }
   };
 
-  const handleNext: any = () => {
-    navigation.navigate('AddedMedicine' as never);
+  const handleNext: any = async () => {
+    if (loginStatus === true) {
+      let updatedStoredList = [...storedMedicineList];
+
+      // Create data for the new medicine
+      let data = {
+        medicineLocalId: medicineLocalId,
+        medicineName: medicineName,
+        medicineStatus: medicineStatus,
+        takeStatus: takeStatus,
+        doseQuantity: doseQuantity,
+        doseTime: doseTime,
+        strengthMed: strengthMed,
+        unitMed: unitMed,
+        typeMed: typeMed,
+        medicineId: 'R@f@', // Use the correct reference
+        createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+        selectedDateTime: selectedDateTime
+      };
+
+      // Add the new data to the copied array
+      updatedStoredList.push(data);
+      await localSchedule(updatedStoredList, 'day', medicineLocalId);
+      await createMedicineData(updatedStoredList, accessToken);
+      dispatch(setDoseList(updatedStoredList));
+      navigation.navigate('AddedMedicine' as never);
+
+      ToastPopUp('Medicine Created Successfully');
+    } else {
+      let updatedStoredList = [...storedMedicineList];
+
+      // Create data for the new medicine
+      let data = {
+        medicineLocalId: medicineLocalId,
+        medicineName: medicineName,
+        medicineStatus: medicineStatus,
+        takeStatus: takeStatus,
+        doseQuantity: doseQuantity,
+        doseTime: doseTime,
+        strengthMed: strengthMed,
+        unitMed: unitMed,
+        typeMed: typeMed,
+        medicineId: 'R@f@', // Use the correct reference
+        createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+        selectedDateTime: selectedDateTime
+      };
+      // Add the new data to the copied array
+      updatedStoredList.push(data);
+      dispatch(setDoseList(updatedStoredList));
+      await localSchedule(updatedStoredList, 'day', medicineLocalId);
+      navigation.navigate('AddedMedicine' as never);
+
+      console.log(updatedStoredList);
+    }
   };
 
   return (
@@ -99,7 +204,10 @@ const OnceAdayDose: FC = () => {
                     </View>
                     <TouchableOpacity
                       style={styles.selectButton}
-                      onPress={() => handleSelectTime(index)}>
+                      onPress={() =>
+                        //setIsDateTimePickerVisible(true)}
+                        handleSelectTime(index)
+                      }>
                       <Text style={styles.selectButtonText}>
                         {times[index] === '' ? 'Select' : times[index]}
                       </Text>
@@ -163,6 +271,7 @@ const OnceAdayDose: FC = () => {
                 hour12: true
               }).format(new Date(date));
               if (selectedChip !== null) {
+                dispatch(setDoseTime({ doseTime: timeStr, selectedDateTime: date }));
                 setTimes(prevTimes => {
                   const newTimes = [...prevTimes];
                   newTimes[selectedChip] = timeStr;
@@ -187,6 +296,17 @@ const OnceAdayDose: FC = () => {
           onSubmit={handleSubmit}
         />
       </ScrollView>
+
+      {/* extra option to show date */}
+
+      <DateTimePicker
+        mode="datetime"
+        isVisible={isDateTimePickerVisible}
+        onConfirm={handleDatePicker}
+        onCancel={hideDateTimePicker}
+      />
+
+      {/* extra option to show date */}
 
       {/* Next Button */}
       {times.every(time => time !== '') && doses.every(dose => dose !== 0) && (

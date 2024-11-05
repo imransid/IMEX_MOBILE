@@ -1,19 +1,19 @@
-import React, { type FC, useEffect } from 'react';
+/* eslint-disable */
+import React, { FC, useEffect } from 'react';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-
-import { type RootState } from '@/store';
-
+import { CameraScanner, CreateAccount, ForgotPassword, Login, MedicineDetails } from '../Screens';
+import { RootState } from '@/store';
 import { checkingLoader } from '../store/slices/features/settings/slice';
-
 import AuthStackNav from './AuthStackNavigator';
-import GuestStackNavigator from './GuestStackNavigator';
-import UserStackNavigator from './UserStackNavigator';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ScanQrCodeScreen from '@/Screens/ScanQrCode/ScanQrCode.Screen';
+import UserDrawerNavigator from './UserDrawerNavigator';
 
 const Navigator: FC = () => {
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
-  const globalLoaderStatus = useSelector((state: RootState) => state.settings.isLoading);
   const appLoadFirstTime = useSelector((state: RootState) => state.settings.appLoadFirstTime);
   const dispatch = useDispatch();
 
@@ -21,17 +21,43 @@ const Navigator: FC = () => {
     dispatch(checkingLoader());
   }, []);
 
+  const Stack = createNativeStackNavigator();
+
+  const InitialLoadTime = () => {
+    return (
+      <Stack.Navigator
+        initialRouteName={'ScanQrCodeScreen'}
+        screenOptions={{
+          headerShown: false
+        }}>
+        <Stack.Screen name="ScanQrCodeScreen" component={ScanQrCodeScreen} />
+        <Stack.Screen name="CameraScanner" component={CameraScanner} />
+        <Stack.Screen name="MedicineDetails" component={MedicineDetails} />
+      </Stack.Navigator>
+    );
+  };
+
+  const UserStack = () => {
+    return (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false
+        }}>
+        {authStatus ? (
+          <Stack.Screen name="UserDrawerNavigator" component={UserDrawerNavigator} />
+        ) : (
+          <Stack.Screen name="AuthStackNav" component={AuthStackNav} />
+        )}
+      </Stack.Navigator>
+    );
+  };
+
   return (
-    <NavigationContainer>
-      {!authStatus && appLoadFirstTime ? (
-        <GuestStackNavigator />
-      ) : authStatus && !appLoadFirstTime ? (
-        <UserStackNavigator />
-      ) : (
-        <AuthStackNav />
-      )}
-      <Spinner visible={globalLoaderStatus} textContent={'Loading...'} />
-    </NavigationContainer>
+    <GestureHandlerRootView>
+      <NavigationContainer>
+        {appLoadFirstTime ? <InitialLoadTime /> : <UserStack />}
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 };
 

@@ -1,7 +1,10 @@
 import React, { type FC } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+
+import { setMedicineStatus } from '@/store/slices/features/medicineDetails/slice';
 
 import MedicineDoseTime from '../../assets/medicine-dose-time';
 import medicineDoseItems from '../../utils/medicineDoseItems';
@@ -15,10 +18,11 @@ interface timePeriodItemProps {
 
 const MedicineDoses: FC = () => {
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   const RenderItems: React.FC<timePeriodItemProps> = ({ item, index }) => {
     const handlePress: any = () => {
       if (index === 0) {
+        dispatch(setMedicineStatus({ medicineStatus: item }));
         navigation.navigate('MedicineDailyDoses' as never);
       } else if (index === 1) {
         navigation.navigate('WeeklyDose' as never);

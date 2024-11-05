@@ -1,8 +1,12 @@
 import React, { type FC, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { format } from 'date-fns';
+
+import { type RootState } from '@/store';
+import { setExtraTreatmentDuration } from '@/store/slices/features/medicineDetailsExtraSetting/slice';
 
 import TreatmentDuration from '../../assets/treatment-duration';
 import CalendarModal from '../../Components/CalendarModal/CalenderModal';
@@ -14,11 +18,18 @@ import styles from './style';
 
 const SetTreatmentDuration: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const route = useRoute();
+  const { prevRoute } = route.params as { prevRoute: string };
+
   const [startDateModalOpen, setStartDateModalOpen] = useState(false);
   const [endDateModalOpen, setendDateModalOpen] = useState(false);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [giveInput, setGiveInput] = useState('');
+
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
 
   const handleStartDateSelectInstruction: any = () => {
     setStartDateModalOpen(!startDateModalOpen);
@@ -38,7 +49,17 @@ const SetTreatmentDuration: FC = () => {
   };
 
   const handleNext: any = () => {
-    navigation.goBack();
+    dispatch(
+      setExtraTreatmentDuration([
+        {
+          treatmentDurationStartTime: startDate,
+          treatmentDurationEndTime: endDate,
+          medicineTakeEachDay: giveInput,
+          medicineLocalId
+        }
+      ])
+    );
+    navigation.navigate(`${prevRoute}` as never);
   };
 
   return (

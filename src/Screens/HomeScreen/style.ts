@@ -12,7 +12,9 @@ const styles = StyleSheet.create({
   },
   addMedicineButtonPosition: {
     marginLeft: scale(175),
-    marginTop: verticalScale(260)
+    bottom: scale(90),
+    position: 'absolute'
+    
   },
   addMedicineButtonProperties: {
     flexDirection: 'row',
@@ -20,6 +22,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: verticalScale(12)
   },
+
+  addAppointmentButtonPosition: {
+    marginLeft: scale(175),
+    bottom: scale(30),
+    position: 'absolute'
+    
+  },
+  addAppointmentButton: {
+    backgroundColor: colors.buttonBg,
+    borderRadius: scale(30),
+    height: verticalScale(42),
+    width: scale(162)
+  },
+  addAppointmentButtonProperties: {
+    flexDirection: 'row',
+    gap: scale(2),
+    justifyContent: 'center',
+    marginTop: verticalScale(12)
+  },
+  
   addMedicineText: {
     color: colors.white,
     fontSize: moderateScale(15),
@@ -57,31 +79,68 @@ const styles = StyleSheet.create({
   },
   doseDetailsPosition: {
     justifyContent: 'center',
-    marginRight: scale(30)
+    marginLeft: scale(70),
+    position: 'absolute',
+    marginTop: scale(3)
   },
   doseProperties: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    top: scale(2)
   },
   doseText: {
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
+  },
+  weekDayText: {
     color: colors.typedText,
     fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(12)
   },
   doseTimePosition: {
-    marginRight: scale(40),
-    marginTop: scale(5)
+    marginLeft: scale(200),
+    marginTop: scale(4)
   },
   medicineDoseComponentPosition: {
     alignItems: 'center'
   },
   medicineDoseProperties: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    position: 'absolute'
   },
   medicineNameText: {
     color: colors.buttonBg,
     fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(12)
+  },
+  clickToAddMedPosition: {
+    alignItems: 'center',
+    marginTop: scale(150)
+  },
+  donotHaveMedTextPosition: {
+    marginTop: scale(5)
+  },
+  donotHaveMedText: {
+    color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
+  },
+  clickToAddText: {
+    color: colors.header,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
+  },
+  plusIconText: {
+    color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
+  },
+  clickToAddMedTextPosition: {
+    flexDirection: 'row',
+  },
+  medicineDoseListStyle: {
+    maxHeight: '68%', 
   }
 });
 

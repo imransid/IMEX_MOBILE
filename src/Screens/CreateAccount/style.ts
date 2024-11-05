@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   askAboutAccountText: {
     color: colors.typedText,
     fontSize: moderateScale(14),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
   },
   container: {
     backgroundColor: colors.white,
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   errorTxt: {
     color: colors.error,
     fontSize: moderateScale(14),
-    marginBottom: 6
+    fontFamily: 'WorkSansMedium',
   },
   headingPosition: {
     alignItems: 'center'
@@ -33,12 +33,12 @@ const styles = StyleSheet.create({
   inputHeader: {
     color: colors.header,
     fontSize: moderateScale(14),
-    fontWeight: '500'
+    fontFamily: 'WorkSansMedium',
   },
   inputText: {
-    color: colors.typedText,
+    color: colors.header,
     fontSize: moderateScale(16),
-    fontWeight: '400'
+    fontFamily: 'WorkSansMedium',
   },
   scrollViewContainer: {
     paddingBottom: verticalScale(15)
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   signUpText: {
     color: colors.typedText,
     fontSize: moderateScale(14),
-    fontWeight: '400',
+    fontFamily: 'WorkSansMedium',
     textDecorationLine: 'underline'
   },
   signUpWithHorizontalLine: {
@@ -75,21 +75,34 @@ const styles = StyleSheet.create({
     gap: scale(16),
     justifyContent: 'space-between'
   },
-  signUpWithPartPosition: {
-    alignItems: 'center',
-    marginTop: verticalScale(15)
-  },
-  signUpWithText: {
-    color: colors.mainText,
-    fontSize: moderateScale(18),
-    fontWeight: '400'
-  },
   textInputComponentPosition: {
     alignItems: 'center'
   },
   textInputComponentProperties: {
     gap: verticalScale(6),
     marginTop: verticalScale(12)
+  },
+  genderInputView: {
+    width: scale(330),
+    paddingHorizontal: scale(10),
+    height: scale(40),
+    borderRadius: scale(6),
+    backgroundColor: '#F2F1F6',
+    justifyContent: 'center'
+  },
+  genderInputContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center' 
+  },
+  genderHeaderStyle: {
+    textAlign: 'left',
+    width: '100%',
+    left: scale(10),
+    marginVertical: scale(8)
+  },
+  genderErrorTextPosition: {
+    marginTop: scale(5), 
+    right: scale(100)
   }
 });
 

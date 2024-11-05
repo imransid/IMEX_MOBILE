@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { type FC, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
@@ -5,20 +6,28 @@ import { ScrollView } from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { format } from 'date-fns';
+
+import { type RootState } from '@/store';
+import { setAppointment } from '@/store/slices/features/appointment/slice';
 
 import DoctorAppointmentsLogo from '../../assets/doctor-appointments';
 import CalendarModal from '../../Components/CalendarModal/CalenderModal';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import Header from '../../Components/Header/Header';
+import SetReminderModal from '../../Components/SetReminderModal/SetReminderModal';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
-import SetReminderModal from '../../Components/SetReminderModal/SetReminderModal';
 
 const DoctorAppointments: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const route = useRoute();
+  const { prevRoute } = route.params as { prevRoute: string };
 
   const [dateModalOpen, setDateModalOpen] = useState(false);
   const [date, setDate] = useState('');
@@ -27,14 +36,30 @@ const DoctorAppointments: FC = () => {
   const [open, setOpen] = useState(false); // for time picker
   const [reminder, setReminder] = useState('');
   const [tempReminder, setTempReminder] = useState('');
+  const [location, setLocation] = useState('');
+  const [doctorName, setDoctorName] = useState('');
   const [openReminderModal, setOpenReminderModal] = useState(false); // for set reminder
+
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
 
   const handleSetDate: any = (date: string) => {
     const formattedDate = format(new Date(date), 'EEE, d MMMM, yyyy');
     setDate(formattedDate);
   };
   const handleNext: any = () => {
-    navigation.navigate('OnceAdayDose' as never);
+    dispatch(
+      setAppointment([
+        {
+          date,
+          time: selectedTime,
+          doctorName,
+          location,
+          setReminder: reminder,
+          medicineLocalId: 'RANDOM' + Math.random().toString(36)
+        }
+      ])
+    );
+    navigation.navigate(`${prevRoute}` as never);
   };
   const handleSelectTime: any = () => {
     setOpen(true);
@@ -113,6 +138,7 @@ const DoctorAppointments: FC = () => {
                 <TextInput
                   autoCapitalize="none"
                   autoCorrect={false}
+                  onChangeText={setDoctorName}
                   keyboardType="default"
                   style={styles.nameInput}
                   maxLength={10}
@@ -131,6 +157,7 @@ const DoctorAppointments: FC = () => {
                   autoCapitalize="none"
                   autoCorrect={false}
                   keyboardType="default"
+                  onChangeText={setLocation}
                   style={styles.nameInput}
                   maxLength={10}
                 />
@@ -196,13 +223,20 @@ const DoctorAppointments: FC = () => {
           />
         )}
       </ScrollView>
-      <View style={styles.NextbuttonPosition}>
-        <CustomButton
-          onPress={handleNext}
-          icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
-          text="Save"
-        />
-      </View>
+
+      {date !== '' &&
+        selectedTime !== '' &&
+        reminder.trim() !== '' &&
+        doctorName.trim() !== '' &&
+        location.trim() !== '' && (
+          <View style={styles.NextbuttonPosition}>
+            <CustomButton
+              onPress={handleNext}
+              icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
+              text="Save"
+            />
+          </View>
+        )}
     </View>
   );
 };

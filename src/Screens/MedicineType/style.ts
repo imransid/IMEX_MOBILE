@@ -6,7 +6,7 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   NextButtonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(90)
+    bottom: verticalScale(10)
   },
   container: {
     backgroundColor: colors.white,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   unitItems: {
     backgroundColor: colors.textInput,
-    borderRadius: scale(2),
+    borderRadius: scale(6),
     height: verticalScale(33),
     justifyContent: 'center',
     marginTop: verticalScale(5),

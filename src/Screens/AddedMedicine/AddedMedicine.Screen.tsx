@@ -9,10 +9,11 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { type RootState } from '@/store';
+import { clearStoreMedicine } from '@/store/slices/features/medicineDetails/slice';
 
 import AddMedicineLogo from '../../assets/add-medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -25,10 +26,13 @@ const easing = Easing.bezier(0.25, -0.5, 0.25, 1);
 
 const AddedMedicine: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const sv = useSharedValue(0);
   const scale = useSharedValue(1);
 
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
+
+  const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
 
   const scaleStyles = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }]
@@ -40,10 +44,14 @@ const AddedMedicine: FC = () => {
   }, []);
 
   const handleAddAnotherMedicine: any = () => {
+    // confirm clear ID
+    dispatch(clearStoreMedicine());
     navigation.navigate('MedicineAddingMethod' as never);
   };
 
   const handleNoThanks: any = () => {
+    dispatch(clearStoreMedicine());
+
     authStatus
       ? navigation.navigate('UserDrawer' as never)
       : navigation.navigate('GuestDrawer' as never);
@@ -58,7 +66,7 @@ const AddedMedicine: FC = () => {
         You have successfully added
       </Animated.Text>
       <Animated.Text entering={FadeInUp.delay(1300)} exiting={FadeOut} style={styles.subText}>
-        Adflox
+        {medicineName}
       </Animated.Text>
       <Animated.View
         entering={FadeInUp.delay(1800)}

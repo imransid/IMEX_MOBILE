@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "882172407018",
+    "project_id": "team-pharma-84f3a",
+    "storage_bucket": "team-pharma-84f3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882172407018:android:3b5c42db1f25f812803b93",
+        "android_client_info": {
+          "package_name": "com.teampharmacymobileapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCffSSoYkvCPmKmGQLH2xr5WMeg-vG7kOY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

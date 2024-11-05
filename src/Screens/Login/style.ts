@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
   errorTxt: {
     color: colors.error,
-    fontSize: moderateScale(14),
+    fontFamily: 'WorkSansMedium',
     marginBottom: 6
   },
   forgotPassword: {
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   mainHeader: {
     alignItems: 'center',
-    top: verticalScale(15)
+    top: verticalScale(50)
   },
   mobileNumberInput: {
     gap: verticalScale(6)
@@ -103,14 +103,15 @@ const styles = StyleSheet.create({
   },
   subHeaderFirstLine: {
     alignItems: 'center',
-    top: verticalScale(-30)
+    top: verticalScale(5)
   },
   subHeaderSecondLine: {
     alignItems: 'center',
-    top: verticalScale(-60)
+    top: verticalScale(-20)
   },
   textInputComponentsPosition: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: scale(30)
   },
   textInputError: {
     borderColor: colors.error,

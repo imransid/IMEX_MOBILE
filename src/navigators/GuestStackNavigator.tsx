@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
   AddedMedicine,
@@ -51,13 +51,13 @@ import { colors } from '../theme/colors';
 import GuestDrawerNavigator from './GuestDrawerNavigator';
 import styles from './Styles';
 
-const publicStack = createStackNavigator();
+const publicStack = createNativeStackNavigator();
 
 const screens = [
-  { name: 'ScanQrCodeScreen', component: ScanQrCode, headerShown: false },
+  //{ name: 'ScanQrCodeScreen', component: ScanQrCode, headerShown: false },
   { name: 'CameraScanner', component: CameraScanner, headerShown: false },
   { name: 'MedicineDetails', component: MedicineDetails, title: 'Medicine Details' },
-  { name: 'Login', component: Login, title: '' },
+  //{ name: 'Login', component: Login, title: '', headerShown: false },
   { name: 'MedicineDoses', component: MedicineDoses, title: 'Medicine Name' },
   { name: 'MedicineDailyDoses', component: MedicineDailyDoses, title: 'Medicine Name' },
   { name: 'CreateAccount', component: CreateAccount, title: '' },
@@ -123,7 +123,7 @@ const defaultHeaderOptions = {
 
 const GuestStackNavigator: any = () => {
   return (
-    <publicStack.Navigator initialRouteName="Login">
+    <publicStack.Navigator initialRouteName="ScanQrCodeScreen">
       {screens.map(({ name, component, title, headerShown = true }) => (
         <publicStack.Screen
           key={name}

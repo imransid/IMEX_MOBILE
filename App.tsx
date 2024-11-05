@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { type FC, useEffect, useState } from 'react';
 import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
 import { Provider as StoreProvider } from 'react-redux';
@@ -9,7 +10,8 @@ import SplashScreen from './src/Screens/SplashScreen/Splash.Screen';
 import { persistor, store } from './src/store';
 import { ApolloProvider } from '@apollo/client';
 import client from './src/utils/apolloClient';
-
+import PushNotification from 'react-native-push-notification';
+// import TestApp from "./src/utils/TestApp"
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -31,6 +33,18 @@ const App: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    createChannels();
+  }, []);
+
+  const createChannels = () => {
+    PushNotification.createChannel({
+      channelId: 'team-pharmaceuticals',
+      channelName: 'Team Pharmaceuticals',
+      channelDescription: 'Team Pharmaceuticals'
+    });
+  };
+
+  useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
@@ -42,6 +56,8 @@ const App: FC = () => {
         <ApolloProvider client={client}>
           <PaperProvider theme={theme}>
             {isLoading ? <SplashScreen /> : <Navigator />}
+
+            {/* //<Navigator />} */}
           </PaperProvider>
         </ApolloProvider>
       </PersistGate>

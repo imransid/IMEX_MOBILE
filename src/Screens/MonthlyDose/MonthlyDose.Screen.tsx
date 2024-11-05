@@ -1,10 +1,19 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { type FC } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+
+import { type RootState } from '@/store';
+import {
+  setMonthlyStoreData,
+  updateTimeInterval
+} from '@/store/slices/features/medicineDetails/slice';
+import { type IStoredMonthly } from '@/store/slices/features/medicineDetails/types';
 
 import DailyDoseLogo from '../../assets/medicine-daily-dose';
 import CalendarModalWithDates from '../../Components/CalendarModalWithDates/CalenderModalWithDates';
@@ -16,11 +25,14 @@ import styles from './style';
 
 const MonthlyDose: FC = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDates, setSelectedDates] = useState<Record<string, { selected: boolean }>>({});
   const [numberOfDates, setNumberOfDates] = useState('');
   const [open, setOpen] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState('');
+
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
 
   const formatDate = (date: Date): string => {
     const options: Intl.DateTimeFormatOptions = {
@@ -52,6 +64,7 @@ const MonthlyDose: FC = () => {
   };
 
   const okPress: any = () => {
+    dispatch(updateTimeInterval(selectedNumber));
     setOpen(false);
   };
 
@@ -60,6 +73,39 @@ const MonthlyDose: FC = () => {
   };
 
   const handleNext: any = () => {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+
+    // Convert the object to an array of formatted date strings
+    const formattedDates = Object.keys(selectedDates).map(date => {
+      const [year, month, day] = date.split('-');
+      return `${parseInt(day)} ${months[parseInt(month) - 1]}`;
+    });
+
+    const storedMonthlyArray: IStoredMonthly[] = [
+      {
+        medicineLocalId: {
+          Days: formattedDates, // Array of formatted dates
+          eachOfDays: selectedNumber, // Value for eachOfDays
+          medicineLocalId // The medicineLocalId value
+        }
+      }
+    ];
+
+    dispatch(setMonthlyStoreData(storedMonthlyArray));
+
     navigation.navigate('MonthlyDoseDetails' as never);
   };
 

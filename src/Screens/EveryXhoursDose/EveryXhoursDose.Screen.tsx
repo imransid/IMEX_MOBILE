@@ -15,17 +15,54 @@ import { colors } from '../../theme/colors';
 
 import styles from './style';
 
+import {
+  setDoseList,
+  setDoseQuantity,
+  setDoseTime
+} from '@/store/slices/features/medicineDetails/slice';
+import { RootState } from '@/store';
+import axios from 'axios';
+import { BASE_URL } from '@/utils/environment';
+import ToastPopUp from '@/utils/Toast.android';
+import { APPOINTMENT_MUTATION } from '@/mutations/appointment_mutation';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import { localSchedule } from '@/helper/notify';
+import { createMedicineData } from '@/mutations/createMedicine';
+
 const EveryXhoursDose: FC = () => {
   const navigation = useNavigation();
 
+  const dispatch = useDispatch();
+
+  const timeInterval = useSelector((state: RootState) => state.medicineDetails.timeInterval);
+  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
+
   // State for time and dose for each intake
-  const [times, setTimes] = useState<string[]>(Array(2).fill(''));
-  const [doses, setDoses] = useState<number[]>(Array(2).fill(0));
+  const [times, setTimes] = useState<string[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill('')
+  );
+  const [doses, setDoses] = useState<number[]>(
+    Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill(0)
+  );
 
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [date, setDate] = useState(new Date());
+
+  const doseTime = useSelector((state: RootState) => state.medicineDetails.doseTime);
+  const doseQuantity = useSelector((state: RootState) => state.medicineDetails.doseQuantity);
+  const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+  const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
+  const storedMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
+  );
+  const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
+  const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
+  const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
+  const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
+  const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -55,6 +92,9 @@ const EveryXhoursDose: FC = () => {
 
   const handleSubmit: any = (inputValue: number) => {
     if (selectedChip !== null) {
+      dispatch(setDoseQuantity({ doseQuantity: inputValue.toString() }));
+
+      // setDoseQuantity
       setDoses(prevDoses => {
         const newDoses = [...prevDoses];
         newDoses[selectedChip] = inputValue;
@@ -64,8 +104,64 @@ const EveryXhoursDose: FC = () => {
     }
   };
 
-  const handleNext: any = () => {
-    navigation.navigate('AddedMedicine' as never);
+  const loginStatus = useSelector((state: RootState) => state.users?.user?.loginStatus);
+
+  const selectedDateTime = useSelector(
+    (state: RootState) => state.medicineDetails.selectedDateTime
+  );
+
+  const handleNext: any = async () => {
+    if (loginStatus === true) {
+      let updatedStoredList = [...storedMedicineList];
+
+      // Create data for the new medicine
+      let data = {
+        medicineLocalId: medicineLocalId,
+        medicineName: medicineName,
+        medicineStatus: medicineStatus,
+        takeStatus: takeStatus,
+        doseQuantity: doseQuantity,
+        doseTime: doseTime,
+        strengthMed: strengthMed,
+        unitMed: unitMed,
+        typeMed: typeMed,
+        medicineId: 'R@f@', // Use the correct reference
+        createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+        selectedDateTime: selectedDateTime
+      };
+
+      // Add the new data to the copied array
+      updatedStoredList.push(data);
+      await localSchedule(updatedStoredList, 'day', medicineLocalId);
+      await createMedicineData(updatedStoredList, accessToken);
+      dispatch(setDoseList(updatedStoredList));
+      navigation.navigate('AddedMedicine' as never);
+
+      ToastPopUp('Medicine Created Successfully');
+    } else {
+      let updatedStoredList = [...storedMedicineList];
+
+      // Create data for the new medicine
+      let data = {
+        medicineLocalId: medicineLocalId,
+        medicineName: medicineName,
+        medicineStatus: medicineStatus,
+        takeStatus: takeStatus,
+        doseQuantity: doseQuantity,
+        doseTime: doseTime,
+        strengthMed: strengthMed,
+        unitMed: unitMed,
+        typeMed: typeMed,
+        medicineId: 'R@f@', // Use the correct reference
+        createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+        selectedDateTime: selectedDateTime
+      };
+      // Add the new data to the copied array
+      updatedStoredList.push(data);
+      dispatch(setDoseList(updatedStoredList));
+      await localSchedule(updatedStoredList, 'day', medicineLocalId);
+      navigation.navigate('AddedMedicine' as never);
+    }
   };
 
   return (

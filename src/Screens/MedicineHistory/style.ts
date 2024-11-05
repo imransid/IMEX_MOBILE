@@ -28,7 +28,10 @@ const styles = StyleSheet.create({
     width: scale(330)
   },
   chipContentProperties: {
-    marginLeft: scale(20)
+    marginLeft: scale(20),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight: scale(20)
   },
   chipPosition: {
     alignItems: 'center'

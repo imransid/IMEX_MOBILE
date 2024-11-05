@@ -1,32 +1,40 @@
+/* eslint-disable */
 import React, { type FC } from 'react';
 import { Text } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { CustomUserDrawer, PreviewDoseDetails } from '../Screens';
+import { CameraScanner, CustomUserDrawer, DoctorAppointments, MedicineAddingMethod, MedicineDetails, MedicineDoses, PreviewDoseDetails } from '../Screens';
 import { colors } from '../theme/colors';
 
 import styles from './Styles';
 import UserBottomTabNavigator from './UserBottomTabNavigator';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { screensListForComponent } from './AuthStackNavigator';
 
 const Drawer = createDrawerNavigator();
 
-const getGreeting: any = () => {
+const getGreeting = (): string => {
   const currentHour = new Date().getHours();
 
-  if (currentHour > 0 && currentHour < 12) {
+  if (currentHour >= 0 && currentHour < 12) {
     return 'Good Morning';
-  } else if (currentHour > 12 && currentHour < 16) {
-    return 'Good Noon';
-  } else if (currentHour > 16 && currentHour < 18) {
-    return 'Good AfterNoon';
-  } else if (currentHour > 18 && currentHour < 21) {
+  } else if (currentHour >= 12 && currentHour < 16) {
+    return 'Good Afternoon';
+  } else if (currentHour >= 16 && currentHour < 18) {
+    return 'Good Evening';
+  } else if (currentHour >= 18 && currentHour < 21) {
     return 'Good Evening';
   } else {
     return 'Good Night';
   }
 };
 
+
+
+
 const UserDrawerNavigator: FC = () => {
+  const userName = useSelector((state: RootState) => state.users?.user?.data?.user?.fullName);
   const greetings = getGreeting();
   return (
     <Drawer.Navigator
@@ -35,7 +43,7 @@ const UserDrawerNavigator: FC = () => {
       screenOptions={{
         headerTitle: () => (
           <>
-            <Text style={styles.usernameText}>Hi, user</Text>
+            <Text style={styles.usernameText}>Hi, {userName}</Text>
             <Text style={styles.greetingsText}>{greetings}</Text>
           </>
         ),
@@ -51,6 +59,43 @@ const UserDrawerNavigator: FC = () => {
         component={PreviewDoseDetails}
         options={{ title: '' }}
       />
+
+      {
+        screensListForComponent.map((e) =>
+          <Drawer.Screen
+            name={e.name}
+            component={e.component}
+            options={{ title: e.title, headerShown: false }}
+          />
+        )
+      }
+      {/* <Drawer.Screen
+        name="DoctorAppointments"
+        component={DoctorAppointments}
+        options={{ title: '' }}
+      />
+      <Drawer.Screen
+        name="MedicineAddingMethod"
+        component={MedicineAddingMethod}
+        options={{ title: '' }}
+      /> */}
+
+
+      {/* <Drawer.Screen
+        name="CameraScanner"
+        component={CameraScanner}
+        options={{ title: '' }}
+      />
+      <Drawer.Screen
+        name="MedicineDetails"
+        component={MedicineDetails}
+        options={{ title: '' }}
+      />
+      <Drawer.Screen
+        name="MedicineDoses"
+        component={MedicineDoses}
+        options={{ title: '' }}
+      /> */}
     </Drawer.Navigator>
   );
 };
