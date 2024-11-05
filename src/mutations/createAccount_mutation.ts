@@ -10,13 +10,3 @@ export const CREATE_ACCOUNT_MUTATION = gql`
     }
   }
 `;
-
-// import { gql } from '@apollo/client';
-
-// export const CREATE_ACCOUNT_MUTATION = gql`
-//   mutation Register($registerInput: RegisterInput!) {
-//     register(registerInput: $registerInput) {
-//       message
-//     }
-//   }
-// `;
