@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { type RootState } from '@/store';
-import { clearStoreMedicineDetails } from '@/store/slices/features/medicineDetails/slice';
+import { clearStoreMedicine } from '@/store/slices/features/medicineDetails/slice';
 
 import AddMedicineLogo from '../../assets/add-medicine-logo';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -45,12 +45,12 @@ const AddedMedicine: FC = () => {
 
   const handleAddAnotherMedicine: any = () => {
     // confirm clear ID
-    dispatch(clearStoreMedicineDetails());
+    dispatch(clearStoreMedicine());
     navigation.navigate('MedicineAddingMethod' as never);
   };
 
   const handleNoThanks: any = () => {
-    dispatch(clearStoreMedicineDetails());
+    dispatch(clearStoreMedicine());
 
     authStatus
       ? navigation.navigate('UserDrawer' as never)
