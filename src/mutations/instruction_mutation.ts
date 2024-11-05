@@ -1,33 +1,42 @@
+import { InstrucTion } from '@/store/slices/features/medicineDetailsExtraSetting/types';
 import { BASE_URL } from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
 import axios from 'axios';
 
-export const INSTRUCTION_MUTATION = async (medicineDetailsId: string, instructionData: any) => {
-  const mutation = `
-        mutation CreateInstructionMedicines {
-            createInstructionMedicines(
-                medicines: { 
-                    medicineLocalId: "${medicineDetailsId}", 
-                    instrucTion: "${instructionData.instrucTion}" }
-            ) 
-                {
-                    message
-            }
-        }
+export const INSTRUCTION_MUTATION = async (
+  instructions: InstrucTion[],
+  medicineLocalId: string,
+  accessToken: string
+) => {
+  const buildMutation = `
+        mutation {
+    createInstructionMedicines(medicines: [
+      ${instructions
+        .map(
+          instruction => `{
+        medicineLocalId: "${instruction.medicineLocalId}",
+        instrucTion: "${instruction.instrucTion}",
+      }`
+        )
+        .join(',')}
+    ]) {
+      message
+    }
+  }
     `;
 
   try {
     const response = await axios.post(
       BASE_URL,
       {
-        query: mutation,
+        query: buildMutation,
         variables: {
-          medicineDetailsExtraId: medicineDetailsId
+          medicineDetailsExtraId: medicineLocalId
         }
       },
       {
         headers: {
-          Authorization: `Bearer ${instructionData.accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json'
         }
       }

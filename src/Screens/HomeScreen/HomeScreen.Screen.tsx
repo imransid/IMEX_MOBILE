@@ -170,7 +170,11 @@ const HomeScreen: FC = () => {
                         <View style={styles.doseTimePosition}>
                           <Text style={styles.medicineNameText}>{medicine.doseTime}</Text>
                           <Text style={styles.doseText}>
-                            {currentTime.isBefore(doseTime) ? 'Upcoming' : 'Passed'}
+                            {currentTime.isBefore(doseTime)
+                              ? 'Upcoming'
+                              : currentTime.isSame(doseTime)
+                                ? 'Take Now'
+                                : 'Passed'}
                           </Text>
                         </View>
                       </View>
