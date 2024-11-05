@@ -188,9 +188,7 @@ const AuthStackNav: any = () => {
                   ? false
                   : name === 'GuestDrawer'
                     ? false
-                    : name === 'UserDrawer'
-                      ? false
-                      : name !== 'CameraScanner',
+                    : name !== 'CameraScanner',
             headerTitle: title,
             headerTitleAlign: 'center'
           }}

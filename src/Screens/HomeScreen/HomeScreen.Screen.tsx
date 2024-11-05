@@ -1,11 +1,11 @@
 /* eslint-disable */
-import React, { type FC } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, type FC } from 'react';
+import { Alert, BackHandler, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import ClickToAddMedicine from '@/assets/click-to-add-med';
 import { type RootState } from '@/store';
@@ -16,14 +16,24 @@ import { colors } from '../../theme/colors';
 import styles from './style';
 import moment from 'moment';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '@/navigators/AuthStackNavigator';
 
 // Define your stack navigation parameter list
-interface RootStackParamList {
+interface RootStackParamListHome {
   PreviewDoseDetails: { medicine: any };
-  // Add other screens and their params here if needed
+  [key: string]: undefined | { medicine: any } | any;
 }
 
-type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'PreviewDoseDetails'>;
+type HomeScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamListHome,
+  'PreviewDoseDetails'
+>;
+
+interface NavigationParams {
+  prevRoute: string;
+}
+type NavigationProp = StackNavigationProp<RootStackParamList, 'AddInstructions'>;
 
 const HomeScreen: FC = () => {
   const storedMedicineList = useSelector(
@@ -38,6 +48,10 @@ const HomeScreen: FC = () => {
   const weeklyMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
   );
+
+  const route = useRoute();
+
+  const currentRoute = route.name;
 
   //const currentTime = moment();
 
@@ -86,7 +100,7 @@ const HomeScreen: FC = () => {
   };
 
   const handleAddAppointment: any = async () => {
-    navigation.navigate('DoctorAppointments' as never);
+    navigation.navigate('DoctorAppointments', { prevRoute: currentRoute });
   };
 
   const handleDosePress: any = (medicine: any) => {

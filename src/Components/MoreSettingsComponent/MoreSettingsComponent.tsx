@@ -14,6 +14,7 @@ interface NavigationParams {
   prevRoute: string;
 }
 type NavigationProp = StackNavigationProp<RootStackParamList, 'AddInstructions'>;
+
 const MoreSettings: FC = () => {
   const navigation = useNavigation<NavigationProp>();
 
