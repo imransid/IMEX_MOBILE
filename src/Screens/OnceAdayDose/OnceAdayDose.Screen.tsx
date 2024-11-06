@@ -34,13 +34,14 @@ const OnceAdayDose: FC = () => {
   const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(Array(1).fill(''));
   const [doses, setDoses] = useState<number[]>(Array(1).fill(0));
   const [open, setOpen] = useState(false); // for time picker
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
-  const [date, setDate] = useState(new Date());
+  const [dateFromModal, setDateFromModal] = useState(new Date());
 
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
   const doseTime = useSelector((state: RootState) => state.medicineDetails.doseTime);
@@ -416,11 +417,11 @@ const OnceAdayDose: FC = () => {
             modal
             mode="time"
             open={open}
-            date={date}
+            date={dateFromModal}
             dividerColor="white"
             onConfirm={date => {
               setOpen(false);
-              setDate(date);
+              setDateFromModal(date);
               const timeStr = new Intl.DateTimeFormat('en-US', {
                 hour: 'numeric',
                 minute: '2-digit',
