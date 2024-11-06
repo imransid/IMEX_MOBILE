@@ -26,6 +26,8 @@ import moment from 'moment';
 import { localSchedule } from '@/helper/notify';
 import DatePicker from 'react-native-date-picker';
 import { createMedicineData } from '@/mutations/createMedicine';
+import { INSTRUCTION_MUTATION } from '@/mutations/instruction_mutation';
+import { setExtraInstrucTion } from '@/store/slices/features/medicineDetailsExtraSetting/slice';
 
 const OnceAdayDose: FC = () => {
   const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false);
@@ -44,9 +46,15 @@ const OnceAdayDose: FC = () => {
   const doseQuantity = useSelector((state: RootState) => state.medicineDetails.doseQuantity);
   const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
   const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
+
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
+
+  const storedInstructionList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeInstrucTionList
+  );
+
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
@@ -75,7 +83,7 @@ const OnceAdayDose: FC = () => {
     });
   };
 
-  const handleDatePicker = async dateTime => {
+  const handleDatePicker = async (dateTime: any) => {
     var currentTime = Date.now();
 
     const hours = dateTime.getHours();
@@ -121,6 +129,8 @@ const OnceAdayDose: FC = () => {
     if (loginStatus === true) {
       let updatedStoredList = [...storedMedicineList];
 
+      let updatedInstructionList = [...storedInstructionList];
+
       // Create data for the new medicine
       let data = {
         medicineLocalId: medicineLocalId,
@@ -139,15 +149,23 @@ const OnceAdayDose: FC = () => {
 
       // Add the new data to the copied array
       updatedStoredList.push(data);
+
       await localSchedule(updatedStoredList, 'day', medicineLocalId);
+
       await createMedicineData(updatedStoredList, accessToken);
+
+      await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
+
       dispatch(setDoseList(updatedStoredList));
+
       navigation.navigate('AddedMedicine' as never);
 
       ToastPopUp('Medicine Created Successfully');
     } else {
       let updatedStoredList = [...storedMedicineList];
 
+      let updatedInstructionList = [...storedInstructionList];
+
       // Create data for the new medicine
       let data = {
         medicineLocalId: medicineLocalId,
@@ -165,11 +183,14 @@ const OnceAdayDose: FC = () => {
       };
       // Add the new data to the copied array
       updatedStoredList.push(data);
-      dispatch(setDoseList(updatedStoredList));
-      await localSchedule(updatedStoredList, 'day', medicineLocalId);
-      navigation.navigate('AddedMedicine' as never);
 
-      console.log(updatedStoredList);
+      dispatch(setDoseList(updatedStoredList));
+
+      dispatch(setExtraInstrucTion(updatedInstructionList));
+
+      await localSchedule(updatedStoredList, 'day', medicineLocalId);
+
+      navigation.navigate('AddedMedicine' as never);
     }
   };
 

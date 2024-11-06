@@ -1,21 +1,22 @@
-import { InstrucTion } from '@/store/slices/features/medicineDetailsExtraSetting/types';
+import { ITreatmentDuration } from '@/store/slices/features/medicineDetailsExtraSetting/types';
 import { BASE_URL } from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
 import axios from 'axios';
 
-export const INSTRUCTION_MUTATION = async (
-  instructions: InstrucTion[],
+export const TREATMENT_DURATION_MUTATION = async (
+  durations: ITreatmentDuration[],
   medicineLocalId: string,
   accessToken: string
 ) => {
   const buildMutation = `
         mutation {
-    createInstructionMedicines(medicines: [
-      ${instructions
+    createDurationMedicines(medicines: [
+      ${durations
         .map(
-          instruction => `{
-        medicineLocalId: "${instruction.medicineLocalId}",
-        instrucTion: "${instruction.instrucTion}",
+          duration => `{
+        medicineTakeEachDay: "${duration.medicineTakeEachDay}",
+        treatmentDurationEndTime: "${duration.treatmentDurationEndTime}",
+        treatmentDurationStartTime: "${duration.treatmentDurationStartTime}",
       }`
         )
         .join(',')}
@@ -43,10 +44,10 @@ export const INSTRUCTION_MUTATION = async (
     );
 
     if (
-      response?.data?.data?.createInstructionMedicines?.message !== undefined &&
-      response.data.data.createInstructionMedicines.message !== null
+      response?.data?.data?.createDurationMedicines?.message !== undefined &&
+      response.data.data.createDurationMedicines.message !== null
     ) {
-      ToastPopUp(response.data.data.createInstructionMedicines.message);
+      ToastPopUp(response.data.data.createDurationMedicines.message);
     } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
       // Show error message from the response
       const errorMessage: any = response?.data?.errors[0]?.message;
