@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     marginLeft: scale(175),
     bottom: scale(90),
     position: 'absolute'
-    
   },
   addMedicineButtonProperties: {
     flexDirection: 'row',
@@ -27,7 +26,6 @@ const styles = StyleSheet.create({
     marginLeft: scale(175),
     bottom: scale(30),
     position: 'absolute'
-    
   },
   addAppointmentButton: {
     backgroundColor: colors.buttonBg,
@@ -41,7 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: verticalScale(12)
   },
-  
+
   addMedicineText: {
     color: colors.white,
     fontSize: moderateScale(15),
@@ -53,7 +51,7 @@ const styles = StyleSheet.create({
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(6),
-    height: verticalScale(56),
+    height: verticalScale(58),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
@@ -137,10 +135,10 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14)
   },
   clickToAddMedTextPosition: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   medicineDoseListStyle: {
-    maxHeight: '68%', 
+    maxHeight: '68%'
   }
 });
 
