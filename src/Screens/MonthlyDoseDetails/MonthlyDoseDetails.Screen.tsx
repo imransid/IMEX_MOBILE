@@ -21,13 +21,15 @@ import { RootState } from '@/store';
 import { IMonthlyDoseTime } from '@/store/slices/features/medicineDetails/types';
 import {
   setMonthlyDoseTime,
-  setMonthlyStoreData,
   setWeeklyStoreData
 } from '@/store/slices/features/medicineDetails/slice';
 import moment from 'moment';
 import { createMothyMutation } from '@/mutations/createMonthly';
 import { createMedicineData } from '@/mutations/createMedicine';
 import { localSchedule } from '@/helper/notify';
+import { INSTRUCTION_MUTATION } from '@/mutations/instruction_mutation';
+import { TREATMENT_DURATION_MUTATION } from '@/mutations/treatmentDuration_mutation';
+import { MEDICINE_REMINDER_MUTATION } from '@/mutations/medicineReminder_mutation';
 
 const MonthlyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -66,6 +68,86 @@ const MonthlyDoseDetails: FC = () => {
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [date, setDate] = useState(new Date());
+
+  const storedMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
+  );
+
+  const storedInstructionList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeInstrucTionList
+  );
+
+  const storedTreatmentDurationList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeTreatmentDuration
+  );
+
+  const storedReminderList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeMedicineReminder
+  );
+
+  // Function to fetch instruction data from list
+  const getInstructionData = (medicineId: string) => {
+    if (storedInstructionList.length === 0) return '';
+
+    const instructionName = storedInstructionList.find(
+      (item: any) => item.medicineLocalId === medicineId
+    );
+    return instructionName?.instrucTion;
+  };
+
+  // Function to fetch treatment duration data from list
+  const getTreatmentDurationData = (medicineId: string) => {
+    if (storedTreatmentDurationList.length === 0)
+      return {
+        medicineTakeEachDay: '',
+        treatmentDurationEndTime: '',
+        treatmentDurationStartTime: ''
+      };
+
+    const treatmentDurationName = storedTreatmentDurationList.find(
+      (item: any) => item.medicineLocalId === medicineId
+    );
+
+    return treatmentDurationName
+      ? {
+          medicineTakeEachDay: treatmentDurationName.medicineTakeEachDay,
+          treatmentDurationEndTime: treatmentDurationName.treatmentDurationEndTime,
+          treatmentDurationStartTime: treatmentDurationName.treatmentDurationStartTime
+        }
+      : { medicineTakeEachDay: '', treatmentDurationEndTime: '', treatmentDurationStartTime: '' };
+  };
+
+  const { medicineTakeEachDay, treatmentDurationEndTime, treatmentDurationStartTime } =
+    getTreatmentDurationData(medicineLocalId);
+
+  // Function to fetch medicine reminder data from list
+  const getReminderData = (medicineId: string) => {
+    if (storedReminderList.length === 0)
+      return {
+        medicineReminderCurrentStock: '',
+        medicineReminderRemindToLeft: '',
+        medicineReminderTotalReq: ''
+      };
+
+    const reminderQuantity = storedReminderList.find(
+      (item: any) => item.medicineLocalId === medicineId
+    );
+
+    return reminderQuantity
+      ? {
+          medicineReminderCurrentStock: reminderQuantity.medicineReminderCurrentStock,
+          medicineReminderRemindToLeft: reminderQuantity.medicineReminderRemindToLeft,
+          medicineReminderTotalReq: reminderQuantity.medicineReminderTotalReq
+        }
+      : {
+          medicineReminderCurrentStock: '',
+          medicineReminderRemindToLeft: '',
+          medicineReminderTotalReq: ''
+        };
+  };
+
+  const { medicineReminderCurrentStock, medicineReminderRemindToLeft, medicineReminderTotalReq } =
+    getReminderData(medicineLocalId);
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -109,6 +191,12 @@ const MonthlyDoseDetails: FC = () => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
 
+    let updatedInstructionList = [...storedInstructionList];
+
+    let updatedTreatmentDurationList = [...storedTreatmentDurationList];
+
+    let updatedReminderList = [...storedReminderList];
+
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
         return {
@@ -127,10 +215,44 @@ const MonthlyDoseDetails: FC = () => {
         };
       });
 
+      // Create data for the new instruction
+      let instructionData = {
+        medicineLocalId: medicineLocalId,
+        instrucTion: getInstructionData(medicineLocalId) || ''
+      };
+
+      // create treatment duration data
+      let treatmentDurationData = {
+        medicineLocalId: medicineLocalId,
+        medicineTakeEachDay: medicineTakeEachDay,
+        treatmentDurationEndTime: treatmentDurationEndTime,
+        treatmentDurationStartTime: treatmentDurationStartTime
+      };
+
+      // Create data for the new reminder
+      let reminderData = {
+        medicineLocalId: medicineLocalId,
+        medicineReminderCurrentStock: medicineReminderCurrentStock,
+        medicineReminderRemindToLeft: medicineReminderRemindToLeft,
+        medicineReminderTotalReq: medicineReminderTotalReq
+      };
+
+      // Add the new data to the copied array
+      updatedInstructionList.push(instructionData);
+      updatedTreatmentDurationList.push(treatmentDurationData);
+      updatedReminderList.push(reminderData);
+
       // now check login or not
       if (loginStatus) {
         await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
         await createMedicineData(tempStore, accessToken);
+        await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
+        await TREATMENT_DURATION_MUTATION(
+          updatedTreatmentDurationList,
+          accessToken,
+          medicineLocalId
+        );
+        await MEDICINE_REMINDER_MUTATION(updatedReminderList, accessToken, medicineLocalId);
       }
       await localSchedule(tempStore, 'week', medicineLocalId);
       dispatch(setWeeklyStoreData(tempStore));

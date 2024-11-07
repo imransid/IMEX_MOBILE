@@ -272,7 +272,7 @@ const CreateAccount: FC = () => {
                       value: null
                     }}
                     items={[
-                      { label: 'Male', value: 'male' },
+                      { label: ' Male', value: 'male' },
                       { label: 'Female', value: 'female' }
                     ]}
                     style={{

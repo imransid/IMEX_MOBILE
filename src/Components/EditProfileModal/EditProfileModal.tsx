@@ -25,10 +25,17 @@ interface EditProfileModalProps {
 const GenderOptions = ['Male', 'Female'];
 
 const EditProfileModal: FC<EditProfileModalProps> = ({ modalVisible, closeModal }) => {
-  const [fullName, setFullName] = useState<string>('');
-  const [mobile, setMobile] = useState<string>('');
-  const [gender, setGender] = useState<string>('');
-  const [birthdate, setBirthdate] = useState<string>('');
+  const userName = useSelector((state: RootState) => state.users.user?.data?.user?.fullName);
+  const userMobileNumber = useSelector(
+    (state: RootState) => state.users.user.data.user.mobileNumber
+  );
+  const userGender = useSelector((state: RootState) => state.users.user?.data?.user?.gender);
+  const userBirthDay = useSelector((state: RootState) => state.users.user?.data?.user?.birthday);
+
+  const [fullName, setFullName] = useState<string>(userName ?? '');
+  const [mobile, setMobile] = useState<string>(userMobileNumber ?? '');
+  const [gender, setGender] = useState<string>(userGender ?? '');
+  const [birthdate, setBirthdate] = useState<string>(userBirthDay ?? '');
   const dispatch = useDispatch();
   const accessToken = useSelector((state: RootState) => state.users.user.data.accessToken);
 
@@ -165,7 +172,6 @@ const EditProfileModal: FC<EditProfileModalProps> = ({ modalVisible, closeModal 
                     value={fullName}
                     onChangeText={setFullName}
                     placeholder="Enter your full name..."
-                    maxLength={18}
                     inputStyle={styles.inputText}
                     leftIcon={<AntDesign name="user" size={25} color={'#888888'} />} // Left icon
                   />
@@ -178,7 +184,6 @@ const EditProfileModal: FC<EditProfileModalProps> = ({ modalVisible, closeModal 
                     value={mobile}
                     onChangeText={setMobile}
                     placeholder="Enter your mobile number..."
-                    maxLength={11}
                     inputStyle={styles.inputText}
                     leftIcon={<Feather name="smartphone" size={25} color={'#888888'} />}
                   />
@@ -221,7 +226,6 @@ const EditProfileModal: FC<EditProfileModalProps> = ({ modalVisible, closeModal 
                     value={birthdate}
                     onChangeText={setBirthdate}
                     placeholder="Enter your birth date..."
-                    maxLength={10}
                     inputStyle={styles.inputText}
                     leftIcon={<AntDesign name="calendar" size={25} color={'#888888'} />} // Left icon
                   />

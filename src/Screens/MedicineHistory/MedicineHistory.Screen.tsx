@@ -81,8 +81,8 @@ const MedicineHistory: FC = () => {
               {groupedMedicines[date].map(medicine => (
                 <View key={medicine.medicineLocalId} style={styles.chip}>
                   <View style={styles.chipContentProperties}>
-                    <Text style={styles.chipText}>{medicine.medicineName}</Text>
-                    <Text style={styles.chipText}>{medicine.doseTime}</Text>
+                    <Text style={styles.medicineNameText}>{medicine.medicineName}</Text>
+                    <Text style={styles.doseTimeText}>{medicine.doseTime}</Text>
                   </View>
                 </View>
               ))}
