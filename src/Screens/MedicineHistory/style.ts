@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   medicineNameText: {
-    color: colors.header,
-    fontFamily: 'WorkSansSemiBold',
+    color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(16)
   },
   doseTimeText: {
