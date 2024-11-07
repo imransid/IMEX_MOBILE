@@ -7,7 +7,6 @@ export interface IMedicineDetailsType {
   doseQuantity: string;
   doseTime: string;
   storedMedicineList: IMedicine[];
-  storedMedicineTwiceAdayList: IStoredTwiceAday[];
   storedMedicineWeeklyList: IStoredWeekly[];
   storedMedicineMonthlyList: IStoredMonthly[];
   strengthMed: string;
