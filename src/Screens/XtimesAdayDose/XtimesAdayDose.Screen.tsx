@@ -15,16 +15,9 @@ import { colors } from '../../theme/colors';
 
 import styles from './style';
 
-import {
-  setDoseList,
-  setDoseQuantity,
-  setDoseTime
-} from '@/store/slices/features/medicineDetails/slice';
+import { setDoseList, setDoseQuantity } from '@/store/slices/features/medicineDetails/slice';
 import { RootState } from '@/store';
-import axios from 'axios';
-import { BASE_URL } from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
-import { APPOINTMENT_MUTATION } from '@/mutations/appointment_mutation';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { localSchedule } from '@/helper/notify';
