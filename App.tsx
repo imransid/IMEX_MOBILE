@@ -40,7 +40,10 @@ const App: FC = () => {
     PushNotification.createChannel({
       channelId: 'team-pharmaceuticals',
       channelName: 'Team Pharmaceuticals',
-      channelDescription: 'Team Pharmaceuticals'
+      channelDescription: 'Team Pharmaceuticals',
+      importance: 4, // Set the importance level
+      vibrate: true,
+      soundName: 'default'
     });
   };
 
