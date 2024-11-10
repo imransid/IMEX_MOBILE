@@ -37,14 +37,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   medicineNameText: {
-    color: colors.header,
-    fontFamily: 'WorkSansSemiBold',
-    fontSize: moderateScale(16)
+    color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(13)
   },
   doseTimeText: {
     color: colors.header,
     fontFamily: 'WorkSansMedium',
-    fontSize: moderateScale(16)
+    fontSize: moderateScale(13)
   },
   container: {
     backgroundColor: colors.white,

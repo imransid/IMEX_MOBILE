@@ -174,7 +174,7 @@ const defaultHeaderOptions = {
 const AuthStackNav: any = () => {
   return (
     <Stack.Navigator initialRouteName="Login">
-      {screensListForComponent.map(({ name, component, title, headerShown = true }) => (
+      {screensListForComponent.map(({ name, component, title }) => (
         <Stack.Screen
           key={name}
           name={name}

@@ -35,7 +35,7 @@ const MoreScreenTab: FC = () => {
                             Took{' '}
                             {parseInt(medicine.doseQuantity) > 1
                               ? `${medicine.doseQuantity} Pills`
-                              : `${medicine.doseQuantity}0 Pill`}
+                              : `${medicine.doseQuantity} Pill`}
                           </Text>
                         </View>
                         <View style={styles.pillsLeftPosition}>

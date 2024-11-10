@@ -153,7 +153,7 @@ const HomeScreen: FC = () => {
                           </View>
                           <Text style={styles.doseText}>
                             {medicine.doseQuantity}{' '}
-                            {parseInt(medicine.doseQuantity) > 1 ? 'pills' : '0 pill'}
+                            {parseInt(medicine.doseQuantity) > 1 ? 'pills' : 'pill'}
                             {getInstructionList(medicine.medicineLocalId)
                               ? ` | ${getInstructionList(medicine.medicineLocalId)}`
                               : ' | Not Present'}

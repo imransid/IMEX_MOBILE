@@ -327,6 +327,8 @@ const OnceAdayDose: FC = () => {
       await localSchedule(updatedStoredList, 'day', medicineLocalId);
 
       navigation.navigate('AddedMedicine' as never);
+
+      ToastPopUp('Medicine Created Successfully');
     }
   };
 

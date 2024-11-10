@@ -28,7 +28,7 @@ import moment from 'moment';
 import { createWeeklyMutation } from '@/mutations/createWeekly';
 import { localSchedule } from '@/helper/notify';
 import { createMedicineData } from '@/mutations/createMedicine';
-import { getWeekDates, mergeWeeklyDataWithDoseTimes, mergeWeeklyDatesWithDoseTimes, setWeeklyDateDoseTimes } from './extramethod';
+import { getWeekDates, mergeWeeklyDataWithDoseTimes, setWeeklyDateDoseTimes } from './extramethod';
 
 const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -106,31 +106,26 @@ const WeeklyDoseDetails: FC = () => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
 
-
     let filterArrayMonthly = storedMedicineWeeklyList.filter(e => {
       if (e.medicineLocalId.medicineLocalId.toString() === medicineLocalId) return e;
     });
 
     const customToday = new Date();
 
-
-    filterArrayMonthly.map((e) => {
+    filterArrayMonthly.map(e => {
       const dataWeekData = getWeekDates(e.medicineLocalId.weeklyTime, customToday);
       const weekDoseTime = setWeeklyDateDoseTimes(filterArray, dataWeekData);
 
       const mergedArray = mergeWeeklyDataWithDoseTimes(dataWeekData, weekDoseTime);
 
-
       mergedArray.forEach(item => {
-
         const doseDate = new Date(item.date);
 
         console.log(`Entry for ${doseDate}`);
-      })
+      });
 
       console.log('Merged Array:', mergedArray);
     });
-
 
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
