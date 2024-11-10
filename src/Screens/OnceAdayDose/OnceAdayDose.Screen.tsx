@@ -258,11 +258,15 @@ const OnceAdayDose: FC = () => {
       await localSchedule(updatedStoredList, 'day', medicineLocalId);
 
       // Required Mutations
-      await createMedicineData(updatedStoredList, accessToken);
-      await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
-      await TREATMENT_DURATION_MUTATION(updatedTreatmentDurationList, accessToken, medicineLocalId);
-      await MEDICINE_REMINDER_MUTATION(updatedReminderList, accessToken, medicineLocalId);
-
+      if (accessToken !== undefined) {
+        await createMedicineData(updatedStoredList, accessToken);
+        await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
+        await TREATMENT_DURATION_MUTATION(updatedTreatmentDurationList, accessToken, medicineLocalId);
+        await MEDICINE_REMINDER_MUTATION(updatedReminderList, accessToken, medicineLocalId);
+      } else {
+        // Handle the case where accessToken is undefined
+        console.error('AccessToken is undefined');
+      }
       dispatch(setDoseList(updatedStoredList));
 
       navigation.navigate('AddedMedicine' as never);

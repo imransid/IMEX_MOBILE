@@ -63,6 +63,7 @@ export const MEDICINE_REMINDER_MUTATION = async (
     } else {
       console.error('Unexpected Error:', error);
     }
-    ToastPopUp('Network Error! Please check your connection.');
+    // need to check and fix for the error we get 
+    // ToastPopUp('Network Error! Please check your connection.');
   }
 };

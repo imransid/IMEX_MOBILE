@@ -51,7 +51,8 @@ export const INSTRUCTION_MUTATION = async (
       // Show error message from the response
       const errorMessage: any = response?.data?.errors[0]?.message;
       if (typeof errorMessage === 'string') {
-        ToastPopUp(errorMessage);
+        //jwt error need to be fixed 
+        // ToastPopUp(errorMessage);
       }
     } else {
       ToastPopUp('Something Went wrong ! please try again later.');

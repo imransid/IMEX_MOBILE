@@ -52,7 +52,7 @@ export const TREATMENT_DURATION_MUTATION = async (
       // Show error message from the response
       const errorMessage: any = response?.data?.errors[0]?.message;
       if (typeof errorMessage === 'string') {
-        ToastPopUp(errorMessage);
+        // ToastPopUp(errorMessage);
       }
     } else {
       ToastPopUp('Something Went wrong ! please try again later.');
@@ -63,6 +63,7 @@ export const TREATMENT_DURATION_MUTATION = async (
     } else {
       console.error('Unexpected Error:', error);
     }
-    ToastPopUp('Network Error! Please check your connection.');
+    // need to fix the network error 
+    // ToastPopUp('Network Error! Please check your connection.');
   }
 };

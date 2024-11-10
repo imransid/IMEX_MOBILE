@@ -57,8 +57,9 @@ const UserDrawerNavigator: FC = () => {
         options={{ title: '' }}
       />
 
-      {screensListForComponent.map(e => (
+      {screensListForComponent.map((e,index) => (
         <Drawer.Screen
+        key={index}
           name={e.name}
           component={e.component}
           options={{ title: e.title, headerShown: false }}
