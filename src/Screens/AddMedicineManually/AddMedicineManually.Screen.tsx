@@ -1,4 +1,4 @@
-import React, { type FC, useState } from 'react';
+import React, { type FC, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -19,6 +19,7 @@ const AddMedicineManually: FC = () => {
   const [medicineName, setMedName] = useState<string>('');
   const handleNext: any = () => {
     dispatch(setMedicineName({ medicineName }));
+    setMedName('');
     navigation.navigate('AddMedicineStrength' as never);
   };
 

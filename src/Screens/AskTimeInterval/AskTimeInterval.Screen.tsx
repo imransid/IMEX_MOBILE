@@ -29,6 +29,7 @@ const AskTimeInterval: FC = () => {
   };
 
   const handleNext: any = () => {
+    setSelectedNumber('');
     navigation.navigate('XtimesAdayDose' as never);
   };
 

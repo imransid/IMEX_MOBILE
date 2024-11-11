@@ -58,12 +58,12 @@ export const TREATMENT_DURATION_MUTATION = async (
       ToastPopUp('Something Went wrong ! please try again later.');
     }
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('Axios Error:', error.message);
-    } else {
-      console.error('Unexpected Error:', error);
-    }
-    // need to fix the network error 
+    // if (axios.isAxiosError(error)) {
+    //   console.error('Axios Error:', error.message);
+    // } else {
+    console.error('Unexpected Error:', error);
+    // }
+    // need to fix the network error
     // ToastPopUp('Network Error! Please check your connection.');
   }
 };
