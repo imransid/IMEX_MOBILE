@@ -54,7 +54,7 @@ const Stack = createNativeStackNavigator();
 
 const screens = [
   { name: 'CameraScanner', component: CameraScanner, headerShown: false },
-  { name: 'MedicineDetails3', component: MedicineDetails, title: 'Medicine Details' },
+  { name: 'MedicineDetails', component: MedicineDetails, title: 'Medicine Details' },
   { name: 'MedicineDoses', component: MedicineDoses, title: 'Medicine Name' },
   { name: 'MedicineDailyDoses', component: MedicineDailyDoses, title: 'Medicine Name' },
   //{ name: 'CreateAccount', component: CreateAccount, title: '' },

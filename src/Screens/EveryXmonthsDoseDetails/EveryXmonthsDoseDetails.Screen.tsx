@@ -22,6 +22,7 @@ import {
   setDoseList,
   setMonthlyStoreData,
   setWeeklyStoreData,
+  setXmonthStoreData,
   setXMonthTakeDose
 } from '@/store/slices/features/medicineDetails/slice';
 import moment from 'moment';
@@ -281,7 +282,7 @@ const EveryXmonthsDoseDetails: FC = () => {
 
       await localSchedule(tempStore, 'month', medicineLocalId);
 
-      dispatch(setMonthlyStoreData(tempStore));
+      dispatch(setXmonthStoreData(tempStore));
 
       clearAllDosesAndTime();
 

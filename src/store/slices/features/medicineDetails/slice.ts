@@ -270,6 +270,21 @@ export const medicineDetailsSlice = createSlice({
     ) => {
       state.storedMedicineMonthlyList = [...state.storedMedicineMonthlyList, ...payload.payload];
     },
+
+    setXmonthStoreData: (state: IMedicineDetailsType, payload: PayloadAction<IMedicine[]>) => {
+      state.storedMedicineList = [...state.storedMedicineList, ...payload.payload];
+      state.medicineLocalId = '';
+      state.timeInterval = '';
+      state.doseTime = '';
+      state.medicineStatus = '';
+      state.takeStatus = '';
+      state.strengthMed = '';
+      state.unitMed = '';
+      state.typeMed = '';
+      state.doseQuantity = '';
+      state.medicineName = '';
+    },
+
     updateTimeInterval: (state: IMedicineDetailsType, payload: PayloadAction<string>) => {
       state.timeInterval = payload.payload;
     },
@@ -380,6 +395,7 @@ export const {
   setWeeklyDoseTime,
   setWeeklyStoreData,
   setMonthlyStoreData,
+  setXmonthStoreData,
   updateTimeInterval,
   setMonthlyDoseTime,
   setXDaysDoseTime,
