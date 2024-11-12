@@ -58,11 +58,12 @@ export const MEDICINE_REMINDER_MUTATION = async (
       ToastPopUp('Something Went wrong ! please try again later.');
     }
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('Axios Error:', error.message);
-    } else {
-      console.error('Unexpected Error:', error);
-    }
-    ToastPopUp('Network Error! Please check your connection.');
+    // if (axios.isAxiosError(error)) {
+    //   console.error('Axios Error:', error.message);
+    // } else {
+    console.error('Unexpected Error:', error);
+    // }
+    // need to check and fix for the error we get
+    // ToastPopUp('Network Error! Please check your connection.');
   }
 };

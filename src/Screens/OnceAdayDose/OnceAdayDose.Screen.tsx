@@ -43,6 +43,8 @@ const OnceAdayDose: FC = () => {
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [dateFromModal, setDateFromModal] = useState(new Date());
 
+  const [disable, setDisable] = useState(false);
+
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
   const doseTime = useSelector((state: RootState) => state.medicineDetails.doseTime);
   const doseQuantity = useSelector((state: RootState) => state.medicineDetails.doseQuantity);
@@ -185,6 +187,11 @@ const OnceAdayDose: FC = () => {
     });
   };
 
+  const clearAllDosesAndTime: any = () => {
+    setDoses([0]);
+    setTimes(['']);
+  };
+
   const handleSubmit: any = (inputValue: number) => {
     if (selectedChip !== null) {
       dispatch(setDoseQuantity({ doseQuantity: inputValue.toString() }));
@@ -201,6 +208,8 @@ const OnceAdayDose: FC = () => {
 
   // Function to handle next button press
   const handleNext: any = async () => {
+    setDisable(true);
+
     if (loginStatus) {
       let updatedStoredList = [...storedMedicineList];
 
@@ -258,12 +267,24 @@ const OnceAdayDose: FC = () => {
       await localSchedule(updatedStoredList, 'day', medicineLocalId);
 
       // Required Mutations
-      await createMedicineData(updatedStoredList, accessToken);
-      await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
-      await TREATMENT_DURATION_MUTATION(updatedTreatmentDurationList, accessToken, medicineLocalId);
-      await MEDICINE_REMINDER_MUTATION(updatedReminderList, accessToken, medicineLocalId);
-
+      if (accessToken !== undefined) {
+        await createMedicineData(updatedStoredList, accessToken);
+        await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
+        await TREATMENT_DURATION_MUTATION(
+          updatedTreatmentDurationList,
+          accessToken,
+          medicineLocalId
+        );
+        await MEDICINE_REMINDER_MUTATION(updatedReminderList, accessToken, medicineLocalId);
+      } else {
+        // Handle the case where accessToken is undefined
+        console.error('AccessToken is undefined');
+      }
       dispatch(setDoseList(updatedStoredList));
+
+      clearAllDosesAndTime();
+
+      setDisable(false);
 
       navigation.navigate('AddedMedicine' as never);
 
@@ -325,6 +346,10 @@ const OnceAdayDose: FC = () => {
 
       // schedule notification
       await localSchedule(updatedStoredList, 'day', medicineLocalId);
+
+      clearAllDosesAndTime();
+
+      setDisable(false);
 
       navigation.navigate('AddedMedicine' as never);
 
@@ -472,6 +497,7 @@ const OnceAdayDose: FC = () => {
         <View style={styles.NextbuttonPosition}>
           <CustomButton
             onPress={handleNext}
+            disabled={disable}
             icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
             text="Next"
           />

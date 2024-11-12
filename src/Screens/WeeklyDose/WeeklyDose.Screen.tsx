@@ -67,6 +67,12 @@ const WeeklyDose: FC = () => {
       })
     );
 
+    setSelectedNumber('');
+
+    setWeekdays([]);
+
+    setSelectedDay({});
+
     navigation.navigate('WeeklyDoseDetails' as never);
   };
 

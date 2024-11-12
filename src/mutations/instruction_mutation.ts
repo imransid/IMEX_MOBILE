@@ -51,17 +51,18 @@ export const INSTRUCTION_MUTATION = async (
       // Show error message from the response
       const errorMessage: any = response?.data?.errors[0]?.message;
       if (typeof errorMessage === 'string') {
-        ToastPopUp(errorMessage);
+        //jwt error need to be fixed
+        // ToastPopUp(errorMessage);
       }
     } else {
       ToastPopUp('Something Went wrong ! please try again later.');
     }
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('Axios Error:', error.message);
-    } else {
-      console.error('Unexpected Error:', error);
-    }
+    // if (axios.isAxiosError(error)) {
+    //   console.error('Axios Error:', error.message);
+    // } else {
+    console.error('Unexpected Error:', error);
+    // }
     ToastPopUp('Network Error! Please check your connection.');
   }
 };

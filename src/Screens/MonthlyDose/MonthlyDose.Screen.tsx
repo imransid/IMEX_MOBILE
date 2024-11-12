@@ -106,6 +106,10 @@ const MonthlyDose: FC = () => {
 
     dispatch(setMonthlyStoreData(storedMonthlyArray));
 
+    setSelectedDates({});
+
+    setSelectedNumber('');
+
     navigation.navigate('MonthlyDoseDetails' as never);
   };
 

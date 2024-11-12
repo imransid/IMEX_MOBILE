@@ -18,7 +18,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
 import {
-  setDoseList,
   setDoseQuantity,
   setTwiceAdayDoseTime,
   setTwiceAdayStoreData
@@ -46,6 +45,8 @@ const TwiceAdayDose: FC = () => {
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [date, setDate] = useState(new Date());
+
+  const [disable, setDisable] = useState(false);
 
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
   const doseTime = useSelector((state: RootState) => state.medicineDetails.doseTime);
@@ -183,6 +184,11 @@ const TwiceAdayDose: FC = () => {
     }
   };
 
+  const clearAllDosesAndTime: any = () => {
+    setDoses(doses.map(() => 0));
+    setTimes(times.map(() => ''));
+  };
+
   const loginStatus = useSelector((state: RootState) => state.users?.user?.loginStatus);
 
   const TwiceAdayDoseTime = useSelector(
@@ -190,6 +196,7 @@ const TwiceAdayDose: FC = () => {
   );
 
   const handleNext: any = async () => {
+    setDisable(true);
     let filterArray = TwiceAdayDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
@@ -247,18 +254,28 @@ const TwiceAdayDose: FC = () => {
         updatedTreatmentDurationList.push(treatmentDurationData);
         updatedReminderList.push(reminderData);
 
-        await createMedicineData(tempStore, accessToken);
-        await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
-        await TREATMENT_DURATION_MUTATION(
-          updatedTreatmentDurationList,
-          accessToken,
-          medicineLocalId
-        );
-        await MEDICINE_REMINDER_MUTATION(updatedReminderList, accessToken, medicineLocalId);
+        // Required Mutations
+        if (accessToken !== undefined) {
+          await createMedicineData(tempStore, accessToken);
+          await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
+          await TREATMENT_DURATION_MUTATION(
+            updatedTreatmentDurationList,
+            accessToken,
+            medicineLocalId
+          );
+          await MEDICINE_REMINDER_MUTATION(updatedReminderList, accessToken, medicineLocalId);
+        } else {
+          // Handle the case where accessToken is undefined
+          console.error('AccessToken is undefined');
+        }
 
         await localSchedule(tempStore, 'day', medicineLocalId);
 
         dispatch(setTwiceAdayStoreData(tempStore));
+
+        clearAllDosesAndTime();
+
+        setDisable(false);
 
         navigation.navigate('AddedMedicine' as never);
 
@@ -300,6 +317,10 @@ const TwiceAdayDose: FC = () => {
         await localSchedule(tempStore, 'day', medicineLocalId);
 
         dispatch(setTwiceAdayStoreData(tempStore));
+
+        clearAllDosesAndTime();
+
+        setDisable(false);
 
         navigation.navigate('AddedMedicine' as never);
 
@@ -447,6 +468,7 @@ const TwiceAdayDose: FC = () => {
         <View style={styles.NextbuttonPosition}>
           <CustomButton
             onPress={handleNext}
+            disabled={disable}
             icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
             text="Next"
           />

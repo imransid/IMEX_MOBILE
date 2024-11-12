@@ -49,12 +49,14 @@ import { colors } from '../theme/colors';
 
 import styles from './Styles';
 import UserDrawerNavigator from './UserDrawerNavigator';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const Stack = createNativeStackNavigator();
 
 const screens = [
   { name: 'CameraScanner', component: CameraScanner, headerShown: false },
-  { name: 'MedicineDetails3', component: MedicineDetails, title: 'Medicine Details' },
+  { name: 'MedicineDetails', component: MedicineDetails, title: 'Medicine Details' },
   { name: 'MedicineDoses', component: MedicineDoses, title: 'Medicine Name' },
   { name: 'MedicineDailyDoses', component: MedicineDailyDoses, title: 'Medicine Name' },
   //{ name: 'CreateAccount', component: CreateAccount, title: '' },
@@ -119,8 +121,10 @@ const defaultHeaderOptions = {
 };
 
 const UserStackNavigator: FC = () => {
+  const firstScanMedName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+
   return (
-    <Stack.Navigator initialRouteName="UserDrawer">
+    <Stack.Navigator initialRouteName={firstScanMedName !== '' ? 'MedicineDoses' : 'UserDrawer'}>
       {screens.map(({ name, component, title, headerShown = true }) => (
         <Stack.Screen
           key={name}

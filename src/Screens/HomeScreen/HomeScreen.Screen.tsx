@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect, type FC } from 'react';
+import React, { useEffect, useState, type FC } from 'react';
 import { Alert, BackHandler, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
@@ -19,7 +19,6 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/navigators/AuthStackNavigator';
 
-// Define your stack navigation parameter list
 interface RootStackParamListHome {
   PreviewDoseDetails: { medicine: any };
   [key: string]: undefined | { medicine: any } | any;
@@ -36,12 +35,13 @@ interface NavigationParams {
 type NavigationProp = StackNavigationProp<RootStackParamList, 'AddInstructions'>;
 
 const HomeScreen: FC = () => {
+
+  // Define your stack navigation parameter list
+
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
-
   const selectedDate = useSelector((state: RootState) => state.medicineDetails.selectedDates);
-
   const instructionList = useSelector(
     (state: RootState) => state.medicineDetailsExtraSetting.storeInstrucTionList
   );
@@ -49,13 +49,35 @@ const HomeScreen: FC = () => {
     (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
   );
 
+  const [currentTime, setCurrentTime] = useState(moment());
+
+
   const route = useRoute();
 
   const currentRoute = route.name;
 
-  //const currentTime = moment();
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(moment()); // Update current time every minute
+    }, 10000);
 
-  // for retriving weekley times
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+  }, []);
+
+  // use defined navigation prop type
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+
+  const handleAddMedicine = () => {
+    navigation.navigate('MedicineAddingMethod' as never);
+  };
+
+  const handleAddAppointment: any = async () => {
+    navigation.navigate('DoctorAppointments', { prevRoute: currentRoute });
+  };
+
+  const handleDosePress: any = (medicine: any) => {
+    navigation.navigate('PreviewDoseDetails', { medicine });
+  };
   const getWeeklyMedicineList = (medicineId: string) => {
     let weeklyList = weeklyMedicineList.filter(e => {
       if (e.medicineLocalId.medicineLocalId === medicineId) {
@@ -76,7 +98,6 @@ const HomeScreen: FC = () => {
     return false;
   };
 
-  // for retriving given instruction
   const getInstructionList = (medicineId: string) => {
     let instruction = instructionList.filter(e => {
       if (e.medicineLocalId === medicineId) {
@@ -92,28 +113,16 @@ const HomeScreen: FC = () => {
     }
   };
 
-  // Use the defined navigation prop type
-  const navigation = useNavigation<HomeScreenNavigationProp>();
-
-  const handleAddMedicine: any = async () => {
-    navigation.navigate('MedicineAddingMethod' as never);
-  };
-
-  const handleAddAppointment: any = async () => {
-    navigation.navigate('DoctorAppointments', { prevRoute: currentRoute });
-  };
-
-  const handleDosePress: any = (medicine: any) => {
-    navigation.navigate('PreviewDoseDetails', { medicine });
-  };
-
   const filteredMedicineList = storedMedicineList.filter(medicine => {
-    // Check if the medicine's date matches the selected date
     const medicineDateString = medicine.createdDate.split(' ')[0];
-
     const formattedDate = moment(selectedDate).format('YYYY-MM-DD');
     return medicineDateString === formattedDate;
   });
+
+  const currentTimeMaker = (time: string) => {
+    const today = moment().format('YYYY-MM-DD');
+    return moment(`${today} ${time}`, 'YYYY-MM-DD hh:mm A');
+  };
 
   return (
     <View style={styles.container}>
@@ -121,7 +130,6 @@ const HomeScreen: FC = () => {
         <HorizontalCalendar />
       </View>
 
-      {/* Medicine Name and Dose Chip   */}
       <View style={styles.medicineDoseComponentPosition}>
         <View style={styles.doseComponent}>
           {filteredMedicineList.length > 0 ? (
@@ -131,17 +139,17 @@ const HomeScreen: FC = () => {
               </View>
               <FlatList
                 style={styles.medicineDoseListStyle}
-                data={storedMedicineList}
-                renderItem={({ item: medicine, index }) => {
-                  const currentTime = moment(); // Get the current time
-
-                  // Parse medicine.doseTime with today's date for accurate comparison
-                  const today = moment().format('YYYY-MM-DD');
-                  const doseTime = moment(`${today} ${medicine.doseTime}`, 'YYYY-MM-DD hh:mm A');
+                data={filteredMedicineList}
+                renderItem={({ item: medicine }) => {
+                  const doseTime = currentTimeMaker(medicine.doseTime);
+                  const statusText = currentTime.isBefore(doseTime)
+                    ? 'Upcoming'
+                    : currentTime.isSame(doseTime, 'minute')
+                    ? 'Take Now'
+                    : 'Passed';
 
                   return (
                     <TouchableOpacity
-                      key={index}
                       style={styles.chip}
                       onPress={() => handleDosePress(medicine)}>
                       <View style={styles.medicineDoseProperties}>
@@ -169,13 +177,7 @@ const HomeScreen: FC = () => {
                         </View>
                         <View style={styles.doseTimePosition}>
                           <Text style={styles.medicineNameText}>{medicine.doseTime}</Text>
-                          <Text style={styles.doseText}>
-                            {currentTime.isBefore(doseTime)
-                              ? 'Upcoming'
-                              : currentTime.isSame(doseTime)
-                                ? 'Take Now'
-                                : 'Passed'}
-                          </Text>
+                          <Text style={styles.doseText}>{statusText}</Text>
                         </View>
                       </View>
                     </TouchableOpacity>
@@ -186,9 +188,7 @@ const HomeScreen: FC = () => {
           ) : (
             <View style={styles.clickToAddMedPosition}>
               <ClickToAddMedicine />
-              <View style={styles.donotHaveMedTextPosition}>
-                <Text style={styles.donotHaveMedText}>You don’t have any meds</Text>
-              </View>
+              <Text style={styles.donotHaveMedText}>You don’t have any meds</Text>
               <View style={styles.clickToAddMedTextPosition}>
                 <Text style={styles.clickToAddText}>Click</Text>
                 <Text style={styles.plusIconText}> + </Text>
@@ -200,19 +200,17 @@ const HomeScreen: FC = () => {
       </View>
 
       <View style={styles.addMedicineButtonPosition}>
-        <TouchableOpacity style={styles.addMedicineButton} onPress={() => handleAddMedicine()}>
+        <TouchableOpacity style={styles.addMedicineButton} onPress={handleAddMedicine}>
           <View style={styles.addMedicineButtonProperties}>
-            <Feather name="plus" size={22} color={colors.white}></Feather>
+            <Feather name="plus" size={22} color={colors.white} />
             <Text style={styles.addMedicineText}>Add Medicine</Text>
           </View>
         </TouchableOpacity>
       </View>
       <View style={styles.addAppointmentButtonPosition}>
-        <TouchableOpacity
-          style={styles.addAppointmentButton}
-          onPress={() => handleAddAppointment()}>
+        <TouchableOpacity style={styles.addAppointmentButton} onPress={handleAddAppointment}>
           <View style={styles.addAppointmentButtonProperties}>
-            <Feather name="plus" size={22} color={colors.white}></Feather>
+            <Feather name="plus" size={22} color={colors.white} />
             <Text style={styles.addMedicineText}>Add Appointment</Text>
           </View>
         </TouchableOpacity>

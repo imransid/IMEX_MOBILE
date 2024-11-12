@@ -3,7 +3,7 @@ import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { format } from 'date-fns';
+import { format, set } from 'date-fns';
 
 import { type RootState } from '@/store';
 import { setExtraTreatmentDuration } from '@/store/slices/features/medicineDetailsExtraSetting/slice';
@@ -59,6 +59,9 @@ const SetTreatmentDuration: FC = () => {
         }
       ])
     );
+    setStartDate('');
+    setEndDate('');
+    setGiveInput('');
     navigation.navigate(`${prevRoute}` as never);
   };
 
@@ -111,7 +114,7 @@ const SetTreatmentDuration: FC = () => {
             onChangeText={setGiveInput}
             keyboardType="numeric"
             style={styles.medicineInput}
-            maxLength={3}
+            value={giveInput}
           />
           <Text style={styles.medicineText}>Medicine</Text>
         </View>
