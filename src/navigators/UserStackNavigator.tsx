@@ -49,6 +49,8 @@ import { colors } from '../theme/colors';
 
 import styles from './Styles';
 import UserDrawerNavigator from './UserDrawerNavigator';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const Stack = createNativeStackNavigator();
 

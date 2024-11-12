@@ -11,6 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ScanQrCodeScreen from '@/Screens/ScanQrCode/ScanQrCode.Screen';
 import UserDrawerNavigator from './UserDrawerNavigator';
+import UserStackNavigator from './UserStackNavigator';
 
 const Navigator: FC = () => {
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
@@ -44,7 +45,7 @@ const Navigator: FC = () => {
           headerShown: false
         }}>
         {authStatus ? (
-          <Stack.Screen name="UserDrawerNavigator" component={UserDrawerNavigator} />
+          <Stack.Screen name="UserDrawer" component={UserStackNavigator} />
         ) : (
           <Stack.Screen name="AuthStackNav" component={AuthStackNav} />
         )}
