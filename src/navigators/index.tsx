@@ -2,8 +2,8 @@
 import React, { FC, useEffect } from 'react';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
-import { CameraScanner, CreateAccount, ForgotPassword, Login, MedicineDetails } from '../Screens';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { CameraScanner, MedicineDetails } from '../Screens';
 import { RootState } from '@/store';
 import { checkingLoader } from '../store/slices/features/settings/slice';
 import AuthStackNav from './AuthStackNavigator';
@@ -12,6 +12,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ScanQrCodeScreen from '@/Screens/ScanQrCode/ScanQrCode.Screen';
 import UserDrawerNavigator from './UserDrawerNavigator';
 import UserStackNavigator from './UserStackNavigator';
+import { TouchableOpacity, View, Text } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { colors } from '../theme/colors';
+import styles from './Styles';
+import { moderateScale } from 'react-native-size-matters';
 
 const Navigator: FC = () => {
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
@@ -25,15 +30,44 @@ const Navigator: FC = () => {
   const Stack = createNativeStackNavigator();
 
   const InitialLoadTime = () => {
+    const navigation = useNavigation();
+
     return (
-      <Stack.Navigator
-        initialRouteName={'ScanQrCodeScreen'}
-        screenOptions={{
-          headerShown: false
-        }}>
-        <Stack.Screen name="ScanQrCodeScreen" component={ScanQrCodeScreen} />
-        <Stack.Screen name="CameraScanner" component={CameraScanner} />
-        <Stack.Screen name="MedicineDetails" component={MedicineDetails} />
+      <Stack.Navigator initialRouteName={'ScanQrCodeScreen'}>
+        <Stack.Screen
+          name="ScanQrCodeScreen"
+          component={ScanQrCodeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CameraScanner"
+          component={CameraScanner}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="MedicineDetails"
+          component={MedicineDetails}
+          options={{
+            headerShown: true,
+            headerTitle: 'Medicine Details',
+            headerTitleAlign: 'center',
+            headerStyle: {
+              backgroundColor: colors.white
+            },
+            headerTitleStyle: { fontSize: moderateScale(14) },
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <View style={styles.backNavigationProperties}>
+                  <Ionicons name="chevron-back" size={28} color={colors.buttonBg} />
+                  <Text style={styles.backNavigationText}>Back</Text>
+                </View>
+              </TouchableOpacity>
+            )
+          }}
+        />
       </Stack.Navigator>
     );
   };

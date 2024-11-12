@@ -4,26 +4,6 @@ import { AppRegistry } from 'react-native';
 import App from './App';
 import { name as appName } from './app.json';
 import { Platform } from 'react-native';
-import { PermissionsAndroid } from 'react-native';
-
-// Request Android notification permission
-const requestAndroidNotificationPermission = async () => {
-  if (Platform.OS === 'android' && Platform.Version >= 33) {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('Notification permission granted');
-      } else {
-        console.warn('Notification permission denied');
-        Alert.alert('Permission required', 'Please enable notifications in settings.');
-      }
-    } catch (err) {
-      console.error('Permission request error:', err);
-    }
-  }
-};
 
 PushNotification.configure({
   onRegister: function (token) {
@@ -89,6 +69,5 @@ const handleSnooze = notification => {
 };
 
 AppRegistry.registerComponent(appName, () => {
-  requestAndroidNotificationPermission();
   return App;
 });
