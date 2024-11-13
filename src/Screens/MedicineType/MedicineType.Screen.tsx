@@ -18,10 +18,11 @@ import styles from './style';
 const MedicineType: FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [selectedUnit, setSelectedUnit] = useState<string>('');
+  const [selectedType, setSelectedType] = useState<string>('');
 
   const handleNext: any = () => {
-    dispatch(setMedicineType({ typeMed: selectedUnit }));
+    dispatch(setMedicineType({ typeMed: selectedType }));
+    setSelectedType('');
     navigation.navigate('MedicineDoses' as never);
   };
 
@@ -63,15 +64,15 @@ const MedicineType: FC = () => {
           <RenderItems
             item={item}
             index={index}
-            selectedUnit={selectedUnit}
+            selectedUnit={selectedType}
             onPress={() => {
-              setSelectedUnit(selectedUnit === item ? '' : item);
+              setSelectedType(selectedType === item ? '' : item);
             }}
             key={index.toString()}
           />
         )}
       />
-      {selectedUnit !== '' ? (
+      {selectedType !== '' ? (
         <View style={styles.NextButtonPosition}>
           <CustomButton
             onPress={handleNext}

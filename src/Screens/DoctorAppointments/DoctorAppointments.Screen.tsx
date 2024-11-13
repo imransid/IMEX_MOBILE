@@ -59,6 +59,12 @@ const DoctorAppointments: FC = () => {
         }
       ])
     );
+    setDate('');
+    setSelectedTime('');
+    setReminder('');
+    setTempReminder('');
+    setLocation('');
+    setDoctorName('');
     navigation.navigate(`${prevRoute}` as never);
   };
   const handleSelectTime: any = () => {
@@ -141,7 +147,7 @@ const DoctorAppointments: FC = () => {
                   onChangeText={setDoctorName}
                   keyboardType="default"
                   style={styles.nameInput}
-                  maxLength={10}
+                  value={doctorName}
                 />
               </View>
             </View>
@@ -159,7 +165,7 @@ const DoctorAppointments: FC = () => {
                   keyboardType="default"
                   onChangeText={setLocation}
                   style={styles.nameInput}
-                  maxLength={10}
+                  value={location}
                 />
               </View>
             </View>

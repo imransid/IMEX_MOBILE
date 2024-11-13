@@ -28,8 +28,8 @@ import moment from 'moment';
 import { createWeeklyMutation } from '@/mutations/createWeekly';
 import { localSchedule } from '@/helper/notify';
 import { createMedicineData } from '@/mutations/createMedicine';
-import { getWeekDates, mergeWeeklyDataWithDoseTimes, mergeWeeklyDatesWithDoseTimes, setWeeklyDateDoseTimes, WeeklyDateEntry } from './extramethod';
-
+import { getWeekDates, mergeWeeklyDataWithDoseTimes, setWeeklyDateDoseTimes, WeeklyDateEntry } from './extramethod';
+import ToastPopUp from '@/utils/Toast.android';
 const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -60,6 +60,8 @@ const WeeklyDoseDetails: FC = () => {
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [date, setDate] = useState(new Date());
+
+  const [disable, setDisable] = useState(false);
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -101,11 +103,17 @@ const WeeklyDoseDetails: FC = () => {
     }
   };
 
+  const clearAllDosesAndTime: any = () => {
+    setDoses(doses.map(() => 0));
+    setTimes(times.map(() => ''));
+  };
+
   const handleNext: any = async () => {
+    setDisable(true);
+
     let filterArray = weeklyDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
-
 
     let filterArrayMonthly = storedMedicineWeeklyList.filter(e => {
       if (e.medicineLocalId.medicineLocalId.toString() === medicineLocalId) return e;
@@ -149,6 +157,12 @@ const WeeklyDoseDetails: FC = () => {
       await localSchedule(tempStore, 'week', medicineLocalId);
       dispatch(setWeeklyStoreData(tempStore));
     }
+
+    clearAllDosesAndTime();
+
+    setDisable(false);
+
+    ToastPopUp('Medicine Created Successfully');
 
     navigation.navigate('AddedMedicine' as never);
   };
@@ -305,6 +319,7 @@ const WeeklyDoseDetails: FC = () => {
         <View style={styles.NextbuttonPosition}>
           <CustomButton
             onPress={handleNext}
+            disabled={disable}
             icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
             text="Next"
           />

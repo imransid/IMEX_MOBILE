@@ -28,6 +28,10 @@ const MedicineReminders: FC = () => {
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
 
   const handleNext: any = () => {
+    setMedicineReminderTotalReq('');
+    setMedicineReminderCurrentStock('');
+    setMedicineReminderRemindToLeft('');
+
     dispatch(
       setExtraMedicineReminder([
         {
@@ -64,7 +68,7 @@ const MedicineReminders: FC = () => {
                   keyboardType="numeric"
                   style={styles.medicineInput}
                   onChangeText={setMedicineReminderTotalReq}
-                  maxLength={3}
+                  value={medicineReminderTotalReq}
                 />
                 <Text style={styles.medicineText}>Medicine</Text>
               </View>
@@ -82,7 +86,7 @@ const MedicineReminders: FC = () => {
                   keyboardType="numeric"
                   style={styles.medicineInput}
                   onChangeText={setMedicineReminderCurrentStock}
-                  maxLength={3}
+                  value={medicineReminderCurrentStock}
                 />
                 <Text style={styles.medicineText}>Medicine</Text>
               </View>
@@ -100,7 +104,7 @@ const MedicineReminders: FC = () => {
                   keyboardType="numeric"
                   style={styles.medicineInput}
                   onChangeText={setMedicineReminderRemindToLeft}
-                  maxLength={3}
+                  value={medicineReminderRemindToLeft}
                 />
                 <Text style={styles.medicineText}>Medicine</Text>
               </View>

@@ -40,7 +40,7 @@ const PreviewDoseDetails: FC = () => {
           <Header mainHeader={medicine.medicineName} />
         </View>
         <View style={styles.subHeader}>
-          <Header subHeader={`${medicine.typeMed}, ${medicine.strengthMed}`} />
+          <Header subHeader={`${medicine.typeMed}, ${medicine.strengthMed}${medicine.unitMed}`} />
         </View>
 
         <View style={styles.doseDetailsPosition}>

@@ -112,7 +112,7 @@ export const fetchWeeklyMedicines = async (accessToken: string) => {
     } else {
       console.error('Unexpected Error:', error);
     }
-    ToastPopUp('Network Error! Please check your connection.');
+    //ToastPopUp('Network Error! Please check your connection.');
   }
 
   // Return undefined if something goes wrong

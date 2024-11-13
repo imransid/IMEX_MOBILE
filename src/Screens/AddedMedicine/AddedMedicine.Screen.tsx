@@ -34,6 +34,10 @@ const AddedMedicine: FC = () => {
 
   const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
 
+  const storedMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
+  );
+
   const scaleStyles = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }]
   }));

@@ -48,27 +48,26 @@ export const createMedicineData = async (medicines: IMedicine[], accessToken: st
       }
     );
 
-    console.log('response', response);
     if (
       response?.data?.data?.createMedicines?.message !== undefined &&
       response?.data?.data?.createMedicines?.message !== null
     ) {
-      ToastPopUp(response?.data?.data?.createMedicines?.message);
+      // ToastPopUp(response?.data?.data?.createMedicines?.message);
     } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
       // Show error message from the response
       const errorMessage: any = response?.data?.errors[0]?.message;
       if (typeof errorMessage === 'string') {
-        ToastPopUp(errorMessage);
+        //ToastPopUp(errorMessage);
       }
     } else {
       ToastPopUp('Something Went wrong ! please try again later.');
     }
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('Axios Error:', error.message);
-    } else {
-      console.error('Unexpected Error:', error);
-    }
-    ToastPopUp('Network Error! Please check your connection.');
+    // if (axios.isAxiosError(error)) {
+    //   console.error('Axios Error:', error.message);
+    // } else {
+    console.error('Unexpected Error:', error);
+    // }
+    // ToastPopUp('Network Error! Please check your connection.');
   }
 };

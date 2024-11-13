@@ -1,21 +1,22 @@
-import { InstrucTion } from '@/store/slices/features/medicineDetailsExtraSetting/types';
+import { IMedicineReminder } from '@/store/slices/features/medicineDetailsExtraSetting/types';
 import { BASE_URL } from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
 import axios from 'axios';
 
-export const INSTRUCTION_MUTATION = async (
-  instructions: InstrucTion[],
+export const MEDICINE_REMINDER_MUTATION = async (
+  reminders: IMedicineReminder[],
   medicineLocalId: string,
   accessToken: string
 ) => {
   const buildMutation = `
         mutation {
-    createInstructionMedicines(medicines: [
-      ${instructions
+    createReminderMedicines(medicines: [
+      ${reminders
         .map(
-          instruction => `{
-        medicineLocalId: "${instruction.medicineLocalId}",
-        instrucTion: "${instruction.instrucTion}",
+          reminder => `{
+        medicineReminderCurrentStock: "${reminder.medicineReminderCurrentStock}",
+        medicineReminderRemindToLeft: "${reminder.medicineReminderRemindToLeft}",
+        medicineReminderTotalReq: "${reminder.medicineReminderTotalReq}",
       }`
         )
         .join(',')}
@@ -43,16 +44,15 @@ export const INSTRUCTION_MUTATION = async (
     );
 
     if (
-      response?.data?.data?.createInstructionMedicines?.message !== undefined &&
-      response.data.data.createInstructionMedicines.message !== null
+      response?.data?.data?.createReminderMedicines?.message !== undefined &&
+      response.data.data.createReminderMedicines.message !== null
     ) {
-      ToastPopUp(response.data.data.createInstructionMedicines.message);
+      ToastPopUp(response.data.data.createReminderMedicines.message);
     } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
       // Show error message from the response
       const errorMessage: any = response?.data?.errors[0]?.message;
       if (typeof errorMessage === 'string') {
-        //jwt error need to be fixed
-        // ToastPopUp(errorMessage);
+        ToastPopUp(errorMessage);
       }
     } else {
       ToastPopUp('Something Went wrong ! please try again later.');
@@ -63,6 +63,7 @@ export const INSTRUCTION_MUTATION = async (
     // } else {
     console.error('Unexpected Error:', error);
     // }
-    ToastPopUp('Network Error! Please check your connection.');
+    // need to check and fix for the error we get
+    // ToastPopUp('Network Error! Please check your connection.');
   }
 };

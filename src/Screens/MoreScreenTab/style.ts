@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   pillsLeft: {
     color: colors.buttonBg,
     fontFamily: 'WorkSansMedium',
-    fontSize: moderateScale(12)
+    fontSize: moderateScale(13)
   },
   pillsLeftDetailsText: {
     color: colors.typedText,

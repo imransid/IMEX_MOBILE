@@ -36,10 +36,15 @@ const styles = StyleSheet.create({
   chipPosition: {
     alignItems: 'center'
   },
-  chipText: {
+  medicineNameText: {
+    color: colors.buttonBg,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(13)
+  },
+  doseTimeText: {
     color: colors.header,
     fontFamily: 'WorkSansMedium',
-    fontSize: moderateScale(16)
+    fontSize: moderateScale(13)
   },
   container: {
     backgroundColor: colors.white,

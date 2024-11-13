@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   imagePosition: {
     alignItems: 'center',
-    top: verticalScale(20)
+    top: verticalScale(30)
   },
   mainHeader: {
     alignItems: 'center',
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSansMedium'
   },
   subHeader: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   medicineTypeAndUnitText: {
     color: colors.header,

@@ -91,6 +91,10 @@ export interface IResult {
   linked_pharmacies: string[]; // Depending on what linked_pharmacies is, you may want to define a specific interface for it
 }
 
+export interface AccessTokenInfo {
+  accessToken: string
+}
+
 export interface LoginResponse {
   code: number;
   message: string;

@@ -92,6 +92,12 @@ const EveryXweeksDose: FC = () => {
     dispatch(updateTimeInterval(timeInterval));
     dispatch(setXWeekDoseTime([newDoseTime]));
 
+    setSelectedDate('');
+
+    setSelectedNumber('');
+
+    setTimeInterval('');
+
     navigation.navigate('EveryXweeksDoseDetails' as never);
   };
 

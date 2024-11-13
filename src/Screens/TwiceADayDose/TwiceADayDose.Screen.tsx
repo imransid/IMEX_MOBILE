@@ -18,19 +18,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
 import {
-  setDoseList,
   setDoseQuantity,
-  setDoseTime,
-  setTwiceAdayDoseTime
+  setTwiceAdayDoseTime,
+  setTwiceAdayStoreData
 } from '@/store/slices/features/medicineDetails/slice';
 
-import { BASE_URL } from '@/utils/environment';
 import ToastPopUp from '@/utils/Toast.android';
-import axios from 'axios';
 import moment from 'moment';
-import { ITwiceAdayDoseTime } from '@/store/slices/features/medicineDetails/types';
 import { localSchedule } from '@/helper/notify';
 import { createMedicineData } from '@/mutations/createMedicine';
+import { INSTRUCTION_MUTATION } from '@/mutations/instruction_mutation';
+import { TREATMENT_DURATION_MUTATION } from '@/mutations/treatmentDuration_mutation';
+import { MEDICINE_REMINDER_MUTATION } from '@/mutations/medicineReminder_mutation';
+import { ITwiceAdayDoseTime } from '@/store/slices/features/medicineDetails/types';
 
 const TwiceAdayDose: FC = () => {
   const navigation = useNavigation();
@@ -46,17 +46,98 @@ const TwiceAdayDose: FC = () => {
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [date, setDate] = useState(new Date());
 
+  const [disable, setDisable] = useState(false);
+
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
   const doseTime = useSelector((state: RootState) => state.medicineDetails.doseTime);
   const doseQuantity = useSelector((state: RootState) => state.medicineDetails.doseQuantity);
   const medicineName = useSelector((state: RootState) => state.medicineDetails.medicineName);
   const medicineStatus = useSelector((state: RootState) => state.medicineDetails.medicineStatus);
+
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
+
+  const storedInstructionList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeInstrucTionList
+  );
+
+  const storedTreatmentDurationList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeTreatmentDuration
+  );
+
+  const storedReminderList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeMedicineReminder
+  );
+
+  // Function to fetch instruction data from list
+  const getInstructionData = (medicineId: string) => {
+    if (storedInstructionList.length === 0) return '';
+
+    const instructionName = storedInstructionList.find(
+      (item: any) => item.medicineLocalId === medicineId
+    );
+    return instructionName?.instrucTion;
+  };
+
+  // Function to fetch treatment duration data from list
+  const getTreatmentDurationData = (medicineId: string) => {
+    if (storedTreatmentDurationList.length === 0)
+      return {
+        medicineTakeEachDay: '',
+        treatmentDurationEndTime: '',
+        treatmentDurationStartTime: ''
+      };
+
+    const treatmentDurationName = storedTreatmentDurationList.find(
+      (item: any) => item.medicineLocalId === medicineId
+    );
+
+    return treatmentDurationName
+      ? {
+          medicineTakeEachDay: treatmentDurationName.medicineTakeEachDay,
+          treatmentDurationEndTime: treatmentDurationName.treatmentDurationEndTime,
+          treatmentDurationStartTime: treatmentDurationName.treatmentDurationStartTime
+        }
+      : { medicineTakeEachDay: '', treatmentDurationEndTime: '', treatmentDurationStartTime: '' };
+  };
+
+  const { medicineTakeEachDay, treatmentDurationEndTime, treatmentDurationStartTime } =
+    getTreatmentDurationData(medicineLocalId);
+
+  // Function to fetch medicine reminder data from list
+  const getReminderData = (medicineId: string) => {
+    if (storedReminderList.length === 0)
+      return {
+        medicineReminderCurrentStock: '',
+        medicineReminderRemindToLeft: '',
+        medicineReminderTotalReq: ''
+      };
+
+    const reminderQuantity = storedReminderList.find(
+      (item: any) => item.medicineLocalId === medicineId
+    );
+
+    return reminderQuantity
+      ? {
+          medicineReminderCurrentStock: reminderQuantity.medicineReminderCurrentStock,
+          medicineReminderRemindToLeft: reminderQuantity.medicineReminderRemindToLeft,
+          medicineReminderTotalReq: reminderQuantity.medicineReminderTotalReq
+        }
+      : {
+          medicineReminderCurrentStock: '',
+          medicineReminderRemindToLeft: '',
+          medicineReminderTotalReq: ''
+        };
+  };
+
+  const { medicineReminderCurrentStock, medicineReminderRemindToLeft, medicineReminderTotalReq } =
+    getReminderData(medicineLocalId);
+
   const selectedDateTime = useSelector(
     (state: RootState) => state.medicineDetails.selectedDateTime
   );
+
   const typeMed = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const takeStatus = useSelector((state: RootState) => state.medicineDetails.takeStatus);
@@ -103,193 +184,164 @@ const TwiceAdayDose: FC = () => {
     }
   };
 
+  const clearAllDosesAndTime: any = () => {
+    setDoses(doses.map(() => 0));
+    setTimes(times.map(() => ''));
+  };
+
   const loginStatus = useSelector((state: RootState) => state.users?.user?.loginStatus);
 
-  // const handleNext: any = async () => {
-  //   if (accessToken === null || accessToken === undefined) {
-  //     let updatedStoredList = [...storedMedicineList];
-
-  //     // Create data for the new medicine
-  //     let data = {
-  //       medicineLocalId: medicineLocalId,
-  //       medicineName: medicineName,
-  //       medicineStatus: medicineStatus,
-  //       takeStatus: takeStatus,
-  //       doseQuantity: doseQuantity,
-  //       doseTime: doseTime,
-  //       strengthMed: strengthMed,
-  //       unitMed: unitMed,
-  //       typeMed: typeMed,
-  //       medicineId: 'R@f@', // Use the correct reference
-  //       createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-  //       selectedDateTime: selectedDateTime
-  //     };
-
-  //     // Add the new data to the copied array
-  //     updatedStoredList.push(data);
-  //     dispatch(setDoseList(updatedStoredList));
-  //     navigation.navigate('AddedMedicine' as never);
-
-  //     ToastPopUp('Medicine Created Successfully');
-  //   } else {
-  //     const mutation = `
-  //   mutation {
-  //     createMedicines(medicines: [
-  //       {
-  //         medicineLocalId: "${medicineLocalId}",
-  //         medicineName: "${medicineName}",
-  //         medicineStatus: "${medicineStatus}",
-  //         takeStatus: "${takeStatus}",
-  //         doseQuantity: "${doseQuantity}",
-  //         doseTime: "${doseTime}",
-  //         strengthMed: "${strengthMed}",
-  //         unitMed: "${unitMed}",
-  //         typeMed: "${typeMed}",
-  //         createdDate: "${moment().format('YYYY-MM-DD HH:mm:ss')}"
-  //       }
-  //     ]) {
-  //       message
-  //       error {
-  //         message
-  //         code
-  //       }
-  //     }
-  //   }
-  //   `;
-
-  //     try {
-  //       const response = await axios.post(
-  //         BASE_URL,
-  //         { query: mutation },
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${accessToken}`,
-  //             'Content-Type': 'application/json'
-  //           }
-  //         }
-  //       );
-
-  //       console.log('response', response);
-
-  //       // Check if registration was successful
-  //       if (
-  //         response?.data?.data?.createMedicines?.message !== undefined &&
-  //         response?.data?.data?.createMedicines?.message !== null
-  //       ) {
-  //         let updatedStoredList = [...storedMedicineList];
-
-  //         // Create data for the new medicine
-  //         let data = {
-  //           medicineLocalId: medicineLocalId,
-  //           medicineName: medicineName,
-  //           medicineStatus: medicineStatus,
-  //           takeStatus: takeStatus,
-  //           doseQuantity: doseQuantity,
-  //           doseTime: doseTime,
-  //           strengthMed: strengthMed,
-  //           unitMed: unitMed,
-  //           typeMed: typeMed,
-  //           medicineId: 'R@f@', // Use the correct reference
-  //           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-  //           selectedDateTime: selectedDateTime
-  //         };
-
-  //         // Add the new data to the copied array
-  //         updatedStoredList.push(data);
-  //         dispatch(setDoseList(updatedStoredList));
-  //         navigation.navigate('AddedMedicine' as never);
-
-  //         ToastPopUp(response.data.data.createMedicines.message);
-  //       } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
-  //         // Show error message from the response
-
-  //         const errorMessage: any = response?.data?.errors[0]?.message;
-  //         if (typeof errorMessage === 'string') {
-  //           ToastPopUp(errorMessage);
-  //         }
-  //       } else {
-  //         ToastPopUp('Something Went wrong ! please try again later.');
-  //       }
-  //     } catch (error) {
-  //       if (axios.isAxiosError(error)) {
-  //         console.log('error', error);
-
-  //         console.error('Axios Error:', error.message);
-  //       } else {
-  //         console.error('Unexpected Error:', error);
-  //       }
-  //       ToastPopUp('Network Error! Please check your connection.');
-  //     }
-  //   }
-
-  //   useEffect(() => {
-  //     if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
-  //       const twiceAdayDoses: ITwiceAdayDoseTime[] = times
-  //         .map((time, index) => ({
-  //           doseTime: time,
-  //           doseQuantity: doses[index].toString(),
-  //           medicineLocalId
-  //         }))
-  //         .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
-
-  //       dispatch(setTwiceAdayDoseTime(twiceAdayDoses));
-  //     }
-  //   }, [times, doses]);
-  // };
+  const TwiceAdayDoseTime = useSelector(
+    (state: RootState) => state.medicineDetails.twiceAdayDoseTime
+  );
 
   const handleNext: any = async () => {
-    if (loginStatus === true) {
-      let updatedStoredList = [...storedMedicineList];
+    setDisable(true);
+    let filterArray = TwiceAdayDoseTime.filter(e => {
+      if (e.medicineLocalId === medicineLocalId) return e;
+    });
 
-      // Create data for the new medicine
-      let data = {
-        medicineLocalId: medicineLocalId,
-        medicineName: medicineName,
-        medicineStatus: medicineStatus,
-        takeStatus: takeStatus,
-        doseQuantity: doseQuantity,
-        doseTime: doseTime,
-        strengthMed: strengthMed,
-        unitMed: unitMed,
-        typeMed: typeMed,
-        medicineId: 'R@f@', // Use the correct reference
-        createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-        selectedDateTime: selectedDateTime
-      };
+    if (filterArray.length > 0) {
+      let tempStore = filterArray.map(e => {
+        return {
+          medicineName: medicineName,
+          medicineStatus: 'Daily',
+          takeStatus: takeStatus,
+          doseQuantity: e.doseQuantity,
+          doseTime: e.doseTime,
+          strengthMed: strengthMed,
+          unitMed: unitMed,
+          typeMed: typeMed,
+          medicineId: '',
+          medicineLocalId: e.medicineLocalId,
+          createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+          selectedDateTime: selectedDateTime
+        };
+      });
 
-      // Add the new data to the copied array
-      updatedStoredList.push(data);
-      await localSchedule(updatedStoredList, 'day', medicineLocalId);
-      await createMedicineData(updatedStoredList, accessToken);
-      dispatch(setDoseList(updatedStoredList));
-      navigation.navigate('AddedMedicine' as never);
+      //now check login or not
+      if (loginStatus) {
+        let updatedInstructionList = [...storedInstructionList];
 
-      ToastPopUp('Medicine Created Successfully');
-    } else {
-      let updatedStoredList = [...storedMedicineList];
+        let updatedTreatmentDurationList = [...storedTreatmentDurationList];
 
-      // Create data for the new medicine
-      let data = {
-        medicineLocalId: medicineLocalId,
-        medicineName: medicineName,
-        medicineStatus: medicineStatus,
-        takeStatus: takeStatus,
-        doseQuantity: doseQuantity,
-        doseTime: doseTime,
-        strengthMed: strengthMed,
-        unitMed: unitMed,
-        typeMed: typeMed,
-        medicineId: 'R@f@', // Use the correct reference
-        createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-        selectedDateTime: selectedDateTime
-      };
-      // Add the new data to the copied array
-      updatedStoredList.push(data);
-      dispatch(setDoseList(updatedStoredList));
-      await localSchedule(updatedStoredList, 'day', medicineLocalId);
-      navigation.navigate('AddedMedicine' as never);
+        let updatedReminderList = [...storedReminderList];
+
+        // Create data for the new instruction
+        let instructionData = {
+          medicineLocalId: medicineLocalId,
+          instrucTion: getInstructionData(medicineLocalId) || ''
+        };
+
+        // create treatment duration data
+        let treatmentDurationData = {
+          medicineLocalId: medicineLocalId,
+          medicineTakeEachDay: medicineTakeEachDay,
+          treatmentDurationEndTime: treatmentDurationEndTime,
+          treatmentDurationStartTime: treatmentDurationStartTime
+        };
+
+        // Create data for the new reminder
+        let reminderData = {
+          medicineLocalId: medicineLocalId,
+          medicineReminderCurrentStock: medicineReminderCurrentStock,
+          medicineReminderRemindToLeft: medicineReminderRemindToLeft,
+          medicineReminderTotalReq: medicineReminderTotalReq
+        };
+
+        //  Add the new data to the copied array
+        updatedInstructionList.push(instructionData);
+        updatedTreatmentDurationList.push(treatmentDurationData);
+        updatedReminderList.push(reminderData);
+
+        // Required Mutations
+        if (accessToken !== undefined) {
+          await createMedicineData(tempStore, accessToken);
+          await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
+          await TREATMENT_DURATION_MUTATION(
+            updatedTreatmentDurationList,
+            accessToken,
+            medicineLocalId
+          );
+          await MEDICINE_REMINDER_MUTATION(updatedReminderList, accessToken, medicineLocalId);
+        } else {
+          // Handle the case where accessToken is undefined
+          console.error('AccessToken is undefined');
+        }
+
+        await localSchedule(tempStore, 'day', medicineLocalId);
+
+        dispatch(setTwiceAdayStoreData(tempStore));
+
+        clearAllDosesAndTime();
+
+        setDisable(false);
+
+        navigation.navigate('AddedMedicine' as never);
+
+        ToastPopUp('Medicine Created Successfully');
+      } else {
+        let updatedInstructionList = [...storedInstructionList];
+
+        let updatedTreatmentDurationList = [...storedTreatmentDurationList];
+
+        let updatedReminderList = [...storedReminderList];
+
+        // Create data for the new instruction
+        let instructionData = {
+          medicineLocalId: medicineLocalId,
+          instrucTion: getInstructionData(medicineLocalId) || ''
+        };
+
+        // create treatment duration data
+        let treatmentDurationData = {
+          medicineLocalId: medicineLocalId,
+          medicineTakeEachDay: medicineTakeEachDay,
+          treatmentDurationEndTime: treatmentDurationEndTime,
+          treatmentDurationStartTime: treatmentDurationStartTime
+        };
+
+        // Create data for the new reminder
+        let reminderData = {
+          medicineLocalId: medicineLocalId,
+          medicineReminderCurrentStock: medicineReminderCurrentStock,
+          medicineReminderRemindToLeft: medicineReminderRemindToLeft,
+          medicineReminderTotalReq: medicineReminderTotalReq
+        };
+
+        //  Add the new data to the copied array
+        updatedInstructionList.push(instructionData);
+        updatedTreatmentDurationList.push(treatmentDurationData);
+        updatedReminderList.push(reminderData);
+
+        await localSchedule(tempStore, 'day', medicineLocalId);
+
+        dispatch(setTwiceAdayStoreData(tempStore));
+
+        clearAllDosesAndTime();
+
+        setDisable(false);
+
+        navigation.navigate('AddedMedicine' as never);
+
+        ToastPopUp('Medicine Created Successfully');
+      }
     }
   };
+
+  useEffect(() => {
+    if (times.every(time => time !== '') && doses.every(dose => dose !== 0)) {
+      const twiceAdayDoses: ITwiceAdayDoseTime[] = times
+        .map((time, index) => ({
+          doseTime: time,
+          doseQuantity: doses[index].toString(),
+          medicineLocalId
+        }))
+        .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
+
+      dispatch(setTwiceAdayDoseTime(twiceAdayDoses));
+    }
+  }, [times, doses]);
 
   return (
     <View style={styles.container}>
@@ -416,6 +468,7 @@ const TwiceAdayDose: FC = () => {
         <View style={styles.NextbuttonPosition}>
           <CustomButton
             onPress={handleNext}
+            disabled={disable}
             icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
             text="Next"
           />

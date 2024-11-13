@@ -91,6 +91,7 @@ const AddPrescription: FC = () => {
   };
 
   const handleNext: any = () => {
+    setSelectedImage(null);
     navigation.navigate(`${prevRoute}` as never);
   };
 

@@ -105,6 +105,7 @@ const MedicineDetails: FC = (): JSX.Element => {
           onPress={() => handlePress()}
           icon={<Icon name="calendar-number-outline" size={30} color={colors.white} />}
           text="Schedule Dosage"
+          pageName="MedicineDetails"
         />
       </View>
     </View>
