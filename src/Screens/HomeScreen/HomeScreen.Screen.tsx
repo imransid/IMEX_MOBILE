@@ -168,7 +168,9 @@ const HomeScreen: FC = () => {
                               {/* {getWeeklyMedicineList(medicine.medicineLocalId)
                                 ? getWeeklyMedicineList(medicine.medicineLocalId)
                                 : 'No Week Days Selected'} */}{' '}
-                              {moment(medicine.selectedDateTime).format('dddd')}
+                              {medicine.selectedDateTime !== null
+                                ? moment(medicine.selectedDateTime).format('dddd')
+                                : 'No Week Days Selected'}
                             </Text>
                           </View>
                         </View>
