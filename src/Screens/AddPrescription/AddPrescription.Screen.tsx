@@ -35,17 +35,17 @@ const AddPrescription: FC = () => {
 
   const handleChoosePhoto = async (): Promise<void> => {
     try {
-      const response = await launchImageLibrary({ noData: true });
+      const response = await launchImageLibrary({ mediaType: 'photo' });
 
       if (response.assets !== undefined) {
         const imageFile: ImageFiles[] = response.assets.map(asset => ({
-          originalPath: asset.originalPath ?? '', // Provide default value
-          type: asset.type ?? '', // Default to 'image/jpeg'
-          height: asset.height ?? 0, // Default to 0
-          width: asset.width ?? 0, // Default to 0
-          fileName: asset.fileName ?? 'Unnamed', // Default to 'Unnamed'
-          fileSize: asset.fileSize ?? 0, // Default to 0
-          uri: asset.uri ?? '' // Provide default value
+          originalPath: asset.originalPath ?? '',
+          type: asset.type ? asset.type.split('/')[1] : '', // Extract type (jpeg or png)
+          height: asset.height ?? 0,
+          width: asset.width ?? 0,
+          fileName: asset.fileName ?? 'Unnamed',
+          fileSize: asset.fileSize ?? 0,
+          uri: asset.uri ?? ''
         }));
 
         // Store the first image's URI and file name
@@ -165,7 +165,7 @@ const AddPrescription: FC = () => {
                 </View>
               )}
               {selectedImage !== null ? (
-                <View style={styles.NextbuttonPosition}>
+                <View style={styles.SavebuttonPosition}>
                   <CustomButton
                     onPress={handleNext}
                     icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
@@ -181,13 +181,6 @@ const AddPrescription: FC = () => {
       ) : (
         <></>
       )}
-      {/* <View style={styles.NextbuttonPosition}>
-        <CustomButton
-          onPress={handleNext}
-          icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
-          text="Save"
-        />
-      </View> */}
     </View>
   );
 };

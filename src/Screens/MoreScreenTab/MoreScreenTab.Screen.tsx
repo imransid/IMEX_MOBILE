@@ -29,7 +29,7 @@ const MoreScreenTab: FC = () => {
                 <FlatList
                   data={storedMedicineList}
                   renderItem={({ item: medicine, index }) => (
-                    <TouchableOpacity key={index} style={styles.chip}>
+                    <View key={index} style={styles.chip}>
                       <View style={styles.medicineDoseProperties}>
                         <View style={styles.doseDetailsPosition}>
                           <Text style={styles.pillsLeft}>{medicine.medicineName}</Text>
@@ -44,7 +44,7 @@ const MoreScreenTab: FC = () => {
                           <Text style={styles.pillsLeft}>Number of Pill(s) Left</Text>
                         </View>
                       </View>
-                    </TouchableOpacity>
+                    </View>
                   )}
                 />
               </View>
@@ -62,7 +62,7 @@ const MoreScreenTab: FC = () => {
                 <FlatList
                   data={appointMentList}
                   renderItem={({ item: medicine, index }) => (
-                    <TouchableOpacity key={index} style={styles.chip}>
+                    <View key={index} style={styles.chip}>
                       <View style={styles.medicineDoseProperties}>
                         <View style={styles.doseDetailsPosition}>
                           <Text style={styles.pillsLeft}>
@@ -75,7 +75,7 @@ const MoreScreenTab: FC = () => {
                           <Text style={styles.pillsLeft}>{medicine.time}</Text>
                         </View>
                       </View>
-                    </TouchableOpacity>
+                    </View>
                   )}
                 />
               </View>
@@ -93,23 +93,22 @@ const MoreScreenTab: FC = () => {
                 <FlatList
                   data={prescriptionList}
                   renderItem={({ item: medicine, index }) => (
-                    <TouchableOpacity key={index} style={styles.chip}>
+                    <View key={index} style={styles.chip}>
                       <View style={styles.medicineDoseProperties}>
                         <Image
-                          style={{ height: '100%', width: '20%' }}
-                          // source={{ uri: medicine.uri }}
+                          style={styles.prescriptionImageStyle}
                           source={{ uri: decodeURIComponent(medicine.uri) }}
                           resizeMode="cover"
                         />
-                        <View style={styles.doseDetailsPosition}>
+                        <View style={styles.prescriptionDetailsPosition}>
                           <Text style={styles.pillsLeft}>{medicine.fileName}</Text>
-                          <Text style={styles.pillsLeftDetailsText}>{medicine.type}</Text>
+                          <Text style={styles.pillsLeftDetailsText}></Text>
                         </View>
                         <View style={styles.pillsLeftPosition}>
-                          <Text style={styles.pillsLeft}>{medicine.fileSize}</Text>
+                          <Text style={styles.pillsLeft}>Type: {medicine.type}</Text>
                         </View>
                       </View>
-                    </TouchableOpacity>
+                    </View>
                   )}
                 />
               </View>

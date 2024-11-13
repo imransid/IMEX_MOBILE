@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   chooseFileText: {
     color: colors.white,
     fontSize: moderateScale(16),
-    fontFamily: 'WorkSansMedium',
+    fontFamily: 'WorkSansMedium'
   },
   container: {
     backgroundColor: colors.white,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   mainText: {
     color: colors.typedText,
     fontSize: moderateScale(16),
-    fontFamily: 'WorkSansMedium',
+    fontFamily: 'WorkSansMedium'
   },
   subHeadingPosition: {
     left: scale(10),
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(18)
   },
   uploadedfilesPosition: {
-    left: scale(10), 
+    left: scale(10),
     marginTop: scale(15)
   },
   filesIconPosition: {
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     marginTop: scale(2)
   },
   uploadProgressPosition: {
-    flexDirection: 'column', 
+    flexDirection: 'column'
   },
   uploadProgressText: {
     color: colors.header,
@@ -115,24 +115,24 @@ const styles = StyleSheet.create({
     width: '100%',
     height: scale(10),
     backgroundColor: 'white', // Background color of the progress bar
-    overflow: 'hidden', // Ensures the fill doesn't go outside the bar
+    overflow: 'hidden' // Ensures the fill doesn't go outside the bar
   },
   progressBarFill: {
     height: '30%',
-    backgroundColor: colors.progressbarColor, // Color of the progress fill
+    backgroundColor: colors.progressbarColor // Color of the progress fill
   },
   removeImageButton: {
     marginLeft: scale(10),
-    padding: scale(3),
+    padding: scale(3)
   },
   removeImageText: {
     color: colors.header, // Color for the cross icon
-    fontSize: 16,
+    fontSize: 16
   },
-  NextbuttonPosition: {
-    marginTop: scale(85),
-    right: scale(52),
-  },
+  SavebuttonPosition: {
+    marginTop: scale(65),
+    right: scale(52)
+  }
 });
 
 export default styles;
