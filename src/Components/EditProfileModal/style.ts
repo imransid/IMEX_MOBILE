@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     margin: scale(10),
     padding: scale(12),
     top: scale(10)
+    //height: 700
   },
   modalHeader: {
     alignItems: 'center',
@@ -111,6 +112,21 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.textInput,
     zIndex: 1000
+  },
+  datePickerPosition: {
+    alignItems: 'center'
+  },
+  datePickerStyle: {
+    backgroundColor: 'black'
+  },
+  confirmDateButton: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  confirmDateButtonText: {
+    color: colors.buttonBg,
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(14)
   }
 });
 
