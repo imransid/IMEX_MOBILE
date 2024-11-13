@@ -27,7 +27,7 @@ interface TimeEntry {
   doseDate: Date;
 }
 
-interface WeeklyDateEntry {
+export interface WeeklyDateEntry {
   day: string;
   date: Date;
 }
@@ -35,33 +35,51 @@ interface WeeklyDateEntry {
 export const setWeeklyDateDoseTimes = (
   time: TimeEntry[],
   weeklyDate: WeeklyDateEntry[]
-): TimeEntry[] =>
+): TimeEntry[] => {
+  let returnData: TimeEntry[] = [];
+
   time.map(item => {
-    const doseDate = new Date(item.doseDate);
-    const doseDayIndex = doseDate.getDay();
+    weeklyDate.map(e => {
+      const [hour, minutePart] = item.doseTime.split(':');
+      const minute = parseInt(minutePart.slice(0, 2));
+      const isPM = minutePart.slice(-2).toUpperCase() === 'PM';
+      let hourNumber = parseInt(hour);
 
-    const matchingDay = weeklyDate.find((_, index) => index === doseDayIndex);
-    if (!matchingDay) return item;
+      const newDoseDate = new Date(e.date);
+      newDoseDate.setHours(hourNumber, minute, 0, 0);
 
-    const [hour, minutePart] = item.doseTime.split(':');
-    const minute = parseInt(minutePart.slice(0, 2));
-    const isPM = minutePart.slice(-2).toUpperCase() === 'PM';
-    let hourNumber = parseInt(hour);
+      // Check if an item with the same doseDate already exists
+      // Check if an item with the same doseDate already exists
+      const isDuplicate = returnData.some(
+        existingItem => existingItem.doseDate?.toISOString() === newDoseDate.toISOString()
+      );
 
-    if (isPM && hourNumber < 12) hourNumber += 12;
-    if (!isPM && hourNumber === 12) hourNumber = 0;
+      // Only add to returnData if it's not a duplicate
+      if (!isDuplicate) {
+        let data = {
+          doseTime: item.doseTime,
+          doseQuantity: item.doseQuantity,
+          medicineLocalId: item.medicineLocalId,
+          doseDate: newDoseDate
+        };
 
-    const newDoseDate = new Date(matchingDay.date);
-    newDoseDate.setHours(hourNumber, minute, 0, 0);
-
-    return { ...item, doseDate: newDoseDate };
+        returnData.push(data);
+      }
+    });
   });
+
+  returnData.forEach(item => console.log('doseDate:??', item.doseDate.toISOString()));
+
+  return returnData;
+};
 
 export const mergeWeeklyDataWithDoseTimes = (
   weeklyData: WeeklyDateEntry[],
   doseTimes: TimeEntry[]
-): Array<WeeklyDateEntry & Partial<TimeEntry>> =>
-  weeklyData.map((dayEntry, index) => {
+): Array<WeeklyDateEntry & Partial<TimeEntry>> => {
+  // console.log('weeklyData', weeklyData, 'doseTimes', doseTimes);
+
+  return weeklyData.map((dayEntry, index) => {
     const doseTimeEntry = doseTimes[index];
     return {
       ...dayEntry,
@@ -71,3 +89,4 @@ export const mergeWeeklyDataWithDoseTimes = (
       doseDate: doseTimeEntry?.doseDate || dayEntry.date
     };
   });
+};

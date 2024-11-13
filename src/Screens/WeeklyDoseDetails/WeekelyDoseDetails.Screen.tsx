@@ -28,7 +28,7 @@ import moment from 'moment';
 import { createWeeklyMutation } from '@/mutations/createWeekly';
 import { localSchedule } from '@/helper/notify';
 import { createMedicineData } from '@/mutations/createMedicine';
-import { getWeekDates, mergeWeeklyDataWithDoseTimes, mergeWeeklyDatesWithDoseTimes, setWeeklyDateDoseTimes } from './extramethod';
+import { getWeekDates, mergeWeeklyDataWithDoseTimes, mergeWeeklyDatesWithDoseTimes, setWeeklyDateDoseTimes, WeeklyDateEntry } from './extramethod';
 
 const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -113,27 +113,15 @@ const WeeklyDoseDetails: FC = () => {
 
     const customToday = new Date();
 
-
+    let dataWeekData: WeeklyDateEntry[] = []
     filterArrayMonthly.map((e) => {
-      const dataWeekData = getWeekDates(e.medicineLocalId.weeklyTime, customToday);
-      const weekDoseTime = setWeeklyDateDoseTimes(filterArray, dataWeekData);
-
-      const mergedArray = mergeWeeklyDataWithDoseTimes(dataWeekData, weekDoseTime);
-
-
-      mergedArray.forEach(item => {
-
-        const doseDate = new Date(item.date);
-
-        console.log(`Entry for ${doseDate}`);
-      })
-
-      console.log('Merged Array:', mergedArray);
+      dataWeekData = getWeekDates(e.medicineLocalId.weeklyTime, customToday);
     });
 
+    const weekDoseTime = setWeeklyDateDoseTimes(filterArray, dataWeekData);
 
-    if (filterArray.length > 0) {
-      let tempStore = filterArray.map(e => {
+    if (weekDoseTime.length > 0) {
+      let tempStore = weekDoseTime.map(e => {
         return {
           medicineName: medicineName,
           medicineStatus: 'week',
@@ -146,16 +134,19 @@ const WeeklyDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime
+          selectedDateTime: e.doseDate
         };
       });
 
+
+      console.log('tempStore', tempStore, weekDoseTime)
+
       // now check login or not
-      // if (loginStatus) {
-      //   await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
-      //   await createMedicineData(tempStore, accessToken);
-      // }
-      // await localSchedule(tempStore, 'week', medicineLocalId);
+      if (loginStatus) {
+        await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
+        await createMedicineData(tempStore, accessToken);
+      }
+      await localSchedule(tempStore, 'week', medicineLocalId);
       dispatch(setWeeklyStoreData(tempStore));
     }
 
