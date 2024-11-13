@@ -35,7 +35,6 @@ interface NavigationParams {
 type NavigationProp = StackNavigationProp<RootStackParamList, 'AddInstructions'>;
 
 const HomeScreen: FC = () => {
-
   // Define your stack navigation parameter list
 
   const storedMedicineList = useSelector(
@@ -50,7 +49,6 @@ const HomeScreen: FC = () => {
   );
 
   const [currentTime, setCurrentTime] = useState(moment());
-
 
   const route = useRoute();
 
@@ -145,13 +143,11 @@ const HomeScreen: FC = () => {
                   const statusText = currentTime.isBefore(doseTime)
                     ? 'Upcoming'
                     : currentTime.isSame(doseTime, 'minute')
-                    ? 'Take Now'
-                    : 'Passed';
+                      ? 'Take Now'
+                      : 'Passed';
 
                   return (
-                    <TouchableOpacity
-                      style={styles.chip}
-                      onPress={() => handleDosePress(medicine)}>
+                    <TouchableOpacity style={styles.chip} onPress={() => handleDosePress(medicine)}>
                       <View style={styles.medicineDoseProperties}>
                         <MedicineImage />
                         <View style={styles.doseDetailsPosition}>
@@ -169,9 +165,10 @@ const HomeScreen: FC = () => {
                           <View style={styles.doseDatesPosition}>
                             <AntDesign name="calendar" size={18} color={colors.typedText} />
                             <Text style={styles.weekDayText}>
-                              {getWeeklyMedicineList(medicine.medicineLocalId)
+                              {/* {getWeeklyMedicineList(medicine.medicineLocalId)
                                 ? getWeeklyMedicineList(medicine.medicineLocalId)
-                                : 'No Week Days Selected'}
+                                : 'No Week Days Selected'} */}{' '}
+                              {moment(medicine.selectedDateTime).format('dddd')}
                             </Text>
                           </View>
                         </View>
