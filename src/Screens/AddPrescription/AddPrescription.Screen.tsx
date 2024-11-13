@@ -2,7 +2,7 @@ import React, { type FC, useState } from 'react';
 import { Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { setPrescriptionAction } from '@/store/slices/features/prescription/slice';
 import { type ImageFile as ImageFiles } from '@/store/slices/features/prescription/types';
@@ -16,6 +16,7 @@ import { colors } from '@/theme/colors';
 import CustomButton from '@/Components/CustomButton/CustomButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { RootState } from '@/store';
 
 const AddPrescription: FC = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,10 @@ const AddPrescription: FC = () => {
   const [selectedImage, setSelectedImage] = useState<{ uri: string; name: string } | null>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0); // Track upload progress
   const [isUploading, setIsUploading] = useState<boolean>(false); // Track if uploading
+
+  const uploadedImage = useSelector((state: RootState) => state.prescription.ImageFile);
+
+  console.log(uploadedImage, 'uploadedImage');
 
   const handleChoosePhoto = async (): Promise<void> => {
     try {
@@ -62,6 +67,7 @@ const AddPrescription: FC = () => {
   };
 
   const simulateUpload = async (image: ImageFiles) => {
+    console.log(image, '>>>>>>>>>>>>>>>>>');
     setIsUploading(true);
     setUploadProgress(0); // Reset progress
 
@@ -71,12 +77,7 @@ const AddPrescription: FC = () => {
         if (prev >= 100) {
           clearInterval(interval);
           setIsUploading(false);
-          // Dispatch to Redux store when upload completes
-          dispatch(
-            setPrescriptionAction({
-              assets: [image]
-            })
-          );
+
           return 100; // Ensure it doesn't go over 100%
         }
         return prev + 10; // Increase progress by 10%
@@ -88,6 +89,12 @@ const AddPrescription: FC = () => {
       clearInterval(interval);
       setIsUploading(false);
     }, 3000); // Total time for simulated upload
+    // Dispatch to Redux store when upload completes
+    dispatch(
+      setPrescriptionAction({
+        assets: [image] // Pass the image array
+      })
+    );
   };
 
   const handleNext: any = () => {

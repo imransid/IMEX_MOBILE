@@ -1,5 +1,5 @@
 import React, { type FC } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import Header from '../../Components/Header/Header';
 import styles from './style';
 import { RootState } from '@/store';
@@ -12,6 +12,8 @@ const MoreScreenTab: FC = () => {
   );
 
   const appointMentList = useSelector((state: RootState) => state.appointment.storeAppointmentList);
+
+  const prescriptionList = useSelector((state: RootState) => state.prescription.ImageFile);
 
   return (
     <View style={styles.container}>
@@ -71,6 +73,40 @@ const MoreScreenTab: FC = () => {
                         </View>
                         <View style={styles.pillsLeftPosition}>
                           <Text style={styles.pillsLeft}>{medicine.time}</Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  )}
+                />
+              </View>
+            </View>
+          ) : (
+            <></>
+          )}
+        </View>
+
+        <View style={styles.refillsHeadingProperties}>
+          {prescriptionList.length > 0 ? (
+            <View style={styles.moreSettingsListStyle}>
+              <Text style={styles.refillsText}>Prescriptions</Text>
+              <View style={styles.medicineDoseComponentPosition}>
+                <FlatList
+                  data={prescriptionList}
+                  renderItem={({ item: medicine, index }) => (
+                    <TouchableOpacity key={index} style={styles.chip}>
+                      <View style={styles.medicineDoseProperties}>
+                        <Image
+                          style={{ height: '100%', width: '20%' }}
+                          // source={{ uri: medicine.uri }}
+                          source={{ uri: decodeURIComponent(medicine.uri) }}
+                          resizeMode="cover"
+                        />
+                        <View style={styles.doseDetailsPosition}>
+                          <Text style={styles.pillsLeft}>{medicine.fileName}</Text>
+                          <Text style={styles.pillsLeftDetailsText}>{medicine.type}</Text>
+                        </View>
+                        <View style={styles.pillsLeftPosition}>
+                          <Text style={styles.pillsLeft}>{medicine.fileSize}</Text>
                         </View>
                       </View>
                     </TouchableOpacity>

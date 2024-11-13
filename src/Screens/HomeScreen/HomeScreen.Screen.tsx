@@ -37,6 +37,7 @@ type NavigationProp = StackNavigationProp<RootStackParamList, 'AddInstructions'>
 const HomeScreen: FC = () => {
   // Define your stack navigation parameter list
 
+  const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
@@ -207,12 +208,14 @@ const HomeScreen: FC = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.addAppointmentButtonPosition}>
-        <TouchableOpacity style={styles.addAppointmentButton} onPress={handleAddAppointment}>
-          <View style={styles.addAppointmentButtonProperties}>
-            <Feather name="plus" size={22} color={colors.white} />
-            <Text style={styles.addMedicineText}>Add Appointment</Text>
-          </View>
-        </TouchableOpacity>
+        {authStatus && (
+          <TouchableOpacity style={styles.addAppointmentButton} onPress={handleAddAppointment}>
+            <View style={styles.addAppointmentButtonProperties}>
+              <Feather name="plus" size={22} color={colors.white} />
+              <Text style={styles.addMedicineText}>Add Appointment</Text>
+            </View>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

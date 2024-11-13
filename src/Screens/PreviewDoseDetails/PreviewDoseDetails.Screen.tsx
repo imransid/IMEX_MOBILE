@@ -14,6 +14,7 @@ import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import moment from 'moment';
 
 const PreviewDoseDetails: FC = () => {
   const route = useRoute(); // Access the route prop
@@ -50,9 +51,9 @@ const PreviewDoseDetails: FC = () => {
               <View style={styles.chip}>
                 <View style={styles.dayContentProperties}>
                   <Text style={styles.chipText}>
-                    {medicine.medicineStatus === 'week'
-                      ? weeklyTime.map(e => e).join(', ')
-                      : 'No week Days Selected'}
+                    {medicine.selectedDateTime !== null
+                      ? moment(medicine.selectedDateTime).format('dddd')
+                      : 'No Week Days Selected'}
                   </Text>
                 </View>
               </View>
