@@ -13,12 +13,13 @@ import styles from './style';
 import { useNavigation } from '@react-navigation/native';
 import { type AppStackParamList } from '@/models/routePageModel';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setMedicineName,
   setQrCodeToScanData
 } from '@/store/slices/features/medicineDetails/slice';
 import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { RootState } from '@/store';
 
 type CameraScannerNavigationProp = StackNavigationProp<AppStackParamList, 'CameraScanner'>;
 
@@ -27,25 +28,33 @@ const CameraScanner: FC = () => {
   const dispatch = useDispatch();
   const { hasPermission, requestPermission } = useCameraPermission();
   const device = useCameraDevice('back');
+  const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
 
   useEffect(() => {
-
     if (hasPermission !== true) requestPermission();
-
   }, [hasPermission]);
-
-
 
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: (codes: Code[]) => {
       const value = codes[0].value ?? string;
       if (value) {
-        const scannedData = JSON.parse(value);
+        try {
+          const scannedData = JSON.parse(value);
 
-        // 
-        dispatch(setQrCodeToScanData(scannedData));
-        navigation.navigate('MedicineDetails', { scannedData: value });
+          //
+          dispatch(setQrCodeToScanData(scannedData));
+          navigation.navigate('MedicineDetails', { scannedData: value });
+        } catch (error) {
+          alert('Invalid QR Code');
+          if (authStatus === true) {
+            alert('Invalid QR Code');
+            navigation.navigate('UserDrawer' as never);
+          } else {
+            alert('Invalid QR Code');
+            navigation.goBack();
+          }
+        }
       }
     }
   });

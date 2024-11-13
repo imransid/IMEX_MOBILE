@@ -269,7 +269,13 @@ const EveryXdaysDoseDetails: FC = () => {
       }
       await localSchedule(tempStore, 'day', medicineLocalId);
 
-      dispatch(setDoseList(tempStore));
+      console.log(tempStore);
+
+      console.log(storedMedicineList);
+
+      let newArray = storedMedicineList.concat(tempStore);
+
+      dispatch(setDoseList(newArray));
 
       clearAllDosesAndTime();
 
