@@ -199,7 +199,10 @@ const XtimesAdayDose: FC = () => {
   const XtimesAdayDoseTime = useSelector(
     (state: RootState) => state.medicineDetails.xTimesAdayDoseTime
   );
-
+  const parseTodayWithTime = (timeString:string) => {
+    const today = moment().format("YYYY-MM-DD"); // Get today's date in 'YYYY-MM-DD' format
+    return moment(`${today} ${timeString}`, "YYYY-MM-DD hh:mm A");
+  };
   const handleNext: any = async () => {
     setDisable(true);
     let filterArray = XtimesAdayDoseTime.filter(e => {
@@ -208,6 +211,8 @@ const XtimesAdayDose: FC = () => {
 
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
+      let selectedtimeobj = parseTodayWithTime(e.doseTime);
+       
         return {
           medicineName: medicineName,
           medicineStatus: 'Daily',
@@ -220,7 +225,7 @@ const XtimesAdayDose: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime
+          selectedDateTime: selectedtimeobj.format()
         };
       });
 
