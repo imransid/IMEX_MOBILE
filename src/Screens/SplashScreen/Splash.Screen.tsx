@@ -18,7 +18,7 @@ const easing = Easing.bezier(0.25, -0.5, 0.25, 1);
 
 const SplashScreen: FC = () => {
   const sv = useSharedValue(0);
-  const scale = useSharedValue(1);
+  const scale = useSharedValue(0.4);
 
   const scaleStyles = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }]

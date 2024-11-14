@@ -263,7 +263,9 @@ const EditProfileModal: FC<EditProfileModalProps> = ({ modalVisible, closeModal 
                           date={selectedDate}
                           onDateChange={(date: Date) => setSelectedDate(date)}
                           mode="date"
-                          style={styles.datePickerStyle}
+                          //style={styles.datePickerStyle}
+                          dividerColor="#888888"
+                          theme="light"
                         />
                       </View>
                       <TouchableOpacity

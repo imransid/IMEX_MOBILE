@@ -166,12 +166,13 @@ const HomeScreen: FC = () => {
                           <View style={styles.doseDatesPosition}>
                             <AntDesign name="calendar" size={18} color={colors.typedText} />
                             <Text style={styles.weekDayText}>
-                              {/* {getWeeklyMedicineList(medicine.medicineLocalId)
+                              {getWeeklyMedicineList(medicine.medicineLocalId)
                                 ? getWeeklyMedicineList(medicine.medicineLocalId)
-                                : 'No Week Days Selected'} */}{' '}
-                              {medicine.selectedDateTime !== null
+                                : 'No Week Days Selected'}{' '}
+                              {/* {medicine.selectedDateTime !== null
                                 ? moment(medicine.selectedDateTime).format('dddd')
-                                : 'No Week Days Selected'}
+                                : 'No Week Days Selected'} */}
+                              {/* {moment(medicine.selectedDateTime).format('dddd')} */}
                             </Text>
                           </View>
                         </View>
