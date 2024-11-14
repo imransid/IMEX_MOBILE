@@ -35,16 +35,21 @@ interface NavigationParams {
 type NavigationProp = StackNavigationProp<RootStackParamList, 'AddInstructions'>;
 
 const HomeScreen: FC = () => {
-  // Define your stack navigation parameter list
-
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
+
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
   const selectedDate = useSelector((state: RootState) => state.medicineDetails.selectedDates);
+
+  const selectedDateTime = useSelector(
+    (state: RootState) => state.medicineDetails.selectedDateTime
+  );
+
   const instructionList = useSelector(
     (state: RootState) => state.medicineDetailsExtraSetting.storeInstrucTionList
   );
+
   const weeklyMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
   );
@@ -113,8 +118,10 @@ const HomeScreen: FC = () => {
   };
 
   const filteredMedicineList = storedMedicineList.filter(medicine => {
-    const medicineDateString = medicine.createdDate.split(' ')[0];
+    const medicineDateString = moment(medicine.selectedDateTime).format('YYYY-MM-DD');
     const formattedDate = moment(selectedDate).format('YYYY-MM-DD');
+
+    // Return medicines where the dates match
     return medicineDateString === formattedDate;
   });
 
@@ -166,13 +173,13 @@ const HomeScreen: FC = () => {
                           <View style={styles.doseDatesPosition}>
                             <AntDesign name="calendar" size={18} color={colors.typedText} />
                             <Text style={styles.weekDayText}>
-                              {getWeeklyMedicineList(medicine.medicineLocalId)
+                              {/* {getWeeklyMedicineList(medicine.medicineLocalId)
                                 ? getWeeklyMedicineList(medicine.medicineLocalId)
-                                : 'No Week Days Selected'}{' '}
+                                : 'No Week Days Selected'}{' '} */}
                               {/* {medicine.selectedDateTime !== null
                                 ? moment(medicine.selectedDateTime).format('dddd')
                                 : 'No Week Days Selected'} */}
-                              {/* {moment(medicine.selectedDateTime).format('dddd')} */}
+                              {moment(medicine.selectedDateTime).format('dddd')}
                             </Text>
                           </View>
                         </View>
