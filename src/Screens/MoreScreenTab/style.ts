@@ -27,6 +27,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: scale(20)
   },
+  prescriptionDetailsPosition: {
+    justifyContent: 'center',
+    marginRight: scale(5)
+  },
+  prescriptionImageStyle: {
+    height: '100%',
+    width: '20%',
+    marginLeft: scale(10)
+  },
   headingPosition: {
     alignItems: 'center',
     top: verticalScale(10)

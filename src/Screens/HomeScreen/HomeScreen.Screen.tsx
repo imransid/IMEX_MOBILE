@@ -35,9 +35,9 @@ interface NavigationParams {
 type NavigationProp = StackNavigationProp<RootStackParamList, 'AddInstructions'>;
 
 const HomeScreen: FC = () => {
-
   // Define your stack navigation parameter list
 
+  const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
@@ -50,7 +50,6 @@ const HomeScreen: FC = () => {
   );
 
   const [currentTime, setCurrentTime] = useState(moment());
-
 
   const route = useRoute();
 
@@ -145,13 +144,11 @@ const HomeScreen: FC = () => {
                   const statusText = currentTime.isBefore(doseTime)
                     ? 'Upcoming'
                     : currentTime.isSame(doseTime, 'minute')
-                    ? 'Take Now'
-                    : 'Passed';
+                      ? 'Take Now'
+                      : 'Passed';
 
                   return (
-                    <TouchableOpacity
-                      style={styles.chip}
-                      onPress={() => handleDosePress(medicine)}>
+                    <TouchableOpacity style={styles.chip} onPress={() => handleDosePress(medicine)}>
                       <View style={styles.medicineDoseProperties}>
                         <MedicineImage />
                         <View style={styles.doseDetailsPosition}>
@@ -169,8 +166,11 @@ const HomeScreen: FC = () => {
                           <View style={styles.doseDatesPosition}>
                             <AntDesign name="calendar" size={18} color={colors.typedText} />
                             <Text style={styles.weekDayText}>
-                              {getWeeklyMedicineList(medicine.medicineLocalId)
+                              {/* {getWeeklyMedicineList(medicine.medicineLocalId)
                                 ? getWeeklyMedicineList(medicine.medicineLocalId)
+                                : 'No Week Days Selected'} */}{' '}
+                              {medicine.selectedDateTime !== null
+                                ? moment(medicine.selectedDateTime).format('dddd')
                                 : 'No Week Days Selected'}
                             </Text>
                           </View>
@@ -208,12 +208,14 @@ const HomeScreen: FC = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.addAppointmentButtonPosition}>
-        <TouchableOpacity style={styles.addAppointmentButton} onPress={handleAddAppointment}>
-          <View style={styles.addAppointmentButtonProperties}>
-            <Feather name="plus" size={22} color={colors.white} />
-            <Text style={styles.addMedicineText}>Add Appointment</Text>
-          </View>
-        </TouchableOpacity>
+        {authStatus && (
+          <TouchableOpacity style={styles.addAppointmentButton} onPress={handleAddAppointment}>
+            <View style={styles.addAppointmentButtonProperties}>
+              <Feather name="plus" size={22} color={colors.white} />
+              <Text style={styles.addMedicineText}>Add Appointment</Text>
+            </View>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
