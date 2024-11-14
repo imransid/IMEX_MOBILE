@@ -202,16 +202,25 @@ const EveryXmonthsDoseDetails: FC = () => {
   );
 
   const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
-
+  const xMonthsDoseTime= useSelector((state: RootState) => state.medicineDetails.xMonthDoseTime);
+  
+  const parseDateString = (dateString:string) => {
+    return moment(dateString, "ddd, MMMM D, YYYY hh:mm A");
+  };
   const handleNext: any = async () => {
     setDisable(true);
 
     let filterArray = xMonthTakeDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
+    let filterNewArray = xMonthsDoseTime.filter(e => {
+      if (e.medicineLocalId === medicineLocalId) return e;
+    })
 
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
+        const dateObject = parseDateString(filterNewArray[0].date+" "+e.doseTime);
+        
         return {
           medicineName: medicineName,
           medicineStatus: 'xMonth',
@@ -224,7 +233,7 @@ const EveryXmonthsDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime
+          selectedDateTime: dateObject.format()
         };
       });
 
