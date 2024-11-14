@@ -135,6 +135,7 @@ const WeeklyDoseDetails: FC = () => {
 
     if (weekDoseTime.length > 0) {
       let tempStore = weekDoseTime.map(e => {
+        console.log(weekDoseTime[0].doseDate, 'hahahahahaahahahah');
         return {
           medicineName: medicineName,
           medicineStatus: 'week',
