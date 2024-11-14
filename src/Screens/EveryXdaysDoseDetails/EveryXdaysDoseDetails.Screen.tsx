@@ -26,6 +26,7 @@ import { INSTRUCTION_MUTATION } from '@/mutations/instruction_mutation';
 import { TREATMENT_DURATION_MUTATION } from '@/mutations/treatmentDuration_mutation';
 import { MEDICINE_REMINDER_MUTATION } from '@/mutations/medicineReminder_mutation';
 import ToastPopUp from '@/utils/Toast.android';
+import { date } from '@nozbe/watermelondb/decorators';
 
 const EveryXdaysDoseDetails: FC = () => {
   const dispatch = useDispatch();
@@ -191,16 +192,26 @@ const EveryXdaysDoseDetails: FC = () => {
     (state: RootState) => state.medicineDetails.selectedDateTime
   );
 
-  const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
 
+  const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
+  const xDaysDoseTime= useSelector((state: RootState) => state.medicineDetails.xDaysDoseTime);
+  const parseDateString = (dateString:string) => {
+    return moment(dateString, "ddd, MMMM D, YYYY hh:mm A");
+  };
   const handleNext: any = async () => {
     setDisable(true);
     let filterArray = xDaysTakeDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
-
+    let filterNewArray = xDaysDoseTime.filter(e => {
+      if (e.medicineLocalId === medicineLocalId) return e;
+    })
+   
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
+       
+        const dateObject = parseDateString(filterNewArray[0].date+" "+e.doseTime);
+       
         return {
           medicineName: medicineName,
           medicineStatus: 'xDay',
@@ -213,7 +224,7 @@ const EveryXdaysDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime
+          selectedDateTime: dateObject.format()
         };
       });
 
@@ -267,7 +278,11 @@ const EveryXdaysDoseDetails: FC = () => {
           console.error('AccessToken is undefined');
         }
       }
-      await localSchedule(tempStore, 'day', medicineLocalId);
+      await localSchedule(tempStore, 'day', medicineLocalId).then(() => {
+        console.log('done');
+      }).catch(error => {
+        console.log(error);
+      });
 
       console.log(tempStore);
 

@@ -200,7 +200,10 @@ const EveryXweeksDoseDetails: FC = () => {
   const storedMedicineWeeklyList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
   );
-
+  const xWeekDoseTime= useSelector((state: RootState) => state.medicineDetails.xWeekDoseTime);
+  const parseDateString = (dateString:string) => {
+    return moment(dateString, "ddd, MMMM D, YYYY hh:mm A");
+  };
   const handleNext: any = async () => {
     setDisable(true);
 
@@ -208,8 +211,14 @@ const EveryXweeksDoseDetails: FC = () => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
 
+    let filterNewArray = xWeekDoseTime.filter(e => {
+      if (e.medicineLocalId === medicineLocalId) return e;
+    })
+
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
+        const dateObject = parseDateString(filterNewArray[0].date+" "+e.doseTime);
+
         return {
           medicineName: medicineName,
           medicineStatus: 'xWeek',
@@ -222,7 +231,7 @@ const EveryXweeksDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime
+          selectedDateTime: dateObject.format()
         };
       });
 
