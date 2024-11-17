@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
     marginRight: scale(5)
   },
   prescriptionImageStyle: {
-    height: '100%',
-    width: '20%',
+    height: '120%',
+    width: '12%',
     marginLeft: scale(10)
   },
   headingPosition: {
@@ -93,6 +93,13 @@ const styles = StyleSheet.create({
   },
   scrollContainerStyle: {
     paddingBottom: scale(15)
+  },
+  itemHeaderStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  viewButtonPosition: {
+    top: scale(0.5)
   }
 });
 

@@ -1,128 +1,3 @@
-// import React, { type FC } from 'react';
-// import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
-// import Header from '../../Components/Header/Header';
-// import styles from './style';
-// import { RootState } from '@/store';
-// import { useSelector } from 'react-redux';
-// import { ScrollView } from 'react-native-gesture-handler';
-
-// const MoreScreenTab: FC = () => {
-//   const storedMedicineList = useSelector(
-//     (state: RootState) => state.medicineDetails.storedMedicineList
-//   );
-
-//   const appointMentList = useSelector((state: RootState) => state.appointment.storeAppointmentList);
-
-//   const prescriptionList = useSelector((state: RootState) => state.prescription.ImageFile);
-
-//   return (
-//     <View style={styles.container}>
-//       <View style={styles.headingPosition}>
-//         <Header mainHeader="More Settings" />
-//       </View>
-//       <ScrollView contentContainerStyle={styles.scrollContainerStyle}>
-//         <View style={styles.refillsHeadingProperties}>
-//           {storedMedicineList.length > 0 ? (
-//             <View style={styles.moreSettingsListStyle}>
-//               <Text style={styles.refillsText}>Refills</Text>
-//               <View style={styles.medicineDoseComponentPosition}>
-//                 <FlatList
-//                   data={storedMedicineList}
-//                   renderItem={({ item: medicine, index }) => (
-//                     <View key={index} style={styles.chip}>
-//                       <View style={styles.medicineDoseProperties}>
-//                         <View style={styles.doseDetailsPosition}>
-//                           <Text style={styles.pillsLeft}>{medicine.medicineName}</Text>
-//                           <Text style={styles.pillsLeftDetailsText}>
-//                             Took{' '}
-//                             {parseInt(medicine.doseQuantity) > 1
-//                               ? `${medicine.doseQuantity} Pills`
-//                               : `${medicine.doseQuantity} Pill`}
-//                           </Text>
-//                         </View>
-//                         <View style={styles.pillsLeftPosition}>
-//                           <Text style={styles.pillsLeft}>Number of Pill(s) Left</Text>
-//                         </View>
-//                       </View>
-//                     </View>
-//                   )}
-//                 />
-//               </View>
-//             </View>
-//           ) : (
-//             <></>
-//           )}
-//         </View>
-
-//         <View style={styles.refillsHeadingProperties}>
-//           {appointMentList.length > 0 ? (
-//             <View style={styles.moreSettingsListStyle}>
-//               <Text style={styles.refillsText}>Appointments</Text>
-//               <View style={styles.medicineDoseComponentPosition}>
-//                 <FlatList
-//                   data={appointMentList}
-//                   renderItem={({ item: medicine, index }) => (
-//                     <View key={index} style={styles.chip}>
-//                       <View style={styles.medicineDoseProperties}>
-//                         <View style={styles.doseDetailsPosition}>
-//                           <Text style={styles.pillsLeft}>
-//                             {/* {getDoctorNameList(medicine.medicineLocalId)} */}
-//                             {medicine.doctorName}
-//                           </Text>
-//                           <Text style={styles.pillsLeftDetailsText}>{medicine.date}</Text>
-//                         </View>
-//                         <View style={styles.pillsLeftPosition}>
-//                           <Text style={styles.pillsLeft}>{medicine.time}</Text>
-//                         </View>
-//                       </View>
-//                     </View>
-//                   )}
-//                 />
-//               </View>
-//             </View>
-//           ) : (
-//             <></>
-//           )}
-//         </View>
-
-//         <View style={styles.refillsHeadingProperties}>
-//           {prescriptionList.length > 0 ? (
-//             <View style={styles.moreSettingsListStyle}>
-//               <Text style={styles.refillsText}>Prescriptions</Text>
-//               <View style={styles.medicineDoseComponentPosition}>
-//                 <FlatList
-//                   data={prescriptionList}
-//                   renderItem={({ item: medicine, index }) => (
-//                     <View key={index} style={styles.chip}>
-//                       <View style={styles.medicineDoseProperties}>
-//                         <Image
-//                           style={styles.prescriptionImageStyle}
-//                           source={{ uri: decodeURIComponent(medicine.uri) }}
-//                           resizeMode="cover"
-//                         />
-//                         <View style={styles.prescriptionDetailsPosition}>
-//                           <Text style={styles.pillsLeft}>{medicine.fileName}</Text>
-//                           <Text style={styles.pillsLeftDetailsText}></Text>
-//                         </View>
-//                         <View style={styles.pillsLeftPosition}>
-//                           <Text style={styles.pillsLeft}>Type: {medicine.type}</Text>
-//                         </View>
-//                       </View>
-//                     </View>
-//                   )}
-//                 />
-//               </View>
-//             </View>
-//           ) : (
-//             <></>
-//           )}
-//         </View>
-//       </ScrollView>
-//     </View>
-//   );
-// };
-
-// export default MoreScreenTab;
 import React, { useState, type FC } from 'react';
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import Header from '../../Components/Header/Header';
@@ -132,7 +7,9 @@ import { useSelector } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const MoreScreenTab: FC = () => {
-  const storedMedicineList = useSelector((state: RootState) => state.medicineDetails.storedMedicineList);
+  const storedMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
+  );
   const appointMentList = useSelector((state: RootState) => state.appointment.storeAppointmentList);
   const prescriptionList = useSelector((state: RootState) => state.prescription.ImageFile);
 
@@ -147,25 +24,34 @@ const MoreScreenTab: FC = () => {
         <Header mainHeader="More Settings" />
       </View>
       <ScrollView contentContainerStyle={styles.scrollContainerStyle}>
-        
         {/* Medicine List */}
         <View style={styles.refillsHeadingProperties}>
           {storedMedicineList.length > 0 && (
             <View style={styles.moreSettingsListStyle}>
-              <Text style={styles.refillsText}>Refills</Text>
-              <TouchableOpacity onPress={() => setIsMedicineListExpanded(!isMedicineListExpanded)}>
-                  <Text style={styles.pillsLeft}>{isMedicineListExpanded ? 'View Less' : 'View All'}</Text>
-                </TouchableOpacity>
+              <View style={styles.itemHeaderStyle}>
+                <Text style={styles.refillsText}>Refills</Text>
+                <View style={styles.viewButtonPosition}>
+                  <TouchableOpacity
+                    onPress={() => setIsMedicineListExpanded(!isMedicineListExpanded)}>
+                    <Text style={styles.pillsLeft}>
+                      {isMedicineListExpanded ? 'View Less' : 'View All'}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
               <View style={styles.medicineDoseComponentPosition}>
                 <FlatList
-                  data={isMedicineListExpanded ? storedMedicineList : storedMedicineList.slice(0, 1)}
+                  data={
+                    isMedicineListExpanded ? storedMedicineList : storedMedicineList.slice(0, 1)
+                  }
                   renderItem={({ item: medicine, index }) => (
                     <View key={index} style={styles.chip}>
                       <View style={styles.medicineDoseProperties}>
                         <View style={styles.doseDetailsPosition}>
                           <Text style={styles.pillsLeft}>{medicine.medicineName}</Text>
                           <Text style={styles.pillsLeftDetailsText}>
-                            Took {parseInt(medicine.doseQuantity) > 1
+                            Took{' '}
+                            {parseInt(medicine.doseQuantity) > 1
                               ? `${medicine.doseQuantity} Pills`
                               : `${medicine.doseQuantity} Pill`}
                           </Text>
@@ -177,7 +63,6 @@ const MoreScreenTab: FC = () => {
                     </View>
                   )}
                 />
-                
               </View>
             </View>
           )}
@@ -187,10 +72,17 @@ const MoreScreenTab: FC = () => {
         <View style={styles.refillsHeadingProperties}>
           {appointMentList.length > 0 && (
             <View style={styles.moreSettingsListStyle}>
-              <Text style={styles.refillsText}>Appointments</Text>
-              <TouchableOpacity onPress={() => setIsAppointmentListExpanded(!isAppointmentListExpanded)}>
-                  <Text style={styles.pillsLeft}>{isAppointmentListExpanded ? 'View Less' : 'View All'}</Text>
-                </TouchableOpacity>
+              <View style={styles.itemHeaderStyle}>
+                <Text style={styles.refillsText}>Appointments</Text>
+                <View>
+                  <TouchableOpacity
+                    onPress={() => setIsAppointmentListExpanded(!isAppointmentListExpanded)}>
+                    <Text style={styles.pillsLeft}>
+                      {isAppointmentListExpanded ? 'View Less' : 'View All'}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
               <View style={styles.medicineDoseComponentPosition}>
                 <FlatList
                   data={isAppointmentListExpanded ? appointMentList : appointMentList.slice(0, 1)}
@@ -208,7 +100,6 @@ const MoreScreenTab: FC = () => {
                     </View>
                   )}
                 />
-                
               </View>
             </View>
           )}
@@ -218,13 +109,22 @@ const MoreScreenTab: FC = () => {
         <View style={styles.refillsHeadingProperties}>
           {prescriptionList.length > 0 && (
             <View style={styles.moreSettingsListStyle}>
-              <Text style={styles.refillsText}>Prescriptions</Text>
-              <TouchableOpacity onPress={() => setIsPrescriptionListExpanded(!isPrescriptionListExpanded)}>
-                  <Text style={styles.pillsLeft}>{isPrescriptionListExpanded ? 'View Less' : 'View All'}</Text>
-                </TouchableOpacity>
+              <View style={styles.itemHeaderStyle}>
+                <Text style={styles.refillsText}>Prescriptions</Text>
+                <View style={styles.viewButtonPosition}>
+                  <TouchableOpacity
+                    onPress={() => setIsPrescriptionListExpanded(!isPrescriptionListExpanded)}>
+                    <Text style={styles.pillsLeft}>
+                      {isPrescriptionListExpanded ? 'View Less' : 'View All'}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
               <View style={styles.medicineDoseComponentPosition}>
                 <FlatList
-                  data={isPrescriptionListExpanded ? prescriptionList : prescriptionList.slice(0, 1)}
+                  data={
+                    isPrescriptionListExpanded ? prescriptionList : prescriptionList.slice(0, 1)
+                  }
                   renderItem={({ item: medicine, index }) => (
                     <View key={index} style={styles.chip}>
                       <View style={styles.medicineDoseProperties}>
@@ -243,12 +143,10 @@ const MoreScreenTab: FC = () => {
                     </View>
                   )}
                 />
-               
               </View>
             </View>
           )}
         </View>
-
       </ScrollView>
     </View>
   );
