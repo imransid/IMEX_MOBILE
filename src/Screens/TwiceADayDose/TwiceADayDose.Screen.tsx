@@ -194,15 +194,20 @@ const TwiceAdayDose: FC = () => {
   const TwiceAdayDoseTime = useSelector(
     (state: RootState) => state.medicineDetails.twiceAdayDoseTime
   );
-
+  const parseTodayWithTime = (timeString:string) => {
+    const today = moment().format("YYYY-MM-DD"); // Get today's date in 'YYYY-MM-DD' format
+    return moment(`${today} ${timeString}`, "YYYY-MM-DD hh:mm A");
+  };
+ 
   const handleNext: any = async () => {
     setDisable(true);
     let filterArray = TwiceAdayDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
-
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
+      let selectedtimeobj = parseTodayWithTime(e.doseTime);
+
         return {
           medicineName: medicineName,
           medicineStatus: 'Daily',
@@ -215,7 +220,7 @@ const TwiceAdayDose: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime
+          selectedDateTime: selectedtimeobj.format()
         };
       });
 

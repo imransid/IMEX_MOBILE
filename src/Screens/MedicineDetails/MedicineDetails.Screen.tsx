@@ -31,8 +31,11 @@ const MedicineDetails: FC = (): JSX.Element => {
   const medicineForm = useSelector((state: RootState) => state.medicineDetails.typeMed);
   const medicineStrength = useSelector((state: RootState) => state.medicineDetails.strengthMed);
   const description = useSelector((state: RootState) => state.medicineDetails.description);
-  const person = useSelector((state: RootState) => state.medicineDetails.person);
-  const note = useSelector((state: RootState) => state.medicineDetails.note);
+
+  const person1 = useSelector((state: RootState) => state.medicineDetails.person1);
+  const person2 = useSelector((state: RootState) => state.medicineDetails.person2);
+  const person3 = useSelector((state: RootState) => state.medicineDetails.person3);
+
   const appLoadFirstTime = useSelector((state: RootState) => state.settings.appLoadFirstTime);
 
   const handlePress: any = () => {
@@ -92,8 +95,22 @@ const MedicineDetails: FC = (): JSX.Element => {
             <Text style={styles.inputHeader}>Dosage & Administration</Text>
             <View style={styles.medicineDetailscontainer}>
               <View style={styles.textPosition}>
-                <Text style={styles.scannedText}>Adult: {person}</Text>
-                <Text style={styles.scannedText}>Note: {note}</Text>
+                <View style={styles.scannedHeaderAndTextStyle}>
+                  <Text style={styles.scannedTextHeader}>
+                    Adults & adolescents (12 years of age and over):
+                  </Text>
+                  <Text style={styles.scannedText}>{person1}</Text>
+                </View>
+                <Text></Text>
+                <View style={styles.scannedHeaderAndTextStyle}>
+                  <Text style={styles.scannedTextHeader}>Children between 2 to 11 years:</Text>
+                  <Text style={styles.scannedText}>{person2}</Text>
+                </View>
+                <Text></Text>
+                <View style={styles.scannedHeaderAndTextStyle}>
+                  <Text style={styles.scannedTextHeader}>Children under 2 years:</Text>
+                  <Text style={styles.scannedText}>{person3}</Text>
+                </View>
               </View>
             </View>
           </View>

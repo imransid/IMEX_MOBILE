@@ -46,6 +46,7 @@ const CameraScanner: FC = () => {
           dispatch(setQrCodeToScanData(scannedData));
           navigation.navigate('MedicineDetails', { scannedData: value });
         } catch (error) {
+          console.log('Errroooorrrr', error);
           alert('Invalid QR Code');
           if (authStatus === true) {
             alert('Invalid QR Code');

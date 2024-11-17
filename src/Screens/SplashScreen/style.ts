@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { moderateScale, verticalScale } from 'react-native-size-matters';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 import { colors } from '../../theme/colors';
 

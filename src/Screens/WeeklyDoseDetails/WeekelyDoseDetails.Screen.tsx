@@ -28,7 +28,12 @@ import moment from 'moment';
 import { createWeeklyMutation } from '@/mutations/createWeekly';
 import { localSchedule } from '@/helper/notify';
 import { createMedicineData } from '@/mutations/createMedicine';
-import { getWeekDates, mergeWeeklyDataWithDoseTimes, setWeeklyDateDoseTimes, WeeklyDateEntry } from './extramethod';
+import {
+  getWeekDates,
+  mergeWeeklyDataWithDoseTimes,
+  setWeeklyDateDoseTimes,
+  WeeklyDateEntry
+} from './extramethod';
 import ToastPopUp from '@/utils/Toast.android';
 const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -121,8 +126,8 @@ const WeeklyDoseDetails: FC = () => {
 
     const customToday = new Date();
 
-    let dataWeekData: WeeklyDateEntry[] = []
-    filterArrayMonthly.map((e) => {
+    let dataWeekData: WeeklyDateEntry[] = [];
+    filterArrayMonthly.map(e => {
       dataWeekData = getWeekDates(e.medicineLocalId.weeklyTime, customToday);
     });
 
@@ -130,6 +135,7 @@ const WeeklyDoseDetails: FC = () => {
 
     if (weekDoseTime.length > 0) {
       let tempStore = weekDoseTime.map(e => {
+        console.log(weekDoseTime[0].doseDate, 'hahahahahaahahahah');
         return {
           medicineName: medicineName,
           medicineStatus: 'week',
@@ -142,12 +148,11 @@ const WeeklyDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: e.doseDate
+          selectedDateTime: e.doseDate.toISOString()
         };
       });
 
-
-      console.log('tempStore', tempStore, weekDoseTime)
+      console.log('tempStore', tempStore, weekDoseTime);
 
       // now check login or not
       if (loginStatus) {

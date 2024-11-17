@@ -30,8 +30,9 @@ export interface IMedicineDetailsType {
   xMonthTakeDoseTime: IWeeklyDoseTime[];
   selectedDates: string;
   description: string;
-  person: string;
-  note: string;
+  person1: string;
+  person2: string;
+  person3: string;
   selectedDateTime: Date | null;
 }
 
@@ -187,8 +188,9 @@ export interface IProductDetails {
 }
 
 export interface IAdministration {
-  person: string;
-  note: string;
+  person1: string;
+  person2: string;
+  person3: string;
 }
 
 export interface IDosageAndAdministration {

@@ -192,7 +192,11 @@ const ThreeTimesAdayDose: FC = () => {
   const ThreeTimesAdayDoseTime = useSelector(
     (state: RootState) => state.medicineDetails.threeTimesAdayDoseTime
   );
-
+  const parseTodayWithTime = (timeString:string) => {
+    const today = moment().format("YYYY-MM-DD"); // Get today's date in 'YYYY-MM-DD' format
+    return moment(`${today} ${timeString}`, "YYYY-MM-DD hh:mm A");
+  };
+ 
   const handleNext: any = async () => {
     setDisable(true);
     let filterArray = ThreeTimesAdayDoseTime.filter(e => {
@@ -201,6 +205,8 @@ const ThreeTimesAdayDose: FC = () => {
 
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
+      let selectedtimeobj = parseTodayWithTime(e.doseTime);
+        
         return {
           medicineName: medicineName,
           medicineStatus: 'Daily',
@@ -213,7 +219,7 @@ const ThreeTimesAdayDose: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime
+          selectedDateTime: selectedtimeobj.format()
         };
       });
 
