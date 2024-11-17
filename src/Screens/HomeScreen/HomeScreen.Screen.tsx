@@ -42,10 +42,6 @@ const HomeScreen: FC = () => {
   );
   const selectedDate = useSelector((state: RootState) => state.medicineDetails.selectedDates);
 
-  const selectedDateTime = useSelector(
-    (state: RootState) => state.medicineDetails.selectedDateTime
-  );
-
   const instructionList = useSelector(
     (state: RootState) => state.medicineDetailsExtraSetting.storeInstrucTionList
   );
@@ -126,7 +122,7 @@ const HomeScreen: FC = () => {
   });
 
   const currentTimeMaker = (time: string) => {
-    const today = moment().format('YYYY-MM-DD');
+    const today = moment(selectedDate).format('YYYY-MM-DD');
     return moment(`${today} ${time}`, 'YYYY-MM-DD hh:mm A');
   };
 

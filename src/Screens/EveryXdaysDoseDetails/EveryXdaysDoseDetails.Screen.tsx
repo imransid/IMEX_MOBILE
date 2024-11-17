@@ -188,15 +188,10 @@ const EveryXdaysDoseDetails: FC = () => {
     setTimes(times.map(() => ''));
   };
 
-  const selectedDateTime = useSelector(
-    (state: RootState) => state.medicineDetails.selectedDateTime
-  );
-
-
   const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
-  const xDaysDoseTime= useSelector((state: RootState) => state.medicineDetails.xDaysDoseTime);
-  const parseDateString = (dateString:string) => {
-    return moment(dateString, "ddd, MMMM D, YYYY hh:mm A");
+  const xDaysDoseTime = useSelector((state: RootState) => state.medicineDetails.xDaysDoseTime);
+  const parseDateString = (dateString: string) => {
+    return moment(dateString, 'ddd, MMMM D, YYYY hh:mm A');
   };
   const handleNext: any = async () => {
     setDisable(true);
@@ -205,13 +200,12 @@ const EveryXdaysDoseDetails: FC = () => {
     });
     let filterNewArray = xDaysDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
-    })
-   
+    });
+
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
-       
-        const dateObject = parseDateString(filterNewArray[0].date+" "+e.doseTime);
-       
+        const dateObject = parseDateString(filterNewArray[0].date + ' ' + e.doseTime);
+
         return {
           medicineName: medicineName,
           medicineStatus: 'xDay',
@@ -278,11 +272,13 @@ const EveryXdaysDoseDetails: FC = () => {
           console.error('AccessToken is undefined');
         }
       }
-      await localSchedule(tempStore, 'day', medicineLocalId).then(() => {
-        console.log('done');
-      }).catch(error => {
-        console.log(error);
-      });
+      await localSchedule(tempStore, 'day', medicineLocalId)
+        .then(() => {
+          console.log('done');
+        })
+        .catch(error => {
+          console.log(error);
+        });
 
       console.log(tempStore);
 

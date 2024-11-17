@@ -94,6 +94,15 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(12),
     textAlign: 'justify'
   },
+  scannedTextHeader: {
+    color: colors.mainText,
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(12),
+    textAlign: 'justify'
+  },
+  scannedHeaderAndTextStyle: {
+    flexDirection: 'column'
+  },
   scrollViewContainer: {
     paddingBottom: verticalScale(15)
   },

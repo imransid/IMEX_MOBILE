@@ -58,8 +58,9 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   xMonthTakeDoseTime: [],
   selectedDates: '',
   description: '',
-  person: '',
-  note: '',
+  person1: '',
+  person2: '',
+  person3: '',
   selectedDateTime: null
 };
 
@@ -353,8 +354,9 @@ export const medicineDetailsSlice = createSlice({
       state.typeMed = payload.payload.medicine.form;
       state.strengthMed = payload.payload.medicine.strength;
       state.description = payload.payload.product_details.description;
-      state.person = payload.payload.dosage_and_administration.administration.adult;
-      state.note = payload.payload.dosage_and_administration.administration.note;
+      state.person1 = payload.payload.dosage_and_administration.administration.adult;
+      state.person2 = payload.payload.dosage_and_administration.administration.child1;
+      state.person3 = payload.payload.dosage_and_administration.administration.child2;
     },
     clearStoreMedicine: (state: IMedicineDetailsType) => {
       state.medicineLocalId = '';

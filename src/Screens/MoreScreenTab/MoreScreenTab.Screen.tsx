@@ -90,7 +90,7 @@ const MoreScreenTab: FC = () => {
                     <View key={index} style={styles.chip}>
                       <View style={styles.medicineDoseProperties}>
                         <View style={styles.doseDetailsPosition}>
-                          <Text style={styles.pillsLeft}>{medicine.doctorName}</Text>
+                          <Text style={styles.pillsLeft}>{medicine.doctorName} Prescription</Text>
                           <Text style={styles.pillsLeftDetailsText}>{medicine.date}</Text>
                         </View>
                         <View style={styles.pillsLeftPosition}>

@@ -6,7 +6,7 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   NextButtonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(410)
+    marginTop: verticalScale(400)
   },
   container: {
     backgroundColor: colors.white,
