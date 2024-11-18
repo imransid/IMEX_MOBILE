@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export interface IMedicineDetailsType {
   medicineName: string;
   medicineGenericName: string;
@@ -112,7 +114,7 @@ export interface IMedicine {
   medicineId?: string;
   medicineLocalId: string;
   createdDate: string;
-  selectedDateTime: Date | null;
+  selectedDateTime: Date | null | moment.Moment;
 }
 
 export interface MedicineName {

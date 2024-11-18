@@ -206,7 +206,7 @@ const ThreeTimesAdayDose: FC = () => {
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
       let selectedtimeobj = parseTodayWithTime(e.doseTime);
-        
+      
         return {
           medicineName: medicineName,
           medicineStatus: 'Daily',
