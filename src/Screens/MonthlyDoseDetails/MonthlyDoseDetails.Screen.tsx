@@ -31,6 +31,7 @@ import { INSTRUCTION_MUTATION } from '@/mutations/instruction_mutation';
 import { TREATMENT_DURATION_MUTATION } from '@/mutations/treatmentDuration_mutation';
 import { MEDICINE_REMINDER_MUTATION } from '@/mutations/medicineReminder_mutation';
 import ToastPopUp from '@/utils/Toast.android';
+import { getMothyDates, getWeekDates, setWeeklyDateDoseTimes, WeeklyDateEntry } from '../WeeklyDoseDetails/extramethod';
 
 const MonthlyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -46,9 +47,7 @@ const MonthlyDoseDetails: FC = () => {
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
   const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
-  const storedMedicineMonthlyList = useSelector(
-    (state: RootState) => state.medicineDetails.storedMedicineMonthlyList
-  );
+
   const selectedDateTime = useSelector(
     (state: RootState) => state.medicineDetails.selectedDateTime
   );
@@ -71,6 +70,11 @@ const MonthlyDoseDetails: FC = () => {
   const [date, setDate] = useState(new Date());
 
   const [disable, setDisable] = useState(false);
+
+
+  const storedMedicineMonthlyList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineMonthlyList
+  );
 
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
@@ -113,10 +117,10 @@ const MonthlyDoseDetails: FC = () => {
 
     return treatmentDurationName
       ? {
-          medicineTakeEachDay: treatmentDurationName.medicineTakeEachDay,
-          treatmentDurationEndTime: treatmentDurationName.treatmentDurationEndTime,
-          treatmentDurationStartTime: treatmentDurationName.treatmentDurationStartTime
-        }
+        medicineTakeEachDay: treatmentDurationName.medicineTakeEachDay,
+        treatmentDurationEndTime: treatmentDurationName.treatmentDurationEndTime,
+        treatmentDurationStartTime: treatmentDurationName.treatmentDurationStartTime
+      }
       : { medicineTakeEachDay: '', treatmentDurationEndTime: '', treatmentDurationStartTime: '' };
   };
 
@@ -138,15 +142,15 @@ const MonthlyDoseDetails: FC = () => {
 
     return reminderQuantity
       ? {
-          medicineReminderCurrentStock: reminderQuantity.medicineReminderCurrentStock,
-          medicineReminderRemindToLeft: reminderQuantity.medicineReminderRemindToLeft,
-          medicineReminderTotalReq: reminderQuantity.medicineReminderTotalReq
-        }
+        medicineReminderCurrentStock: reminderQuantity.medicineReminderCurrentStock,
+        medicineReminderRemindToLeft: reminderQuantity.medicineReminderRemindToLeft,
+        medicineReminderTotalReq: reminderQuantity.medicineReminderTotalReq
+      }
       : {
-          medicineReminderCurrentStock: '',
-          medicineReminderRemindToLeft: '',
-          medicineReminderTotalReq: ''
-        };
+        medicineReminderCurrentStock: '',
+        medicineReminderRemindToLeft: '',
+        medicineReminderTotalReq: ''
+      };
   };
 
   const { medicineReminderCurrentStock, medicineReminderRemindToLeft, medicineReminderTotalReq } =
@@ -197,9 +201,26 @@ const MonthlyDoseDetails: FC = () => {
   const handleNext: any = async () => {
     setDisable(true);
 
+
     let filterArray = monthlyDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
+
+    let filterArrayMonthly = storedMedicineMonthlyList.filter(e => {
+      if (e.medicineLocalId.medicineLocalId.toString() === medicineLocalId) return e;
+    });
+
+
+    const customToday = new Date();
+
+    let dataMData: WeeklyDateEntry[] = []
+    filterArrayMonthly.map((e) => {
+      dataMData = getMothyDates(e.medicineLocalId.Days, customToday);
+    });
+
+
+
+    const weekDoseTime = setWeeklyDateDoseTimes(filterArray, dataMData);
 
     let updatedInstructionList = [...storedInstructionList];
 
@@ -207,8 +228,8 @@ const MonthlyDoseDetails: FC = () => {
 
     let updatedReminderList = [...storedReminderList];
 
-    if (filterArray.length > 0) {
-      let tempStore = filterArray.map(e => {
+    if (weekDoseTime.length > 0) {
+      let tempStore = weekDoseTime.map(e => {
         return {
           medicineName: medicineName,
           medicineStatus: 'week',
@@ -221,9 +242,13 @@ const MonthlyDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime
+          selectedDateTime: e.doseDate
         };
       });
+
+
+
+
 
       // Create data for the new instruction
       let instructionData = {
@@ -252,29 +277,25 @@ const MonthlyDoseDetails: FC = () => {
       updatedTreatmentDurationList.push(treatmentDurationData);
       updatedReminderList.push(reminderData);
 
-      // now check login or not
-      if (loginStatus) {
-        // Required Mutations
-        if (accessToken !== undefined) {
-          await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
-          await createMedicineData(tempStore, accessToken);
-          await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
-          await TREATMENT_DURATION_MUTATION(
-            updatedTreatmentDurationList,
-            accessToken,
-            medicineLocalId
-          );
-          await MEDICINE_REMINDER_MUTATION(updatedReminderList, accessToken, medicineLocalId);
-        } else {
-          // Handle the case where accessToken is undefined
-          console.error('AccessToken is undefined');
-        }
-      }
-      await localSchedule(tempStore, 'week', medicineLocalId);
-
-      dispatch(setWeeklyStoreData(tempStore));
-
-      clearAllDosesAndTime();
+      // // now check login or not
+      // if (loginStatus) {
+      //   // Required Mutations
+      //   if (accessToken !== undefined) {
+      //     await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
+      //     await createMedicineData(tempStore, accessToken);
+      //     await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
+      //     await TREATMENT_DURATION_MUTATION(
+      //       updatedTreatmentDurationList,
+      //       accessToken,
+      //       medicineLocalId
+      //     );
+      //     await MEDICINE_REMINDER_MUTATION(updatedReminderList, accessToken, medicineLocalId);
+      //   } else {
+      //     // Handle the case where accessToken is undefined
+      //     console.error('AccessToken is undefined');
+      //   }
+      // }
+      await localSchedule(tempStore, 'month', medicineLocalId);
 
       setDisable(false);
 
@@ -294,6 +315,8 @@ const MonthlyDoseDetails: FC = () => {
           doseDate: doseDates[index]
         }))
         .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
+
+
 
       dispatch(setMonthlyDoseTime(monthlyDoses));
     }
