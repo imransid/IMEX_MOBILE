@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { IMonthlyDoseTime } from '@/store/slices/features/medicineDetails/types';
 import {
+  setDoseList,
   setMonthlyDoseTime,
   setWeeklyStoreData
 } from '@/store/slices/features/medicineDetails/slice';
@@ -200,7 +201,7 @@ const MonthlyDoseDetails: FC = () => {
 
   const handleNext: any = async () => {
     setDisable(true);
-
+    let updatedStoredList = [...storedMedicineList];
 
     let filterArray = monthlyDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
@@ -277,24 +278,15 @@ const MonthlyDoseDetails: FC = () => {
       updatedTreatmentDurationList.push(treatmentDurationData);
       updatedReminderList.push(reminderData);
 
-      // // now check login or not
-      // if (loginStatus) {
-      //   // Required Mutations
-      //   if (accessToken !== undefined) {
-      //     await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
-      //     await createMedicineData(tempStore, accessToken);
-      //     await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
-      //     await TREATMENT_DURATION_MUTATION(
-      //       updatedTreatmentDurationList,
-      //       accessToken,
-      //       medicineLocalId
-      //     );
-      //     await MEDICINE_REMINDER_MUTATION(updatedReminderList, accessToken, medicineLocalId);
-      //   } else {
-      //     // Handle the case where accessToken is undefined
-      //     console.error('AccessToken is undefined');
-      //   }
-      // }
+
+      updatedStoredList.push(...tempStore);
+
+      if (loginStatus && accessToken != undefined) {
+        // await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
+        await createMedicineData(tempStore, accessToken);
+      }
+      dispatch(setDoseList(updatedStoredList));
+      
       await localSchedule(tempStore, 'month', medicineLocalId);
 
       setDisable(false);

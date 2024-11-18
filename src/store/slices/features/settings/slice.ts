@@ -4,7 +4,7 @@ import { SETTING } from './constants';
 import { type IPayload, type ISettingState } from './types';
 const settingsInitialState: ISettingState = {
   isLoading: false,
-  appLoadFirstTime: false,
+  appLoadFirstTime: true,
   appStatus: 'initial'
 };
 

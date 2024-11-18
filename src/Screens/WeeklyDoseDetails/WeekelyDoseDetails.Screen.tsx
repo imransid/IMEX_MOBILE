@@ -35,6 +35,7 @@ import {
   WeeklyDateEntry
 } from './extramethod';
 import ToastPopUp from '@/utils/Toast.android';
+import { select } from 'redux-saga/effects';
 const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -112,7 +113,12 @@ const WeeklyDoseDetails: FC = () => {
     setDoses(doses.map(() => 0));
     setTimes(times.map(() => ''));
   };
-
+  
+  const parseTodayWithTime = (timeString:string) => {
+    const today = moment().format("YYYY-MM-DD"); // Get today's date in 'YYYY-MM-DD' format
+    return moment(`${today} ${timeString}`, "YYYY-MM-DD hh:mm A");
+  };
+  
   const handleNext: any = async () => {
     setDisable(true);
 
@@ -135,7 +141,8 @@ const WeeklyDoseDetails: FC = () => {
 
     if (weekDoseTime.length > 0) {
       let tempStore = weekDoseTime.map(e => {
-        console.log(weekDoseTime[0].doseDate, 'hahahahahaahahahah');
+      
+        let selectedtimeobj = parseTodayWithTime(e.doseTime);
         return {
           medicineName: medicineName,
           medicineStatus: 'week',
@@ -148,14 +155,24 @@ const WeeklyDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: e.doseDate.toISOString()
+          selectedDateTime: selectedtimeobj
         };
       });
 
-      console.log('tempStore', tempStore, weekDoseTime);
+      // remove duplicate entries 
+      tempStore = tempStore.filter(
+        (item, index, self) =>
+          index ===
+          self.findIndex(
+            t =>
+              t.medicineLocalId === item.medicineLocalId &&
+              t.doseTime === item.doseTime &&
+              t.doseQuantity === item.doseQuantity
+          )
+      );
 
       // now check login or not
-      if (loginStatus) {
+      if (loginStatus && accessToken != undefined) {
         await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
         await createMedicineData(tempStore, accessToken);
       }

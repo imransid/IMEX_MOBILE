@@ -5,7 +5,7 @@ import ToastPopUp from '@/utils/Toast.android';
 import axios from 'axios';
 
 export const createWeeklyMutation = async (
-  accessToken: string,
+  accessToken: string | undefined,
   weeklyData: IStoredWeekly[],
   medicineLocalId: string
 ) => {
