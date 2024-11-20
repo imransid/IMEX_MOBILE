@@ -193,27 +193,24 @@ const EveryXhoursDose: FC = () => {
 
   const loginStatus = useSelector((state: RootState) => state.users?.user?.loginStatus);
 
-  const selectedDateTime = useSelector(
-    (state: RootState) => state.medicineDetails.selectedDateTime
-  );
-
   const XhoursAdayDoseTime = useSelector(
     (state: RootState) => state.medicineDetails.xHoursDoseTime
   );
-  const parseTodayWithTime = (timeString:string) => {
-    const today = moment().format("YYYY-MM-DD"); // Get today's date in 'YYYY-MM-DD' format
-    return moment(`${today} ${timeString}`, "YYYY-MM-DD hh:mm A");
+  const parseTodayWithTime = (timeString: string) => {
+    const today = moment().format('YYYY-MM-DD'); // Get today's date in 'YYYY-MM-DD' format
+    return moment(`${today} ${timeString}`, 'YYYY-MM-DD hh:mm A');
   };
   const handleNext: any = async () => {
     setDisable(true);
+
     let filterArray = XhoursAdayDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
 
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
-      let selectedtimeobj = parseTodayWithTime(e.doseTime);
-       
+        let selectedtimeobj = parseTodayWithTime(e.doseTime);
+
         return {
           medicineName: medicineName,
           medicineStatus: 'Daily',
@@ -479,6 +476,7 @@ const EveryXhoursDose: FC = () => {
         <View style={styles.NextbuttonPosition}>
           <CustomButton
             onPress={handleNext}
+            disabled={disable}
             icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
             text="Next"
           />
