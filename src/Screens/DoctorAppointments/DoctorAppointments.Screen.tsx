@@ -21,6 +21,8 @@ import SetReminderModal from '../../Components/SetReminderModal/SetReminderModal
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import { localSchedule } from '@/helper/notify';
+import moment from 'moment';
 
 const DoctorAppointments: FC = () => {
   const navigation = useNavigation();
@@ -42,11 +44,13 @@ const DoctorAppointments: FC = () => {
 
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
 
+  const appointmentList = useSelector((state: RootState) => state.appointment.storeAppointmentList);
+
   const handleSetDate: any = (date: string) => {
     const formattedDate = format(new Date(date), 'EEE, d MMMM, yyyy');
     setDate(formattedDate);
   };
-  const handleNext: any = () => {
+  const handleNext: any = async () => {
     dispatch(
       setAppointment([
         {
@@ -59,6 +63,29 @@ const DoctorAppointments: FC = () => {
         }
       ])
     );
+
+    const parseDateString = (dateString: string) => {
+      return moment(dateString, 'ddd, MMMM D, YYYY hh:mm A');
+    };
+
+    // selectedDateTime = datatime - reminder time
+    if (appointmentList.length > 0) {
+      let tempStore = appointmentList.map(e => {
+        const dateObject = parseDateString(`${e.date}T${e.time}`);
+        return {
+          date: e.date,
+          time: e.time,
+          doctorName: e.doctorName,
+          location: e.location,
+          setReminder: e.setReminder,
+          medicineLocalId: e.medicineLocalId,
+          selectedDateTime: dateObject.format()
+        };
+      });
+
+      await localSchedule(tempStore, '', 'medicineLocalId');
+    }
+
     setDate('');
     setSelectedTime('');
     setReminder('');
