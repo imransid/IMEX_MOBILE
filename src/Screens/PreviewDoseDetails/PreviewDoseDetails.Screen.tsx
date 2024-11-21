@@ -70,7 +70,7 @@ const PreviewDoseDetails: FC = () => {
         </View>
 
         <View style={styles.doseDetailsPosition}>
-          <View style={styles.optionalDetailsPosition}>
+          {/* <View style={styles.optionalDetailsPosition}>
             <View style={styles.doseDetailsProperties}>
               <Text style={styles.headingStyle}>Optional Details</Text>
               <TextInput
@@ -92,7 +92,7 @@ const PreviewDoseDetails: FC = () => {
                 maxLength={100}
               />
             </View>
-          </View>
+          </View> */}
           {/* <View style={styles.secondaryButtonPosition}>
             <TouchableOpacity style={styles.rescheduleButton}>
               <View style={styles.rescheduleButtonProperties}>
