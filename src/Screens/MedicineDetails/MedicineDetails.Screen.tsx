@@ -39,11 +39,13 @@ const MedicineDetails: FC = (): JSX.Element => {
   const appLoadFirstTime = useSelector((state: RootState) => state.settings.appLoadFirstTime);
 
   const handlePress: any = () => {
-    authStatus
-      ? navigation.navigate('MedicineDoses' as never)
-      : navigation.navigate('MedicineDoses' as never);
+    // authStatus
+    //   ? navigation.navigate('MedicineDoses' as never)
+    //   : navigation.navigate('MedicineDoses' as never);
 
-    if (appLoadFirstTime) dispatch(updateFirstTimeQrScreen());
+    // if (appLoadFirstTime) dispatch(updateFirstTimeQrScreen());
+
+    navigation.navigate('MedicineDoses' as never);
   };
 
   return (

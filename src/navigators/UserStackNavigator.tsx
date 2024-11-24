@@ -144,10 +144,10 @@ const UserStackNavigator: FC = () => {
     headerRight: HeaderRight
   };
 
-  const firstScanMedName = useSelector((state: RootState) => state.medicineDetails.medicineName);
+  //const firstScanMedName = useSelector((state: RootState) => state.medicineDetails.medicineName);
 
   return (
-    <Stack.Navigator initialRouteName={firstScanMedName !== '' ? 'MedicineDoses' : 'UserDrawer'}>
+    <Stack.Navigator initialRouteName={'UserDrawer'}>
       {screens.map(({ name, component, title, headerShown = true }) => (
         <Stack.Screen
           key={name}
