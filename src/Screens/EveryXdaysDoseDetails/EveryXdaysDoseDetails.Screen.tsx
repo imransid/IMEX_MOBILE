@@ -191,6 +191,7 @@ const EveryXdaysDoseDetails: FC = () => {
   const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
   const xDaysDoseTime = useSelector((state: RootState) => state.medicineDetails.xDaysDoseTime);
   const parseDateString = (dateString: string) => {
+    console.log("date string",dateString)
     return moment(dateString, 'ddd, MMMM D, YYYY hh:mm A');
   };
   const handleNext: any = async () => {
@@ -198,13 +199,28 @@ const EveryXdaysDoseDetails: FC = () => {
     let filterArray = xDaysTakeDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
+    console.log("new array",filterArray)
+
     let filterNewArray = xDaysDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
 
+    console.log("new array",filterNewArray[0].day)
+    const currentDate = parseDateString(filterNewArray[0].date);; // Get the current date
+    console.log("asdsadsadsadsads",currentDate); 
+
+    const newDate = currentDate.add(filterNewArray[0].day, 'days'); // Add 6 days
+    console.log(newDate.format('YYYY-MM-DD')); 
+
+
+
+
     if (filterArray.length > 0) {
-      let tempStore = filterArray.map(e => {
+      let tempStore1 = filterArray.map(e => {
         const dateObject = parseDateString(filterNewArray[0].date + ' ' + e.doseTime);
+
+        console.log("data object",e)
+        console.log("date obs",dateObject)
 
         return {
           medicineName: medicineName,
@@ -222,6 +238,58 @@ const EveryXdaysDoseDetails: FC = () => {
         };
       });
 
+
+      let tempstore2 = filterArray.map(e => {
+        // Validate and handle date
+        const formattedDate = filterNewArray[0]?.date
+          ? moment(filterNewArray[0].date, 'YYYY-MM-DD').isValid()
+            ? moment(filterNewArray[0].date, 'YYYY-MM-DD').format('YYYY-MM-DD')
+            : null
+          : null;
+      
+        // Validate and handle time, including AM/PM
+        const formattedTime = e.doseTime
+          ? moment(e.doseTime, ['HH:mm:ss', 'hh:mm A']).isValid()
+            ? moment(e.doseTime, ['HH:mm:ss', 'hh:mm A']).format('HH:mm:ss') // Normalize to 24-hour time
+            : null
+          : null;
+      
+        if (!formattedDate || !formattedTime) {
+          console.error('Invalid date or time:', { date: formattedDate, time: formattedTime });
+          return null;
+        }
+      
+        // Combine date and time into a single moment object
+        const dateObject = moment(`${formattedDate} ${formattedTime}`, 'YYYY-MM-DD HH:mm:ss');
+      
+        if (!dateObject.isValid()) {
+          console.error('Invalid combined dateTime:', { formattedDate, formattedTime });
+          return null;
+        }
+      
+        // Format with timezone offset (local time with offset)
+        const selectedDateTime = dateObject.format(); // Output like "2024-11-24T18:05:00+06:00"
+      
+        return {
+          medicineName: medicineName,
+          medicineStatus: 'xDay',
+          takeStatus: takeStatus,
+          doseQuantity: e.doseQuantity,
+          doseTime: e.doseTime,
+          strengthMed: strengthMed,
+          unitMed: unitMed,
+          typeMed: typeMed,
+          medicineId: '',
+          medicineLocalId: e.medicineLocalId,
+          createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+          selectedDateTime: selectedDateTime // Correctly formatted with offset
+        };
+      }).filter(item => item !== null); // Remove invalid items
+      
+
+      let tempStore = tempStore1.concat(tempstore2);
+
+      console.log("trmopstore", tempStore)
       // now check login or not
       if (loginStatus) {
         let updatedInstructionList = [...storedInstructionList];
