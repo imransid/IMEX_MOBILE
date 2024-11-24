@@ -90,7 +90,8 @@ const Navigator: FC = () => {
   return (
     <GestureHandlerRootView>
       <NavigationContainer>
-        {appLoadFirstTime ? <InitialLoadTime /> : <UserStack />}
+        {/* {appLoadFirstTime ? <InitialLoadTime /> : <UserStack />} */}
+        <UserStack />
       </NavigationContainer>
     </GestureHandlerRootView>
   );

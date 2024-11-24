@@ -21,8 +21,8 @@ import SetReminderModal from '../../Components/SetReminderModal/SetReminderModal
 import { colors } from '../../theme/colors';
 
 import styles from './style';
-import { localSchedule } from '@/helper/notify';
 import moment from 'moment';
+import { appointmentSchedule } from '@/helper/appointmentSchedule';
 
 const DoctorAppointments: FC = () => {
   const navigation = useNavigation();
@@ -68,23 +68,19 @@ const DoctorAppointments: FC = () => {
       return moment(dateString, 'ddd, MMMM D, YYYY hh:mm A');
     };
 
-    // selectedDateTime = datatime - reminder time
-    if (appointmentList.length > 0) {
-      let tempStore = appointmentList.map(e => {
-        const dateObject = parseDateString(`${e.date}T${e.time}`);
-        return {
-          date: e.date,
-          time: e.time,
-          doctorName: e.doctorName,
-          location: e.location,
-          setReminder: e.setReminder,
-          medicineLocalId: e.medicineLocalId,
-          selectedDateTime: dateObject.format()
-        };
-      });
+    const appointmentsDATA = [{
+      date: '2024-11-23', // Example date
+      time: '14:30', // Example time
+      reminder: 'Don’t forget to bring your medical reports!',
+      location: 'City Hospital, Room 102',
+      doctorName: 'Dr. John Smith'
+    }]
 
-      await localSchedule(tempStore, '', 'medicineLocalId');
-    }
+
+    await appointmentSchedule(appointmentsDATA);
+
+
+
 
     setDate('');
     setSelectedTime('');
@@ -92,7 +88,7 @@ const DoctorAppointments: FC = () => {
     setTempReminder('');
     setLocation('');
     setDoctorName('');
-    navigation.navigate(`${prevRoute}` as never);
+    // navigation.navigate(`${prevRoute}` as never);
   };
   const handleSelectTime: any = () => {
     setOpen(true);
