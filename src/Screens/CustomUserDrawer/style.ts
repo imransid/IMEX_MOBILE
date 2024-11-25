@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   userContactItemStyle: {
     flexDirection: 'row',
-    gap: scale(20),
+    gap: scale(11),
     marginTop: scale(15)
   },
   userEmailText: {
@@ -103,11 +103,11 @@ const styles = StyleSheet.create({
   },
   userProfileItemStyle: {
     flexDirection: 'row',
-    gap: scale(27)
+    gap: scale(18)
   },
   userSettingsItemStyle: {
     flexDirection: 'row',
-    gap: scale(20),
+    gap: scale(15),
     marginTop: scale(15)
   }
 });
