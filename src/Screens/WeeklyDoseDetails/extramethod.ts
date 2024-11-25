@@ -122,14 +122,62 @@ export const setMonthlyDateDoseTimes = (
   return returnData;
 };
 
+// export const setWeeklyDateDoseTimes = (
+//   time: TimeEntry[],
+//   weeklyDate: WeeklyDateEntry[]
+// ): TimeEntry[] => {
+//   let returnData: TimeEntry[] = [];
+
+//   time.map(item => {
+//     weeklyDate.map(e => {
+//       const [hour, minutePart] = item.doseTime.split(':');
+//       const minute = parseInt(minutePart.slice(0, 2));
+//       const isPM = minutePart.slice(-2).toUpperCase() === 'PM';
+//       let hourNumber = parseInt(hour);
+
+//       // Convert hour to 24-hour format
+//       if (isPM && hourNumber !== 12) {
+//         hourNumber += 12; // Convert PM hour to 24-hour format
+//       } else if (!isPM && hourNumber === 12) {
+//         hourNumber = 0; // Adjust for 12 AM
+//       }
+
+//       const newDoseDate = moment(e.date);
+//       newDoseDate.set('hour', hourNumber);
+//       newDoseDate.set('minute', minute);
+
+//       // Check if an item with the same doseDate already exists
+//       const isDuplicate = returnData.some(
+//         existingItem => existingItem.doseDate?.toISOString() === newDoseDate.toISOString()
+//       );
+
+//       // Only add to returnData if it's not a duplicate
+//       if (!isDuplicate) {
+//         let data = {
+//           doseTime: item.doseTime,
+//           doseQuantity: item.doseQuantity,
+//           medicineLocalId: item.medicineLocalId,
+//           doseDate: newDoseDate
+//         };
+
+//         returnData.push(data);
+//       }
+//     });
+//   });
+
+//   returnData.forEach(item => console.log('doseDate:??', item.doseDate.toISOString()));
+
+//   return returnData;
+// };
+
 export const setWeeklyDateDoseTimes = (
   time: TimeEntry[],
   weeklyDate: WeeklyDateEntry[]
 ): TimeEntry[] => {
   let returnData: TimeEntry[] = [];
 
-  time.map(item => {
-    weeklyDate.map(e => {
+  time.forEach(item => {
+    weeklyDate.forEach(e => {
       const [hour, minutePart] = item.doseTime.split(':');
       const minute = parseInt(minutePart.slice(0, 2));
       const isPM = minutePart.slice(-2).toUpperCase() === 'PM';
@@ -137,35 +185,31 @@ export const setWeeklyDateDoseTimes = (
 
       // Convert hour to 24-hour format
       if (isPM && hourNumber !== 12) {
-        hourNumber += 12; // Convert PM hour to 24-hour format
+        hourNumber += 12;
       } else if (!isPM && hourNumber === 12) {
-        hourNumber = 0; // Adjust for 12 AM
+        hourNumber = 0;
       }
 
-      const newDoseDate = moment(e.date);
+      // Create a new date with correct time
+      const newDoseDate = moment(e.date).startOf('day');
       newDoseDate.set('hour', hourNumber);
       newDoseDate.set('minute', minute);
 
-      // Check if an item with the same doseDate already exists
+      // Check for duplicates
       const isDuplicate = returnData.some(
         existingItem => existingItem.doseDate?.toISOString() === newDoseDate.toISOString()
       );
 
-      // Only add to returnData if it's not a duplicate
       if (!isDuplicate) {
-        let data = {
+        returnData.push({
           doseTime: item.doseTime,
           doseQuantity: item.doseQuantity,
           medicineLocalId: item.medicineLocalId,
-          doseDate: newDoseDate
-        };
-
-        returnData.push(data);
+          doseDate: newDoseDate.toDate() // Convert back to a Date object
+        });
       }
     });
   });
-
-  returnData.forEach(item => console.log('doseDate:??', item.doseDate.toISOString()));
 
   return returnData;
 };
