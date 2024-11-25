@@ -240,36 +240,17 @@ const EveryXdaysDoseDetails: FC = () => {
 
 
       let tempstore2 = filterArray.map(e => {
-        // Validate and handle date
-        const formattedDate = filterNewArray[0]?.date
-          ? moment(filterNewArray[0].date, 'YYYY-MM-DD').isValid()
-            ? moment(filterNewArray[0].date, 'YYYY-MM-DD').format('YYYY-MM-DD')
-            : null
-          : null;
+  
+        const dateObject = `${newDate} ${e.doseTime}`;
+     
+        const parsedDate = parseDateString(dateObject);
       
-        // Validate and handle time, including AM/PM
-        const formattedTime = e.doseTime
-          ? moment(e.doseTime, ['HH:mm:ss', 'hh:mm A']).isValid()
-            ? moment(e.doseTime, ['HH:mm:ss', 'hh:mm A']).format('HH:mm:ss') // Normalize to 24-hour time
-            : null
-          : null;
-      
-        if (!formattedDate || !formattedTime) {
-          console.error('Invalid date or time:', { date: formattedDate, time: formattedTime });
-          return null;
+        if (parsedDate.isValid()) {
+          console.log("is valid date",parsedDate.format()); // Outputs parsed date
+        } else {
+          console.log("")
         }
-      
-        // Combine date and time into a single moment object
-        const dateObject = moment(`${formattedDate} ${formattedTime}`, 'YYYY-MM-DD HH:mm:ss');
-      
-        if (!dateObject.isValid()) {
-          console.error('Invalid combined dateTime:', { formattedDate, formattedTime });
-          return null;
-        }
-      
-        // Format with timezone offset (local time with offset)
-        const selectedDateTime = dateObject.format(); // Output like "2024-11-24T18:05:00+06:00"
-      
+       
         return {
           medicineName: medicineName,
           medicineStatus: 'xDay',
@@ -282,7 +263,7 @@ const EveryXdaysDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime // Correctly formatted with offset
+          selectedDateTime: parsedDate.format() // Correctly formatted with offset
         };
       }).filter(item => item !== null); // Remove invalid items
       
