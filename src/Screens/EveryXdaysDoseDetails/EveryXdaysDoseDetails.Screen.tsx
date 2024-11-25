@@ -199,15 +199,15 @@ const EveryXdaysDoseDetails: FC = () => {
     let filterArray = xDaysTakeDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
-    console.log("new array",filterArray)
+  
 
     let filterNewArray = xDaysDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
 
-    console.log("new array",filterNewArray[0].day)
+
     const currentDate = parseDateString(filterNewArray[0].date);; // Get the current date
-    console.log("asdsadsadsadsads",currentDate); 
+   
 
     const newDate = currentDate.add(filterNewArray[0].day, 'days'); // Add 6 days
     console.log(newDate.format('YYYY-MM-DD')); 
@@ -219,8 +219,6 @@ const EveryXdaysDoseDetails: FC = () => {
       let tempStore1 = filterArray.map(e => {
         const dateObject = parseDateString(filterNewArray[0].date + ' ' + e.doseTime);
 
-        console.log("data object",e)
-        console.log("date obs",dateObject)
 
         return {
           medicineName: medicineName,
@@ -270,7 +268,6 @@ const EveryXdaysDoseDetails: FC = () => {
 
       let tempStore = tempStore1.concat(tempstore2);
 
-      console.log("trmopstore", tempStore)
       // now check login or not
       if (loginStatus) {
         let updatedInstructionList = [...storedInstructionList];

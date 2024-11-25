@@ -217,8 +217,15 @@ const EveryXmonthsDoseDetails: FC = () => {
       if (e.medicineLocalId === medicineLocalId) return e;
     })
 
+const currentDate = parseDateString(filterNewArray[0].date);; // Get the current date
+
+let multiplier = parseInt(filterNewArray[0].day);
+const newDate = currentDate.add(`${multiplier*30}`, 'days'); // Add  days
+console.log(newDate.format('YYYY-MM-DD')); 
+
+
     if (filterArray.length > 0) {
-      let tempStore = filterArray.map(e => {
+      let tempStore1 = filterArray.map(e => {
         const dateObject = parseDateString(filterNewArray[0].date+" "+e.doseTime);
         
         return {
@@ -236,6 +243,38 @@ const EveryXmonthsDoseDetails: FC = () => {
           selectedDateTime: dateObject.format()
         };
       });
+
+      let tempstore2 = filterArray.map(e => {
+  
+        const dateObject = `${newDate} ${e.doseTime}`;
+     
+        const parsedDate = parseDateString(dateObject);
+      
+        if (parsedDate.isValid()) {
+          console.log("is valid date",parsedDate.format()); // Outputs parsed date
+        } else {
+          console.log("")
+        }
+       
+        return {
+          medicineName: medicineName,
+          medicineStatus: 'xDay',
+          takeStatus: takeStatus,
+          doseQuantity: e.doseQuantity,
+          doseTime: e.doseTime,
+          strengthMed: strengthMed,
+          unitMed: unitMed,
+          typeMed: typeMed,
+          medicineId: '',
+          medicineLocalId: e.medicineLocalId,
+          createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+          selectedDateTime: parsedDate.format() // Correctly formatted with offset
+        };
+      }).filter(item => item !== null); // Remove invalid items
+      
+
+      let tempStore = tempStore1.concat(tempstore2);
+
 
       // now check login or not
       if (loginStatus) {
