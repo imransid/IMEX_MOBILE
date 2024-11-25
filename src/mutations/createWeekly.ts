@@ -45,7 +45,7 @@ export const createWeeklyMutation = async (
       response?.data?.data?.createWeeklyMedicines?.message !== undefined &&
       response?.data?.data?.createWeeklyMedicines?.message !== null
     ) {
-      ToastPopUp(response?.data?.data?.createWeeklyMedicines?.message);
+      //ToastPopUp(response?.data?.data?.createWeeklyMedicines?.message);
     } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
       // Show error message from the response
       const errorMessage: any = response?.data?.errors[0]?.message;

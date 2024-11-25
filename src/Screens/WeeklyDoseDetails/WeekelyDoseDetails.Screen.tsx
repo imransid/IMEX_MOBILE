@@ -51,6 +51,7 @@ const WeeklyDoseDetails: FC = () => {
     (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
   );
 
+  console.log(storedMedicineWeeklyList, 'storedMedicineWeeklyList');
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(
     Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill('')
@@ -113,15 +114,17 @@ const WeeklyDoseDetails: FC = () => {
     setDoses(doses.map(() => 0));
     setTimes(times.map(() => ''));
   };
-  
-  const parseTodayWithTime = (timeString:string) => {
-    const today = moment().format("YYYY-MM-DD"); // Get today's date in 'YYYY-MM-DD' format
-    return moment(`${today} ${timeString}`, "YYYY-MM-DD hh:mm A");
+
+  const parseTodayWithTime = (timeString: string) => {
+    const today = moment().format('YYYY-MM-DD'); // Get today's date in 'YYYY-MM-DD' format
+    return moment(`${today} ${timeString}`, 'YYYY-MM-DD hh:mm A');
   };
-  
+
   const handleNext: any = async () => {
     setDisable(true);
-
+    console.log('weeklyDoseTime', weeklyDoseTime);
+    console.log('storedMedicineWeeklyList', storedMedicineWeeklyList);
+    console.log('medicineLocalId', medicineLocalId);
     let filterArray = weeklyDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
@@ -130,6 +133,8 @@ const WeeklyDoseDetails: FC = () => {
       if (e.medicineLocalId.medicineLocalId.toString() === medicineLocalId) return e;
     });
 
+    console.log('filterArrayMonthly', filterArrayMonthly);
+    console.log('filterArreay', filterArray);
     const customToday = new Date();
 
     let dataWeekData: WeeklyDateEntry[] = [];
@@ -137,11 +142,13 @@ const WeeklyDoseDetails: FC = () => {
       dataWeekData = getWeekDates(e.medicineLocalId.weeklyTime, customToday);
     });
 
-    const weekDoseTime = setWeeklyDateDoseTimes(filterArray, dataWeekData);
+    console.log(dataWeekData, 'dataWeekData');
 
+    const weekDoseTime = setWeeklyDateDoseTimes(filterArray, dataWeekData);
+    console.log('Weekdosetime', weekDoseTime);
     if (weekDoseTime.length > 0) {
       let tempStore = weekDoseTime.map(e => {
-      
+        console.log('e.dosedate', e.doseDate.toLocaleDateString());
         let selectedtimeobj = parseTodayWithTime(e.doseTime);
         return {
           medicineName: medicineName,
@@ -155,20 +162,31 @@ const WeeklyDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedtimeobj
+          selectedDateTime: e.doseDate
         };
       });
 
-      // remove duplicate entries 
-      tempStore = tempStore.filter(
-        (item, index, self) =>
-          index ===
-          self.findIndex(
-            t =>
-              t.medicineLocalId === item.medicineLocalId &&
-              t.doseTime === item.doseTime &&
-              t.doseQuantity === item.doseQuantity
-          )
+      // remove duplicate entries
+      // tempStore = tempStore.filter(
+      //   (item, index, self) =>
+      //     index ===
+      //     self.findIndex(
+      //       t =>
+      //         t.medicineLocalId === item.medicineLocalId &&
+      //         t.doseTime === item.doseTime &&
+      //         t.doseQuantity === item.doseQuantity
+      //     )
+      // );
+
+      console.log('tempstore', tempStore);
+
+      console.log('weeklyDoseTime:', weeklyDoseTime); // Log selected weekdays
+      console.log('medicineLocalId:', medicineLocalId); // Ensure IDs match
+      console.log('filterArray:', filterArray); // Validate filtered results
+      console.log('filterArrayMonthly:', filterArrayMonthly); // Check monthly filter
+      console.log(
+        'weeklyTime in filterArrayMonthly:',
+        filterArrayMonthly.map(e => e.medicineLocalId.weeklyTime)
       );
 
       // now check login or not
@@ -184,7 +202,7 @@ const WeeklyDoseDetails: FC = () => {
 
     setDisable(false);
 
-    ToastPopUp('Medicine Created Successfully');
+    //ToastPopUp('Medicine Created Successfully');
 
     navigation.navigate('AddedMedicine' as never);
   };
