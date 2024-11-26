@@ -56,9 +56,9 @@ const MoreScreenTab: FC = () => {
                               : `${medicine.doseQuantity} Pill`}
                           </Text>
                         </View>
-                        <View style={styles.pillsLeftPosition}>
+                        {/* <View style={styles.pillsLeftPosition}>
                           <Text style={styles.pillsLeft}>Number of Pill(s) Left</Text>
-                        </View>
+                        </View> */}
                       </View>
                     </View>
                   )}
