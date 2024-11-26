@@ -11,15 +11,36 @@ function generateRandomNumber(min: number, max: number) {
 export const appointmentSchedule = async (appointments: any[]) => {
   try {
     // Filter appointments that are in the future
-    const futureAppointments = appointments.filter(
-      appointment => moment(`${appointment.date} ${appointment.time}`).toDate() > new Date()
-    );
+    const futureAppointments = [];
+    // appointments.filter(appointment => {
+    //   const appointmentDateTime = moment(`${appointment.date} ${appointment.time}`, 'YYYY-MM-DD');
+
+    //   console.log(appointmentDateTime.toLocaleString(), 'appointmentDateTime');
+    //   //appointmentDateTime.isBefore(moment());
+
+    //   if (appointmentDateTime.isBefore(moment()) === false) {
+    //     return appointment;
+    //   }
+    // });
+
+    const appointmentDate = appointments.map(e => e.date.toLocaleString());
+    console.log(appointmentDate, 'appointmentDate');
+
+    console.log(appointments, 'Appointments');
+    console.log(futureAppointments, 'Future Appointments');
 
     if (futureAppointments.length > 0) {
       await Promise.all(
         futureAppointments.map(async appointment => {
           // Generate fire date and notification data
+          // const fireDate = moment(
+          //   `${appointment.date} ${appointment.time}`,
+          //   'YYYY-MM-DD HH:mm'
+          // ).toDate();
           const fireDate = moment(`${appointment.date} ${appointment.time}`).toDate();
+
+          //const fireDate = moment(appointment.selectedDateTime).toDate();
+
           const notificationData = {
             channelId: 'appointments-channel',
             ticker: 'Appointment Reminder Notification',
@@ -35,7 +56,8 @@ export const appointmentSchedule = async (appointments: any[]) => {
             soundName: 'default',
             color: 'blue',
             tag: 'appointment_reminder',
-            fire_date: fireDate
+            fire_date: fireDate,
+            date: { value: moment(fireDate).format('YYYY-MM-DD HH:mm:ss') }
           };
 
           // Schedule the notification
@@ -48,11 +70,14 @@ export const appointmentSchedule = async (appointments: any[]) => {
             date: notificationData.fire_date,
             soundName: notificationData.soundName,
             timeoutAfter: 120000,
+            actions: ['Snooze', 'Stop Alarm'],
             importance: Importance.HIGH,
             vibrate: true,
             playSound: true,
             allowWhileIdle: true,
-            invokeApp: false
+            invokeApp: false,
+            repeatType: 'time', // Repeat at custom interval
+            repeatTime: 30000
           });
         })
       );

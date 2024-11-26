@@ -55,6 +55,7 @@ export const localSchedule = async (listOfItem: any[], name: string, medicineId:
             importance: Importance.HIGH,
             playSound: true,
             allowWhileIdle: true,
+            vibrate: true,
             invokeApp: false,
             repeatType: 'time', // Repeat at custom interval
             repeatTime: 30000 // Repeat every 1 minute (60000 ms)

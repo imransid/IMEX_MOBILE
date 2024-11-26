@@ -38,23 +38,24 @@ const DoctorAppointments: FC = () => {
   const [open, setOpen] = useState(false); // for time picker
   const [reminder, setReminder] = useState('');
   const [tempReminder, setTempReminder] = useState('');
+  const [tempDate, setTempDate] = useState(new Date());
   const [location, setLocation] = useState('');
   const [doctorName, setDoctorName] = useState('');
   const [openReminderModal, setOpenReminderModal] = useState(false); // for set reminder
 
-  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
-
-  const appointmentList = useSelector((state: RootState) => state.appointment.storeAppointmentList);
-
   const handleSetDate: any = (date: string) => {
     const formattedDate = format(new Date(date), 'EEE, d MMMM, yyyy');
     setDate(formattedDate);
+    setTempDate(new Date(date));
   };
+
+  console.log(tempDate, 'tempDate');
+
   const handleNext: any = async () => {
     dispatch(
       setAppointment([
         {
-          date,
+          date: tempDate.toString(),
           time: selectedTime,
           doctorName,
           location,
@@ -68,19 +69,19 @@ const DoctorAppointments: FC = () => {
       return moment(dateString, 'ddd, MMMM D, YYYY hh:mm A');
     };
 
-    const appointmentsDATA = [{
-      date: '2024-11-23', // Example date
-      time: '14:30', // Example time
-      reminder: 'Don’t forget to bring your medical reports!',
-      location: 'City Hospital, Room 102',
-      doctorName: 'Dr. John Smith'
-    }]
+    const appointmentsDATA = [
+      {
+        date: tempDate.toString(), // Example date
+        time: selectedTime, // Example time
+        reminder: reminder,
+        location: location,
+        doctorName: doctorName
+      }
+    ];
 
+    console.log(appointmentsDATA, 'appointmentsDATA');
 
     await appointmentSchedule(appointmentsDATA);
-
-
-
 
     setDate('');
     setSelectedTime('');
@@ -88,7 +89,7 @@ const DoctorAppointments: FC = () => {
     setTempReminder('');
     setLocation('');
     setDoctorName('');
-    // navigation.navigate(`${prevRoute}` as never);
+    navigation.navigate(`${prevRoute}` as never);
   };
   const handleSelectTime: any = () => {
     setOpen(true);
