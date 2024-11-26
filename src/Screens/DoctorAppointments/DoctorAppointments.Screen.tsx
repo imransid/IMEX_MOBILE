@@ -88,7 +88,7 @@ const DoctorAppointments: FC = () => {
     setTempReminder('');
     setLocation('');
     setDoctorName('');
-    // navigation.navigate(`${prevRoute}` as never);
+    navigation.navigate(`${prevRoute}` as never);
   };
   const handleSelectTime: any = () => {
     setOpen(true);
