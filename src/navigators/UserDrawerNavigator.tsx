@@ -3,14 +3,13 @@ import React, { type FC } from 'react';
 import { Text } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { CameraScanner, CustomUserDrawer, DoctorAppointments, MedicineAddingMethod, MedicineDetails, MedicineDoses, PreviewDoseDetails } from '../Screens';
+import { CustomUserDrawer, PreviewDoseDetails } from '../Screens';
 import { colors } from '../theme/colors';
 
 import styles from './Styles';
 import UserBottomTabNavigator from './UserBottomTabNavigator';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { screensListForComponent } from './AuthStackNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -29,9 +28,6 @@ const getGreeting = (): string => {
     return 'Good Night';
   }
 };
-
-
-
 
 const UserDrawerNavigator: FC = () => {
   const userName = useSelector((state: RootState) => state.users?.user?.data?.user?.fullName);
@@ -60,42 +56,14 @@ const UserDrawerNavigator: FC = () => {
         options={{ title: '' }}
       />
 
-      {
-        screensListForComponent.map((e) =>
-          <Drawer.Screen
-            name={e.name}
-            component={e.component}
-            options={{ title: e.title, headerShown: false }}
-          />
-        )
-      }
-      {/* <Drawer.Screen
-        name="DoctorAppointments"
-        component={DoctorAppointments}
-        options={{ title: '' }}
-      />
-      <Drawer.Screen
-        name="MedicineAddingMethod"
-        component={MedicineAddingMethod}
-        options={{ title: '' }}
-      /> */}
-
-
-      {/* <Drawer.Screen
-        name="CameraScanner"
-        component={CameraScanner}
-        options={{ title: '' }}
-      />
-      <Drawer.Screen
-        name="MedicineDetails"
-        component={MedicineDetails}
-        options={{ title: '' }}
-      />
-      <Drawer.Screen
-        name="MedicineDoses"
-        component={MedicineDoses}
-        options={{ title: '' }}
-      /> */}
+      {/* {screensListForComponent.map((e,index) => (
+        <Drawer.Screen
+        key={index}
+          name={e.name}
+          component={e.component}
+          options={{ title: e.title, headerShown: false }}
+        />
+      ))} */}
     </Drawer.Navigator>
   );
 };

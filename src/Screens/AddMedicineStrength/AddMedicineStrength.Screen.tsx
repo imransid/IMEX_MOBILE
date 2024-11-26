@@ -24,6 +24,8 @@ const AddMedicineStrength: FC = () => {
 
   const handleNext: any = () => {
     dispatch(setStrengthUnit({ strengthMed: strength, unitMed: selectedUnit }));
+    setStrength('');
+    setSelectedUnit('');
     navigation.navigate('MedicineType' as never);
   };
 

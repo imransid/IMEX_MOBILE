@@ -11,8 +11,11 @@ export const prescriptionSlice = createSlice({
   name: PRESCRIPTION,
   initialState: prescriptionInitialData,
   reducers: {
-    setPrescriptionAction: (state: IPrescriptionType, payload: PayloadAction<IImageAssets>) => {
-      state.ImageFile = payload.payload.assets;
+    setPrescriptionAction: (state, action: PayloadAction<IImageAssets>) => {
+      console.log(action.payload, 'Action Payload'); // Debug log
+      if (action.payload?.assets) {
+        state.ImageFile = [...state.ImageFile, ...action.payload.assets];
+      }
     }
   }
 });

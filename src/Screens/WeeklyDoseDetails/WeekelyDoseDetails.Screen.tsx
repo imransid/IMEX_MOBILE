@@ -28,8 +28,14 @@ import moment from 'moment';
 import { createWeeklyMutation } from '@/mutations/createWeekly';
 import { localSchedule } from '@/helper/notify';
 import { createMedicineData } from '@/mutations/createMedicine';
-import { getWeekDates, mergeWeeklyDataWithDoseTimes, mergeWeeklyDatesWithDoseTimes, setWeeklyDateDoseTimes } from './extramethod';
-
+import {
+  getWeekDates,
+  mergeWeeklyDataWithDoseTimes,
+  setWeeklyDateDoseTimes,
+  WeeklyDateEntry
+} from './extramethod';
+import ToastPopUp from '@/utils/Toast.android';
+import { select } from 'redux-saga/effects';
 const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -45,6 +51,7 @@ const WeeklyDoseDetails: FC = () => {
     (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
   );
 
+  console.log(storedMedicineWeeklyList, 'storedMedicineWeeklyList');
   // State for time and dose for each intake
   const [times, setTimes] = useState<string[]>(
     Array(timeInterval !== '' ? parseInt(timeInterval) : 0).fill('')
@@ -60,6 +67,8 @@ const WeeklyDoseDetails: FC = () => {
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [date, setDate] = useState(new Date());
+
+  const [disable, setDisable] = useState(false);
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -101,39 +110,46 @@ const WeeklyDoseDetails: FC = () => {
     }
   };
 
+  const clearAllDosesAndTime: any = () => {
+    setDoses(doses.map(() => 0));
+    setTimes(times.map(() => ''));
+  };
+
+  const parseTodayWithTime = (timeString: string) => {
+    const today = moment().format('YYYY-MM-DD'); // Get today's date in 'YYYY-MM-DD' format
+    return moment(`${today} ${timeString}`, 'YYYY-MM-DD hh:mm A');
+  };
+
   const handleNext: any = async () => {
+    setDisable(true);
+    console.log('weeklyDoseTime', weeklyDoseTime);
+    console.log('storedMedicineWeeklyList', storedMedicineWeeklyList);
+    console.log('medicineLocalId', medicineLocalId);
     let filterArray = weeklyDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
-
 
     let filterArrayMonthly = storedMedicineWeeklyList.filter(e => {
       if (e.medicineLocalId.medicineLocalId.toString() === medicineLocalId) return e;
     });
 
+    console.log('filterArrayMonthly', filterArrayMonthly);
+    console.log('filterArreay', filterArray);
     const customToday = new Date();
 
-
-    filterArrayMonthly.map((e) => {
-      const dataWeekData = getWeekDates(e.medicineLocalId.weeklyTime, customToday);
-      const weekDoseTime = setWeeklyDateDoseTimes(filterArray, dataWeekData);
-
-      const mergedArray = mergeWeeklyDataWithDoseTimes(dataWeekData, weekDoseTime);
-
-
-      mergedArray.forEach(item => {
-
-        const doseDate = new Date(item.date);
-
-        console.log(`Entry for ${doseDate}`);
-      })
-
-      console.log('Merged Array:', mergedArray);
+    let dataWeekData: WeeklyDateEntry[] = [];
+    filterArrayMonthly.map(e => {
+      dataWeekData = getWeekDates(e.medicineLocalId.weeklyTime, customToday);
     });
 
+    console.log(dataWeekData, 'dataWeekData');
 
-    if (filterArray.length > 0) {
-      let tempStore = filterArray.map(e => {
+    const weekDoseTime = setWeeklyDateDoseTimes(filterArray, dataWeekData);
+    console.log('Weekdosetime', weekDoseTime);
+    if (weekDoseTime.length > 0) {
+      let tempStore = weekDoseTime.map(e => {
+        console.log('e.dosedate', e.doseDate.toLocaleDateString());
+        let selectedtimeobj = parseTodayWithTime(e.doseTime);
         return {
           medicineName: medicineName,
           medicineStatus: 'week',
@@ -146,18 +162,47 @@ const WeeklyDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime
+          selectedDateTime: e.doseDate
         };
       });
 
+      // remove duplicate entries
+      // tempStore = tempStore.filter(
+      //   (item, index, self) =>
+      //     index ===
+      //     self.findIndex(
+      //       t =>
+      //         t.medicineLocalId === item.medicineLocalId &&
+      //         t.doseTime === item.doseTime &&
+      //         t.doseQuantity === item.doseQuantity
+      //     )
+      // );
+
+      console.log('tempstore', tempStore);
+
+      console.log('weeklyDoseTime:', weeklyDoseTime); // Log selected weekdays
+      console.log('medicineLocalId:', medicineLocalId); // Ensure IDs match
+      console.log('filterArray:', filterArray); // Validate filtered results
+      console.log('filterArrayMonthly:', filterArrayMonthly); // Check monthly filter
+      console.log(
+        'weeklyTime in filterArrayMonthly:',
+        filterArrayMonthly.map(e => e.medicineLocalId.weeklyTime)
+      );
+
       // now check login or not
-      // if (loginStatus) {
-      //   await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
-      //   await createMedicineData(tempStore, accessToken);
-      // }
-      // await localSchedule(tempStore, 'week', medicineLocalId);
+      if (loginStatus && accessToken != undefined) {
+        await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
+        await createMedicineData(tempStore, accessToken);
+      }
+      await localSchedule(tempStore, 'week', medicineLocalId);
       dispatch(setWeeklyStoreData(tempStore));
     }
+
+    clearAllDosesAndTime();
+
+    setDisable(false);
+
+    //ToastPopUp('Medicine Created Successfully');
 
     navigation.navigate('AddedMedicine' as never);
   };
@@ -314,6 +359,7 @@ const WeeklyDoseDetails: FC = () => {
         <View style={styles.NextbuttonPosition}>
           <CustomButton
             onPress={handleNext}
+            disabled={disable}
             icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
             text="Next"
           />

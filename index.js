@@ -68,4 +68,6 @@ const handleSnooze = notification => {
   });
 };
 
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent(appName, () => {
+  return App;
+});

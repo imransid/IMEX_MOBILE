@@ -5,7 +5,7 @@ import ToastPopUp from '@/utils/Toast.android';
 import axios from 'axios';
 
 export const createWeeklyMutation = async (
-  accessToken: string,
+  accessToken: string | undefined,
   weeklyData: IStoredWeekly[],
   medicineLocalId: string
 ) => {
@@ -45,7 +45,7 @@ export const createWeeklyMutation = async (
       response?.data?.data?.createWeeklyMedicines?.message !== undefined &&
       response?.data?.data?.createWeeklyMedicines?.message !== null
     ) {
-      ToastPopUp(response?.data?.data?.createWeeklyMedicines?.message);
+      //ToastPopUp(response?.data?.data?.createWeeklyMedicines?.message);
     } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
       // Show error message from the response
       const errorMessage: any = response?.data?.errors[0]?.message;
@@ -112,7 +112,7 @@ export const fetchWeeklyMedicines = async (accessToken: string) => {
     } else {
       console.error('Unexpected Error:', error);
     }
-    ToastPopUp('Network Error! Please check your connection.');
+    //ToastPopUp('Network Error! Please check your connection.');
   }
 
   // Return undefined if something goes wrong

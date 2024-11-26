@@ -14,7 +14,7 @@ const UserProfile: FC = () => {
 
   const userName = useSelector((state: RootState) => state.users.user?.data?.user?.fullName);
   const userMobileNumber = useSelector(
-    (state: RootState) => state.users.user.data.user.mobileNumber
+    (state: RootState) => state.users.user?.data?.user?.mobileNumber
   );
   const userGender = useSelector((state: RootState) => state.users.user?.data?.user?.gender);
   const userBirthDay = useSelector((state: RootState) => state.users.user?.data?.user?.birthday);

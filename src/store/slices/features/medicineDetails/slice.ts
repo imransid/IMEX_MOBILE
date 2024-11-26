@@ -10,6 +10,10 @@ import {
   type IMonthlyDoseTime,
   type IStoredMonthly,
   type ITwiceAdayDoseTime,
+  type IThreeTimesAdayDoseTime,
+  type IFourTimesAdayDoseTime,
+  type IXTimesAdayDoseTime,
+  type IXHoursAdayDoseTime,
   type IWeekly,
   type IWeeklyDoseTime,
   type IXDaysDoseTime,
@@ -35,12 +39,15 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   unitMed: '',
   typeMed: '',
   storedMedicineList: [],
-  storedMedicineTwiceAdayList: [],
   storedMedicineWeeklyList: [],
   storedMedicineMonthlyList: [],
   weeklyTime: [],
   timeInterval: '',
   twiceAdayDoseTime: [],
+  threeTimesAdayDoseTime: [],
+  fourTimesAdayDoseTime: [],
+  xTimesAdayDoseTime: [],
+  xHoursDoseTime: [],
   weeklyDoseTime: [],
   monthlyDoseTime: [],
   xDaysDoseTime: [],
@@ -51,8 +58,9 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   xMonthTakeDoseTime: [],
   selectedDates: '',
   description: '',
-  person: '',
-  note: '',
+  person1: '',
+  person2: '',
+  person3: '',
   selectedDateTime: null
 };
 
@@ -125,6 +133,38 @@ export const medicineDetailsSlice = createSlice({
       state.twiceAdayDoseTime = data;
     },
 
+    setThreeTimesAdayDoseTime: (
+      state: IMedicineDetailsType,
+      payload: PayloadAction<IThreeTimesAdayDoseTime[]>
+    ) => {
+      const data = [...state.threeTimesAdayDoseTime, ...payload.payload];
+      state.threeTimesAdayDoseTime = data;
+    },
+
+    setFourTimesAdayDoseTime: (
+      state: IMedicineDetailsType,
+      payload: PayloadAction<IFourTimesAdayDoseTime[]>
+    ) => {
+      const data = [...state.fourTimesAdayDoseTime, ...payload.payload];
+      state.fourTimesAdayDoseTime = data;
+    },
+
+    setXtimesAdayDoseTime: (
+      state: IMedicineDetailsType,
+      payload: PayloadAction<IXTimesAdayDoseTime[]>
+    ) => {
+      const data = [...state.xTimesAdayDoseTime, ...payload.payload];
+      state.xTimesAdayDoseTime = data;
+    },
+
+    setXhoursAdayDoseTime: (
+      state: IMedicineDetailsType,
+      payload: PayloadAction<IXHoursAdayDoseTime[]>
+    ) => {
+      const data = [...state.xHoursDoseTime, ...payload.payload];
+      state.xHoursDoseTime = data;
+    },
+
     setWeeklyDoseTime: (state: IMedicineDetailsType, payload: PayloadAction<IWeeklyDoseTime[]>) => {
       const data = [...state.weeklyDoseTime, ...payload.payload];
       state.weeklyDoseTime = data;
@@ -149,12 +189,103 @@ export const medicineDetailsSlice = createSlice({
       state.doseQuantity = '';
       state.medicineName = '';
     },
+    setTwiceAdayStoreData: (state: IMedicineDetailsType, payload: PayloadAction<IMedicine[]>) => {
+      state.storedMedicineList = [...state.storedMedicineList, ...payload.payload];
+      state.medicineLocalId = '';
+      state.timeInterval = '';
+      state.doseTime = '';
+      state.medicineStatus = '';
+      state.takeStatus = '';
+      state.strengthMed = '';
+      state.unitMed = '';
+      state.typeMed = '';
+      state.doseQuantity = '';
+      state.medicineName = '';
+    },
+
+    setThreeTimesAdayStoreData: (
+      state: IMedicineDetailsType,
+      payload: PayloadAction<IMedicine[]>
+    ) => {
+      state.storedMedicineList = [...state.storedMedicineList, ...payload.payload];
+      state.medicineLocalId = '';
+      state.timeInterval = '';
+      state.doseTime = '';
+      state.medicineStatus = '';
+      state.takeStatus = '';
+      state.strengthMed = '';
+      state.unitMed = '';
+      state.typeMed = '';
+      state.doseQuantity = '';
+      state.medicineName = '';
+    },
+
+    setFourTimesAdayStoreData: (
+      state: IMedicineDetailsType,
+      payload: PayloadAction<IMedicine[]>
+    ) => {
+      state.storedMedicineList = [...state.storedMedicineList, ...payload.payload];
+      state.medicineLocalId = '';
+      state.timeInterval = '';
+      state.doseTime = '';
+      state.medicineStatus = '';
+      state.takeStatus = '';
+      state.strengthMed = '';
+      state.unitMed = '';
+      state.typeMed = '';
+      state.doseQuantity = '';
+      state.medicineName = '';
+    },
+
+    setXtimesAdayStoreData: (state: IMedicineDetailsType, payload: PayloadAction<IMedicine[]>) => {
+      state.storedMedicineList = [...state.storedMedicineList, ...payload.payload];
+      state.medicineLocalId = '';
+      state.timeInterval = '';
+      state.doseTime = '';
+      state.medicineStatus = '';
+      state.takeStatus = '';
+      state.strengthMed = '';
+      state.unitMed = '';
+      state.typeMed = '';
+      state.doseQuantity = '';
+      state.medicineName = '';
+    },
+
+    setXhoursAdayStoreData: (state: IMedicineDetailsType, payload: PayloadAction<IMedicine[]>) => {
+      state.storedMedicineList = [...state.storedMedicineList, ...payload.payload];
+      state.medicineLocalId = '';
+      state.timeInterval = '';
+      state.doseTime = '';
+      state.medicineStatus = '';
+      state.takeStatus = '';
+      state.strengthMed = '';
+      state.unitMed = '';
+      state.typeMed = '';
+      state.doseQuantity = '';
+      state.medicineName = '';
+    },
+
     setMonthlyStoreData: (
       state: IMedicineDetailsType,
       payload: PayloadAction<IStoredMonthly[]>
     ) => {
       state.storedMedicineMonthlyList = [...state.storedMedicineMonthlyList, ...payload.payload];
     },
+
+    setXmonthStoreData: (state: IMedicineDetailsType, payload: PayloadAction<IMedicine[]>) => {
+      state.storedMedicineList = [...state.storedMedicineList, ...payload.payload];
+      state.medicineLocalId = '';
+      state.timeInterval = '';
+      state.doseTime = '';
+      state.medicineStatus = '';
+      state.takeStatus = '';
+      state.strengthMed = '';
+      state.unitMed = '';
+      state.typeMed = '';
+      state.doseQuantity = '';
+      state.medicineName = '';
+    },
+
     updateTimeInterval: (state: IMedicineDetailsType, payload: PayloadAction<string>) => {
       state.timeInterval = payload.payload;
     },
@@ -198,7 +329,6 @@ export const medicineDetailsSlice = createSlice({
       state.unitMed = '';
       state.typeMed = '';
       state.storedMedicineList = [];
-      state.storedMedicineTwiceAdayList = [];
       state.storedMedicineWeeklyList = [];
       state.storedMedicineMonthlyList = [];
       state.weeklyTime = [];
@@ -224,8 +354,9 @@ export const medicineDetailsSlice = createSlice({
       state.typeMed = payload.payload.medicine.form;
       state.strengthMed = payload.payload.medicine.strength;
       state.description = payload.payload.product_details.description;
-      state.person = payload.payload.dosage_and_administration.administration.adult;
-      state.note = payload.payload.dosage_and_administration.administration.note;
+      state.person1 = payload.payload.dosage_and_administration.administration.adult;
+      state.person2 = payload.payload.dosage_and_administration.administration.child1;
+      state.person3 = payload.payload.dosage_and_administration.administration.child2;
     },
     clearStoreMedicine: (state: IMedicineDetailsType) => {
       state.medicineLocalId = '';
@@ -254,9 +385,19 @@ export const {
   setDoseList,
   setWeekly,
   setTwiceAdayDoseTime,
+  setTwiceAdayStoreData,
+  setThreeTimesAdayDoseTime,
+  setThreeTimesAdayStoreData,
+  setFourTimesAdayDoseTime,
+  setFourTimesAdayStoreData,
+  setXtimesAdayDoseTime,
+  setXtimesAdayStoreData,
+  setXhoursAdayDoseTime,
+  setXhoursAdayStoreData,
   setWeeklyDoseTime,
   setWeeklyStoreData,
   setMonthlyStoreData,
+  setXmonthStoreData,
   updateTimeInterval,
   setMonthlyDoseTime,
   setXDaysDoseTime,

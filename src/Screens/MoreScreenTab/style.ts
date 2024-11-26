@@ -27,6 +27,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: scale(20)
   },
+  prescriptionDetailsPosition: {
+    justifyContent: 'center',
+    marginRight: scale(5)
+  },
+  prescriptionImageStyle: {
+    height: '120%',
+    width: '12%',
+    marginLeft: scale(10)
+  },
   headingPosition: {
     alignItems: 'center',
     top: verticalScale(10)
@@ -41,7 +50,7 @@ const styles = StyleSheet.create({
   pillsLeft: {
     color: colors.buttonBg,
     fontFamily: 'WorkSansMedium',
-    fontSize: moderateScale(12)
+    fontSize: moderateScale(13)
   },
   pillsLeftDetailsText: {
     color: colors.typedText,
@@ -84,6 +93,13 @@ const styles = StyleSheet.create({
   },
   scrollContainerStyle: {
     paddingBottom: scale(15)
+  },
+  itemHeaderStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  viewButtonPosition: {
+    top: scale(0.5)
   }
 });
 

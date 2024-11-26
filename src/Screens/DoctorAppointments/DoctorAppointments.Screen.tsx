@@ -21,6 +21,8 @@ import SetReminderModal from '../../Components/SetReminderModal/SetReminderModal
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import moment from 'moment';
+import { appointmentSchedule } from '@/helper/appointmentSchedule';
 
 const DoctorAppointments: FC = () => {
   const navigation = useNavigation();
@@ -36,21 +38,24 @@ const DoctorAppointments: FC = () => {
   const [open, setOpen] = useState(false); // for time picker
   const [reminder, setReminder] = useState('');
   const [tempReminder, setTempReminder] = useState('');
+  const [tempDate, setTempDate] = useState(new Date());
   const [location, setLocation] = useState('');
   const [doctorName, setDoctorName] = useState('');
   const [openReminderModal, setOpenReminderModal] = useState(false); // for set reminder
 
-  const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
-
   const handleSetDate: any = (date: string) => {
     const formattedDate = format(new Date(date), 'EEE, d MMMM, yyyy');
     setDate(formattedDate);
+    setTempDate(new Date(date));
   };
-  const handleNext: any = () => {
+
+  console.log(tempDate, 'tempDate');
+
+  const handleNext: any = async () => {
     dispatch(
       setAppointment([
         {
-          date,
+          date: tempDate.toString(),
           time: selectedTime,
           doctorName,
           location,
@@ -59,6 +64,31 @@ const DoctorAppointments: FC = () => {
         }
       ])
     );
+
+    const parseDateString = (dateString: string) => {
+      return moment(dateString, 'ddd, MMMM D, YYYY hh:mm A');
+    };
+
+    const appointmentsDATA = [
+      {
+        date: tempDate.toString(), // Example date
+        time: selectedTime, // Example time
+        reminder: reminder,
+        location: location,
+        doctorName: doctorName
+      }
+    ];
+
+    console.log(appointmentsDATA, 'appointmentsDATA');
+
+    await appointmentSchedule(appointmentsDATA);
+
+    setDate('');
+    setSelectedTime('');
+    setReminder('');
+    setTempReminder('');
+    setLocation('');
+    setDoctorName('');
     navigation.navigate(`${prevRoute}` as never);
   };
   const handleSelectTime: any = () => {
@@ -141,7 +171,7 @@ const DoctorAppointments: FC = () => {
                   onChangeText={setDoctorName}
                   keyboardType="default"
                   style={styles.nameInput}
-                  maxLength={10}
+                  value={doctorName}
                 />
               </View>
             </View>
@@ -159,7 +189,7 @@ const DoctorAppointments: FC = () => {
                   keyboardType="default"
                   onChangeText={setLocation}
                   style={styles.nameInput}
-                  maxLength={10}
+                  value={location}
                 />
               </View>
             </View>

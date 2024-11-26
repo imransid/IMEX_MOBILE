@@ -2,7 +2,7 @@ import React, { type FC, useState } from 'react';
 import { Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { setPrescriptionAction } from '@/store/slices/features/prescription/slice';
 import { type ImageFile as ImageFiles } from '@/store/slices/features/prescription/types';
@@ -16,6 +16,7 @@ import { colors } from '@/theme/colors';
 import CustomButton from '@/Components/CustomButton/CustomButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { RootState } from '@/store';
 
 const AddPrescription: FC = () => {
   const dispatch = useDispatch();
@@ -28,19 +29,23 @@ const AddPrescription: FC = () => {
   const [uploadProgress, setUploadProgress] = useState<number>(0); // Track upload progress
   const [isUploading, setIsUploading] = useState<boolean>(false); // Track if uploading
 
+  const uploadedImage = useSelector((state: RootState) => state.prescription.ImageFile);
+
+  console.log(uploadedImage, 'uploadedImage');
+
   const handleChoosePhoto = async (): Promise<void> => {
     try {
-      const response = await launchImageLibrary({ noData: true });
+      const response = await launchImageLibrary({ mediaType: 'photo' });
 
       if (response.assets !== undefined) {
         const imageFile: ImageFiles[] = response.assets.map(asset => ({
-          originalPath: asset.originalPath ?? '', // Provide default value
-          type: asset.type ?? '', // Default to 'image/jpeg'
-          height: asset.height ?? 0, // Default to 0
-          width: asset.width ?? 0, // Default to 0
-          fileName: asset.fileName ?? 'Unnamed', // Default to 'Unnamed'
-          fileSize: asset.fileSize ?? 0, // Default to 0
-          uri: asset.uri ?? '' // Provide default value
+          originalPath: asset.originalPath ?? '',
+          type: asset.type ? asset.type.split('/')[1] : '', // Extract type (jpeg or png)
+          height: asset.height ?? 0,
+          width: asset.width ?? 0,
+          fileName: asset.fileName ?? 'Unnamed',
+          fileSize: asset.fileSize ?? 0,
+          uri: asset.uri ?? ''
         }));
 
         // Store the first image's URI and file name
@@ -62,6 +67,7 @@ const AddPrescription: FC = () => {
   };
 
   const simulateUpload = async (image: ImageFiles) => {
+    console.log(image, '>>>>>>>>>>>>>>>>>');
     setIsUploading(true);
     setUploadProgress(0); // Reset progress
 
@@ -71,12 +77,7 @@ const AddPrescription: FC = () => {
         if (prev >= 100) {
           clearInterval(interval);
           setIsUploading(false);
-          // Dispatch to Redux store when upload completes
-          dispatch(
-            setPrescriptionAction({
-              assets: [image]
-            })
-          );
+
           return 100; // Ensure it doesn't go over 100%
         }
         return prev + 10; // Increase progress by 10%
@@ -88,9 +89,16 @@ const AddPrescription: FC = () => {
       clearInterval(interval);
       setIsUploading(false);
     }, 3000); // Total time for simulated upload
+    // Dispatch to Redux store when upload completes
+    dispatch(
+      setPrescriptionAction({
+        assets: [image] // Pass the image array
+      })
+    );
   };
 
   const handleNext: any = () => {
+    setSelectedImage(null);
     navigation.navigate(`${prevRoute}` as never);
   };
 
@@ -157,7 +165,7 @@ const AddPrescription: FC = () => {
                 </View>
               )}
               {selectedImage !== null ? (
-                <View style={styles.NextbuttonPosition}>
+                <View style={styles.SavebuttonPosition}>
                   <CustomButton
                     onPress={handleNext}
                     icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
@@ -173,13 +181,6 @@ const AddPrescription: FC = () => {
       ) : (
         <></>
       )}
-      {/* <View style={styles.NextbuttonPosition}>
-        <CustomButton
-          onPress={handleNext}
-          icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
-          text="Save"
-        />
-      </View> */}
     </View>
   );
 };

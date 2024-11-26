@@ -55,6 +55,8 @@ const AddInstructions: FC = () => {
   };
 
   const handleNext: any = () => {
+    setInstruction('');
+    setTempInstruction('');
     navigation.navigate(`${prevRoute}` as never);
   };
 

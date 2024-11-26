@@ -1,16 +1,31 @@
-import * as React from 'react';
-import Svg, { Path, Defs, Pattern, Use, Image } from 'react-native-svg';
-const TeamPharmaLogo = props => (
+import * as React from "react"
+import Svg, {
+  SvgProps,
+  Path,
+  Defs,
+  Pattern,
+  Use,
+  Image,
+} from "react-native-svg"
+import { Ref, forwardRef, memo } from "react"
+const TeamPharmaLogo = (props: SvgProps, ref: Ref<SVGSVGElement>) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
-    width={120}
-    height={120}
+    width={300}
+    height={300}
     fill="none"
-    {...props}>
-    <Path fill="url(#a)" d="M0 0h120v120H0z" />
+    ref={ref}
+    {...props}
+  >
+    <Path fill="url(#a)" d="M0 0h300v300H0z" />
     <Defs>
-      <Pattern id="a" width={1} height={1} patternContentUnits="objectBoundingBox">
+      <Pattern
+        id="a"
+        width={1}
+        height={1}
+        patternContentUnits="objectBoundingBox"
+      >
         <Use xlinkHref="#b" transform="scale(.00093)" />
       </Pattern>
       <Image
@@ -21,5 +36,7 @@ const TeamPharmaLogo = props => (
       />
     </Defs>
   </Svg>
-);
-export default TeamPharmaLogo;
+)
+const ForwardRef = forwardRef(TeamPharmaLogo)
+const Memo = memo(ForwardRef)
+export default Memo

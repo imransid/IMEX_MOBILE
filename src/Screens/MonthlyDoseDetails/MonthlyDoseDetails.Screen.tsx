@@ -20,14 +20,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { IMonthlyDoseTime } from '@/store/slices/features/medicineDetails/types';
 import {
+  setDoseList,
   setMonthlyDoseTime,
-  setMonthlyStoreData,
   setWeeklyStoreData
 } from '@/store/slices/features/medicineDetails/slice';
 import moment from 'moment';
 import { createMothyMutation } from '@/mutations/createMonthly';
 import { createMedicineData } from '@/mutations/createMedicine';
 import { localSchedule } from '@/helper/notify';
+import { INSTRUCTION_MUTATION } from '@/mutations/instruction_mutation';
+import { TREATMENT_DURATION_MUTATION } from '@/mutations/treatmentDuration_mutation';
+import { MEDICINE_REMINDER_MUTATION } from '@/mutations/medicineReminder_mutation';
+import ToastPopUp from '@/utils/Toast.android';
+import { getMothyDates, getWeekDates, setWeeklyDateDoseTimes, WeeklyDateEntry } from '../WeeklyDoseDetails/extramethod';
 
 const MonthlyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -43,9 +48,7 @@ const MonthlyDoseDetails: FC = () => {
   const unitMed = useSelector((state: RootState) => state.medicineDetails.unitMed);
   const strengthMed = useSelector((state: RootState) => state.medicineDetails.strengthMed);
   const accessToken = useSelector((state: RootState) => state.users.user?.data?.accessToken);
-  const storedMedicineMonthlyList = useSelector(
-    (state: RootState) => state.medicineDetails.storedMedicineMonthlyList
-  );
+
   const selectedDateTime = useSelector(
     (state: RootState) => state.medicineDetails.selectedDateTime
   );
@@ -66,6 +69,93 @@ const MonthlyDoseDetails: FC = () => {
   const [isModalVisible, setModalVisible] = useState(false); // for dose input
   const [selectedChip, setSelectedChip] = useState<number | null>(null); // to track which chip is being modified
   const [date, setDate] = useState(new Date());
+
+  const [disable, setDisable] = useState(false);
+
+
+  const storedMedicineMonthlyList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineMonthlyList
+  );
+
+  const storedMedicineList = useSelector(
+    (state: RootState) => state.medicineDetails.storedMedicineList
+  );
+
+  const storedInstructionList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeInstrucTionList
+  );
+
+  const storedTreatmentDurationList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeTreatmentDuration
+  );
+
+  const storedReminderList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeMedicineReminder
+  );
+
+  // Function to fetch instruction data from list
+  const getInstructionData = (medicineId: string) => {
+    if (storedInstructionList.length === 0) return '';
+
+    const instructionName = storedInstructionList.find(
+      (item: any) => item.medicineLocalId === medicineId
+    );
+    return instructionName?.instrucTion;
+  };
+
+  // Function to fetch treatment duration data from list
+  const getTreatmentDurationData = (medicineId: string) => {
+    if (storedTreatmentDurationList.length === 0)
+      return {
+        medicineTakeEachDay: '',
+        treatmentDurationEndTime: '',
+        treatmentDurationStartTime: ''
+      };
+
+    const treatmentDurationName = storedTreatmentDurationList.find(
+      (item: any) => item.medicineLocalId === medicineId
+    );
+
+    return treatmentDurationName
+      ? {
+        medicineTakeEachDay: treatmentDurationName.medicineTakeEachDay,
+        treatmentDurationEndTime: treatmentDurationName.treatmentDurationEndTime,
+        treatmentDurationStartTime: treatmentDurationName.treatmentDurationStartTime
+      }
+      : { medicineTakeEachDay: '', treatmentDurationEndTime: '', treatmentDurationStartTime: '' };
+  };
+
+  const { medicineTakeEachDay, treatmentDurationEndTime, treatmentDurationStartTime } =
+    getTreatmentDurationData(medicineLocalId);
+
+  // Function to fetch medicine reminder data from list
+  const getReminderData = (medicineId: string) => {
+    if (storedReminderList.length === 0)
+      return {
+        medicineReminderCurrentStock: '',
+        medicineReminderRemindToLeft: '',
+        medicineReminderTotalReq: ''
+      };
+
+    const reminderQuantity = storedReminderList.find(
+      (item: any) => item.medicineLocalId === medicineId
+    );
+
+    return reminderQuantity
+      ? {
+        medicineReminderCurrentStock: reminderQuantity.medicineReminderCurrentStock,
+        medicineReminderRemindToLeft: reminderQuantity.medicineReminderRemindToLeft,
+        medicineReminderTotalReq: reminderQuantity.medicineReminderTotalReq
+      }
+      : {
+        medicineReminderCurrentStock: '',
+        medicineReminderRemindToLeft: '',
+        medicineReminderTotalReq: ''
+      };
+  };
+
+  const { medicineReminderCurrentStock, medicineReminderRemindToLeft, medicineReminderTotalReq } =
+    getReminderData(medicineLocalId);
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -104,13 +194,43 @@ const MonthlyDoseDetails: FC = () => {
     }
   };
 
+  const clearAllDosesAndTime: any = () => {
+    setDoses(doses.map(() => 0));
+    setTimes(times.map(() => ''));
+  };
+
   const handleNext: any = async () => {
+    setDisable(true);
+    let updatedStoredList = [...storedMedicineList];
+
     let filterArray = monthlyDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
 
-    if (filterArray.length > 0) {
-      let tempStore = filterArray.map(e => {
+    let filterArrayMonthly = storedMedicineMonthlyList.filter(e => {
+      if (e.medicineLocalId.medicineLocalId.toString() === medicineLocalId) return e;
+    });
+
+
+    const customToday = new Date();
+
+    let dataMData: WeeklyDateEntry[] = []
+    filterArrayMonthly.map((e) => {
+      dataMData = getMothyDates(e.medicineLocalId.Days, customToday);
+    });
+
+
+
+    const weekDoseTime = setWeeklyDateDoseTimes(filterArray, dataMData);
+
+    let updatedInstructionList = [...storedInstructionList];
+
+    let updatedTreatmentDurationList = [...storedTreatmentDurationList];
+
+    let updatedReminderList = [...storedReminderList];
+
+    if (weekDoseTime.length > 0) {
+      let tempStore = weekDoseTime.map(e => {
         return {
           medicineName: medicineName,
           medicineStatus: 'week',
@@ -123,17 +243,55 @@ const MonthlyDoseDetails: FC = () => {
           medicineId: '',
           medicineLocalId: e.medicineLocalId,
           createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: selectedDateTime
+          selectedDateTime: e.doseDate
         };
       });
 
-      // now check login or not
-      if (loginStatus) {
-        await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
+
+
+
+
+      // Create data for the new instruction
+      let instructionData = {
+        medicineLocalId: medicineLocalId,
+        instrucTion: getInstructionData(medicineLocalId) || ''
+      };
+
+      // create treatment duration data
+      let treatmentDurationData = {
+        medicineLocalId: medicineLocalId,
+        medicineTakeEachDay: medicineTakeEachDay,
+        treatmentDurationEndTime: treatmentDurationEndTime,
+        treatmentDurationStartTime: treatmentDurationStartTime
+      };
+
+      // Create data for the new reminder
+      let reminderData = {
+        medicineLocalId: medicineLocalId,
+        medicineReminderCurrentStock: medicineReminderCurrentStock,
+        medicineReminderRemindToLeft: medicineReminderRemindToLeft,
+        medicineReminderTotalReq: medicineReminderTotalReq
+      };
+
+      // Add the new data to the copied array
+      updatedInstructionList.push(instructionData);
+      updatedTreatmentDurationList.push(treatmentDurationData);
+      updatedReminderList.push(reminderData);
+
+
+      updatedStoredList.push(...tempStore);
+
+      if (loginStatus && accessToken != undefined) {
+        // await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
         await createMedicineData(tempStore, accessToken);
       }
-      await localSchedule(tempStore, 'week', medicineLocalId);
-      dispatch(setWeeklyStoreData(tempStore));
+      dispatch(setDoseList(updatedStoredList));
+      
+      await localSchedule(tempStore, 'month', medicineLocalId);
+
+      setDisable(false);
+
+      ToastPopUp('Medicine Created Successfully');
     }
 
     navigation.navigate('AddedMedicine' as never);
@@ -149,6 +307,8 @@ const MonthlyDoseDetails: FC = () => {
           doseDate: doseDates[index]
         }))
         .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
+
+
 
       dispatch(setMonthlyDoseTime(monthlyDoses));
     }
@@ -285,6 +445,7 @@ const MonthlyDoseDetails: FC = () => {
         <View style={styles.NextbuttonPosition}>
           <CustomButton
             onPress={handleNext}
+            disabled={disable}
             icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
             text="Next"
           />

@@ -31,9 +31,9 @@ const styles = StyleSheet.create({
     borderRadius: scale(30),
     flexDirection: 'row',
     gap: scale(5),
-    height: verticalScale(38),
+    height: verticalScale(42),
     justifyContent: 'center',
-    width: scale(140)
+    width: scale(145)
   },
   logOutButtonPosition: {
     alignItems: 'center',
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   logOutButtonText: {
     color: colors.white,
     fontFamily: 'WorkSansSemiBold',
-    fontSize: moderateScale(13)
+    fontSize: moderateScale(16)
   },
   signUpText: {
     color: colors.typedText,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   userContactItemStyle: {
     flexDirection: 'row',
-    gap: scale(20),
+    gap: scale(11),
     marginTop: scale(15)
   },
   userEmailText: {
@@ -103,11 +103,11 @@ const styles = StyleSheet.create({
   },
   userProfileItemStyle: {
     flexDirection: 'row',
-    gap: scale(27)
+    gap: scale(18)
   },
   userSettingsItemStyle: {
     flexDirection: 'row',
-    gap: scale(20),
+    gap: scale(15),
     marginTop: scale(15)
   }
 });

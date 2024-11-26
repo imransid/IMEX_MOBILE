@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export interface IMedicineDetailsType {
   medicineName: string;
   medicineGenericName: string;
@@ -7,7 +9,6 @@ export interface IMedicineDetailsType {
   doseQuantity: string;
   doseTime: string;
   storedMedicineList: IMedicine[];
-  storedMedicineTwiceAdayList: IStoredTwiceAday[];
   storedMedicineWeeklyList: IStoredWeekly[];
   storedMedicineMonthlyList: IStoredMonthly[];
   strengthMed: string;
@@ -17,6 +18,10 @@ export interface IMedicineDetailsType {
   weeklyTime: string[];
   timeInterval: string;
   twiceAdayDoseTime: ITwiceAdayDoseTime[];
+  threeTimesAdayDoseTime: IThreeTimesAdayDoseTime[];
+  fourTimesAdayDoseTime: IFourTimesAdayDoseTime[];
+  xTimesAdayDoseTime: IXTimesAdayDoseTime[];
+  xHoursDoseTime: IXHoursAdayDoseTime[];
   weeklyDoseTime: IWeeklyDoseTime[];
   monthlyDoseTime: IMonthlyDoseTime[];
   xDaysDoseTime: IXDaysDoseTime[];
@@ -27,8 +32,9 @@ export interface IMedicineDetailsType {
   xMonthTakeDoseTime: IWeeklyDoseTime[];
   selectedDates: string;
   description: string;
-  person: string;
-  note: string;
+  person1: string;
+  person2: string;
+  person3: string;
   selectedDateTime: Date | null;
 }
 
@@ -72,6 +78,30 @@ export interface ITwiceAdayDoseTime {
   medicineLocalId: string;
 }
 
+export interface IThreeTimesAdayDoseTime {
+  doseTime: string;
+  doseQuantity: string;
+  medicineLocalId: string;
+}
+
+export interface IFourTimesAdayDoseTime {
+  doseTime: string;
+  doseQuantity: string;
+  medicineLocalId: string;
+}
+
+export interface IXTimesAdayDoseTime {
+  doseTime: string;
+  doseQuantity: string;
+  medicineLocalId: string;
+}
+
+export interface IXHoursAdayDoseTime {
+  doseTime: string;
+  doseQuantity: string;
+  medicineLocalId: string;
+}
+
 export interface IMedicine {
   medicineName: string;
   medicineStatus: string;
@@ -84,7 +114,7 @@ export interface IMedicine {
   medicineId?: string;
   medicineLocalId: string;
   createdDate: string;
-  selectedDateTime: Date | null;
+  selectedDateTime: Date | null | moment.Moment;
 }
 
 export interface MedicineName {
@@ -131,6 +161,14 @@ export interface IStoredTwiceAday {
   medicineLocalId: IMedicineLocalId;
 }
 
+export interface IStoredThreeTimesAday {
+  medicineLocalId: IMedicineLocalId;
+}
+
+export interface IStoredFourTimesAday {
+  medicineLocalId: IMedicineLocalId;
+}
+
 export interface IStoredMonthly {
   medicineLocalId: IMedicineLocalMonthly;
 }
@@ -152,8 +190,9 @@ export interface IProductDetails {
 }
 
 export interface IAdministration {
-  person: string;
-  note: string;
+  person1: string;
+  person2: string;
+  person3: string;
 }
 
 export interface IDosageAndAdministration {

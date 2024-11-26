@@ -1,7 +1,7 @@
 import React, { type FC } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { Controller, useForm } from 'react-hook-form';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Alert, PermissionsAndroid, Platform, Text, TouchableOpacity, View } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
@@ -55,6 +55,28 @@ const Login: FC = () => {
   const loading = useSelector((state: RootState) => state.users.user.isLoading);
   const appLoadFirstTime = useSelector((state: RootState) => state.settings.appLoadFirstTime);
   const appStatus = useSelector((state: RootState) => state.settings.appStatus);
+
+  // Request Android notification permission
+  const requestAndroidNotificationPermission = async () => {
+    if (Platform.OS === 'android' && Platform.Version >= 33) {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('Notification permission granted');
+        } else {
+          console.warn('Notification permission denied');
+          Alert.alert('Permission required', 'Please enable notifications in settings.');
+        }
+      } catch (err) {
+        console.error('Permission request error:', err);
+      }
+    }
+  };
+
+  requestAndroidNotificationPermission();
+
   // SignIn handler
   const handleSignIn: SubmitHandler<ISignInFormDataProps> = async formData => {
     try {
@@ -115,16 +137,17 @@ const Login: FC = () => {
 
   // Navigation handlers
   const handleGuestLogin: any = () => {
-    if (appLoadFirstTime) {
-      navigation.navigate('MedicineDoses' as never);
-    } else {
-      if (appStatus === 'initial') {
-        dispatch(updateAppStatus());
-        navigation.navigate('MedicineDoses' as never);
-      } else {
-        navigation.navigate('ScanQrCodeScreenNew' as never);
-      }
-    }
+    // if (appLoadFirstTime) {
+    //   navigation.navigate('MedicineDoses' as never);
+    // } else {
+    //   if (appStatus === 'initial') {
+    //     dispatch(updateAppStatus());
+    //     navigation.navigate('MedicineDoses' as never);
+    //   } else {
+    //     navigation.navigate('ScanQrCodeScreenNew' as never);
+    //   }
+    // }
+    navigation.navigate('MedicineAddingMethod' as never);
   };
   const handleCreateAccount: any = () => {
     navigation.navigate('CreateAccount' as never);

@@ -14,6 +14,7 @@ import Header from '../../Components/Header/Header';
 import { colors } from '../../theme/colors';
 
 import styles from './style';
+import moment from 'moment';
 
 const PreviewDoseDetails: FC = () => {
   const route = useRoute(); // Access the route prop
@@ -40,7 +41,7 @@ const PreviewDoseDetails: FC = () => {
           <Header mainHeader={medicine.medicineName} />
         </View>
         <View style={styles.subHeader}>
-          <Header subHeader={`${medicine.typeMed}, ${medicine.strengthMed}`} />
+          <Header subHeader={`${medicine.typeMed}, ${medicine.strengthMed}${medicine.unitMed}`} />
         </View>
 
         <View style={styles.doseDetailsPosition}>
@@ -50,9 +51,9 @@ const PreviewDoseDetails: FC = () => {
               <View style={styles.chip}>
                 <View style={styles.dayContentProperties}>
                   <Text style={styles.chipText}>
-                    {medicine.medicineStatus === 'week'
-                      ? weeklyTime.map(e => e).join(', ')
-                      : 'No week Days Selected'}
+                    {medicine.selectedDateTime !== null
+                      ? moment(medicine.selectedDateTime).format('dddd')
+                      : 'No Week Days Selected'}
                   </Text>
                 </View>
               </View>
@@ -69,7 +70,7 @@ const PreviewDoseDetails: FC = () => {
         </View>
 
         <View style={styles.doseDetailsPosition}>
-          <View style={styles.optionalDetailsPosition}>
+          {/* <View style={styles.optionalDetailsPosition}>
             <View style={styles.doseDetailsProperties}>
               <Text style={styles.headingStyle}>Optional Details</Text>
               <TextInput
@@ -91,7 +92,7 @@ const PreviewDoseDetails: FC = () => {
                 maxLength={100}
               />
             </View>
-          </View>
+          </View> */}
           {/* <View style={styles.secondaryButtonPosition}>
             <TouchableOpacity style={styles.rescheduleButton}>
               <View style={styles.rescheduleButtonProperties}>
