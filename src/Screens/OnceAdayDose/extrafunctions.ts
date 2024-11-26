@@ -1,8 +1,5 @@
-
 import { IMedicine } from '@/store/slices/features/medicineDetails/types';
 import moment from 'moment';
-
-
 
 // export interface IMedicine {
 //   medicineName: string;
@@ -19,107 +16,117 @@ import moment from 'moment';
 //   selectedDateTime: Date | null | moment.Moment;
 // }
 
-const multiScheduleMaker = (data: IMedicine[], startDate: string, endDate: string, interval?: number): IMedicine[] => {
-    const inputFormat = 'D MMMM, YYYY';
-    const start = moment(startDate, inputFormat, true);
-    const end = moment(endDate, inputFormat, true);
-  
-    if (!start.isValid() || !end.isValid()) {
-      throw new Error(`Invalid start or end date. Ensure dates match format: ${inputFormat}`);
-    }
-  
-    const allSchedules: IMedicine[] = [];
-  
-    // Iterate over dates starting from 'start' until 'end', with the given interval
-    for (let currentDate = start.clone(); currentDate.isSameOrBefore(end, 'day'); currentDate.add(interval, 'days')) {
-      data.forEach((schedule) => {
-        // Trim whitespace and validate doseTime format
-        console.log(`Parsing doseTime: ${schedule.doseTime}`);
-        const doseTime = moment(schedule.doseTime.trim(), 'hh:mm A'); // Remove strict parsing for leniency
-  
-        if (!doseTime.isValid()) {
-          console.error(`Invalid doseTime format: ${schedule.doseTime}`);
-          throw new Error(`Invalid doseTime format: ${schedule.doseTime}`);
-        }
-  
-        const selectedDateTime = currentDate.clone().set({
-          hour: doseTime.hour(),
-          minute: doseTime.minute(),
-          second: 0,
-          millisecond: 0,
-        });
-  
-        const isDuplicate = allSchedules.some(
-          (existingSchedule) =>
-            existingSchedule.medicineLocalId === schedule.medicineLocalId &&
-            moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, 'minute')
-        );
-  
-        if (!isDuplicate) {
-          const newSchedule: IMedicine = {
-            ...schedule,
-            selectedDateTime: selectedDateTime.toDate(),
-          };
-  
-          allSchedules.push(newSchedule);
-        }
+const multiScheduleMaker = (
+  data: IMedicine[],
+  startDate: string,
+  endDate: string,
+  interval?: number
+): IMedicine[] => {
+  const inputFormat = 'D MMMM, YYYY';
+  const start = moment(startDate, inputFormat, true);
+  const end = moment(endDate, inputFormat, true);
+
+  if (!startDate && !endDate) {
+    return data;
+  }
+
+  if (!start.isValid() || !end.isValid()) {
+    throw new Error(`Invalid start or end date. Ensure dates match format: ${inputFormat}`);
+  }
+
+  const allSchedules: IMedicine[] = [];
+
+  // Iterate over dates starting from 'start' until 'end', with the given interval
+  for (
+    let currentDate = start.clone();
+    currentDate.isSameOrBefore(end, 'day');
+    currentDate.add(interval, 'days')
+  ) {
+    data.forEach(schedule => {
+      // Trim whitespace and validate doseTime format
+      console.log(`Parsing doseTime: ${schedule.doseTime}`);
+      const doseTime = moment(schedule.doseTime.trim(), 'hh:mm A'); // Remove strict parsing for leniency
+
+      if (!doseTime.isValid()) {
+        console.error(`Invalid doseTime format: ${schedule.doseTime}`);
+        throw new Error(`Invalid doseTime format: ${schedule.doseTime}`);
+      }
+
+      const selectedDateTime = currentDate.clone().set({
+        hour: doseTime.hour(),
+        minute: doseTime.minute(),
+        second: 0,
+        millisecond: 0
       });
-    }
-  
-    return allSchedules;
-  };
-  
+
+      const isDuplicate = allSchedules.some(
+        existingSchedule =>
+          existingSchedule.medicineLocalId === schedule.medicineLocalId &&
+          moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, 'minute')
+      );
+
+      if (!isDuplicate) {
+        const newSchedule: IMedicine = {
+          ...schedule,
+          selectedDateTime: selectedDateTime.toDate()
+        };
+
+        allSchedules.push(newSchedule);
+      }
+    });
+  }
+
+  return allSchedules;
+};
 
 // const multiScheduleMaker = (data: IMedicine[], startDate: string, endDate: string): IMedicine[] => {
 //     const inputFormat = 'D MMMM, YYYY';
 //     const start = moment(startDate, inputFormat, true);
 //     const end = moment(endDate, inputFormat, true);
-  
+
 //     if (!start.isValid() || !end.isValid()) {
 //       throw new Error(`Invalid start or end date. Ensure dates match format: ${inputFormat}`);
 //     }
-  
+
 //     const allSchedules: IMedicine[] = [];
-  
+
 //     for (let currentDate = start.clone(); currentDate.isSameOrBefore(end, 'day'); currentDate.add(1, 'day')) {
 //       data.forEach((schedule) => {
 //         // Trim whitespace and validate doseTime format
 //         console.log(`Parsing doseTime: ${schedule.doseTime}`);
 //         const doseTime = moment(schedule.doseTime.trim(), 'hh:mm A'); // Remove strict parsing for leniency
-  
+
 //         if (!doseTime.isValid()) {
 //           console.error(`Invalid doseTime format: ${schedule.doseTime}`);
 //           throw new Error(`Invalid doseTime format: ${schedule.doseTime}`);
 //         }
-  
+
 //         const selectedDateTime = currentDate.clone().set({
 //           hour: doseTime.hour(),
 //           minute: doseTime.minute(),
 //           second: 0,
 //           millisecond: 0,
 //         });
-  
+
 //         const isDuplicate = allSchedules.some(
 //           (existingSchedule) =>
 //             existingSchedule.medicineLocalId === schedule.medicineLocalId &&
 //             moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, 'minute')
 //         );
-  
+
 //         if (!isDuplicate) {
 //           const newSchedule: IMedicine = {
 //             ...schedule,
 //             selectedDateTime: selectedDateTime.toDate(),
 //           };
-  
+
 //           allSchedules.push(newSchedule);
 //         }
 //       });
 //     }
-  
+
 //     return allSchedules;
 //   };
-  
-  
 
 // const multiScheduleMaker = (data: IMedicine[], startDate: string, endDate: string) => {
 //     // Ensure startDate and endDate are valid by appending a default time
@@ -131,10 +138,10 @@ const multiScheduleMaker = (data: IMedicine[], startDate: string, endDate: strin
 //     if (!start.isValid() || !end.isValid()) {
 //       throw new Error('Invalid start or end date');
 //     }
-  
+
 //     // Array to store the final schedules
 //     let allSchedules: IMedicine[] = [...data];
-  
+
 //     // Generate new schedules for each day in the range
 //     for (let currentDate = start; currentDate.isSameOrBefore(end, 'day'); currentDate.add(1, 'day')) {
 //       data.forEach((schedule) => {
@@ -143,25 +150,25 @@ const multiScheduleMaker = (data: IMedicine[], startDate: string, endDate: strin
 //         if (!doseTime.isValid()) {
 //           throw new Error(`Invalid doseTime format: ${schedule.doseTime}`);
 //         }
-  
+
 //         const selectedDateTime = currentDate.clone().set({
 //           hour: doseTime.hour(),
 //           minute: doseTime.minute(),
 //           second: 0,
 //           millisecond: 0,
 //         });
-  
+
 //         // Create a new schedule entry
 //         const newSchedule: IMedicine = {
 //           ...schedule,
 //           selectedDateTime: selectedDateTime,
 //         };
-  
+
 //         // Add the new schedule to the array
 //         allSchedules.push(newSchedule);
 //       });
 //     }
-  
+
 //     return allSchedules;
 //   };
 // const multiScheduleMaker = (
@@ -173,19 +180,19 @@ const multiScheduleMaker = (data: IMedicine[], startDate: string, endDate: strin
 //       // If no startDate or endDate, return the original data
 //       return data;
 //     }
-  
+
 //     const start = moment(startDate, 'YYYY-MM-DD');
 //     const end = moment(endDate, 'YYYY-MM-DD');
 //     if (!start.isValid() || !end.isValid() || end.isBefore(start)) {
 //       throw new Error('Invalid startDate or endDate');
 //     }
-  
+
 //     const newData: IMedicine[] = [];
-  
+
 //     // Iterate through the original data
 //     data.forEach((schedule) => {
 //       newData.push(schedule); // Keep the original data
-  
+
 //       // Generate new schedules for the date range
 //       let currentDate = start.clone();
 //       while (currentDate.isSameOrBefore(end)) {
@@ -200,7 +207,7 @@ const multiScheduleMaker = (data: IMedicine[], startDate: string, endDate: strin
 //         currentDate.add(1, 'day'); // Move to the next day
 //       }
 //     });
-  
+
 //     return newData;
 //   };
 
