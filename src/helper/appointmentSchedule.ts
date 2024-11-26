@@ -10,40 +10,53 @@ function generateRandomNumber(min: number, max: number) {
 
 export const appointmentSchedule = async (appointments: any[]) => {
   try {
-    // Filter appointments that are in the future
-    const futureAppointments = [];
-    // appointments.filter(appointment => {
-    //   const appointmentDateTime = moment(`${appointment.date} ${appointment.time}`, 'YYYY-MM-DD');
+    let futureAppointments = appointments.map(e => {
+      // Split the time string
+      const [time, meridian] = e.time.split(' '); // ["3:37", "PM"]
+      const [hour, minute] = time.split(':').map(Number); // ["3", "37"]
 
-    //   console.log(appointmentDateTime.toLocaleString(), 'appointmentDateTime');
-    //   //appointmentDateTime.isBefore(moment());
+      // Parse the reminder string
+      const [reminderValue, reminderUnit] = e.reminder.split(' '); // ["10", "minutes"]
+      const amountToSubtract = parseInt(reminderValue, 10);
 
-    //   if (appointmentDateTime.isBefore(moment()) === false) {
-    //     return appointment;
-    //   }
-    // });
+      // Convert hour to 24-hour format if needed
+      const hour24 =
+        meridian === 'PM' && hour !== 12 ? hour + 12 : meridian === 'AM' && hour === 12 ? 0 : hour;
 
-    const appointmentDate = appointments.map(e => e.date.toLocaleString());
-    console.log(appointmentDate, 'appointmentDate');
+      // Create the new date and set the time
+      const newDoseDate = moment(e.date);
+      newDoseDate.set('hour', hour24);
+      newDoseDate.set('minute', minute);
 
-    console.log(appointments, 'Appointments');
-    console.log(futureAppointments, 'Future Appointments');
+      // Adjust the date based on the reminder unit
+      if (reminderUnit.includes('minute')) {
+        newDoseDate.subtract(amountToSubtract, 'minutes');
+      } else if (reminderUnit.includes('hour')) {
+        newDoseDate.subtract(amountToSubtract, 'hours');
+      } else if (reminderUnit.includes('day')) {
+        newDoseDate.subtract(amountToSubtract, 'days');
+      } else if (reminderUnit.includes('week')) {
+        newDoseDate.subtract(amountToSubtract, 'weeks');
+      }
+
+      // Update the object
+      e.date = newDoseDate.toISOString();
+
+      return e;
+    });
 
     if (futureAppointments.length > 0) {
       await Promise.all(
         futureAppointments.map(async appointment => {
-          // Generate fire date and notification data
-          // const fireDate = moment(
-          //   `${appointment.date} ${appointment.time}`,
-          //   'YYYY-MM-DD HH:mm'
-          // ).toDate();
-          const fireDate = moment(`${appointment.date} ${appointment.time}`).toDate();
+          const fireDate = moment(appointment.date).toDate();
 
-          //const fireDate = moment(appointment.selectedDateTime).toDate();
+          if (fireDate <= new Date()) {
+            return;
+          }
 
           const notificationData = {
-            channelId: 'appointments-channel',
-            ticker: 'Appointment Reminder Notification',
+            channelId: 'team-pharmaceuticals',
+            ticker: 'Team Pharmaceuticals Notification',
             id: generateRandomNumber(1, 9999803),
             title: `Appointment Reminder: ${appointment.doctorName}`,
             message: `You have an appointment with Dr. ${appointment.doctorName} at ${appointment.time} on ${appointment.date}. Location: ${appointment.location}. Reminder: ${appointment.reminder}`,
@@ -57,9 +70,8 @@ export const appointmentSchedule = async (appointments: any[]) => {
             color: 'blue',
             tag: 'appointment_reminder',
             fire_date: fireDate,
-            date: { value: moment(fireDate).format('YYYY-MM-DD HH:mm:ss') }
+            date: { value: moment(appointment.date).format('YYYY-MM-DD HH:mm:ss') }
           };
-
           // Schedule the notification
           PushNotification.localNotificationSchedule({
             autoCancel: true,
