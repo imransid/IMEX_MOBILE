@@ -53,8 +53,6 @@ const DoctorAppointments: FC = () => {
     setTempDate(new Date(date));
   };
 
-
-
   const handleNext: any = async () => {
     dispatch(
       setAppointment([
@@ -78,7 +76,6 @@ const DoctorAppointments: FC = () => {
         doctorName: doctorName
       }
     ];
-
 
     await appointmentSchedule(appointmentsDATA);
 

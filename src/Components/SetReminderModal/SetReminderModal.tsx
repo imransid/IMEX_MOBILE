@@ -5,7 +5,6 @@ import { colors } from '../../theme/colors';
 import styles from './style';
 
 const reminderData = [
-  'No Reminder',
   '10 minutes before',
   '30 minutes before',
   '1 day before',

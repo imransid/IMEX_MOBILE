@@ -59,7 +59,7 @@ export const appointmentSchedule = async (appointments: any[]) => {
             ticker: 'Team Pharmaceuticals Notification',
             id: generateRandomNumber(1, 9999803),
             title: `Appointment Reminder: ${appointment.doctorName}`,
-            message: `You have an appointment with Dr. ${appointment.doctorName} at ${appointment.time} on ${appointment.date}. Location: ${appointment.location}. Reminder: ${appointment.reminder}`,
+            message: `You have an appointment with Dr. ${appointment.doctorName} at ${appointment.time} on ${moment(appointment.date).format('llll')}. Location: ${appointment.location}`,
             autoCancel: true,
             vibrate: true,
             vibration: 100,
