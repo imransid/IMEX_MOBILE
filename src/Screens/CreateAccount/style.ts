@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   askAboutAccountText: {
     color: colors.typedText,
     fontSize: moderateScale(14),
-    fontFamily: 'WorkSansMedium',
+    fontFamily: 'WorkSansMedium'
   },
   container: {
     backgroundColor: colors.white,
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   errorTxt: {
     color: colors.error,
     fontSize: moderateScale(14),
-    fontFamily: 'WorkSansMedium',
+    fontFamily: 'WorkSansMedium'
   },
   headingPosition: {
     alignItems: 'center'
@@ -33,18 +33,18 @@ const styles = StyleSheet.create({
   inputHeader: {
     color: colors.header,
     fontSize: moderateScale(14),
-    fontFamily: 'WorkSansMedium',
+    fontFamily: 'WorkSansMedium'
   },
   inputText: {
     color: colors.header,
     fontSize: moderateScale(16),
-    fontFamily: 'WorkSansMedium',
+    fontFamily: 'WorkSansMedium'
   },
   scrollViewContainer: {
     paddingBottom: verticalScale(15)
   },
   signUpText: {
-    color: colors.typedText,
+    color: colors.buttonBg,
     fontSize: moderateScale(14),
     fontFamily: 'WorkSansMedium',
     textDecorationLine: 'underline'
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   genderInputContainer: {
-    flexDirection: 'row', 
-    alignItems: 'center' 
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   genderHeaderStyle: {
     textAlign: 'left',
@@ -101,10 +101,9 @@ const styles = StyleSheet.create({
     marginVertical: scale(8)
   },
   genderErrorTextPosition: {
-    marginTop: scale(5), 
+    marginTop: scale(5),
     right: scale(100)
   },
-
 
   birthdayInputcontainer: {
     alignItems: 'center',
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
   birthdayInputPlaceholderText: {
     color: colors.typedText,
     fontSize: moderateScale(16),
-    fontFamily: 'WorkSansMedium',
+    fontFamily: 'WorkSansMedium'
   },
   textInput: {
     flex: 1,
@@ -134,8 +133,8 @@ const styles = StyleSheet.create({
   //   borderWidth: 1
   // }
   birthdayInputPlaceholderStyle: {
-    flexDirection: 'row', 
-    gap: scale(12) 
+    flexDirection: 'row',
+    gap: scale(12)
   }
 });
 

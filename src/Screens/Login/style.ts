@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(25)
   },
   signUpText: {
-    color: colors.typedText,
+    color: colors.buttonBg,
     fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(14),
     textDecorationLine: 'underline'
