@@ -17,12 +17,12 @@ const styles = StyleSheet.create({
   itemText: {
     color: colors.header,
     fontFamily: 'WorkSansMedium',
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(14)
   },
   modalContainer: {
     backgroundColor: colors.white,
     borderRadius: scale(6),
-    height: verticalScale(235),
+    height: verticalScale(205),
     padding: verticalScale(14),
     width: scale(230)
   },
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     color: colors.header,
     fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(16)
-  },
+  }
 });
 
 export default styles;
