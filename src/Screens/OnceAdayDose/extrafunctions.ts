@@ -1,4 +1,3 @@
-
 import { IMedicine } from '@/store/slices/features/medicineDetails/types';
 import moment from 'moment';
 
@@ -132,7 +131,7 @@ const multiScheduleMaker = (data: IMedicine[], startDate: string, endDate: strin
 //     if (!start.isValid() || !end.isValid()) {
 //       throw new Error(`Invalid start or end date. Ensure dates match format: ${inputFormat}`);
 //     }
-  
+
 //     const allSchedules: IMedicine[] = [];
 //   console.log("sartastr",start.clone())
 
