@@ -29,6 +29,7 @@ import { createMedicineData } from '@/mutations/createMedicine';
 import { INSTRUCTION_MUTATION } from '@/mutations/instruction_mutation';
 import { TREATMENT_DURATION_MUTATION } from '@/mutations/treatmentDuration_mutation';
 import { MEDICINE_REMINDER_MUTATION } from '@/mutations/medicineReminder_mutation';
+import { multiScheduleMaker } from './extrafunctions';
 
 const OnceAdayDose: FC = () => {
   const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false);
@@ -205,7 +206,7 @@ const OnceAdayDose: FC = () => {
       setModalVisible(false);
     }
   };
-
+  console.log("startDate end date", treatmentDurationStartTime, treatmentDurationEndTime)
   // Function to handle next button press
   const handleNext: any = async () => {
     setDisable(true);
@@ -257,14 +258,19 @@ const OnceAdayDose: FC = () => {
         medicineReminderTotalReq: medicineReminderTotalReq
       };
 
+
+      const dataArray= multiScheduleMaker([data], treatmentDurationStartTime, treatmentDurationEndTime,1);
+
+      console.log(" array", dataArray,updatedStoredList)
+
       // Add the new data to the copied array
-      updatedStoredList.push(data);
+      updatedStoredList.push(...dataArray);
       updatedInstructionList.push(instructionData);
       updatedTreatmentDurationList.push(treatmentDurationData);
       updatedReminderList.push(reminderData);
 
       // schedule notification
-      await localSchedule(updatedStoredList, 'day', medicineLocalId);
+      await localSchedule(dataArray, 'day', medicineLocalId);
 
       // Required Mutations
       if (accessToken !== undefined) {
@@ -336,8 +342,12 @@ const OnceAdayDose: FC = () => {
         medicineReminderTotalReq: medicineReminderTotalReq
       };
 
+      const dataArray= multiScheduleMaker([data], treatmentDurationStartTime, treatmentDurationEndTime,0);
+
+      console.log(" array", dataArray)
+
       // Add the new data to the copied array
-      updatedStoredList.push(data);
+      updatedStoredList.push(...dataArray);
       updatedInstructionList.push(instructionData);
       updatedTreatmentDurationList.push(treatmentDurationData);
       updatedReminderList.push(reminderData);
@@ -345,7 +355,7 @@ const OnceAdayDose: FC = () => {
       dispatch(setDoseList(updatedStoredList));
 
       // schedule notification
-      await localSchedule(updatedStoredList, 'day', medicineLocalId);
+      await localSchedule(dataArray, 'day', medicineLocalId);
 
       clearAllDosesAndTime();
 
