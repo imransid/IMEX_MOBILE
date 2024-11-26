@@ -1,0 +1,43 @@
+name: Team Pharma CI/CD
+
+on:
+  push:
+    branches:
+      - development  # Trigger on pushes to the main branch
+  pull_request:
+    branches:
+      - development  # Trigger on pull requests to the main branch
+
+jobs:
+  build:
+    runs-on: macos-latest  # Use a Mac OS runner for iOS builds
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Ensure compatibility with your project
+
+      - name: Install Yarn
+        run: npm install -g yarn  # You could skip this if already using Yarn via Homebrew
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run tests
+        run: yarn test  # Assuming you have tests set up
+
+      - name: Build Android
+        run: |
+          cd android
+          ./gradlew assembleRelease  # Builds an Android release APK
+
+      - name: Archive iOS
+        if: runner.os == 'macOS'  # Only run on macOS
+        run: |
+          cd ios
+          pod install  # Install CocoaPods dependencies
+          xcodebuild -workspace YourApp.xcworkspace -scheme YourApp -sdk iphoneos -configuration Release archive -archivePath $PWD/build/YourApp.xcarchive
