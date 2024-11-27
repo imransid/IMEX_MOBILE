@@ -6,7 +6,7 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   BackbuttonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(15)
+    marginTop: verticalScale(12)
   },
   addMoreSettingsHeaderPosition: {
     bottom: verticalScale(40)
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
     bottom: 20,
     left: 20,
     right: 20,
-    alignSelf: 'center',
-  },
+    alignSelf: 'center'
+  }
 });
 
 export default styles;

@@ -11,7 +11,7 @@ const DoseInputModal: FC<IDoseInputModalProps> = ({
   onSubmit,
   numKeybaordType
 }) => {
-  const [inputValue, setInputValue] = useState<string>('0');
+  const [inputValue, setInputValue] = useState<string>('');
 
   const handleOkPress: any = () => {
     const numericValue = parseInt(inputValue, 10);

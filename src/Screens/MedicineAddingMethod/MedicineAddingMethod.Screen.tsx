@@ -31,8 +31,9 @@ const MedicineAddingMethod: FC = () => {
       <View style={styles.subHeaderPosition}>
         <Text style={styles.subHeader}>How do you want to add your medicine?</Text>
       </View>
-      <View style={styles.addWithQrCodeLogoPosition}>
-        <AddWithQrCode />
+
+      <View style={styles.tinyQrCodeIconPosition}>
+        <TinyQrCodeImage />
       </View>
       <View style={styles.scanQrCodebuttonPosition}>
         <CustomButton
@@ -42,8 +43,8 @@ const MedicineAddingMethod: FC = () => {
         />
       </View>
       <View style={styles.horizontalLine}></View>
-      <View style={styles.tinyQrCodeIconPosition}>
-        <TinyQrCodeImage />
+      <View style={styles.addWithQrCodeLogoPosition}>
+        <AddWithQrCode />
       </View>
       <View style={styles.addManuallybuttonPosition}>
         <CustomButton
