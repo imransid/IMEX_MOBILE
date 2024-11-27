@@ -35,9 +35,4 @@ jobs:
           cd android
           ./gradlew assembleRelease  # Builds an Android release APK
 
-      - name: Archive iOS
-        if: runner.os == 'macOS'  # Only run on macOS
-        run: |
-          cd ios
-          pod install  # Install CocoaPods dependencies
-          xcodebuild -workspace YourApp.xcworkspace -scheme YourApp -sdk iphoneos -configuration Release archive -archivePath $PWD/build/YourApp.xcarchive
+   
