@@ -65,7 +65,14 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     paddingBottom: verticalScale(15)
-  }
+  },
+  BackbuttonPositionFixed: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+    alignSelf: 'center',
+  },
 });
 
 export default styles;
