@@ -91,17 +91,22 @@ const WeeklyDose: FC = () => {
   // Callback for when a weekday is selected
   const handleWeekdayChange: any = (newWeekdays: number[]) => {
     setWeekdays(newWeekdays);
+    //console.log(newWeekdays, 'newWeekdays');
 
     // Updating the selectedDay state
     const newSelectedDays = newWeekdays.reduce<Record<number, { selected: boolean }>>(
       (acc, day) => {
         acc[day] = { selected: true };
+        console.log(dayNames[day], 'dayNames[day]');
+        console.log(day, 'day');
         return acc;
       },
       {}
     );
 
     setSelectedDay(newSelectedDays);
+
+    // console.log(newSelectedDays, 'newSelectedDays');
   };
 
   return (
