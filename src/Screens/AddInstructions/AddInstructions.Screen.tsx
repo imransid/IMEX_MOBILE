@@ -33,6 +33,8 @@ const AddInstructions: FC = () => {
   const [open, setOpen] = useState(false); // for instruction picker
   const [tempInstruction, setTempInstruction] = useState('');
 
+  const [disable, setDisable] = useState(false);
+
   const medicineLocalId = useSelector((state: RootState) => state.medicineDetails.medicineLocalId);
 
   const handleSelectInstruction: any = () => {
@@ -55,6 +57,7 @@ const AddInstructions: FC = () => {
   };
 
   const handleNext: any = () => {
+    setDisable(true);
     setInstruction('');
     setTempInstruction('');
     navigation.navigate(`${prevRoute}` as never);
@@ -106,6 +109,7 @@ const AddInstructions: FC = () => {
         <View style={styles.NextbuttonPosition}>
           <CustomButton
             onPress={handleNext}
+            disabled={disable}
             icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
             text="Next"
           />

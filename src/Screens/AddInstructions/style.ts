@@ -6,7 +6,7 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   NextbuttonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(325)
+    marginTop: verticalScale(318)
   },
   chip: {
     backgroundColor: colors.textInput,

@@ -194,9 +194,9 @@ const FourTimesAdayDose: FC = () => {
   const FourTimesAdayDoseTime = useSelector(
     (state: RootState) => state.medicineDetails.fourTimesAdayDoseTime
   );
-  const parseTodayWithTime = (timeString:string) => {
-    const today = moment().format("YYYY-MM-DD"); // Get today's date in 'YYYY-MM-DD' format
-    return moment(`${today} ${timeString}`, "YYYY-MM-DD hh:mm A");
+  const parseTodayWithTime = (timeString: string) => {
+    const today = moment().format('YYYY-MM-DD'); // Get today's date in 'YYYY-MM-DD' format
+    return moment(`${today} ${timeString}`, 'YYYY-MM-DD hh:mm A');
   };
   const handleNext: any = async () => {
     setDisable(true);
@@ -206,8 +206,8 @@ const FourTimesAdayDose: FC = () => {
 
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
-      let selectedtimeobj = parseTodayWithTime(e.doseTime);
-        
+        let selectedtimeobj = parseTodayWithTime(e.doseTime);
+
         return {
           medicineName: medicineName,
           medicineStatus: 'Daily',
@@ -254,9 +254,14 @@ const FourTimesAdayDose: FC = () => {
           medicineReminderTotalReq: medicineReminderTotalReq
         };
 
-        const dataArray= multiScheduleMaker(tempStore, treatmentDurationStartTime, treatmentDurationEndTime,0);
+        const dataArray = multiScheduleMaker(
+          tempStore,
+          treatmentDurationStartTime,
+          treatmentDurationEndTime,
+          0
+        );
 
-      console.log("array", dataArray)
+        console.log('array', dataArray);
 
         //  Add the new data to the copied array
         updatedInstructionList.push(instructionData);
@@ -288,7 +293,7 @@ const FourTimesAdayDose: FC = () => {
 
         navigation.navigate('AddedMedicine' as never);
 
-        ToastPopUp('Medicine Created Successfully');
+        //ToastPopUp('Medicine Created Successfully');
       } else {
         let updatedInstructionList = [...storedInstructionList];
 
@@ -318,7 +323,12 @@ const FourTimesAdayDose: FC = () => {
           medicineReminderTotalReq: medicineReminderTotalReq
         };
 
-        const dataArray= multiScheduleMaker(tempStore, treatmentDurationStartTime, treatmentDurationEndTime,0);
+        const dataArray = multiScheduleMaker(
+          tempStore,
+          treatmentDurationStartTime,
+          treatmentDurationEndTime,
+          0
+        );
 
         //  Add the new data to the copied array
         updatedInstructionList.push(instructionData);
@@ -335,7 +345,7 @@ const FourTimesAdayDose: FC = () => {
 
         navigation.navigate('AddedMedicine' as never);
 
-        ToastPopUp('Medicine Created Successfully');
+        //ToastPopUp('Medicine Created Successfully');
       }
     }
   };
