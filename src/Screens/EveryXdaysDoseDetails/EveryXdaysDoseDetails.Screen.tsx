@@ -27,6 +27,7 @@ import { TREATMENT_DURATION_MUTATION } from '@/mutations/treatmentDuration_mutat
 import { MEDICINE_REMINDER_MUTATION } from '@/mutations/medicineReminder_mutation';
 import ToastPopUp from '@/utils/Toast.android';
 import { date } from '@nozbe/watermelondb/decorators';
+import { multiScheduleMaker } from '../OnceAdayDose/extrafunctions';
 
 const EveryXdaysDoseDetails: FC = () => {
   const dispatch = useDispatch();
@@ -267,6 +268,7 @@ const EveryXdaysDoseDetails: FC = () => {
       
 
       let tempStore = tempStore1.concat(tempstore2);
+      const dataArrary = multiScheduleMaker(tempStore,treatmentDurationStartTime,treatmentDurationEndTime,filterNewArray[0].day)
 
       // now check login or not
       if (loginStatus) {
@@ -298,6 +300,8 @@ const EveryXdaysDoseDetails: FC = () => {
           medicineReminderTotalReq: medicineReminderTotalReq
         };
 
+
+
         //  Add the new data to the copied array
         updatedInstructionList.push(instructionData);
         updatedTreatmentDurationList.push(treatmentDurationData);
@@ -305,7 +309,7 @@ const EveryXdaysDoseDetails: FC = () => {
 
         // Required Mutations
         if (accessToken !== undefined) {
-          await createMedicineData(tempStore, accessToken);
+          await createMedicineData(dataArrary, accessToken);
           await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
           await TREATMENT_DURATION_MUTATION(
             updatedTreatmentDurationList,
@@ -318,7 +322,7 @@ const EveryXdaysDoseDetails: FC = () => {
           console.error('AccessToken is undefined');
         }
       }
-      await localSchedule(tempStore, 'day', medicineLocalId)
+      await localSchedule(dataArrary, 'day', medicineLocalId)
         .then(() => {
           console.log('done');
         })
@@ -326,11 +330,11 @@ const EveryXdaysDoseDetails: FC = () => {
           console.log(error);
         });
 
-      console.log(tempStore);
+      console.log(dataArrary);
 
       console.log(storedMedicineList);
 
-      let newArray = storedMedicineList.concat(tempStore);
+      let newArray = storedMedicineList.concat(dataArrary);
 
       dispatch(setDoseList(newArray));
 

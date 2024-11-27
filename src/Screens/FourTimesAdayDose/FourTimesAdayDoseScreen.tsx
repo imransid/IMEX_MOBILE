@@ -255,7 +255,7 @@ const FourTimesAdayDose: FC = () => {
         };
 
         const dataArray = multiScheduleMaker(
-          tempStore,
+          tempStore as any,
           treatmentDurationStartTime,
           treatmentDurationEndTime,
           0
@@ -324,7 +324,7 @@ const FourTimesAdayDose: FC = () => {
         };
 
         const dataArray = multiScheduleMaker(
-          tempStore,
+          tempStore as any,
           treatmentDurationStartTime,
           treatmentDurationEndTime,
           0

@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
 import CustomButton from '@/Components/CustomButton/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import filterDuplicateMedicines from '@/utils/filterDuplicateMedicine';
 
 const MoreScreenTab: FC = () => {
   const navigation = useNavigation();
@@ -49,7 +50,9 @@ const MoreScreenTab: FC = () => {
               <View style={styles.medicineDoseComponentPosition}>
                 <FlatList
                   data={
-                    isMedicineListExpanded ? storedMedicineList : storedMedicineList.slice(0, 1)
+                    isMedicineListExpanded
+                      ? filterDuplicateMedicines(storedMedicineList)
+                      : storedMedicineList.slice(0, 1)
                   }
                   renderItem={({ item: medicine, index }) => (
                     <View key={index} style={styles.chip}>
