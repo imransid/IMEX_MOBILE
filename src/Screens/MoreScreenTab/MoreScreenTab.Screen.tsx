@@ -5,8 +5,11 @@ import styles from './style';
 import { RootState } from '@/store';
 import { useSelector } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
+import CustomButton from '@/Components/CustomButton/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 const MoreScreenTab: FC = () => {
+  const navigation = useNavigation();
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
@@ -17,6 +20,10 @@ const MoreScreenTab: FC = () => {
   const [isMedicineListExpanded, setIsMedicineListExpanded] = useState(false);
   const [isAppointmentListExpanded, setIsAppointmentListExpanded] = useState(false);
   const [isPrescriptionListExpanded, setIsPrescriptionListExpanded] = useState(false);
+
+  const handleBack = (): void => {
+    navigation.goBack();
+  };
 
   return (
     <View style={styles.container}>
@@ -146,6 +153,10 @@ const MoreScreenTab: FC = () => {
               </View>
             </View>
           )}
+        </View>
+
+        <View style={styles.BackbuttonPosition}>
+          <CustomButton onPress={handleBack} icon={<></>} text="Back" />
         </View>
       </ScrollView>
     </View>
