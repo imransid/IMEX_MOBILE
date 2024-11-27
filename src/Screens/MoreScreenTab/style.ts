@@ -6,7 +6,7 @@ import { colors } from '../../theme/colors';
 const styles = StyleSheet.create({
   BackbuttonPosition: {
     alignItems: 'center',
-    marginTop: verticalScale(15)
+    marginTop: verticalScale(10)
   },
   chip: {
     backgroundColor: colors.textInput,

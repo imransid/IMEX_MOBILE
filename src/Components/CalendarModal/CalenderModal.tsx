@@ -60,6 +60,7 @@ const CalendarModal: React.FC<ICalendarModalProps> = ({
               textDayHeaderFontSize: moderateScale(14)
             }}
             style={styles.calendarShape}
+            minDate={new Date().toISOString().split('T')[0]}
           />
         </View>
       </Modal>

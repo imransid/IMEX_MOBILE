@@ -72,7 +72,11 @@ const CalendarModalWithDates: React.FC<ICalendarModalProps> = ({
                   customStyles: {
                     container: {
                       backgroundColor: colors.buttonBg,
-                      borderRadius: scale(20)
+                      borderRadius: scale(20),
+                      height: scale(30),
+                      width: scale(30),
+                      justifyContent: 'center',
+                      alignItems: 'center'
                     },
                     text: {
                       color: 'white'
@@ -97,6 +101,7 @@ const CalendarModalWithDates: React.FC<ICalendarModalProps> = ({
                 textDayHeaderFontSize: moderateScale(14)
               }}
               style={styles.calendarStyle}
+              minDate={new Date().toISOString().split('T')[0]}
             />
             <ScrollView style={styles.scrollViewContainer}>
               <View style={styles.selectedDaysContainer}>
