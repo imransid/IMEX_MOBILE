@@ -206,7 +206,7 @@ const OnceAdayDose: FC = () => {
       setModalVisible(false);
     }
   };
-  console.log("startDate end date", treatmentDurationStartTime, treatmentDurationEndTime)
+  console.log('startDate end date', treatmentDurationStartTime, treatmentDurationEndTime);
   // Function to handle next button press
   const handleNext: any = async () => {
     setDisable(true);
@@ -258,10 +258,14 @@ const OnceAdayDose: FC = () => {
         medicineReminderTotalReq: medicineReminderTotalReq
       };
 
+      const dataArray = multiScheduleMaker(
+        [data],
+        treatmentDurationStartTime,
+        treatmentDurationEndTime,
+        1
+      );
 
-      const dataArray= multiScheduleMaker([data], treatmentDurationStartTime, treatmentDurationEndTime,1);
-
-      console.log(" array", dataArray,updatedStoredList)
+      console.log(' array', dataArray, updatedStoredList);
 
       // Add the new data to the copied array
       updatedStoredList.push(...dataArray);
@@ -294,7 +298,7 @@ const OnceAdayDose: FC = () => {
 
       navigation.navigate('AddedMedicine' as never);
 
-      ToastPopUp('Medicine Created Successfully');
+      //ToastPopUp('Medicine Created Successfully');
     } else {
       let updatedStoredList = [...storedMedicineList];
 
@@ -342,9 +346,14 @@ const OnceAdayDose: FC = () => {
         medicineReminderTotalReq: medicineReminderTotalReq
       };
 
-      const dataArray= multiScheduleMaker([data], treatmentDurationStartTime, treatmentDurationEndTime,0);
+      const dataArray = multiScheduleMaker(
+        [data],
+        treatmentDurationStartTime,
+        treatmentDurationEndTime,
+        0
+      );
 
-      console.log(" array", dataArray)
+      console.log(' array', dataArray);
 
       // Add the new data to the copied array
       updatedStoredList.push(...dataArray);
@@ -363,7 +372,7 @@ const OnceAdayDose: FC = () => {
 
       navigation.navigate('AddedMedicine' as never);
 
-      ToastPopUp('Medicine Created Successfully');
+      //ToastPopUp('Medicine Created Successfully');
     }
   };
 
