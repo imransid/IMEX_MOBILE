@@ -10,6 +10,7 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 import Header from '../../Components/Header/Header';
 import styles from './style';
 import { RootState } from '@/store';
+import filterDuplicateMedicines from '@/utils/filterDuplicateMedicine';
 
 // Define the type for the medicine data
 interface Medicine {
@@ -50,22 +51,50 @@ const MedicineHistory: FC = () => {
   };
 
   // Function to group medicine records by date
-  const groupByDate = (data: Medicine[]): Record<string, Medicine[]> => {
-    return data.reduce(
-      (acc, curr) => {
-        const date = curr.createdDate.split(' ')[0]; // Extract date only (YYYY-MM-DD)
-        if (!acc[date]) {
-          acc[date] = [];
-        }
-        acc[date].push(curr);
-        return acc;
-      },
-      {} as Record<string, Medicine[]>
-    );
-  };
+  // const groupByDate = (data: Medicine[]): Record<string, Medicine[]> => {
+  //   return data.reduce(
+  //     (acc, curr) => {
+  //       const date = curr.createdDate.split(' ')[0]; // Extract date only (YYYY-MM-DD)
+  //       if (!acc[date]) {
+  //         acc[date] = [];
+  //       }
+  //       acc[date].push(curr);
+  //       return acc;
+  //     },
+  //     {} as Record<string, Medicine[]>
+  //   );
+  // };
 
+
+  const groupByDate = (data: Medicine[]): Record<string, Medicine[]> => {
+    const groupedData = data.reduce((acc, curr) => {
+      // Check if createdDate exists and is valid
+      if (!curr.createdDate) {
+        console.warn('Skipping medicine record with missing createdDate:', curr);
+        return acc;
+      }
+  
+      const date = curr.createdDate.split(' ')[0]; // Extract date only (YYYY-MM-DD)
+  
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(curr);
+      return acc;
+    }, {} as Record<string, Medicine[]>);
+  
+    // Sort the keys (dates) in descending order
+    return Object.keys(groupedData)
+      .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
+      .reduce((sortedAcc, date) => {
+        sortedAcc[date] = groupedData[date];
+        return sortedAcc;
+      }, {} as Record<string, Medicine[]>);
+  };
+  
   const groupedMedicines = groupByDate(medicineHistoryData);
   const today: string = new Date().toISOString().split('T')[0]; // Get today's date (YYYY-MM-DD)
+  console.log("first",groupedMedicines)
 
   return (
     <View style={styles.container}>
@@ -78,7 +107,7 @@ const MedicineHistory: FC = () => {
           {Object.keys(groupedMedicines).map(date => (
             <View key={date}>
               <Text style={styles.medicineHistoryHeading}>{date === today ? 'Today' : date}</Text>
-              {groupedMedicines[date].map(medicine => (
+              {filterDuplicateMedicines(groupedMedicines[date] as any).map(medicine => (
                 <View key={medicine.medicineLocalId} style={styles.chip}>
                   <View style={styles.chipContentProperties}>
                     <Text style={styles.medicineNameText}>{medicine.medicineName}</Text>

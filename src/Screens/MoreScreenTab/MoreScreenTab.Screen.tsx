@@ -5,8 +5,12 @@ import styles from './style';
 import { RootState } from '@/store';
 import { useSelector } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
+import CustomButton from '@/Components/CustomButton/CustomButton';
+import { useNavigation } from '@react-navigation/native';
+import filterDuplicateMedicines from '@/utils/filterDuplicateMedicine';
 
 const MoreScreenTab: FC = () => {
+  const navigation = useNavigation();
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
@@ -17,6 +21,10 @@ const MoreScreenTab: FC = () => {
   const [isMedicineListExpanded, setIsMedicineListExpanded] = useState(false);
   const [isAppointmentListExpanded, setIsAppointmentListExpanded] = useState(false);
   const [isPrescriptionListExpanded, setIsPrescriptionListExpanded] = useState(false);
+
+  const handleBack = (): void => {
+    navigation.goBack();
+  };
 
   return (
     <View style={styles.container}>
@@ -42,7 +50,9 @@ const MoreScreenTab: FC = () => {
               <View style={styles.medicineDoseComponentPosition}>
                 <FlatList
                   data={
-                    isMedicineListExpanded ? storedMedicineList : storedMedicineList.slice(0, 1)
+                    isMedicineListExpanded
+                      ? filterDuplicateMedicines(storedMedicineList)
+                      : storedMedicineList.slice(0, 1)
                   }
                   renderItem={({ item: medicine, index }) => (
                     <View key={index} style={styles.chip}>
@@ -56,9 +66,9 @@ const MoreScreenTab: FC = () => {
                               : `${medicine.doseQuantity} Pill`}
                           </Text>
                         </View>
-                        <View style={styles.pillsLeftPosition}>
+                        {/* <View style={styles.pillsLeftPosition}>
                           <Text style={styles.pillsLeft}>Number of Pill(s) Left</Text>
-                        </View>
+                        </View> */}
                       </View>
                     </View>
                   )}
@@ -146,6 +156,10 @@ const MoreScreenTab: FC = () => {
               </View>
             </View>
           )}
+        </View>
+
+        <View style={styles.BackbuttonPosition}>
+          <CustomButton onPress={handleBack} icon={<></>} text="Back" />
         </View>
       </ScrollView>
     </View>

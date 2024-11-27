@@ -30,6 +30,7 @@ import { INSTRUCTION_MUTATION } from '@/mutations/instruction_mutation';
 import { TREATMENT_DURATION_MUTATION } from '@/mutations/treatmentDuration_mutation';
 import { MEDICINE_REMINDER_MUTATION } from '@/mutations/medicineReminder_mutation';
 import { IFourTimesAdayDoseTime } from '@/store/slices/features/medicineDetails/types';
+import { multiScheduleMaker } from '../OnceAdayDose/extrafunctions';
 
 const FourTimesAdayDose: FC = () => {
   const navigation = useNavigation();
@@ -193,9 +194,9 @@ const FourTimesAdayDose: FC = () => {
   const FourTimesAdayDoseTime = useSelector(
     (state: RootState) => state.medicineDetails.fourTimesAdayDoseTime
   );
-  const parseTodayWithTime = (timeString:string) => {
-    const today = moment().format("YYYY-MM-DD"); // Get today's date in 'YYYY-MM-DD' format
-    return moment(`${today} ${timeString}`, "YYYY-MM-DD hh:mm A");
+  const parseTodayWithTime = (timeString: string) => {
+    const today = moment().format('YYYY-MM-DD'); // Get today's date in 'YYYY-MM-DD' format
+    return moment(`${today} ${timeString}`, 'YYYY-MM-DD hh:mm A');
   };
   const handleNext: any = async () => {
     setDisable(true);
@@ -205,8 +206,8 @@ const FourTimesAdayDose: FC = () => {
 
     if (filterArray.length > 0) {
       let tempStore = filterArray.map(e => {
-      let selectedtimeobj = parseTodayWithTime(e.doseTime);
-        
+        let selectedtimeobj = parseTodayWithTime(e.doseTime);
+
         return {
           medicineName: medicineName,
           medicineStatus: 'Daily',
@@ -253,6 +254,15 @@ const FourTimesAdayDose: FC = () => {
           medicineReminderTotalReq: medicineReminderTotalReq
         };
 
+        const dataArray = multiScheduleMaker(
+          tempStore as any,
+          treatmentDurationStartTime,
+          treatmentDurationEndTime,
+          0
+        );
+
+        console.log('array', dataArray);
+
         //  Add the new data to the copied array
         updatedInstructionList.push(instructionData);
         updatedTreatmentDurationList.push(treatmentDurationData);
@@ -260,7 +270,7 @@ const FourTimesAdayDose: FC = () => {
 
         // Required Mutations
         if (accessToken !== undefined) {
-          await createMedicineData(tempStore, accessToken);
+          await createMedicineData(dataArray, accessToken);
           await INSTRUCTION_MUTATION(updatedInstructionList, accessToken, medicineLocalId);
           await TREATMENT_DURATION_MUTATION(
             updatedTreatmentDurationList,
@@ -273,9 +283,9 @@ const FourTimesAdayDose: FC = () => {
           console.error('AccessToken is undefined');
         }
 
-        await localSchedule(tempStore, 'day', medicineLocalId);
+        await localSchedule(dataArray, 'day', medicineLocalId);
 
-        dispatch(setFourTimesAdayStoreData(tempStore));
+        dispatch(setFourTimesAdayStoreData(dataArray));
 
         clearAllDosesAndTime();
 
@@ -283,7 +293,7 @@ const FourTimesAdayDose: FC = () => {
 
         navigation.navigate('AddedMedicine' as never);
 
-        ToastPopUp('Medicine Created Successfully');
+        //ToastPopUp('Medicine Created Successfully');
       } else {
         let updatedInstructionList = [...storedInstructionList];
 
@@ -313,14 +323,21 @@ const FourTimesAdayDose: FC = () => {
           medicineReminderTotalReq: medicineReminderTotalReq
         };
 
+        const dataArray = multiScheduleMaker(
+          tempStore as any,
+          treatmentDurationStartTime,
+          treatmentDurationEndTime,
+          0
+        );
+
         //  Add the new data to the copied array
         updatedInstructionList.push(instructionData);
         updatedTreatmentDurationList.push(treatmentDurationData);
         updatedReminderList.push(reminderData);
 
-        await localSchedule(tempStore, 'day', medicineLocalId);
+        await localSchedule(dataArray, 'day', medicineLocalId);
 
-        dispatch(setFourTimesAdayStoreData(tempStore));
+        dispatch(setFourTimesAdayStoreData(dataArray));
 
         clearAllDosesAndTime();
 
@@ -328,7 +345,7 @@ const FourTimesAdayDose: FC = () => {
 
         navigation.navigate('AddedMedicine' as never);
 
-        ToastPopUp('Medicine Created Successfully');
+        //ToastPopUp('Medicine Created Successfully');
       }
     }
   };

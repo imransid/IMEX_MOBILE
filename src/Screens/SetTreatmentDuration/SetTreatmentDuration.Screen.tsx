@@ -102,12 +102,12 @@ const SetTreatmentDuration: FC = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.medicineInputHeaderPosition}>
+        {/* <View style={styles.medicineInputHeaderPosition}>
           <Text style={styles.medicineInputHeaderText}>
             How many medicine do you take each day?
           </Text>
-        </View>
-        <View style={styles.medicineInputContent}>
+        </View> */}
+        {/* <View style={styles.medicineInputContent}>
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
@@ -117,7 +117,7 @@ const SetTreatmentDuration: FC = () => {
             value={giveInput}
           />
           <Text style={styles.medicineText}>Medicine</Text>
-        </View>
+        </View> */}
       </View>
 
       {startDateModalOpen && (
@@ -137,7 +137,7 @@ const SetTreatmentDuration: FC = () => {
         />
       )}
 
-      {startDate !== '' && endDate !== '' && giveInput.trim() !== '' && Number(giveInput) > 0 && (
+      {startDate !== '' && endDate !== '' && (
         <View style={styles.NextbuttonPosition}>
           <CustomButton
             onPress={handleNext}

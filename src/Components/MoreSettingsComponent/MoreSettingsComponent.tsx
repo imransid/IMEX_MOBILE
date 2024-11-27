@@ -46,7 +46,7 @@ const MoreSettings: FC = () => {
           <Text style={styles.addMoreSettingsItemsText}>Set treatment duration</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.addMoreSettingsItems}
         onPress={() => {
           navigation.navigate('MedicineReminders', { prevRoute: currentRoute });
@@ -55,7 +55,7 @@ const MoreSettings: FC = () => {
           <Ionicons name="add-circle-sharp" size={30} color={colors.addCircle} />
           <Text style={styles.addMoreSettingsItemsText}>Medicine Reminders</Text>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       {authStatus && (
         <>

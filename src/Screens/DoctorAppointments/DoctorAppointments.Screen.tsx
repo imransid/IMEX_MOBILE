@@ -31,6 +31,10 @@ const DoctorAppointments: FC = () => {
   const route = useRoute();
   const { prevRoute } = route.params as { prevRoute: string };
 
+  const selectedDateTime = useSelector(
+    (state: RootState) => state.medicineDetails.selectedDateTime
+  );
+
   const [dateModalOpen, setDateModalOpen] = useState(false);
   const [date, setDate] = useState('');
   const [time, setTime] = useState(new Date()); // time setting
@@ -49,8 +53,6 @@ const DoctorAppointments: FC = () => {
     setTempDate(new Date(date));
   };
 
-  console.log(tempDate, 'tempDate');
-
   const handleNext: any = async () => {
     dispatch(
       setAppointment([
@@ -65,21 +67,15 @@ const DoctorAppointments: FC = () => {
       ])
     );
 
-    const parseDateString = (dateString: string) => {
-      return moment(dateString, 'ddd, MMMM D, YYYY hh:mm A');
-    };
-
     const appointmentsDATA = [
       {
-        date: tempDate.toString(), // Example date
+        date: tempDate, // Example date
         time: selectedTime, // Example time
         reminder: reminder,
         location: location,
         doctorName: doctorName
       }
     ];
-
-    console.log(appointmentsDATA, 'appointmentsDATA');
 
     await appointmentSchedule(appointmentsDATA);
 

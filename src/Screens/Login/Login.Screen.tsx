@@ -152,9 +152,9 @@ const Login: FC = () => {
   const handleCreateAccount: any = () => {
     navigation.navigate('CreateAccount' as never);
   };
-  const handleForgotPassword: any = () => {
-    navigation.navigate('ForgotPassword' as never);
-  };
+  // const handleForgotPassword: any = () => {
+  //   navigation.navigate('ForgotPassword' as never);
+  // };
 
   return (
     <View style={styles.container}>
@@ -252,9 +252,9 @@ const Login: FC = () => {
           <Text style={styles.signUpText}>Create Account</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={handleForgotPassword}>
+      {/* <TouchableOpacity onPress={handleForgotPassword}>
         <Text style={styles.forgotPassword}>Forgot your password?</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

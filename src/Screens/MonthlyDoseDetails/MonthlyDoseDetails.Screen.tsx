@@ -32,7 +32,12 @@ import { INSTRUCTION_MUTATION } from '@/mutations/instruction_mutation';
 import { TREATMENT_DURATION_MUTATION } from '@/mutations/treatmentDuration_mutation';
 import { MEDICINE_REMINDER_MUTATION } from '@/mutations/medicineReminder_mutation';
 import ToastPopUp from '@/utils/Toast.android';
-import { getMothyDates, getWeekDates, setWeeklyDateDoseTimes, WeeklyDateEntry } from '../WeeklyDoseDetails/extramethod';
+import {
+  getMothyDates,
+  getWeekDates,
+  setWeeklyDateDoseTimes,
+  WeeklyDateEntry
+} from '../WeeklyDoseDetails/extramethod';
 
 const MonthlyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -71,7 +76,6 @@ const MonthlyDoseDetails: FC = () => {
   const [date, setDate] = useState(new Date());
 
   const [disable, setDisable] = useState(false);
-
 
   const storedMedicineMonthlyList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineMonthlyList
@@ -118,10 +122,10 @@ const MonthlyDoseDetails: FC = () => {
 
     return treatmentDurationName
       ? {
-        medicineTakeEachDay: treatmentDurationName.medicineTakeEachDay,
-        treatmentDurationEndTime: treatmentDurationName.treatmentDurationEndTime,
-        treatmentDurationStartTime: treatmentDurationName.treatmentDurationStartTime
-      }
+          medicineTakeEachDay: treatmentDurationName.medicineTakeEachDay,
+          treatmentDurationEndTime: treatmentDurationName.treatmentDurationEndTime,
+          treatmentDurationStartTime: treatmentDurationName.treatmentDurationStartTime
+        }
       : { medicineTakeEachDay: '', treatmentDurationEndTime: '', treatmentDurationStartTime: '' };
   };
 
@@ -143,15 +147,15 @@ const MonthlyDoseDetails: FC = () => {
 
     return reminderQuantity
       ? {
-        medicineReminderCurrentStock: reminderQuantity.medicineReminderCurrentStock,
-        medicineReminderRemindToLeft: reminderQuantity.medicineReminderRemindToLeft,
-        medicineReminderTotalReq: reminderQuantity.medicineReminderTotalReq
-      }
+          medicineReminderCurrentStock: reminderQuantity.medicineReminderCurrentStock,
+          medicineReminderRemindToLeft: reminderQuantity.medicineReminderRemindToLeft,
+          medicineReminderTotalReq: reminderQuantity.medicineReminderTotalReq
+        }
       : {
-        medicineReminderCurrentStock: '',
-        medicineReminderRemindToLeft: '',
-        medicineReminderTotalReq: ''
-      };
+          medicineReminderCurrentStock: '',
+          medicineReminderRemindToLeft: '',
+          medicineReminderTotalReq: ''
+        };
   };
 
   const { medicineReminderCurrentStock, medicineReminderRemindToLeft, medicineReminderTotalReq } =
@@ -211,15 +215,12 @@ const MonthlyDoseDetails: FC = () => {
       if (e.medicineLocalId.medicineLocalId.toString() === medicineLocalId) return e;
     });
 
-
     const customToday = new Date();
 
-    let dataMData: WeeklyDateEntry[] = []
-    filterArrayMonthly.map((e) => {
+    let dataMData: WeeklyDateEntry[] = [];
+    filterArrayMonthly.map(e => {
       dataMData = getMothyDates(e.medicineLocalId.Days, customToday);
     });
-
-
 
     const weekDoseTime = setWeeklyDateDoseTimes(filterArray, dataMData);
 
@@ -246,10 +247,6 @@ const MonthlyDoseDetails: FC = () => {
           selectedDateTime: e.doseDate
         };
       });
-
-
-
-
 
       // Create data for the new instruction
       let instructionData = {
@@ -278,7 +275,6 @@ const MonthlyDoseDetails: FC = () => {
       updatedTreatmentDurationList.push(treatmentDurationData);
       updatedReminderList.push(reminderData);
 
-
       updatedStoredList.push(...tempStore);
 
       if (loginStatus && accessToken != undefined) {
@@ -286,12 +282,12 @@ const MonthlyDoseDetails: FC = () => {
         await createMedicineData(tempStore, accessToken);
       }
       dispatch(setDoseList(updatedStoredList));
-      
+
       await localSchedule(tempStore, 'month', medicineLocalId);
 
       setDisable(false);
 
-      ToastPopUp('Medicine Created Successfully');
+      //ToastPopUp('Medicine Created Successfully');
     }
 
     navigation.navigate('AddedMedicine' as never);
@@ -307,8 +303,6 @@ const MonthlyDoseDetails: FC = () => {
           doseDate: doseDates[index]
         }))
         .filter(dose => dose.doseTime !== '' && dose.doseQuantity !== '0'); // Optional: filter out empty values
-
-
 
       dispatch(setMonthlyDoseTime(monthlyDoses));
     }

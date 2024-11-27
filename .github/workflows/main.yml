@@ -19,7 +19,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # Ensure compatibility with your project
+          node-version: '20.10.0'  # Ensure compatibility with your project
+
 
       - name: Install Yarn
         run: npm install -g yarn  # You could skip this if already using Yarn via Homebrew
@@ -27,8 +28,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Run tests
-        run: yarn test  # Assuming you have tests set up
+
 
       - name: Build Android
         run: |

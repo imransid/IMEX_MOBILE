@@ -109,7 +109,7 @@ const AuthStackNav: any = () => {
     { name: 'MedicineDoses', component: MedicineDoses, title: 'Medicine Doses' },
     { name: 'Login', component: Login, title: '' },
     { name: 'MedicineDailyDoses', component: MedicineDailyDoses, title: 'Medicine Daily Doses' },
-    { name: 'CreateAccount', component: CreateAccount, title: 'Create An Account' },
+    { name: 'CreateAccount', component: CreateAccount, title: 'New Account' },
     { name: 'ForgotPassword', component: ForgotPassword, title: '' },
     { name: 'EnterOtp', component: EnterOtp, title: '' },
     { name: 'ResetPassword', component: ResetPassword, title: '' },
