@@ -21,11 +21,13 @@ jobs:
         with:
           node-version: '20.10.0'  # Ensure compatibility with your project
 
+
       - name: Install Yarn
         run: npm install -g yarn  # You could skip this if already using Yarn via Homebrew
 
       - name: Install dependencies
         run: yarn install
+
 
 
       - name: Build Android
