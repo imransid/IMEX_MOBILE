@@ -4,6 +4,10 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { colors } from '../../theme/colors';
 
 const styles = StyleSheet.create({
+  BackbuttonPosition: {
+    alignItems: 'center',
+    marginTop: verticalScale(15)
+  },
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(6),

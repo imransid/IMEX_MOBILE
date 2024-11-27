@@ -5,10 +5,12 @@ import styles from './style';
 import { RootState } from '@/store';
 import { useSelector } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
-import { IMedicine } from '@/store/slices/features/medicineDetails/types';
+import CustomButton from '@/Components/CustomButton/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 import filterDuplicateMedicines from '@/utils/filterDuplicateMedicine';
 
 const MoreScreenTab: FC = () => {
+  const navigation = useNavigation();
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
@@ -20,8 +22,11 @@ const MoreScreenTab: FC = () => {
   const [isAppointmentListExpanded, setIsAppointmentListExpanded] = useState(false);
   const [isPrescriptionListExpanded, setIsPrescriptionListExpanded] = useState(false);
 
+  const handleBack = (): void => {
+    navigation.goBack();
+  };
 
- return (
+  return (
     <View style={styles.container}>
       <View style={styles.headingPosition}>
         <Header mainHeader="More Settings" />
@@ -45,7 +50,9 @@ const MoreScreenTab: FC = () => {
               <View style={styles.medicineDoseComponentPosition}>
                 <FlatList
                   data={
-                    isMedicineListExpanded ? filterDuplicateMedicines(storedMedicineList) : storedMedicineList.slice(0, 1)
+                    isMedicineListExpanded
+                      ? filterDuplicateMedicines(storedMedicineList)
+                      : storedMedicineList.slice(0, 1)
                   }
                   renderItem={({ item: medicine, index }) => (
                     <View key={index} style={styles.chip}>
@@ -149,6 +156,10 @@ const MoreScreenTab: FC = () => {
               </View>
             </View>
           )}
+        </View>
+
+        <View style={styles.BackbuttonPosition}>
+          <CustomButton onPress={handleBack} icon={<></>} text="Back" />
         </View>
       </ScrollView>
     </View>
