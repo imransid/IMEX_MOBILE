@@ -35,4 +35,10 @@ jobs:
           cd android
           ./gradlew assembleRelease  # Builds an Android release APK
 
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/appTeam-release.apk
+
    
