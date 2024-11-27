@@ -3,19 +3,30 @@
 import moment from 'moment';
 
 export const getWeekDates = (
-  weeklyList: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  weeklyList: string[] = [],
   today: Date = new Date()
 ): { day: string; date: Date }[] => {
   const currentDayIndex = today.getDay(); // Sunday is 0, Monday is 1, etc.
+
+  console.log(currentDayIndex, 'currentDayIndex');
+
+  console.log(weeklyList, 'weeklyList');
 
   // Calculate the start of the week (Sunday)
   const startOfWeek = new Date(today);
   startOfWeek.setDate(today.getDate() - currentDayIndex);
 
+  console.log(startOfWeek.getDate(), 'Start of week date with get date');
+
+  console.log(today.getDate() - currentDayIndex, 'Start of week date');
+
   // Create an array of date objects for each day in `weeklyList`
   const weekDates = weeklyList.map((day, index) => {
     const dayDate = new Date(startOfWeek);
     dayDate.setDate(startOfWeek.getDate() + index); // Increment from the start of the week
+
+    console.log(startOfWeek.getDate() + index, '>>>>>>>');
+
     return { day, date: dayDate };
   });
 

@@ -136,9 +136,9 @@ const CreateAccount: FC = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headingPosition}>
+      {/* <View style={styles.headingPosition}>
         <Header mainHeader="New Account" />
-      </View>
+      </View> */}
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <View style={styles.textInputComponentPosition}>
           <View style={styles.textInputComponentProperties}>
