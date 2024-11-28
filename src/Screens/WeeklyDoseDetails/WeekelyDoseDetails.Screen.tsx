@@ -36,6 +36,7 @@ import {
 } from './extramethod';
 import ToastPopUp from '@/utils/Toast.android';
 import { select } from 'redux-saga/effects';
+import { multiScheduleMaker } from '../OnceAdayDose/extrafunctions';
 const WeeklyDoseDetails: FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -69,6 +70,35 @@ const WeeklyDoseDetails: FC = () => {
   const [date, setDate] = useState(new Date());
 
   const [disable, setDisable] = useState(false);
+
+  const storedTreatmentDurationList = useSelector(
+    (state: RootState) => state.medicineDetailsExtraSetting.storeTreatmentDuration
+  );
+
+  const getTreatmentDurationData = (medicineId: string) => {
+    if (storedTreatmentDurationList.length === 0)
+      return {
+        medicineTakeEachDay: '',
+        treatmentDurationEndTime: '',
+        treatmentDurationStartTime: ''
+      };
+
+    const treatmentDurationName = storedTreatmentDurationList.find(
+      (item: any) => item.medicineLocalId === medicineId
+    );
+
+    return treatmentDurationName
+      ? {
+          medicineTakeEachDay: treatmentDurationName.medicineTakeEachDay,
+          treatmentDurationEndTime: treatmentDurationName.treatmentDurationEndTime,
+          treatmentDurationStartTime: treatmentDurationName.treatmentDurationStartTime
+        }
+      : { medicineTakeEachDay: '', treatmentDurationEndTime: '', treatmentDurationStartTime: '' };
+  };
+
+  const { medicineTakeEachDay, treatmentDurationEndTime, treatmentDurationStartTime } =
+    getTreatmentDurationData(medicineLocalId);
+
 
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
@@ -162,15 +192,26 @@ const WeeklyDoseDetails: FC = () => {
         };
       });
 
+   
 
+      const dataArray = multiScheduleMaker(
+        tempStore as any,
+        treatmentDurationStartTime,
+        treatmentDurationEndTime,
+        0,
+        "weekly"
+      );
+
+
+    
 
       // now check login or not
       if (loginStatus && accessToken != undefined) {
         await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
-        await createMedicineData(tempStore, accessToken);
+        await createMedicineData(dataArray, accessToken);
       }
-      await localSchedule(tempStore, 'week', medicineLocalId);
-      dispatch(setWeeklyStoreData(tempStore));
+      await localSchedule(dataArray, 'week', medicineLocalId);
+      dispatch(setWeeklyStoreData(dataArray));
     }
 
     clearAllDosesAndTime();
