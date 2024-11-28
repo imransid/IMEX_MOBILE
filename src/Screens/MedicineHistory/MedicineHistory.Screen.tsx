@@ -65,64 +65,73 @@ const MedicineHistory: FC = () => {
   //   );
   // };
 
-
   const groupByDate = (data: Medicine[]): Record<string, Medicine[]> => {
-    const groupedData = data.reduce((acc, curr) => {
-      // Check if createdDate exists and is valid
-      if (!curr.createdDate) {
-        console.warn('Skipping medicine record with missing createdDate:', curr);
+    const groupedData = data.reduce(
+      (acc, curr) => {
+        // Check if createdDate exists and is valid
+        if (!curr.createdDate) {
+          console.warn('Skipping medicine record with missing createdDate:', curr);
+          return acc;
+        }
+
+        const date = curr.createdDate.split(' ')[0]; // Extract date only (YYYY-MM-DD)
+
+        if (!acc[date]) {
+          acc[date] = [];
+        }
+        acc[date].push(curr);
         return acc;
-      }
-  
-      const date = curr.createdDate.split(' ')[0]; // Extract date only (YYYY-MM-DD)
-  
-      if (!acc[date]) {
-        acc[date] = [];
-      }
-      acc[date].push(curr);
-      return acc;
-    }, {} as Record<string, Medicine[]>);
-  
+      },
+      {} as Record<string, Medicine[]>
+    );
+
     // Sort the keys (dates) in descending order
     return Object.keys(groupedData)
       .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
-      .reduce((sortedAcc, date) => {
-        sortedAcc[date] = groupedData[date];
-        return sortedAcc;
-      }, {} as Record<string, Medicine[]>);
+      .reduce(
+        (sortedAcc, date) => {
+          sortedAcc[date] = groupedData[date];
+          return sortedAcc;
+        },
+        {} as Record<string, Medicine[]>
+      );
   };
-  
+
   const groupedMedicines = groupByDate(medicineHistoryData);
   const today: string = new Date().toISOString().split('T')[0]; // Get today's date (YYYY-MM-DD)
-  console.log("first",groupedMedicines)
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <View style={styles.headingPosition}>
-          <Header mainHeader="Medicine History" />
+      <View style={styles.headingPosition}>
+        <Header mainHeader="Medicine History" />
+      </View>
+      {storedMedicineList.length === 0 ? (
+        <View style={styles.emptyDataTextPosition}>
+          <Text style={styles.emptyDataTextStyle}>No Data to Show</Text>
         </View>
-
-        <View style={styles.chipPosition}>
-          {Object.keys(groupedMedicines).map(date => (
-            <View key={date}>
-              <Text style={styles.medicineHistoryHeading}>{date === today ? 'Today' : date}</Text>
-              {filterDuplicateMedicines(groupedMedicines[date] as any).map(medicine => (
-                <View key={medicine.medicineLocalId} style={styles.chip}>
-                  <View style={styles.chipContentProperties}>
-                    <Text style={styles.medicineNameText}>{medicine.medicineName}</Text>
-                    <Text style={styles.doseTimeText}>{medicine.doseTime}</Text>
+      ) : (
+        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+          <View style={styles.chipPosition}>
+            {Object.keys(groupedMedicines).map(date => (
+              <View key={date}>
+                <Text style={styles.medicineHistoryHeading}>{date === today ? 'Today' : date}</Text>
+                {filterDuplicateMedicines(groupedMedicines[date] as any).map(medicine => (
+                  <View key={medicine.medicineLocalId} style={styles.chip}>
+                    <View style={styles.chipContentProperties}>
+                      <Text style={styles.medicineNameText}>{medicine.medicineName}</Text>
+                      <Text style={styles.doseTimeText}>{medicine.doseTime}</Text>
+                    </View>
                   </View>
-                </View>
-              ))}
-            </View>
-          ))}
-        </View>
+                ))}
+              </View>
+            ))}
+          </View>
 
-        <View style={styles.BackbuttonPosition}>
-          <CustomButton onPress={handleBack} icon={<></>} text="Back" />
-        </View>
-      </ScrollView>
+          <View style={styles.BackbuttonPosition}>
+            <CustomButton onPress={handleBack} icon={<></>} text="Back" />
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 };

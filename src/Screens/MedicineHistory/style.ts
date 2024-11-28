@@ -72,6 +72,15 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
     alignSelf: 'center'
+  },
+  emptyDataTextPosition: {
+    marginTop: scale(260),
+    alignItems: 'center'
+  },
+  emptyDataTextStyle: {
+    color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   }
 });
 
