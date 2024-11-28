@@ -104,6 +104,15 @@ const styles = StyleSheet.create({
   },
   viewButtonPosition: {
     top: scale(0.5)
+  },
+  emptyDataTextPosition: {
+    marginTop: scale(260),
+    alignItems: 'center'
+  },
+  emptyDataTextStyle: {
+    color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(14)
   }
 });
 
