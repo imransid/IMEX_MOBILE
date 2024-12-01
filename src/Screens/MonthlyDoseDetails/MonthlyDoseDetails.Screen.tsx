@@ -38,6 +38,7 @@ import {
   setWeeklyDateDoseTimes,
   WeeklyDateEntry
 } from '../WeeklyDoseDetails/extramethod';
+import { multiScheduleMaker } from '../OnceAdayDose/extrafunctions';
 
 const MonthlyDoseDetails: FC = () => {
   const navigation = useNavigation();
@@ -270,20 +271,25 @@ const MonthlyDoseDetails: FC = () => {
         medicineReminderTotalReq: medicineReminderTotalReq
       };
 
+
+     
+
+      const dataArray = multiScheduleMaker(tempStore,treatmentDurationStartTime,treatmentDurationEndTime,0,"monthly");
+
       // Add the new data to the copied array
       updatedInstructionList.push(instructionData);
       updatedTreatmentDurationList.push(treatmentDurationData);
       updatedReminderList.push(reminderData);
 
-      updatedStoredList.push(...tempStore);
+      updatedStoredList.push(...dataArray);
 
       if (loginStatus && accessToken != undefined) {
         // await createMothyMutation(accessToken, storedMedicineMonthlyList, medicineLocalId);
-        await createMedicineData(tempStore, accessToken);
+        await createMedicineData(dataArray, accessToken);
       }
       dispatch(setDoseList(updatedStoredList));
 
-      await localSchedule(tempStore, 'month', medicineLocalId);
+      await localSchedule(dataArray, 'month', medicineLocalId);
 
       setDisable(false);
 
