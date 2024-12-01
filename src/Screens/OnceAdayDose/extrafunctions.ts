@@ -135,41 +135,46 @@ const multiScheduleMaker = (
       });
       currentDate.add(1, "week"); // Increment by 1 week
     }
-  }
-   else if (recurrence === "monthly") {
-    // Existing Monthly Logic (unchanged)
+  } 
+  else if (recurrence === "monthly") {
     while (currentDate.isSameOrBefore(end, "day")) {
       data.forEach((schedule) => {
         const doseTime = moment(schedule.doseTime.trim(), "hh:mm A");
         if (!doseTime.isValid()) {
           throw new Error(`Invalid doseTime format: ${schedule.doseTime}`);
         }
-
+  
+        // Set selectedDateTime with month adjusted
         const selectedDateTime = currentDate.clone().set({
           hour: doseTime.hour(),
           minute: doseTime.minute(),
           second: 0,
           millisecond: 0,
+          date: moment(schedule.selectedDateTime).date(), // Use the original day of the month
         });
-
-        const isDuplicate = allSchedules.some(
-          (existingSchedule) =>
-            existingSchedule.medicineLocalId === schedule.medicineLocalId &&
-            moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, "minute")
-        );
-
-        if (!isDuplicate) {
-          const newSchedule: IMedicine = {
-            ...schedule,
-            selectedDateTime: selectedDateTime.toDate(),
-          };
-
-          allSchedules.push(newSchedule);
+  
+        // Ensure selectedDateTime is within the date range
+        if (selectedDateTime.isSameOrAfter(start, "day") && selectedDateTime.isSameOrBefore(end, "day")) {
+          const isDuplicate = allSchedules.some(
+            (existingSchedule) =>
+              existingSchedule.medicineLocalId === schedule.medicineLocalId &&
+              moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, "minute")
+          );
+  
+          if (!isDuplicate) {
+            const newSchedule: IMedicine = {
+              ...schedule,
+              selectedDateTime: selectedDateTime.toDate(),
+            };
+            allSchedules.push(newSchedule);
+          }
         }
       });
-      currentDate.add(1, "month"); // Increment by 1 month
+      currentDate.add(1, "month");
     }
   }
+  
+  
 
   return allSchedules;
 };
