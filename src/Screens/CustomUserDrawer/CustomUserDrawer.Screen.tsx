@@ -17,6 +17,7 @@ import { clearAppointment } from '@/store/slices/features/appointment/slice';
 import { clearStoreMedicineDetails } from '@/store/slices/features/medicineDetails/slice';
 import { clearExtraMedicineDetails } from '@/store/slices/features/medicineDetailsExtraSetting/slice';
 import { logoutUser } from '@/store/slices/features/users/slice';
+import { clearPrescriptionList } from '@/store/slices/features/prescription/slice';
 
 import GuestImage from '../../assets/guest-image';
 import { colors } from '../../theme/colors';
@@ -34,6 +35,7 @@ const CustomUserDrawer: FC<DrawerContentComponentProps> = props => {
     dispatch(clearStoreMedicineDetails());
     dispatch(clearExtraMedicineDetails());
     dispatch(clearAppointment());
+    dispatch(clearPrescriptionList());
     dispatch(logoutUser());
   };
 

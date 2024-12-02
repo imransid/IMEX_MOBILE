@@ -223,7 +223,7 @@ const MonthlyDoseDetails: FC = () => {
       dataMData = getMothyDates(e.medicineLocalId.Days, customToday);
     });
 
-    const weekDoseTime = setWeeklyDateDoseTimes(filterArray, dataMData);
+    const MonthlyDoseTime = setWeeklyDateDoseTimes(filterArray, dataMData);
 
     let updatedInstructionList = [...storedInstructionList];
 
@@ -231,8 +231,10 @@ const MonthlyDoseDetails: FC = () => {
 
     let updatedReminderList = [...storedReminderList];
 
-    if (weekDoseTime.length > 0) {
-      let tempStore = weekDoseTime.map(e => {
+    if (MonthlyDoseTime.length > 0) {
+      let tempStore = MonthlyDoseTime.map(e => {
+        console.log('e dose date', e.doseDate);
+
         return {
           medicineName: medicineName,
           medicineStatus: 'week',
@@ -271,11 +273,14 @@ const MonthlyDoseDetails: FC = () => {
         medicineReminderTotalReq: medicineReminderTotalReq
       };
 
-
-     
-
-      const dataArray = multiScheduleMaker(tempStore,treatmentDurationStartTime,treatmentDurationEndTime,0,"monthly");
-
+      const dataArray = multiScheduleMaker(
+        tempStore,
+        treatmentDurationStartTime,
+        treatmentDurationEndTime,
+        0,
+        'monthly'
+      );
+      console.log('object', dataArray);
       // Add the new data to the copied array
       updatedInstructionList.push(instructionData);
       updatedTreatmentDurationList.push(treatmentDurationData);

@@ -1,19 +1,14 @@
 import { IMedicine } from '@/store/slices/features/medicineDetails/types';
 import moment from 'moment';
 
-
-
-
-
-
 const multiScheduleMaker = (
   data: IMedicine[],
   startDate: string,
   endDate: string,
   interval?: number,
-  recurrence?: "weekly" | "monthly"
+  recurrence?: 'weekly' | 'monthly'
 ): IMedicine[] => {
-  const inputFormat = "D MMMM, YYYY";
+  const inputFormat = 'D MMMM, YYYY';
   const start = moment(startDate, inputFormat, true);
   const end = moment(endDate, inputFormat, true);
 
@@ -31,9 +26,9 @@ const multiScheduleMaker = (
   if (!recurrence) {
     // Original interval logic (unchanged)
     if (interval === 0 || interval === undefined) {
-      while (currentDate.isSameOrBefore(end, "day")) {
-        data.forEach((schedule) => {
-          const doseTime = moment(schedule.doseTime.trim(), "hh:mm A");
+      while (currentDate.isSameOrBefore(end, 'day')) {
+        data.forEach(schedule => {
+          const doseTime = moment(schedule.doseTime.trim(), 'hh:mm A');
           if (!doseTime.isValid()) {
             throw new Error(`Invalid doseTime format: ${schedule.doseTime}`);
           }
@@ -42,30 +37,30 @@ const multiScheduleMaker = (
             hour: doseTime.hour(),
             minute: doseTime.minute(),
             second: 0,
-            millisecond: 0,
+            millisecond: 0
           });
 
           const isDuplicate = allSchedules.some(
-            (existingSchedule) =>
+            existingSchedule =>
               existingSchedule.medicineLocalId === schedule.medicineLocalId &&
-              moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, "minute")
+              moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, 'minute')
           );
 
           if (!isDuplicate) {
             const newSchedule: IMedicine = {
               ...schedule,
-              selectedDateTime: selectedDateTime.toDate(),
+              selectedDateTime: selectedDateTime.toDate()
             };
 
             allSchedules.push(newSchedule);
           }
         });
-        currentDate.add(1, "days");
+        currentDate.add(1, 'days');
       }
     } else {
-      while (currentDate.isSameOrBefore(end, "day")) {
-        data.forEach((schedule) => {
-          const doseTime = moment(schedule.doseTime.trim(), "hh:mm A");
+      while (currentDate.isSameOrBefore(end, 'day')) {
+        data.forEach(schedule => {
+          const doseTime = moment(schedule.doseTime.trim(), 'hh:mm A');
           if (!doseTime.isValid()) {
             throw new Error(`Invalid doseTime format: ${schedule.doseTime}`);
           }
@@ -74,131 +69,121 @@ const multiScheduleMaker = (
             hour: doseTime.hour(),
             minute: doseTime.minute(),
             second: 0,
-            millisecond: 0,
+            millisecond: 0
           });
 
           const isDuplicate = allSchedules.some(
-            (existingSchedule) =>
+            existingSchedule =>
               existingSchedule.medicineLocalId === schedule.medicineLocalId &&
-              moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, "minute")
+              moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, 'minute')
           );
 
           if (!isDuplicate) {
             const newSchedule: IMedicine = {
               ...schedule,
-              selectedDateTime: selectedDateTime.toDate(),
+              selectedDateTime: selectedDateTime.toDate()
             };
 
             allSchedules.push(newSchedule);
           }
         });
-        currentDate.add(interval, "days");
+        currentDate.add(interval, 'days');
       }
     }
-  }  else if (recurrence === "weekly") {
+  } else if (recurrence === 'weekly') {
     // Fixed Weekly Recurrence Logic
-    while (currentDate.isSameOrBefore(end, "day")) {
-      data.forEach((schedule) => {
-        const doseTime = moment(schedule.doseTime.trim(), "hh:mm A");
+    while (currentDate.isSameOrBefore(end, 'day')) {
+      data.forEach(schedule => {
+        const doseTime = moment(schedule.doseTime.trim(), 'hh:mm A');
         if (!doseTime.isValid()) {
           throw new Error(`Invalid doseTime format: ${schedule.doseTime}`);
         }
-  
+
         // Set the selectedDateTime based on the original schedule's day of the week
         const originalDayOfWeek = moment(schedule.selectedDateTime).day(); // Day of the week for this dose
         const targetDate = currentDate.clone().day(originalDayOfWeek);
-  
+
         // Ensure the targetDate is within the range
-        if (targetDate.isSameOrAfter(start, "day") && targetDate.isSameOrBefore(end, "day")) {
+        if (targetDate.isSameOrAfter(start, 'day') && targetDate.isSameOrBefore(end, 'day')) {
           const selectedDateTime = targetDate.clone().set({
             hour: doseTime.hour(),
             minute: doseTime.minute(),
             second: 0,
-            millisecond: 0,
+            millisecond: 0
           });
-  
+
           const isDuplicate = allSchedules.some(
-            (existingSchedule) =>
+            existingSchedule =>
               existingSchedule.medicineLocalId === schedule.medicineLocalId &&
-              moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, "minute")
+              moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, 'minute')
           );
-  
+
           if (!isDuplicate) {
             const newSchedule: IMedicine = {
               ...schedule,
-              selectedDateTime: selectedDateTime.toDate(),
+              selectedDateTime: selectedDateTime.toDate()
             };
-  
+
             allSchedules.push(newSchedule);
           }
         }
       });
-      currentDate.add(1, "week"); // Increment by 1 week
+      currentDate.add(1, 'week'); // Increment by 1 week
     }
-  } 
-  else if (recurrence === "monthly") {
-    while (currentDate.isSameOrBefore(end, "day")) {
-      data.forEach((schedule) => {
-        const doseTime = moment(schedule.doseTime.trim(), "hh:mm A");
+  } else if (recurrence === 'monthly') {
+    while (currentDate.isSameOrBefore(end, 'day')) {
+      data.forEach(schedule => {
+        const doseTime = moment(schedule.doseTime.trim(), 'hh:mm A');
         if (!doseTime.isValid()) {
           throw new Error(`Invalid doseTime format: ${schedule.doseTime}`);
         }
-  
+
         // Set selectedDateTime with month adjusted
         const selectedDateTime = currentDate.clone().set({
           hour: doseTime.hour(),
           minute: doseTime.minute(),
           second: 0,
           millisecond: 0,
-          date: moment(schedule.selectedDateTime).date(), // Use the original day of the month
+          date: moment(schedule.selectedDateTime).date() // Use the original day of the month
         });
-  
+
         // Ensure selectedDateTime is within the date range
-        if (selectedDateTime.isSameOrAfter(start, "day") && selectedDateTime.isSameOrBefore(end, "day")) {
+        if (
+          selectedDateTime.isSameOrAfter(start, 'day') &&
+          selectedDateTime.isSameOrBefore(end, 'day')
+        ) {
           const isDuplicate = allSchedules.some(
-            (existingSchedule) =>
+            existingSchedule =>
               existingSchedule.medicineLocalId === schedule.medicineLocalId &&
-              moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, "minute")
+              moment(existingSchedule.selectedDateTime).isSame(selectedDateTime, 'minute')
           );
-  
+
           if (!isDuplicate) {
             const newSchedule: IMedicine = {
               ...schedule,
-              selectedDateTime: selectedDateTime.toDate(),
+              selectedDateTime: selectedDateTime.toDate()
             };
             allSchedules.push(newSchedule);
           }
         }
       });
-      currentDate.add(1, "month");
+      currentDate.add(1, 'month');
     }
   }
-  
-  
 
   return allSchedules;
 };
-
-
-
-
-
-
-
-
-
-
 
 // const multiScheduleMaker = (data: IMedicine[], startDate: string, endDate: string, interval?: number): IMedicine[] => {
 //     const inputFormat = 'D MMMM, YYYY';
 //     const start = moment(startDate, inputFormat, true);
 //     const end = moment(endDate, inputFormat, true);
-  
+
 //     console.log("start", start, startDate);
 //     console.log("end", end, endDate);
 //     console.log("interval", interval);
 
-//     console.log("data", data); 
+//     console.log("data", data);
 //     if (!startDate && !endDate) {
 //        return data;
 //     }
@@ -206,7 +191,7 @@ const multiScheduleMaker = (
 //     if (!start.isValid() || !end.isValid()) {
 //       throw new Error(`Invalid start or end date. Ensure dates match format: ${inputFormat}`);
 //     }
-  
+
 //     const allSchedules: IMedicine[] = [];
 //     console.log("start clone", start.clone());
 
@@ -299,8 +284,50 @@ const multiScheduleMaker = (
 //     return allSchedules;
 // };
 
-
-
-
 export { multiScheduleMaker };
 
+[
+  {
+    medicineName: 'Tskdhum',
+    medicineStatus: 'week',
+    takeStatus: '',
+    doseQuantity: '2',
+    doseTime: '3:56 PM',
+    strengthMed: '2',
+    unitMed: 'mg',
+    typeMed: 'Tablet',
+    medicineId: '',
+    medicineLocalId: '3e43ad0a-ae11-4077-b939-e7ff628f94b5',
+    createdDate: '2024-12-02 15:56:54',
+    selectedDateTime: '2024-04-01T09:56:00.000Z'
+  },
+  {
+    medicineName: 'Tskdhum',
+    medicineStatus: 'week',
+    takeStatus: '',
+    doseQuantity: '2',
+    doseTime: '3:56 PM',
+    strengthMed: '2',
+    unitMed: 'mg',
+    typeMed: 'Tablet',
+    medicineId: '',
+    medicineLocalId: '3e43ad0a-ae11-4077-b939-e7ff628f94b5',
+    createdDate: '2024-12-02 15:56:54',
+    selectedDateTime: '2024-04-02T09:56:00.000Z'
+  },
+  {
+    medicineName: 'Tskdhum',
+    medicineStatus: 'week',
+    takeStatus: '',
+    doseQuantity: '2',
+    doseTime: '3:56 PM',
+    strengthMed: '2',
+    unitMed: 'mg',
+    typeMed: 'Tablet',
+    medicineId: '',
+    medicineLocalId: '3e43ad0a-ae11-4077-b939-e7ff628f94b5',
+    createdDate: '2024-12-02 15:56:54',
+    selectedDateTime: '2024-04-03T09:56:00.000Z'
+  }
+];
+('2024-04-01T09:59:00.000Z');

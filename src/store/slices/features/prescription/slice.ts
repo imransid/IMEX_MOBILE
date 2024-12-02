@@ -16,10 +16,13 @@ export const prescriptionSlice = createSlice({
       if (action.payload?.assets) {
         state.ImageFile = [...state.ImageFile, ...action.payload.assets];
       }
+    },
+    clearPrescriptionList: (state: IPrescriptionType) => {
+      state.ImageFile = [];
     }
   }
 });
 
-export const { setPrescriptionAction } = prescriptionSlice.actions;
+export const { setPrescriptionAction, clearPrescriptionList } = prescriptionSlice.actions;
 
 export const prescriptionReducer = prescriptionSlice.reducer;
