@@ -91,7 +91,7 @@ const MonthlyDose: FC = () => {
     // Convert the object to an array of formatted date strings
     const formattedDates = Object.keys(selectedDates).map(date => {
       const [year, month, day] = date.split('-');
-      return `${parseInt(day)} ${months[parseInt(month) - 1]}`;
+      return `${parseInt(year)} ${parseInt(day)} ${months[parseInt(month) - 1]}`;
     });
 
     const storedMonthlyArray: IStoredMonthly[] = [
