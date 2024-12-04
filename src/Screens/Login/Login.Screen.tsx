@@ -140,7 +140,6 @@ const Login: FC = () => {
 
   // Navigation handlers
   const handleGuestLogin: any = () => {
-    setDisable(true);
     // if (appLoadFirstTime) {
     //   navigation.navigate('MedicineDoses' as never);
     // } else {
