@@ -4,6 +4,7 @@ interface ICustomButtonProps {
   onPress: () => void;
   disabled?: boolean;
   pageName?: string;
+  loader?: boolean;
 }
 
 export default ICustomButtonProps;
