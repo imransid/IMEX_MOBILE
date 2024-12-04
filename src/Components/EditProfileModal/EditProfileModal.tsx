@@ -18,6 +18,7 @@ import { RootState } from '@/store';
 import { updateUser } from '@/store/slices/features/users/slice';
 
 import DatePicker from 'react-native-date-picker';
+import moment from 'moment';
 
 interface EditProfileModalProps {
   modalVisible: boolean;
@@ -271,11 +272,20 @@ const EditProfileModal: FC<EditProfileModalProps> = ({ modalVisible, closeModal 
                       <TouchableOpacity
                         style={styles.confirmDateButton}
                         onPress={() => {
-                          // Set the birthdate with formatted date and close the picker
-                          setBirthdate(formatDate(selectedDate));
-                          setIsDatePickerVisible(false);
-                        }}>
-                        <Text style={styles.confirmDateButtonText}>Confirm</Text>
+                          if (selectedDate > new Date()) {
+                            ToastPopUp('Please select a valid date.');
+                          } else {
+                            setBirthdate(formatDate(selectedDate));
+                            setIsDatePickerVisible(false);
+                          }
+                        }}
+                        disabled={selectedDate > new Date()} // Disable the button if the date is in the future
+                      >
+                        {selectedDate >= new Date() ? (
+                          <Text style={styles.birthDateErrorText}>Cannot select future date</Text>
+                        ) : (
+                          <Text style={styles.confirmDateButtonText}>Confirm</Text>
+                        )}
                       </TouchableOpacity>
                     </>
                   )}
@@ -286,6 +296,7 @@ const EditProfileModal: FC<EditProfileModalProps> = ({ modalVisible, closeModal 
                     onPress={handleUpdateProfile}
                     icon={<></>}
                     text="Update"
+                    disabled={selectedDate > new Date()}
                   />
                 </View>
               </View>
