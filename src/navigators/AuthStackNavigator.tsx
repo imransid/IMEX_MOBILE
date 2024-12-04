@@ -213,7 +213,8 @@ const AuthStackNav: any = () => {
                     ? false
                     : name !== 'CameraScanner',
             headerTitle: title,
-            headerTitleAlign: 'center'
+            headerTitleAlign: 'center',
+            headerRight: name === 'CreateAccount' ? undefined : HeaderRight
           }}
         />
       ))}

@@ -20,7 +20,7 @@ const CustomButton: React.FC<ICustomButtonProps> = ({
           {text !== '' && !disabled ? (
             <Text style={styles.buttonText}>{text}</Text>
           ) : (
-            <ActivityIndicator size={'large'} />
+            <ActivityIndicator size={'large'} color={'white'} />
           )}
         </TouchableOpacity>
       ) : (
@@ -28,7 +28,7 @@ const CustomButton: React.FC<ICustomButtonProps> = ({
           {text !== '' && !disabled ? (
             <Text style={styles.buttonText}>{text}</Text>
           ) : (
-            <ActivityIndicator size={'large'} />
+            <ActivityIndicator size={'large'} color={'white'} />
           )}
           {icon !== true && !disabled ? <View>{icon}</View> : <></>}
         </TouchableOpacity>

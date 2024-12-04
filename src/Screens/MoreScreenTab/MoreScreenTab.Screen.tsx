@@ -9,6 +9,7 @@ import CustomButton from '@/Components/CustomButton/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import filterDuplicateMedicines from '@/utils/filterDuplicateMedicine';
 import { black } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import moment from 'moment';
 
 const MoreScreenTab: FC = () => {
   const navigation = useNavigation();
@@ -109,7 +110,9 @@ const MoreScreenTab: FC = () => {
                         <View style={styles.medicineDoseProperties}>
                           <View style={styles.doseDetailsPosition}>
                             <Text style={styles.pillsLeft}>{medicine.doctorName}</Text>
-                            <Text style={styles.pillsLeftDetailsText}>{medicine.date}</Text>
+                            <Text style={styles.pillsLeftDetailsText}>
+                              {moment(medicine.date).format('ddd, MMMM D, YYYY')}
+                            </Text>
                           </View>
                           <View style={styles.pillsLeftPosition}>
                             <Text style={styles.pillsLeft}>{medicine.time}</Text>
