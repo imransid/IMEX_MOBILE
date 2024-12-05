@@ -216,6 +216,7 @@ const MonthlyDoseDetails: FC = () => {
       if (e.medicineLocalId.medicineLocalId.toString() === medicineLocalId) return e;
     });
 
+
     const customToday = new Date();
 
     let dataMData: WeeklyDateEntry[] = [];
@@ -223,7 +224,9 @@ const MonthlyDoseDetails: FC = () => {
       dataMData = getMothyDates(e.medicineLocalId.Days, customToday);
     });
 
+   
     const MonthlyDoseTime = setWeeklyDateDoseTimes(filterArray, dataMData);
+
 
     let updatedInstructionList = [...storedInstructionList];
 
@@ -233,8 +236,7 @@ const MonthlyDoseDetails: FC = () => {
 
     if (MonthlyDoseTime.length > 0) {
       let tempStore = MonthlyDoseTime.map(e => {
-        console.log('e dose date', e.doseDate);
-
+       
         return {
           medicineName: medicineName,
           medicineStatus: 'week',
