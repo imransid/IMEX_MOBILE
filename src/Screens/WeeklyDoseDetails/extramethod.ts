@@ -58,14 +58,38 @@ export const getWeekDates = (
   return weekDates;
 };
 
+// export const getMothyDates = (
+//   DayList: string[] = [],
+//   today: Date = new Date()
+// ): { day: string; date: Date }[] => {
+//   // Parse the DayList and create date objects using Moment.js
+//   const isDates = DayList.map(day => {
+//     // Combine the day string with the current year and use Moment.js to parse it
+//     const date = moment(`${day} ${today.getFullYear()}`, 'DD MMMM YYYY');
+// console.log("date issue",date)
+//     // Ensure the date is valid
+//     if (!date.isValid()) {
+//       console.error(`Invalid date string: ${day}`);
+//       return null; // Handle invalid date strings
+//     }
+
+//     return {
+//       day, // The original string from DayList
+//       date: date.toDate() // The corresponding Date object
+//     };
+//   }).filter(item => item !== null); // Remove any invalid date entries
+// console.log("is Date",isDates)
+//   return isDates;
+// };
+
+
 export const getMothyDates = (
   DayList: string[] = [],
   today: Date = new Date()
 ): { day: string; date: Date }[] => {
-  // Parse the DayList and create date objects using Moment.js
   const isDates = DayList.map(day => {
-    // Combine the day string with the current year and use Moment.js to parse it
-    const date = moment(`${day} ${today.getFullYear()}`, 'DD MMMM YYYY');
+    // Parse the input string directly without appending the year
+    const date = moment(day, 'YYYY D MMMM'); // Update the format to match input structure
 
     // Ensure the date is valid
     if (!date.isValid()) {
@@ -79,8 +103,10 @@ export const getMothyDates = (
     };
   }).filter(item => item !== null); // Remove any invalid date entries
 
+  console.log("is Date", isDates);
   return isDates;
 };
+
 
 export const getMonthDates = (
   weeklyList: string[] = [],
