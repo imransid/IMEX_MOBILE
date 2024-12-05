@@ -94,6 +94,7 @@ const MonthlyDose: FC = () => {
       return `${parseInt(year)} ${parseInt(day)} ${months[parseInt(month) - 1]}`;
     });
 
+  
     const storedMonthlyArray: IStoredMonthly[] = [
       {
         medicineLocalId: {
@@ -103,6 +104,7 @@ const MonthlyDose: FC = () => {
         }
       }
     ];
+
 
     dispatch(setMonthlyStoreData(storedMonthlyArray));
 
