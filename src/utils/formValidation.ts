@@ -1,6 +1,7 @@
 /* All form validations will resides here */
 
 import * as yup from 'yup';
+import { parse, isValid } from 'date-fns';
 // import { useForm, Controller } from 'react-hook-form';
 // import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -58,9 +59,12 @@ export const createAccountFormValidation = yup.object().shape({
     .string()
     .required('Birth Date is required')
     .test('is-not-future-date', 'Birth Date cannot be in the future', value => {
-      if (!value) return true; // If no value, let the "required" rule handle it
-      const selectedDate = new Date(value);
-      return selectedDate <= new Date(); // Ensure the date is not in the future
+      if (!value) return true;
+      const selectedDate = parse(value, 'EEE, MMMM dd, yyyy', new Date());
+      if (!isValid(selectedDate)) return false;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return selectedDate <= today;
     })
 });
 
