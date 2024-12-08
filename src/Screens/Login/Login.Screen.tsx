@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import React, { useState, type FC } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { Controller, useForm } from 'react-hook-form';
 import { Alert, PermissionsAndroid, Platform, Text, TouchableOpacity, View } from 'react-native';
@@ -56,6 +56,8 @@ const Login: FC = () => {
   const appLoadFirstTime = useSelector((state: RootState) => state.settings.appLoadFirstTime);
   const appStatus = useSelector((state: RootState) => state.settings.appStatus);
 
+  const [disable, setDisable] = useState(false);
+
   // Request Android notification permission
   const requestAndroidNotificationPermission = async () => {
     if (Platform.OS === 'android' && Platform.Version >= 33) {
@@ -79,6 +81,7 @@ const Login: FC = () => {
 
   // SignIn handler
   const handleSignIn: SubmitHandler<ISignInFormDataProps> = async formData => {
+    setDisable(true);
     try {
       if (!isInternetReachable && !isCellularConnection) {
         ToastPopUp('Please Check Internet Connection!..');
@@ -223,6 +226,7 @@ const Login: FC = () => {
           onPress={() => {
             void handleSubmit(handleSignIn)();
           }}
+          disabled={disable}
           icon={<AntDesign name="arrowright" size={30} color={colors.white} />}
           text="Sign In"
         />

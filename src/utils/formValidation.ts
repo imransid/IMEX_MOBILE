@@ -54,7 +54,14 @@ export const createAccountFormValidation = yup.object().shape({
     .required('Password confirmation is required')
     .oneOf([yup.ref('password'), ''], 'The password is not matched'), // Check if it matches the password
   gender: yup.string().required('Gender is required'),
-  birthDate: yup.string().required('Birth Date is required')
+  birthDate: yup
+    .string()
+    .required('Birth Date is required')
+    .test('is-not-future-date', 'Birth Date cannot be in the future', value => {
+      if (!value) return true; // If no value, let the "required" rule handle it
+      const selectedDate = new Date(value);
+      return selectedDate <= new Date(); // Ensure the date is not in the future
+    })
 });
 
 // export const OTPFormValidation = Yup.object({

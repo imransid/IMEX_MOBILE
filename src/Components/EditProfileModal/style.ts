@@ -127,6 +127,11 @@ const styles = StyleSheet.create({
     color: colors.buttonBg,
     fontFamily: 'WorkSansSemiBold',
     fontSize: moderateScale(14)
+  },
+  birthDateErrorText: {
+    color: 'red',
+    fontFamily: 'WorkSansSemiBold',
+    fontSize: moderateScale(14)
   }
 });
 

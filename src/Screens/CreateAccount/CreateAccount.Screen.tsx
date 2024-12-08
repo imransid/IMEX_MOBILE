@@ -36,6 +36,8 @@ const CreateAccount: FC = () => {
   const [date, setDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState('');
 
+  const [disable, setDisable] = useState(false);
+
   // interface for creat account
   interface ICreateAccountDataProps {
     fullName: string;
@@ -89,6 +91,7 @@ const CreateAccount: FC = () => {
   };
 
   const handleSignUp = async (data: ICreateAccountDataProps): Promise<void> => {
+    setDisable(true);
     const registerInput = {
       fullName: data.fullName,
       mobileNumber: data.mobile,
@@ -346,6 +349,7 @@ const CreateAccount: FC = () => {
         <View style={styles.SignInbuttonPosition}>
           <CustomButton
             onPress={handleSubmit(handleSignUp)}
+            disabled={disable}
             icon={<AntDesign name="arrowright" size={25} color={colors.white} />}
             text="Sign Up"
           />

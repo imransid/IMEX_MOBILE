@@ -5,10 +5,15 @@ import type ICustomButtonProps from '../../Interfaces/ICustomButtonProps';
 
 import styles from './style';
 
-const EditProfileModalButton: React.FC<ICustomButtonProps> = ({ text, icon, onPress }) => {
+const EditProfileModalButton: React.FC<ICustomButtonProps> = ({
+  text,
+  icon,
+  onPress,
+  disabled
+}) => {
   return (
     <View>
-      <TouchableOpacity style={styles.buttonProperties} onPress={onPress}>
+      <TouchableOpacity disabled={disabled} style={styles.buttonProperties} onPress={onPress}>
         {text !== '' ? <Text style={styles.buttonText}>{text}</Text> : <></>}
         {icon !== true ? <View>{icon}</View> : <></>}
       </TouchableOpacity>
