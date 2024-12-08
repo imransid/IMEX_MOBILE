@@ -121,15 +121,19 @@ const CreateAccount: FC = () => {
 
       if (response?.data?.data?.register?.message) {
         ToastPopUp(response.data.data.register.message);
+        setDisable(false);
         navigation.navigate('Login' as never);
       } else if (Array.isArray(response?.data?.errors) && response.data.errors.length > 0) {
         const errorMessage: any = response.data.errors[0].message;
         ToastPopUp(typeof errorMessage === 'string' ? errorMessage : 'Error occurred');
+        setDisable(false);
       } else {
         ToastPopUp('Something went wrong! Please try again later.');
       }
     } catch (err) {
       console.error('Error in registration:', err);
+    } finally {
+      setDisable(false);
     }
   };
 
