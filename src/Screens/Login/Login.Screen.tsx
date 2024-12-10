@@ -110,6 +110,7 @@ const Login: FC = () => {
         // check if login is successful
         if (response?.data?.data?.login?.accessToken !== undefined) {
           ToastPopUp('Login successfully.');
+          setDisable(false);
 
           const res = response.data.data.login;
 
@@ -128,6 +129,7 @@ const Login: FC = () => {
           const errorMessage: any = response?.data?.errors[0]?.message;
           if (typeof errorMessage === 'string') {
             ToastPopUp('Invalid Mobile Number or Password');
+            setDisable(false);
           }
         } else {
           ToastPopUp('Something Went wrong ! please try again later.');
@@ -135,6 +137,8 @@ const Login: FC = () => {
       }
     } catch (err) {
       console.error('error', err);
+    } finally {
+      setDisable(false);
     }
   };
 
