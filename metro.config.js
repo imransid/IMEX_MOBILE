@@ -1,7 +1,9 @@
 // eslint-disable-next-line prettier/prettier, @typescript-eslint/no-var-requires
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 
-const { withSentryConfig } = require('@sentry/react-native/metro');
+const {
+  withSentryConfig
+} = require("@sentry/react-native/metro");
 
 // const {
 //   createSentryMetroSerializer,
