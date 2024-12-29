@@ -3,6 +3,8 @@
 import moment from 'moment';
 import PushNotification, { Importance } from 'react-native-push-notification';
 
+import ReactNativeAN from 'react-native-alarm-feature';
+
 function generateRandomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -41,13 +43,33 @@ export const localSchedule = async (listOfItem: any[], name: string, medicineId:
           };
 
           // Schedule the new notification
-          PushNotification.localNotificationSchedule({
+          // PushNotification.localNotificationSchedule({
+          //   autoCancel: true, // (optional)
+          //   channelId: alarmNotifData.channelId,
+          //   title: alarmNotifData.title,
+          //   id: alarmNotifData.id,
+          //   message: alarmNotifData.message,
+          //   date: alarmNotifData.fire_date,
+          //   soundName: alarmNotifData.soundName,
+          //   timeoutAfter: 120000,
+          //   actions: ['Snooze', 'Stop Alarm'],
+          //   importance: Importance.HIGH,
+          //   playSound: true,
+          //   allowWhileIdle: true,
+          //   vibrate: true,
+          //   invokeApp: false,
+          //   repeatType: 'time', // Repeat at custom interval
+          //   repeatTime: 30000 // Repeat every 1 minute (60000 ms)
+          // });
+
+          // Schedule the new notification
+          ReactNativeAN.scheduleAlarm({
             autoCancel: true, // (optional)
             channelId: alarmNotifData.channelId,
             title: alarmNotifData.title,
             id: alarmNotifData.id,
             message: alarmNotifData.message,
-            date: alarmNotifData.fire_date,
+            fireDate: alarmNotifData.fire_date,
             soundName: alarmNotifData.soundName,
             timeoutAfter: 120000,
             actions: ['Snooze', 'Stop Alarm'],

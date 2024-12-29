@@ -3789,6 +3789,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/jest@npm:^29.5.14":
+  version: 29.5.14
+  resolution: "@types/jest@npm:29.5.14"
+  dependencies:
+    expect: ^29.0.0
+    pretty-format: ^29.0.0
+  checksum: 18dba4623f26661641d757c63da2db45e9524c9be96a29ef713c703a9a53792df9ecee9f7365a0858ddbd6440d98fe6b65ca67895ca5884b73cbc7ffc11f3838
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.9":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
@@ -6935,7 +6945,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expect@npm:^29.7.0":
+"expect@npm:^29.0.0, expect@npm:^29.7.0":
   version: 29.7.0
   resolution: "expect@npm:29.7.0"
   dependencies:
@@ -10899,7 +10909,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-format@npm:^29.7.0":
+"pretty-format@npm:^29.0.0, pretty-format@npm:^29.7.0":
   version: 29.7.0
   resolution: "pretty-format@npm:29.7.0"
   dependencies:
@@ -11121,6 +11131,16 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
+  languageName: node
+  linkType: hard
+
+"react-native-alarm-feature@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "react-native-alarm-feature@npm:0.0.3"
+  peerDependencies:
+    react: ^16.8.1
+    react-native: ">=0.60.0-rc.0 <1.0.x"
+  checksum: 27f998fddf72eb68597c27fc8ad70ac51871ac6ed9a47006ef0c550a123e3d32df4e1a145339ecc98a6d604f0d92ea6e8377fc01f1cdddb77afc23aee3d21109
   languageName: node
   linkType: hard
 
@@ -13093,6 +13113,7 @@ __metadata:
     "@sentry/react-native": ^5.31.1
     "@shopify/restyle": ^2.4.4
     "@tsconfig/react-native": ^3.0.0
+    "@types/jest": ^29.5.14
     "@types/react": ^18.2.6
     "@types/react-native-push-notification": ^8.1.4
     "@types/react-native-vector-icons": ^6.4.18
@@ -13131,6 +13152,7 @@ __metadata:
     react: 18.2.0
     react-hook-form: ^7.53.0
     react-native: 0.74.3
+    react-native-alarm-feature: ^0.0.3
     react-native-calendar-events: ^2.2.0
     react-native-calendars: ^1.1306.0
     react-native-config: ^1.5.3

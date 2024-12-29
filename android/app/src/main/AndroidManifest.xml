@@ -54,6 +54,34 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name="com.abhishek357.react.alarm.feature.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ACTION_DISMISS" />
+                <action android:name="ACTION_SNOOZE" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.abhishek357.react.alarm.feature.AlarmDismissReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name="com.abhishek357.react.alarm.feature.AlarmBootReceiver"
+            android:directBootAware="true"
+            android:enabled="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <!-- Push Notification Listener Service -->
         <service 
             android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
