@@ -63,13 +63,14 @@ export const localSchedule = async (listOfItem: any[], name: string, medicineId:
           // });
 
           // Schedule the new notification
+          console.log(fireDate, 'fireDate');
           ReactNativeAN.scheduleAlarm({
             autoCancel: true, // (optional)
             channelId: alarmNotifData.channelId,
             title: alarmNotifData.title,
             id: alarmNotifData.id,
             message: alarmNotifData.message,
-            fireDate: alarmNotifData.fire_date,
+            fire_date: alarmNotifData.fire_date,
             soundName: alarmNotifData.soundName,
             timeoutAfter: 120000,
             actions: ['Snooze', 'Stop Alarm'],
