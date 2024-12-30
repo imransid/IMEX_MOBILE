@@ -33,7 +33,7 @@ export const localSchedule = async (listOfItem: any[], name: string, medicineId:
             smallIcon: 'ic_launcher',
             largeIcon: 'ic_launcher',
             playSound: true,
-            soundName: 'alarm_tone',
+            soundName: 'iphone_best_alarm.mp3',
             color: 'red',
             tag: 'medication_reminder',
             fire_date: fireDate,
