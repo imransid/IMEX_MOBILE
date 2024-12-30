@@ -2,6 +2,9 @@
 
 import moment from 'moment';
 import PushNotification, { Importance } from 'react-native-push-notification';
+import AlarmClock from 'react-native-alarm-clock';
+
+
 
 function generateRandomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -27,18 +30,22 @@ export const localSchedule = async (listOfItem: any[], name: string, medicineId:
             ticker: 'Team Pharmaceuticals Notification',
             id: generateRandomNumber(1, 9999803),
             title: `Medication Reminder: ${e.medicineName}`,
-            message: `Time to take ${e.doseQuantity} ${e.typeMed}(s) of ${e.medicineName} (${e.strengthMed}). Scheduled dose at ${e.doseTime}`,
-            vibrate: true,
+            message: `Time to take ${e.strengthMed} ${e.unitMed}(s) of ${e.medicineName} (${e.typeMed}). Scheduled dose at ${e.doseTime}`,
+            // vibrate: true,
             vibration: 100,
             smallIcon: 'ic_launcher',
             largeIcon: 'ic_launcher',
-            playSound: true,
-            soundName: 'iphone_best_alarm.mp3',
+            // playSound: true,
+            // soundName: 'iphone_best_alarm',
             color: 'red',
             tag: 'medication_reminder',
             fire_date: fireDate,
             date: { value: moment(e.selectedDateTime).format('YYYY-MM-DD HH:mm:ss') }
           };
+
+
+          
+
 
           // Schedule the new notification
           PushNotification.localNotificationSchedule({
@@ -48,7 +55,7 @@ export const localSchedule = async (listOfItem: any[], name: string, medicineId:
             id: alarmNotifData.id,
             message: alarmNotifData.message,
             date: alarmNotifData.fire_date,
-            soundName: alarmNotifData.soundName,
+            // soundName: alarmNotifData.soundName,
             timeoutAfter: 120000,
             actions: ['Snooze', 'Stop Alarm'],
             importance: Importance.HIGH,
@@ -59,6 +66,9 @@ export const localSchedule = async (listOfItem: any[], name: string, medicineId:
             repeatType: 'time', // Repeat at custom interval
             repeatTime: 30000 // Repeat every 1 minute (60000 ms)
           });
+                 // Schedule alarm using AlarmClock
+                 const alarmDate = new Date(fireDate);
+                 AlarmClock.createAlarm(alarmDate.toISOString(), `Medication Reminder: ${e.medicineName}`);
         })
       );
     } else {

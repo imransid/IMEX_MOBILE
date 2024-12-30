@@ -33,19 +33,18 @@ const App: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    createChannels();
+    PushNotification.createChannel(
+      {
+        channelId: 'team-pharmaceuticals',
+        channelName: 'Team Pharmaceuticals',
+        playSound: true,
+        soundName: 'alarm',
+        importance: 4, // Set the importance level
+        vibrate: true,
+      },
+      created => console.log(`channel created: ${created}`)
+    );
   }, []);
-
-  const createChannels = () => {
-    PushNotification.createChannel({
-      channelId: 'team-pharmaceuticals',
-      channelName: 'Team Pharmaceuticals',
-      channelDescription: 'Team Pharmaceuticals',
-      importance: 4, // Set the importance level
-      vibrate: true,
-      soundName: 'default'
-    });
-  };
 
   useEffect(() => {
     setTimeout(() => {
