@@ -4,7 +4,7 @@ import { Alert, BackHandler, FlatList, Text, TouchableOpacity, View } from 'reac
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import ClickToAddMedicine from '@/assets/click-to-add-med';
@@ -18,6 +18,7 @@ import moment from 'moment';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/navigators/AuthStackNavigator';
+import { deleteMedicine } from '@/store/slices/features/medicineDetails/slice';
 
 interface RootStackParamListHome {
   PreviewDoseDetails: { medicine: any };
@@ -35,6 +36,7 @@ interface NavigationParams {
 type NavigationProp = StackNavigationProp<RootStackParamList, 'AddInstructions'>;
 
 const HomeScreen: FC = () => {
+  const dispatch = useDispatch();
   const authStatus = useSelector((state: RootState) => state.users.user.loginStatus);
 
   const storedMedicineList = useSelector(
@@ -126,6 +128,11 @@ const HomeScreen: FC = () => {
     return moment(`${today} ${time}`, 'YYYY-MM-DD hh:mm A');
   };
 
+  const deleteMedicineItem = (medicineId: string) => {
+    let filtered_Medicine_List = filteredMedicineList.map(e => e.medicineLocalId !== medicineId);
+    dispatch(deleteMedicine(filtered_Medicine_List));
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.calendarContainer}>
@@ -182,6 +189,10 @@ const HomeScreen: FC = () => {
                         <View style={styles.doseTimePosition}>
                           <Text style={styles.medicineNameText}>{medicine.doseTime}</Text>
                           <Text style={styles.doseText}>{statusText}</Text>
+                          <TouchableOpacity
+                            onPress={() => deleteMedicineItem(medicine.medicineLocalId)}>
+                            <Text style={styles.deleteText}>Delete</Text>
+                          </TouchableOpacity>
                         </View>
                       </View>
                     </TouchableOpacity>

@@ -369,6 +369,10 @@ export const medicineDetailsSlice = createSlice({
       state.typeMed = '';
       state.doseQuantity = '';
       state.medicineName = '';
+    },
+
+    deleteMedicine: (state: IMedicineDetailsType, payload: PayloadAction<any>) => {
+      state.storedMedicineList = payload.payload;
     }
   }
 });
@@ -409,7 +413,8 @@ export const {
   clearStoreMedicineDetails,
   setSelectedDay,
   setQrCodeToScanData,
-  clearStoreMedicine
+  clearStoreMedicine,
+  deleteMedicine
 } = medicineDetailsSlice.actions;
 
 export const medicineDetailsReducer = medicineDetailsSlice.reducer;

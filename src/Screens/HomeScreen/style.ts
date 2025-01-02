@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(6),
-    height: verticalScale(58),
+    height: verticalScale(60),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
@@ -87,6 +87,11 @@ const styles = StyleSheet.create({
   },
   doseText: {
     color: colors.header,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
+  },
+  deleteText: {
+    color: colors.red,
     fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(12)
   },
