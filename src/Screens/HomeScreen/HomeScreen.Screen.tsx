@@ -128,8 +128,12 @@ const HomeScreen: FC = () => {
     return moment(`${today} ${time}`, 'YYYY-MM-DD hh:mm A');
   };
 
-  const deleteMedicineItem = (medicineId: string) => {
-    let filtered_Medicine_List = filteredMedicineList.map(e => e.medicineLocalId !== medicineId);
+  const deleteMedicineItem = (medicineId: any) => {
+    let filtered_Medicine_List = filteredMedicineList.filter(e => {
+      if (e.medicineLocalId !== medicineId.medicineLocalId) {
+        return e;
+      }
+    });
     dispatch(deleteMedicine(filtered_Medicine_List));
   };
 
@@ -189,8 +193,7 @@ const HomeScreen: FC = () => {
                         <View style={styles.doseTimePosition}>
                           <Text style={styles.medicineNameText}>{medicine.doseTime}</Text>
                           <Text style={styles.doseText}>{statusText}</Text>
-                          <TouchableOpacity
-                            onPress={() => deleteMedicineItem(medicine.medicineLocalId)}>
+                          <TouchableOpacity onPress={() => deleteMedicineItem(medicine)}>
                             <Text style={styles.deleteText}>Delete</Text>
                           </TouchableOpacity>
                         </View>
