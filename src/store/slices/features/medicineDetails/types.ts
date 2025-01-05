@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from 'moment';
 
 export interface IMedicineDetailsType {
   medicineName: string;
@@ -36,6 +36,14 @@ export interface IMedicineDetailsType {
   person2: string;
   person3: string;
   selectedDateTime: Date | null;
+  scheduleList: MedicationScheduleList[];
+}
+
+export interface MedicationScheduleList {
+  // alarmNotifData: AlarmNotification;
+  medicineName: string;
+  medicineId: string;
+  notificationId: number;
 }
 
 export interface IXDaysDoseTime {

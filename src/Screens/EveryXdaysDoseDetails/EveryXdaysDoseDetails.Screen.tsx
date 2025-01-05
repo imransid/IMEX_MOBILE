@@ -18,7 +18,11 @@ import styles from './style';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { IWeeklyDoseTime, IXDaysDoseTime } from '@/store/slices/features/medicineDetails/types';
-import { setDoseList, setXDaysTakeDose } from '@/store/slices/features/medicineDetails/slice';
+import {
+  addscheduleList,
+  setDoseList,
+  setXDaysTakeDose
+} from '@/store/slices/features/medicineDetails/slice';
 import moment from 'moment';
 import { localSchedule } from '@/helper/notify';
 import { createMedicineData } from '@/mutations/createMedicine';
@@ -192,7 +196,7 @@ const EveryXdaysDoseDetails: FC = () => {
   const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
   const xDaysDoseTime = useSelector((state: RootState) => state.medicineDetails.xDaysDoseTime);
   const parseDateString = (dateString: string) => {
-    console.log("date string",dateString)
+    console.log('date string', dateString);
     return moment(dateString, 'ddd, MMMM D, YYYY hh:mm A');
   };
   const handleNext: any = async () => {
@@ -200,26 +204,19 @@ const EveryXdaysDoseDetails: FC = () => {
     let filterArray = xDaysTakeDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
-  
 
     let filterNewArray = xDaysDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
     });
 
-
-    const currentDate = parseDateString(filterNewArray[0].date);; // Get the current date
-   
+    const currentDate = parseDateString(filterNewArray[0].date); // Get the current date
 
     const newDate = currentDate.add(filterNewArray[0].day, 'days'); // Add 6 days
-    console.log(newDate.format('YYYY-MM-DD')); 
-
-
-
+    console.log(newDate.format('YYYY-MM-DD'));
 
     if (filterArray.length > 0) {
       let tempStore1 = filterArray.map(e => {
         const dateObject = parseDateString(filterNewArray[0].date + ' ' + e.doseTime);
-
 
         return {
           medicineName: medicineName,
@@ -237,38 +234,42 @@ const EveryXdaysDoseDetails: FC = () => {
         };
       });
 
+      let tempstore2 = filterArray
+        .map(e => {
+          const dateObject = `${newDate} ${e.doseTime}`;
 
-      let tempstore2 = filterArray.map(e => {
-  
-        const dateObject = `${newDate} ${e.doseTime}`;
-     
-        const parsedDate = parseDateString(dateObject);
-      
-        if (parsedDate.isValid()) {
-          console.log("is valid date",parsedDate.format()); // Outputs parsed date
-        } else {
-          console.log("")
-        }
-       
-        return {
-          medicineName: medicineName,
-          medicineStatus: 'xDay',
-          takeStatus: takeStatus,
-          doseQuantity: e.doseQuantity,
-          doseTime: e.doseTime,
-          strengthMed: strengthMed,
-          unitMed: unitMed,
-          typeMed: typeMed,
-          medicineId: '',
-          medicineLocalId: e.medicineLocalId,
-          createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: parsedDate.format() // Correctly formatted with offset
-        };
-      }).filter(item => item !== null); // Remove invalid items
-      
+          const parsedDate = parseDateString(dateObject);
+
+          if (parsedDate.isValid()) {
+            console.log('is valid date', parsedDate.format()); // Outputs parsed date
+          } else {
+            console.log('');
+          }
+
+          return {
+            medicineName: medicineName,
+            medicineStatus: 'xDay',
+            takeStatus: takeStatus,
+            doseQuantity: e.doseQuantity,
+            doseTime: e.doseTime,
+            strengthMed: strengthMed,
+            unitMed: unitMed,
+            typeMed: typeMed,
+            medicineId: '',
+            medicineLocalId: e.medicineLocalId,
+            createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+            selectedDateTime: parsedDate.format() // Correctly formatted with offset
+          };
+        })
+        .filter(item => item !== null); // Remove invalid items
 
       let tempStore = tempStore1.concat(tempstore2);
-      const dataArrary = multiScheduleMaker(tempStore,treatmentDurationStartTime,treatmentDurationEndTime,filterNewArray[0].day)
+      const dataArrary = multiScheduleMaker(
+        tempStore,
+        treatmentDurationStartTime,
+        treatmentDurationEndTime,
+        filterNewArray[0].day
+      );
 
       // now check login or not
       if (loginStatus) {
@@ -300,8 +301,6 @@ const EveryXdaysDoseDetails: FC = () => {
           medicineReminderTotalReq: medicineReminderTotalReq
         };
 
-
-
         //  Add the new data to the copied array
         updatedInstructionList.push(instructionData);
         updatedTreatmentDurationList.push(treatmentDurationData);
@@ -322,17 +321,12 @@ const EveryXdaysDoseDetails: FC = () => {
           console.error('AccessToken is undefined');
         }
       }
-      await localSchedule(dataArrary, 'day', medicineLocalId)
-        .then(() => {
-          console.log('done');
-        })
-        .catch(error => {
-          console.log(error);
-        });
 
-      console.log(dataArrary);
+      //let scheduleList = await localSchedule(dataArrary, 'day', medicineLocalId);
 
-      console.log(storedMedicineList);
+      let scheduleList = await localSchedule(dataArrary, 'day', medicineLocalId);
+
+      dispatch(addscheduleList(scheduleList));
 
       let newArray = storedMedicineList.concat(dataArrary);
 

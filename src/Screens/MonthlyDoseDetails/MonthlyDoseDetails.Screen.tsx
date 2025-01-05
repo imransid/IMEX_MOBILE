@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { IMonthlyDoseTime } from '@/store/slices/features/medicineDetails/types';
 import {
+  addscheduleList,
   setDoseList,
   setMonthlyDoseTime,
   setWeeklyStoreData
@@ -216,7 +217,6 @@ const MonthlyDoseDetails: FC = () => {
       if (e.medicineLocalId.medicineLocalId.toString() === medicineLocalId) return e;
     });
 
-
     const customToday = new Date();
 
     let dataMData: WeeklyDateEntry[] = [];
@@ -224,9 +224,7 @@ const MonthlyDoseDetails: FC = () => {
       dataMData = getMothyDates(e.medicineLocalId.Days, customToday);
     });
 
-   
     const MonthlyDoseTime = setWeeklyDateDoseTimes(filterArray, dataMData);
-
 
     let updatedInstructionList = [...storedInstructionList];
 
@@ -236,7 +234,6 @@ const MonthlyDoseDetails: FC = () => {
 
     if (MonthlyDoseTime.length > 0) {
       let tempStore = MonthlyDoseTime.map(e => {
-       
         return {
           medicineName: medicineName,
           medicineStatus: 'week',
@@ -296,7 +293,9 @@ const MonthlyDoseDetails: FC = () => {
       }
       dispatch(setDoseList(updatedStoredList));
 
-      await localSchedule(dataArray, 'month', medicineLocalId);
+      let scheduleList = await localSchedule(dataArray, 'day', medicineLocalId);
+
+      dispatch(addscheduleList(scheduleList));
 
       setDisable(false);
 

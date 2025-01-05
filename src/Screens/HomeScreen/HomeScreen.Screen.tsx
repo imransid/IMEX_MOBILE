@@ -19,6 +19,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/navigators/AuthStackNavigator';
 import { deleteMedicine } from '@/store/slices/features/medicineDetails/slice';
+import { deleteSchedule } from '@/helper/notify';
 
 interface RootStackParamListHome {
   PreviewDoseDetails: { medicine: any };
@@ -42,6 +43,8 @@ const HomeScreen: FC = () => {
   const storedMedicineList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineList
   );
+
+  const storedScheduleList = useSelector((state: RootState) => state.medicineDetails.scheduleList);
   const selectedDate = useSelector((state: RootState) => state.medicineDetails.selectedDates);
 
   const instructionList = useSelector(
@@ -129,11 +132,20 @@ const HomeScreen: FC = () => {
   };
 
   const deleteMedicineItem = (medicineId: any) => {
-    let filtered_Medicine_List = filteredMedicineList.filter(e => {
+    let filtered_Medicine_List = storedMedicineList.filter(e => {
       if (e.medicineLocalId !== medicineId.medicineLocalId) {
         return e;
       }
     });
+
+    let filtered_Schedule_List = storedScheduleList.filter(e => {
+      if (e.medicineId === medicineId.medicineLocalId) {
+        return e;
+      }
+    });
+
+    console.log(filtered_Schedule_List, 'filtered_Schedule_List');
+    if (filtered_Schedule_List.length > 0) deleteSchedule(filtered_Schedule_List[0].notificationId);
     dispatch(deleteMedicine(filtered_Medicine_List));
   };
 

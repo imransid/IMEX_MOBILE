@@ -16,6 +16,7 @@ import { colors } from '../../theme/colors';
 import styles from './style';
 
 import {
+  addscheduleList,
   setDoseQuantity,
   setXtimesAdayDoseTime,
   setXtimesAdayStoreData
@@ -289,7 +290,9 @@ const XtimesAdayDose: FC = () => {
           console.error('AccessToken is undefined');
         }
 
-        await localSchedule(dataArray, 'day', medicineLocalId);
+        let scheduleList = await localSchedule(dataArray, 'day', medicineLocalId);
+
+        dispatch(addscheduleList(scheduleList));
 
         dispatch(setXtimesAdayStoreData(dataArray));
 
@@ -343,7 +346,9 @@ const XtimesAdayDose: FC = () => {
         updatedTreatmentDurationList.push(treatmentDurationData);
         updatedReminderList.push(reminderData);
 
-        await localSchedule(dataArray, 'day', medicineLocalId);
+        let scheduleList = await localSchedule(dataArray, 'day', medicineLocalId);
+
+        dispatch(addscheduleList(scheduleList));
 
         dispatch(setXtimesAdayStoreData(dataArray));
 

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { type RootState } from '@/store';
 import {
+  addscheduleList,
   setWeeklyDoseTime,
   setWeeklyStoreData
 } from '@/store/slices/features/medicineDetails/slice';
@@ -99,7 +100,6 @@ const WeeklyDoseDetails: FC = () => {
   const { medicineTakeEachDay, treatmentDurationEndTime, treatmentDurationStartTime } =
     getTreatmentDurationData(medicineLocalId);
 
-
   const handleSelectTime: any = (index: number) => {
     setSelectedChip(index);
     setOpen(true);
@@ -161,15 +161,12 @@ const WeeklyDoseDetails: FC = () => {
       if (e.medicineLocalId.medicineLocalId.toString() === medicineLocalId) return e;
     });
 
-
     const customToday = new Date();
 
     let dataWeekData: WeeklyDateEntry[] = [];
     filterArrayMonthly.map(e => {
       dataWeekData = getWeekDates(e.medicineLocalId.weeklyTime, customToday);
     });
-
-
 
     const weekDoseTime = setWeeklyDateDoseTimes(filterArray, dataWeekData);
 
@@ -192,25 +189,22 @@ const WeeklyDoseDetails: FC = () => {
         };
       });
 
-   
-
       const dataArray = multiScheduleMaker(
         tempStore as any,
         treatmentDurationStartTime,
         treatmentDurationEndTime,
         0,
-        "weekly"
+        'weekly'
       );
-
-
-    
 
       // now check login or not
       if (loginStatus && accessToken != undefined) {
         await createWeeklyMutation(accessToken, storedMedicineWeeklyList, medicineLocalId);
         await createMedicineData(dataArray, accessToken);
       }
-      await localSchedule(dataArray, 'week', medicineLocalId);
+      let scheduleList = await localSchedule(dataArray, 'day', medicineLocalId);
+
+      dispatch(addscheduleList(scheduleList));
       dispatch(setWeeklyStoreData(dataArray));
     }
 

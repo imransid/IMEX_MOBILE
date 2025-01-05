@@ -10,6 +10,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import {
+  addscheduleList,
   setDoseList,
   setDoseQuantity,
   setDoseTime
@@ -265,8 +266,6 @@ const OnceAdayDose: FC = () => {
         1
       );
 
-      console.log(' array', dataArray, updatedStoredList);
-
       // Add the new data to the copied array
       updatedStoredList.push(...dataArray);
       updatedInstructionList.push(instructionData);
@@ -274,7 +273,9 @@ const OnceAdayDose: FC = () => {
       updatedReminderList.push(reminderData);
 
       // schedule notification
-      await localSchedule(dataArray, 'day', medicineLocalId);
+      let scheduleList = await localSchedule(dataArray, 'day', medicineLocalId);
+
+      dispatch(addscheduleList(scheduleList));
 
       // Required Mutations
       if (accessToken !== undefined) {
@@ -364,7 +365,9 @@ const OnceAdayDose: FC = () => {
       dispatch(setDoseList(updatedStoredList));
 
       // schedule notification
-      await localSchedule(dataArray, 'day', medicineLocalId);
+      let scheduleList = await localSchedule(dataArray, 'day', medicineLocalId);
+
+      dispatch(addscheduleList(scheduleList));
 
       clearAllDosesAndTime();
 

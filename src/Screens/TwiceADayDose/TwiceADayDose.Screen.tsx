@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
 import {
+  addscheduleList,
   setDoseQuantity,
   setTwiceAdayDoseTime,
   setTwiceAdayStoreData
@@ -262,8 +263,6 @@ const TwiceAdayDose: FC = () => {
           0
         );
 
-        console.log(' array', dataArray);
-
         //  Add the new data to the copied array
         updatedInstructionList.push(instructionData);
         updatedTreatmentDurationList.push(treatmentDurationData);
@@ -284,7 +283,9 @@ const TwiceAdayDose: FC = () => {
           console.error('AccessToken is undefined');
         }
 
-        await localSchedule(dataArray, 'day', medicineLocalId);
+        let scheduleList = await localSchedule(dataArray, 'day', medicineLocalId);
+
+        dispatch(addscheduleList(scheduleList));
 
         dispatch(setTwiceAdayStoreData(dataArray));
 
@@ -338,7 +339,10 @@ const TwiceAdayDose: FC = () => {
         updatedTreatmentDurationList.push(treatmentDurationData);
         updatedReminderList.push(reminderData);
 
-        await localSchedule(dataArray, 'day', medicineLocalId);
+        // schedule notification
+        let scheduleList = await localSchedule(dataArray, 'day', medicineLocalId);
+
+        dispatch(addscheduleList(scheduleList));
 
         dispatch(setTwiceAdayStoreData(dataArray));
 

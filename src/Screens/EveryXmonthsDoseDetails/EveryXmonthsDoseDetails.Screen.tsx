@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { IWeeklyDoseTime, IXMonthlyDoseTime } from '@/store/slices/features/medicineDetails/types';
 import {
+  addscheduleList,
   setDoseList,
   setMonthlyStoreData,
   setWeeklyStoreData,
@@ -202,10 +203,10 @@ const EveryXmonthsDoseDetails: FC = () => {
   );
 
   const loginStatus = useSelector((state: RootState) => state.users.user.loginStatus);
-  const xMonthsDoseTime= useSelector((state: RootState) => state.medicineDetails.xMonthDoseTime);
-  
-  const parseDateString = (dateString:string) => {
-    return moment(dateString, "ddd, MMMM D, YYYY hh:mm A");
+  const xMonthsDoseTime = useSelector((state: RootState) => state.medicineDetails.xMonthDoseTime);
+
+  const parseDateString = (dateString: string) => {
+    return moment(dateString, 'ddd, MMMM D, YYYY hh:mm A');
   };
   const handleNext: any = async () => {
     setDisable(true);
@@ -215,19 +216,18 @@ const EveryXmonthsDoseDetails: FC = () => {
     });
     let filterNewArray = xMonthsDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
-    })
+    });
 
-const currentDate = parseDateString(filterNewArray[0].date);; // Get the current date
+    const currentDate = parseDateString(filterNewArray[0].date); // Get the current date
 
-let multiplier = parseInt(filterNewArray[0].day);
-const newDate = currentDate.add(`${multiplier*30}`, 'days'); // Add  days
-console.log(newDate.format('YYYY-MM-DD')); 
-
+    let multiplier = parseInt(filterNewArray[0].day);
+    const newDate = currentDate.add(`${multiplier * 30}`, 'days'); // Add  days
+    console.log(newDate.format('YYYY-MM-DD'));
 
     if (filterArray.length > 0) {
       let tempStore1 = filterArray.map(e => {
-        const dateObject = parseDateString(filterNewArray[0].date+" "+e.doseTime);
-        
+        const dateObject = parseDateString(filterNewArray[0].date + ' ' + e.doseTime);
+
         return {
           medicineName: medicineName,
           medicineStatus: 'xMonth',
@@ -244,37 +244,36 @@ console.log(newDate.format('YYYY-MM-DD'));
         };
       });
 
-      let tempstore2 = filterArray.map(e => {
-  
-        const dateObject = `${newDate} ${e.doseTime}`;
-     
-        const parsedDate = parseDateString(dateObject);
-      
-        if (parsedDate.isValid()) {
-          console.log("is valid date",parsedDate.format()); // Outputs parsed date
-        } else {
-          console.log("")
-        }
-       
-        return {
-          medicineName: medicineName,
-          medicineStatus: 'xDay',
-          takeStatus: takeStatus,
-          doseQuantity: e.doseQuantity,
-          doseTime: e.doseTime,
-          strengthMed: strengthMed,
-          unitMed: unitMed,
-          typeMed: typeMed,
-          medicineId: '',
-          medicineLocalId: e.medicineLocalId,
-          createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: parsedDate.format() // Correctly formatted with offset
-        };
-      }).filter(item => item !== null); // Remove invalid items
-      
+      let tempstore2 = filterArray
+        .map(e => {
+          const dateObject = `${newDate} ${e.doseTime}`;
+
+          const parsedDate = parseDateString(dateObject);
+
+          if (parsedDate.isValid()) {
+            console.log('is valid date', parsedDate.format()); // Outputs parsed date
+          } else {
+            console.log('');
+          }
+
+          return {
+            medicineName: medicineName,
+            medicineStatus: 'xDay',
+            takeStatus: takeStatus,
+            doseQuantity: e.doseQuantity,
+            doseTime: e.doseTime,
+            strengthMed: strengthMed,
+            unitMed: unitMed,
+            typeMed: typeMed,
+            medicineId: '',
+            medicineLocalId: e.medicineLocalId,
+            createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+            selectedDateTime: parsedDate.format() // Correctly formatted with offset
+          };
+        })
+        .filter(item => item !== null); // Remove invalid items
 
       let tempStore = tempStore1.concat(tempstore2);
-
 
       // now check login or not
       if (loginStatus) {
@@ -328,7 +327,11 @@ console.log(newDate.format('YYYY-MM-DD'));
         }
       }
 
-      await localSchedule(tempStore, 'month', medicineLocalId);
+      //await localSchedule(tempStore, 'month', medicineLocalId);
+
+      let scheduleList = await localSchedule(tempStore, 'day', medicineLocalId);
+
+      dispatch(addscheduleList(scheduleList));
 
       dispatch(setXmonthStoreData(tempStore));
 

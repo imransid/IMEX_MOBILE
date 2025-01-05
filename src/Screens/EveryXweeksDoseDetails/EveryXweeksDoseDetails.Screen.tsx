@@ -18,6 +18,7 @@ import styles from './style';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import {
+  addscheduleList,
   setDoseList,
   setWeeklyStoreData,
   setXWeekTakeDose
@@ -200,9 +201,9 @@ const EveryXweeksDoseDetails: FC = () => {
   const storedMedicineWeeklyList = useSelector(
     (state: RootState) => state.medicineDetails.storedMedicineWeeklyList
   );
-  const xWeekDoseTime= useSelector((state: RootState) => state.medicineDetails.xWeekDoseTime);
-  const parseDateString = (dateString:string) => {
-    return moment(dateString, "ddd, MMMM D, YYYY hh:mm A");
+  const xWeekDoseTime = useSelector((state: RootState) => state.medicineDetails.xWeekDoseTime);
+  const parseDateString = (dateString: string) => {
+    return moment(dateString, 'ddd, MMMM D, YYYY hh:mm A');
   };
   const handleNext: any = async () => {
     setDisable(true);
@@ -213,17 +214,17 @@ const EveryXweeksDoseDetails: FC = () => {
 
     let filterNewArray = xWeekDoseTime.filter(e => {
       if (e.medicineLocalId === medicineLocalId) return e;
-    })
+    });
 
-  const currentDate = parseDateString(filterNewArray[0].date);; // Get the current date
+    const currentDate = parseDateString(filterNewArray[0].date); // Get the current date
 
-  let multiplier = parseInt(filterNewArray[0].day);
-  const newDate = currentDate.add(`${multiplier*7}`, 'days'); // Add  days
-  console.log(newDate.format('YYYY-MM-DD')); 
+    let multiplier = parseInt(filterNewArray[0].day);
+    const newDate = currentDate.add(`${multiplier * 7}`, 'days'); // Add  days
+    console.log(newDate.format('YYYY-MM-DD'));
 
     if (filterArray.length > 0) {
       let tempStore1 = filterArray.map(e => {
-        const dateObject = parseDateString(filterNewArray[0].date+" "+e.doseTime);
+        const dateObject = parseDateString(filterNewArray[0].date + ' ' + e.doseTime);
 
         return {
           medicineName: medicineName,
@@ -241,37 +242,36 @@ const EveryXweeksDoseDetails: FC = () => {
         };
       });
 
-      let tempstore2 = filterArray.map(e => {
-  
-        const dateObject = `${newDate} ${e.doseTime}`;
-     
-        const parsedDate = parseDateString(dateObject);
-      
-        if (parsedDate.isValid()) {
-          console.log("is valid date",parsedDate.format()); // Outputs parsed date
-        } else {
-          console.log("")
-        }
-       
-        return {
-          medicineName: medicineName,
-          medicineStatus: 'xDay',
-          takeStatus: takeStatus,
-          doseQuantity: e.doseQuantity,
-          doseTime: e.doseTime,
-          strengthMed: strengthMed,
-          unitMed: unitMed,
-          typeMed: typeMed,
-          medicineId: '',
-          medicineLocalId: e.medicineLocalId,
-          createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-          selectedDateTime: parsedDate.format() // Correctly formatted with offset
-        };
-      }).filter(item => item !== null); // Remove invalid items
-      
+      let tempstore2 = filterArray
+        .map(e => {
+          const dateObject = `${newDate} ${e.doseTime}`;
+
+          const parsedDate = parseDateString(dateObject);
+
+          if (parsedDate.isValid()) {
+            console.log('is valid date', parsedDate.format()); // Outputs parsed date
+          } else {
+            console.log('');
+          }
+
+          return {
+            medicineName: medicineName,
+            medicineStatus: 'xDay',
+            takeStatus: takeStatus,
+            doseQuantity: e.doseQuantity,
+            doseTime: e.doseTime,
+            strengthMed: strengthMed,
+            unitMed: unitMed,
+            typeMed: typeMed,
+            medicineId: '',
+            medicineLocalId: e.medicineLocalId,
+            createdDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+            selectedDateTime: parsedDate.format() // Correctly formatted with offset
+          };
+        })
+        .filter(item => item !== null); // Remove invalid items
 
       let tempStore = tempStore1.concat(tempstore2);
-
 
       let updatedInstructionList = [...storedInstructionList];
 
@@ -324,7 +324,11 @@ const EveryXweeksDoseDetails: FC = () => {
           console.error('AccessToken is undefined');
         }
       }
-      await localSchedule(tempStore, 'week', medicineLocalId);
+      //await localSchedule(tempStore, 'week', medicineLocalId);
+
+      let scheduleList = await localSchedule(tempStore, 'day', medicineLocalId);
+
+      dispatch(addscheduleList(scheduleList));
 
       dispatch(setWeeklyStoreData(tempStore));
 

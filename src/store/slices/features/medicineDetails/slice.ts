@@ -23,7 +23,8 @@ import {
   type MedicStatus,
   type MedicType,
   type StrengthUnit,
-  type TakeStatus
+  type TakeStatus,
+  MedicationScheduleList
 } from './types';
 
 const medicineDetailsInitialData: IMedicineDetailsType = {
@@ -61,7 +62,8 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   person1: '',
   person2: '',
   person3: '',
-  selectedDateTime: null
+  selectedDateTime: null,
+  scheduleList: []
 };
 
 const GenerateUniqueIdUUID = (): string => {
@@ -373,6 +375,13 @@ export const medicineDetailsSlice = createSlice({
 
     deleteMedicine: (state: IMedicineDetailsType, payload: PayloadAction<any>) => {
       state.storedMedicineList = payload.payload;
+    },
+
+    addscheduleList: (
+      state: IMedicineDetailsType,
+      payload: PayloadAction<MedicationScheduleList[]>
+    ) => {
+      state.scheduleList = [...state.scheduleList, ...payload.payload];
     }
   }
 });
@@ -414,7 +423,8 @@ export const {
   setSelectedDay,
   setQrCodeToScanData,
   clearStoreMedicine,
-  deleteMedicine
+  deleteMedicine,
+  addscheduleList
 } = medicineDetailsSlice.actions;
 
 export const medicineDetailsReducer = medicineDetailsSlice.reducer;
