@@ -10,5 +10,13 @@
 <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
   <img src="src/assets/screenshots/Medinok_Screenshot_05.png" alt="Screenshot 5" width="22%">
   <img src="src/assets/screenshots/Medinok_Screenshot_06.png" alt="Screenshot 6" width="22%">
+  <img src="src/assets/screenshots/Medinok_Screenshot_07.png" alt="Screenshot 6" width="22%">
+  <img src="src/assets/screenshots/Medinok_Screenshot_08.png" alt="Screenshot 6" width="22%">
+</div>
+
+<div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
+  <img src="src/assets/screenshots/Medinok_Screenshot_09.png" alt="Screenshot 5" width="22%">
+  <img src="src/assets/screenshots/Medinok_Screenshot_10.png" alt="Screenshot 6" width="22%">
+  <img src="src/assets/screenshots/Medinok_Screenshot_11.png" alt="Screenshot 6" width="22%">
 </div>
 
