@@ -8,8 +8,9 @@ import { ScrollView } from 'react-native-gesture-handler';
 import CustomButton from '@/Components/CustomButton/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import filterDuplicateMedicines from '@/utils/filterDuplicateMedicine';
-import { black } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import Feather from 'react-native-vector-icons/Feather';
 import moment from 'moment';
+import RefilMedicineModal from '@/Components/RefilMedicineModal/RefilMedicineModal';
 
 const MoreScreenTab: FC = () => {
   const navigation = useNavigation();
@@ -24,9 +25,17 @@ const MoreScreenTab: FC = () => {
   const [isAppointmentListExpanded, setIsAppointmentListExpanded] = useState(false);
   const [isPrescriptionListExpanded, setIsPrescriptionListExpanded] = useState(false);
 
+  const [isModalVisible, setModalVisible] = useState(false);
+
   const handleBack = (): void => {
     navigation.goBack();
   };
+
+  const handleRefillModal: any = () => {
+    setModalVisible(true);
+  };
+
+  const handleSubmit: any = () => {}
 
   return (
     <View style={styles.container}>
@@ -46,7 +55,7 @@ const MoreScreenTab: FC = () => {
             {storedMedicineList.length > 0 && (
               <View style={styles.moreSettingsListStyle}>
                 <View style={styles.itemHeaderStyle}>
-                  <Text style={styles.refillsText}>Refills</Text>
+                  <Text style={styles.refillsText}>Inventory</Text>
                   <View style={styles.viewButtonPosition}>
                     <TouchableOpacity
                       onPress={() => setIsMedicineListExpanded(!isMedicineListExpanded)}>
@@ -64,20 +73,40 @@ const MoreScreenTab: FC = () => {
                         : storedMedicineList.slice(0, 1)
                     }
                     renderItem={({ item: medicine, index }) => (
-                      <View key={index} style={styles.chip}>
+                      <View key={index} style={styles.inventoryChip}>
                         <View style={styles.medicineDoseProperties}>
                           <View style={styles.doseDetailsPosition}>
+                            <View style={styles.medicineNameAndPillsLeft}>
                             <Text style={styles.pillsLeft}>{medicine.medicineName}</Text>
+                            <Text style={styles.pillsLeft}>12 Med(s) Left</Text>
+                            </View>
+                            
+                            <View style={styles.refilButtonPropeties}>
+                            <View>
+                            <Text style={styles.pillsLeftDetailsText}>
+                              Required{' '}
+                              {parseInt(medicine.doseQuantity) > 1
+                                ? `${medicine.doseQuantity} Med(s)`
+                                : `${medicine.doseQuantity} Med`}
+                            </Text>
                             <Text style={styles.pillsLeftDetailsText}>
                               Took{' '}
                               {parseInt(medicine.doseQuantity) > 1
-                                ? `${medicine.doseQuantity} Pills`
-                                : `${medicine.doseQuantity} Pill`}
+                                ? `${medicine.doseQuantity} Med(s)`
+                                : `${medicine.doseQuantity} Med`}
                             </Text>
+                            </View>
+                           <View style={styles.refilButtonPosition}>
+                           <TouchableOpacity style={styles.refilButton} onPress={handleRefillModal}>
+                            <Feather name="clipboard" size={16} color={"#fff"} />
+                            <Text style={styles.refilButtonText}>Refil</Text>
+                            </TouchableOpacity>
+                           </View>
+                            </View>
+                            
+                            <View style={styles.remindLeftTextPosition}><Text style={styles.remindLeftText}>Reminder: When 5 Meds Remaining</Text></View>
                           </View>
-                          {/* <View style={styles.pillsLeftPosition}>
-                          <Text style={styles.pillsLeft}>Number of Pill(s) Left</Text>
-                        </View> */}
+                          
                         </View>
                       </View>
                     )}
@@ -172,6 +201,16 @@ const MoreScreenTab: FC = () => {
           <View style={styles.BackbuttonPosition}>
             <CustomButton onPress={handleBack} icon={<></>} text="Back" />
           </View>
+
+          {/* Show refil modal */}
+          <RefilMedicineModal
+          numKeybaordType={true}
+          visible={isModalVisible}
+          onClose={() => {
+            setModalVisible(false);
+          }}
+          onSubmit={handleSubmit}
+        />
         </ScrollView>
       )}
     </View>

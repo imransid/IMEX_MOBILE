@@ -11,10 +11,48 @@ const styles = StyleSheet.create({
   chip: {
     backgroundColor: colors.textInput,
     borderRadius: scale(6),
-    height: verticalScale(55),
+    height: scale(55),
     justifyContent: 'center',
     marginTop: verticalScale(5),
     width: scale(330)
+  },
+  inventoryChip: {
+    backgroundColor: colors.textInput,
+    borderRadius: scale(6),
+    height: scale(100),
+    justifyContent: 'center',
+    marginTop: verticalScale(5),
+    width: scale(330)
+  },
+  remindLeftTextPosition: {
+    marginTop: scale(8)
+  },
+  refilButton: {
+    height: scale(25), 
+    width: scale(80), 
+    backgroundColor: colors.buttonBg, 
+    borderRadius: 5, 
+    alignItems: 'center', 
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: scale(5)
+  },
+  refilButtonText: {
+    color: colors.white,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(13)
+  },
+  refilButtonPosition: {
+    marginTop:scale(10), 
+    right: scale(10)
+  },
+  refilButtonPropeties: {
+    flexDirection:"row", 
+    justifyContent:"space-between"
+  },
+  medicineNameAndPillsLeft: {
+    flexDirection: 'row', 
+    gap: scale(170)
   },
   container: {
     backgroundColor: colors.white,
@@ -56,7 +94,13 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(13)
   },
+  
   pillsLeftDetailsText: {
+    color: colors.typedText,
+    fontFamily: 'WorkSansMedium',
+    fontSize: moderateScale(12)
+  },
+  remindLeftText: {
     color: colors.typedText,
     fontFamily: 'WorkSansMedium',
     fontSize: moderateScale(12)
