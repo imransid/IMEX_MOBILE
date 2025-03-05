@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { HomeScreen, MedicineHistory, MoreScreenTab, UserProfile } from '../Screens';
 import { colors } from '../theme/colors';
+import { AlarmScreen } from '@/Screens/AlarmScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,6 +38,7 @@ const UserBottomTabNavigator: FC = () => {
       <Tab.Screen name="History" component={MedicineHistory} options={{ headerShown: false }} />
       <Tab.Screen name="More" component={MoreScreenTab} options={{ headerShown: false }} />
       <Tab.Screen name="Profile" component={UserProfile} options={{ headerShown: false }} />
+      <Tab.Screen name="Test" component={AlarmScreen} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 };
