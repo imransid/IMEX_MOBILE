@@ -73,7 +73,7 @@ const screens = [
   { name: 'MedicineType', component: MedicineType, title: '' },
   { name: 'AddInstructions', component: AddInstructions, title: '' },
   { name: 'SetTreatmentDuration', component: SetTreatmentDuration, title: '' },
-  { name: 'MedicineReminders', component: MedicineReminders, title: '' },
+  { name: 'MedicineReminders', component: MedicineReminders, title: 'Medicine Reminders' },
   { name: 'DoctorAppointments', component: DoctorAppointments, title: '' },
   { name: 'AddPrescription', component: AddPrescription, title: '' },
   { name: 'TwiceAdayDose', component: TwiceAdayDose, title: 'Medicine Name' },

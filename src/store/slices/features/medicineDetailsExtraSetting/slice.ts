@@ -68,6 +68,49 @@ export const medicineDetailsExtraSettingSlice = createSlice({
     ) => {
       state.storeMedicineReminder = [...state.storeMedicineReminder, ...payload.payload];
     },
+
+    setTakeMedicine: (
+      state: IMedicineDetailsExtraSettingType,
+      action: PayloadAction<{ medicineLocalId: string; doseQuantity: number }>
+    ) => {
+      const { medicineLocalId, doseQuantity } = action.payload;
+    
+      const medicineIndex = state.storeMedicineReminder.findIndex(
+        item => item.medicineLocalId === medicineLocalId
+      );
+    
+      if (medicineIndex !== -1) {
+        const currentStock = Number(state.storeMedicineReminder[medicineIndex].medicineReminderCurrentStock) || 0;
+    
+        state.storeMedicineReminder[medicineIndex].medicineReminderCurrentStock = Math.max(
+          currentStock - doseQuantity,
+          0
+        ).toString();
+      }
+    },
+
+    setRefilMedicine: (
+      state: IMedicineDetailsExtraSettingType,
+      action: PayloadAction<{ medicineLocalId: string; refilAmount: number , reminderAmount:string}>
+    ) => {
+      const { medicineLocalId, refilAmount ,reminderAmount} = action.payload;
+    
+      const medicineIndex = state.storeMedicineReminder.findIndex(
+        item => item.medicineLocalId === medicineLocalId
+      );
+    
+      if (medicineIndex !== -1) {
+        const currentStock = Number(state.storeMedicineReminder[medicineIndex].medicineReminderCurrentStock) || 0;
+    
+        state.storeMedicineReminder[medicineIndex].medicineReminderCurrentStock = Math.max(
+          currentStock + refilAmount,
+          0
+        ).toString();
+        state.storeMedicineReminder[medicineIndex].medicineReminderRemindToLeft= reminderAmount
+
+      }
+    },
+
     clearExtraMedicineDetails: (state: IMedicineDetailsExtraSettingType) => {
       state.storeInstrucTionList = [];
       state.storeMedicineReminder = [];
@@ -80,6 +123,8 @@ export const {
   setExtraInstrucTion,
   setExtraTreatmentDuration,
   setExtraMedicineReminder,
+  setTakeMedicine,
+  setRefilMedicine,
   clearExtraMedicineDetails
 } = medicineDetailsExtraSettingSlice.actions;
 

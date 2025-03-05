@@ -24,7 +24,7 @@ import {
   type MedicType,
   type StrengthUnit,
   type TakeStatus,
-  MedicationScheduleList
+  MedicationScheduleList,
 } from './types';
 
 const medicineDetailsInitialData: IMedicineDetailsType = {
@@ -63,7 +63,7 @@ const medicineDetailsInitialData: IMedicineDetailsType = {
   person2: '',
   person3: '',
   selectedDateTime: null,
-  scheduleList: []
+  scheduleList: [],
 };
 
 const GenerateUniqueIdUUID = (): string => {
@@ -106,6 +106,7 @@ export const medicineDetailsSlice = createSlice({
     setDoseQuantity: (state: IMedicineDetailsType, payload: PayloadAction<doseQuantityStatus>) => {
       state.doseQuantity = payload.payload.doseQuantity;
     },
+
     setDoseList: (state: IMedicineDetailsType, payload: PayloadAction<IMedicine[]>) => {
       state.storedMedicineList = payload.payload;
       state.medicineLocalId = '';

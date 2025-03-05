@@ -77,7 +77,7 @@ const UserStackNavigator: FC = () => {
     { name: 'MedicineType', component: MedicineType, title: 'Add Type' },
     { name: 'AddInstructions', component: AddInstructions, title: 'Instructions' },
     { name: 'SetTreatmentDuration', component: SetTreatmentDuration, title: 'Treatment Duration' },
-    { name: 'MedicineReminders', component: MedicineReminders, title: '' },
+    { name: 'MedicineReminders', component: MedicineReminders, title: 'Medicine Reminders' },
     { name: 'DoctorAppointments', component: DoctorAppointments, title: 'Appointment' },
     { name: 'AddPrescription', component: AddPrescription, title: 'Prescription' },
     { name: 'TwiceAdayDose', component: TwiceAdayDose, title: 'Twice A Day' },

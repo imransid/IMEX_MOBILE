@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   noThanksTextPosition: {
-    marginTop: verticalScale(10)
+    marginBottom: verticalScale(30)
   },
   subText: {
     color: colors.buttonBg,
